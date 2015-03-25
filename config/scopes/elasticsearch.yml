@@ -1,0 +1,24 @@
+label: "Elasticsearch"
+priority: 3
+
+search_engine_adapter:
+  class: !ruby/class "Celsius::Elasticsearch::Adapter"
+  options:
+    hosts:
+      - host: "131.234.230.196"
+
+defaults:
+  search_request:
+    from: 0
+    size: 20
+    sort: ["_score"]
+
+searchable_fields:
+  - _all
+  - creator
+  - title
+  - subject
+  - identifier
+
+sortable_fields:
+  - _score

@@ -6,6 +6,7 @@ gem "sqlite3", "~> 1.3.9"
 gem "hashie", ">= 3.4.0",    github: "intridea/hashie",            branch: :master
 gem "celsius",               github: "ubpb/celsius",               branch: :master
 gem "celsius-amazon",        github: "ubpb/celsius-amazon",        branch: :master
+gem "celsius-elasticsearch", github: "ubpb/celsius-elasticsearch", branch: :master
 gem "celsius-primo",         github: "ubpb/celsius-primo",         branch: :master
 gem "celsius-primo_ubpb",    github: "ubpb/celsius-primo_ubpb",    branch: :master
 gem "fahrenheit",            github: "ubpb/fahrenheit",            branch: :master
