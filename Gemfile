@@ -1,9 +1,9 @@
 source "https://rubygems.org"
 
-gem "katalog", ">= 0", path: "../katalog"
+gem "katalog", ">= 0",       github: "ubpb/katalog",               branch: :master
 gem "sqlite3", "~> 1.3.9"
 
-gem "hashie", ">= 3.4.0", git: "https://github.com/intridea/hashie.git"
+gem "hashie", ">= 3.4.0",    github: "intridea/hashie",            branch: :master
 gem "celsius",               github: "ubpb/celsius",               branch: :master
 gem "celsius-amazon",        github: "ubpb/celsius-amazon",        branch: :master
 gem "celsius-primo",         github: "ubpb/celsius-primo",         branch: :master
