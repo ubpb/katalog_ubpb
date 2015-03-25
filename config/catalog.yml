@@ -1,0 +1,17 @@
+common_settings: &common_settings
+  ils_adapter:
+    #cache_responses_for: <%= 5.minutes %>
+    #cachable_methods: ["user_get_loans"]
+
+  search_engine_adapter:
+    #cache_responses_for: <%= 120.minutes %>
+    #cacheable_methods: ["search"]
+
+development: &development
+  <<: *common_settings
+
+test:
+  <<: *development
+
+production:
+ <<: *common_settings

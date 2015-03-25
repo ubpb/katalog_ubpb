@@ -1,0 +1,11 @@
+- content_for("layout.head.stylesheets") do
+  = stylesheet_link_tag "application"
+
+- content_for("layout.head.additions") do
+  = favicon_link_tag "touch-icon.png", rel: "apple-touch-icon", type: "image/png"
+
+- content_for("layout.body.additions") do
+  = render "piwik_tracking"
+
+= render template: "layouts/katalog/application"
+

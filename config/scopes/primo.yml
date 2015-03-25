@@ -1,0 +1,56 @@
+label: "Primo"
+priority: 3
+
+ils_adapter:
+  class: !ruby/class "Fahrenheit::AlephUbpb::Adapter"
+  name: "Aleph"
+  options:
+    default_document_base: "PAD01"
+    default_user_library: "PAD50"
+    restful_api_url: "http://ubex.uni-paderborn.de:1891/rest-dlf"
+    x_services_url: "https://ubex.uni-paderborn.de/X"
+
+search_engine_adapter:
+  class: !ruby/class "Celsius::PrimoUbpb::Adapter"
+  options:
+    institution: "PAD"
+    languages: ["ger", "eng"]
+    locations: [{ type: "local", value: "scope:(PAD_ALEPH)" }]
+    soap_api_options:
+      searcher_url: "http://primo.kobv.de/primo_library/libweb/webservices/services/searcher"
+    timeout: 10
+
+defaults:
+  search_request:
+    facets:
+      facet_tlevel:       { terms: { field: "facet_tlevel",       shard_size: 75 } }
+      facet_creator:      { terms: { field: "facet_creator",      shard_size: 75 } }
+      facet_local31:      { terms: { field: "facet_local31",      shard_size: 75 } }
+      facet_topic:        { terms: { field: "facet_topic",        shard_size: 75 } }
+      facet_creationdate: { terms: { field: "facet_creationdate", shard_size: 75 } }
+      facet_domain:       { terms: { field: "facet_domain",       shard_size: 75 } }
+      facet_lang:         { terms: { field: "facet_lang",         shard_size: 75 } }
+      facet_local15:      { terms: { field: "facet_local15",      shard_size: 75 } }
+      facet_local32:      { terms: { field: "facet_local32",      shard_size: 75 } }
+      facet_local33:      { terms: { field: "facet_local33",      shard_size: 75 } }
+
+    from: 0
+    size: 20
+    sort: ["_score"]
+
+searchable_fields:
+  - _all
+  - creator
+  - title
+  - subject
+  - identifier
+  - is_part_of
+  - relation
+
+sortable_fields:
+  - _score
+  - created
+  - creator
+  - title
+  - lso49
+  - lso50
