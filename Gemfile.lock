@@ -32,10 +32,11 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/celsius-primo.git
-  revision: ca935a265196f5a991027618f06dd78189e1aa8e
+  revision: bbd03d5aa11452fb1fa9435824785b0b9252c1d0
   branch: master
   specs:
     celsius-primo (0.1.4)
+      activesupport
       celsius (>= 0.4.3)
       hashie
       httpi (>= 2.1.0, < 3.0.0)
@@ -44,10 +45,11 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/celsius-primo_ubpb.git
-  revision: d826dd994a3cc1bc3d20064e60b3389aa4e27257
+  revision: 5cc274f1022d18c3faf401877c9db0167b55e9dd
   branch: master
   specs:
     celsius-primo_ubpb (0.2.0)
+      activesupport
       celsius-primo
       hashie
       skala
