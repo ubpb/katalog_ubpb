@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/intridea/hashie.git
+  revision: f29b37e8ed03017369daa62deea30c45a1165668
+  branch: master
+  specs:
+    hashie (3.4.0)
+
+GIT
   remote: git://github.com/msievers/servizio.git
   revision: 63b330c9efdc0b0ce4719b7c995e8687ceccf4b7
   branch: master
@@ -14,6 +21,14 @@ GIT
     celsius-amazon (0.0.1)
       amazon-ecs
       hashie
+
+GIT
+  remote: git://github.com/ubpb/celsius-elasticsearch.git
+  revision: 56b010c2ece058ba851f2457bbd5119a94b54636
+  branch: master
+  specs:
+    celsius-elasticsearch (0.1.0)
+      elasticsearch (>= 1.0.0)
 
 GIT
   remote: git://github.com/ubpb/celsius-primo.git
@@ -83,20 +98,9 @@ GIT
       skala
 
 GIT
-  remote: git://github.com/ubpb/skala.git
-  revision: 19d92c654924b0f1b4f03f54609c5f8b4d29b290
+  remote: git://github.com/ubpb/katalog.git
+  revision: 73029150c7b0ae864a8b9939d8ccf59569ba33e0
   branch: master
-  specs:
-    skala (0.0.1)
-
-GIT
-  remote: https://github.com/intridea/hashie.git
-  revision: f29b37e8ed03017369daa62deea30c45a1165668
-  specs:
-    hashie (3.4.0)
-
-PATH
-  remote: ../katalog
   specs:
     katalog (2.0.0.dev)
       autoprefixer-rails (~> 3.1.1)
@@ -126,6 +130,13 @@ PATH
       turbolinks (~> 2.5.2)
       uglifier (~> 2.5.3)
       uservoice-ruby (~> 0.0.11)
+
+GIT
+  remote: git://github.com/ubpb/skala.git
+  revision: 19d92c654924b0f1b4f03f54609c5f8b4d29b290
+  branch: master
+  specs:
+    skala (0.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -177,7 +188,7 @@ GEM
       htmlentities
       ox (>= 2.1.1)
     bcrypt (3.1.10)
-    bibtex-ruby (4.0.11)
+    bibtex-ruby (4.0.12)
       latex-decode (~> 0.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -236,9 +247,19 @@ GEM
       activemodel (>= 3.0)
       activesupport (>= 3.0)
       request_store (~> 1.0)
+    elasticsearch (1.0.8)
+      elasticsearch-api (= 1.0.7)
+      elasticsearch-transport (= 1.0.7)
+    elasticsearch-api (1.0.7)
+      multi_json
+    elasticsearch-transport (1.0.7)
+      faraday
+      multi_json
     erubis (2.7.0)
     execjs (2.4.0)
     ezcrypto (0.7.2)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     font-awesome-rails (4.3.0.0)
       railties (>= 3.2, < 5.0)
     globalid (0.3.3)
@@ -265,7 +286,7 @@ GEM
     jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.2)
-    latex-decode (0.2.0)
+    latex-decode (0.2.1)
       unicode (~> 0.4)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -280,6 +301,7 @@ GEM
     mini_portile (0.6.2)
     minitest (5.5.1)
     multi_json (1.11.0)
+    multipart-post (2.0.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
@@ -445,6 +467,7 @@ DEPENDENCIES
   capybara (~> 2.4.4)
   celsius!
   celsius-amazon!
+  celsius-elasticsearch!
   celsius-primo!
   celsius-primo_ubpb!
   codeclimate-test-reporter (~> 0.4.5)
