@@ -24,10 +24,11 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/celsius-elasticsearch.git
-  revision: 56b010c2ece058ba851f2457bbd5119a94b54636
+  revision: c0bea0b7d860a1b22f6e8151dbe0bde21e4539b7
   branch: master
   specs:
     celsius-elasticsearch (0.1.0)
+      activesupport
       elasticsearch (>= 1.0.0)
 
 GIT
@@ -101,7 +102,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/katalog.git
-  revision: 73029150c7b0ae864a8b9939d8ccf59569ba33e0
+  revision: 3bd8920935919fc1e89c0f8a9678dcf51a39720f
   branch: master
   specs:
     katalog (2.0.0.dev)
