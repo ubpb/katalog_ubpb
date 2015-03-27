@@ -24,7 +24,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/celsius-elasticsearch.git
-  revision: 8b828ef4e62b42bf76e9059e31ac95662bdb3bf4
+  revision: 74322b66757d6a7076db3f5a16fc62902f3e5601
   branch: master
   specs:
     celsius-elasticsearch (0.1.0)
@@ -102,7 +102,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/katalog.git
-  revision: 4745d4dcba3abfbd3e7d3e3f03b519aedbeaaf97
+  revision: 2d6a152b7deda299e2f82748c4bcd8c463e66271
   branch: master
   specs:
     katalog (2.0.0.dev)
