@@ -23,16 +23,16 @@ search_engine_adapter:
 defaults:
   search_request:
     facets:
-      facet_tlevel:       { terms: { field: "facet_tlevel",       shard_size: 75 } }
-      facet_creator:      { terms: { field: "facet_creator",      shard_size: 75 } }
-      facet_local31:      { terms: { field: "facet_local31",      shard_size: 75 } }
-      facet_topic:        { terms: { field: "facet_topic",        shard_size: 75 } }
-      facet_creationdate: { terms: { field: "facet_creationdate", shard_size: 75 } }
-      facet_domain:       { terms: { field: "facet_domain",       shard_size: 75 } }
-      facet_lang:         { terms: { field: "facet_lang",         shard_size: 75 } }
-      facet_local15:      { terms: { field: "facet_local15",      shard_size: 75 } }
-      facet_local32:      { terms: { field: "facet_local32",      shard_size: 75 } }
-      facet_local33:      { terms: { field: "facet_local33",      shard_size: 75 } }
+      facet_tlevel:       { terms: { field: "facet_tlevel"       } }
+      facet_creator:      { terms: { field: "facet_creator"      } }
+      facet_local31:      { terms: { field: "facet_local31"      } }
+      facet_topic:        { terms: { field: "facet_topic"        } }
+      facet_creationdate: { terms: { field: "facet_creationdate" } }
+      facet_domain:       { terms: { field: "facet_domain"       } }
+      facet_lang:         { terms: { field: "facet_lang"         } }
+      facet_local15:      { terms: { field: "facet_local15"      } }
+      facet_local32:      { terms: { field: "facet_local32"      } }
+      facet_local33:      { terms: { field: "facet_local33"      } }
 
     from: 0
     size: 20
