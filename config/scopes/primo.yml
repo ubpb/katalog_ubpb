@@ -21,19 +21,19 @@ search_engine_adapter:
     timeout: 10
 
 defaults:
-  search_request:
-    facets:
-      facet_tlevel:       { terms: { field: "facet_tlevel"       } }
-      facet_creator:      { terms: { field: "facet_creator"      } }
-      facet_local31:      { terms: { field: "facet_local31"      } }
-      facet_topic:        { terms: { field: "facet_topic"        } }
-      facet_creationdate: { terms: { field: "facet_creationdate" } }
-      facet_domain:       { terms: { field: "facet_domain"       } }
-      facet_lang:         { terms: { field: "facet_lang"         } }
-      facet_local15:      { terms: { field: "facet_local15"      } }
-      facet_local32:      { terms: { field: "facet_local32"      } }
-      facet_local33:      { terms: { field: "facet_local33"      } }
+  facets:
+    facet_tlevel:       { terms: { field: "facet_tlevel"       } }
+    facet_creator:      { terms: { field: "facet_creator"      } }
+    facet_local31:      { terms: { field: "facet_local31"      } }
+    facet_topic:        { terms: { field: "facet_topic"        } }
+    facet_creationdate: { terms: { field: "facet_creationdate" } }
+    facet_domain:       { terms: { field: "facet_domain"       } }
+    facet_lang:         { terms: { field: "facet_lang"         } }
+    facet_local15:      { terms: { field: "facet_local15"      } }
+    facet_local32:      { terms: { field: "facet_local32"      } }
+    facet_local33:      { terms: { field: "facet_local33"      } }
 
+  search_request:
     from: 0
     size: 20
     sort: ["_score"]

@@ -10,23 +10,23 @@ search_engine_adapter:
     index: catalog
 
 defaults:
+  facets:
+    __aggregatable.classification:
+      terms:
+        field: "__aggregatable.classification"
+        shard_size: 75
+
+    __aggregatable.creator:
+      terms:
+        field: "__aggregatable.creator"
+        shard_size: 75
+
+    __aggregatable.subject:
+      terms:
+        field: "__aggregatable.subject"
+        shard_size: 75
+
   search_request:
-    facets:
-      __aggregatable.classification:
-        terms:
-          field: "__aggregatable.classification"
-          shard_size: 75
-
-      __aggregatable.creator:
-        terms:
-          field: "__aggregatable.creator"
-          shard_size: 75
-
-      __aggregatable.subject:
-        terms:
-          field: "__aggregatable.subject"
-          shard_size: 75
-
     from: 0
     size: 20
     sort:
