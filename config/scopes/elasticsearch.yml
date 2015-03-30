@@ -5,7 +5,7 @@ search_engine_adapter:
   class: !ruby/class "Celsius::Elasticsearch::Adapter"
   options:
     hosts:
-      - host: "192.168.1.50"
+      - host: "ubstage1"
     facets_via_aggregations: true
     index: catalog
 
