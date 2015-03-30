@@ -1,6 +1,15 @@
 label: "Elasticsearch"
 priority: 3
 
+ils_adapter:
+  class: !ruby/class "Fahrenheit::AlephUbpb::Adapter"
+  name: "Aleph"
+  options:
+    default_document_base: "PAD01"
+    default_user_library: "PAD50"
+    restful_api_url: "http://ubex.uni-paderborn.de:1891/rest-dlf"
+    x_services_url: "https://ubex.uni-paderborn.de/X"
+
 search_engine_adapter:
   class: !ruby/class "Celsius::Elasticsearch::Adapter"
   options:
