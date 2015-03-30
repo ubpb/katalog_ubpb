@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/celsius-amazon.git
-  revision: be25e39af144bde2ddda54025fb62c37e7952ece
+  revision: 1255bf8471786d7ea729edfbe5aebb749ac79fe7
   branch: master
   specs:
     celsius-amazon (0.0.1)
@@ -102,7 +102,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/katalog.git
-  revision: beac24dade00b9c53d597a01c48fd5d247ad1203
+  revision: 4794c2596505a54ab440c8bcdd3e363c509975db
   branch: master
   specs:
     katalog (2.0.0.dev)

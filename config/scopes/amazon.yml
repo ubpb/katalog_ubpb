@@ -1,0 +1,28 @@
+label: "Amazon"
+priority: 2
+
+search_engine_adapter:
+  class: !ruby/class "Celsius::Amazon::Adapter"
+  options:
+    SearchIndex: "Books" 
+
+facets: &FACETS
+  merchant: { terms: { field: "merchant" } }
+
+defaults:
+  facets: *FACETS
+
+  search_request:
+    from: 0
+    size: 10 # fixed by API
+    sort: ["relevancerank"]
+
+searchable_fields:
+  - keywords
+  - author
+  - title
+
+sortable_fields:
+  - relevancerank
+  - salesrank
+  - reviewrank
