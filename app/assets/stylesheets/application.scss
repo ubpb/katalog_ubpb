@@ -1,3 +1,6 @@
 $body-bg: #efefef;
+$breadcrumb-bg: lighten($body-bg, 5%);
 
 @import "katalog/application";
+
+@import "breadcrumbs";
