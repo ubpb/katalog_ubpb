@@ -102,7 +102,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/katalog.git
-  revision: 380072b5c2716d7cccd78817d51b562698ceecf0
+  revision: c7bcfb6aa23bcdad6a5606f7c84d4ea8df97a4b8
   branch: master
   specs:
     katalog (2.0.0.dev)
