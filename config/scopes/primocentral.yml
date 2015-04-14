@@ -1,23 +1,17 @@
-label: "Primo"
-priority: 3
-
-ils_adapter:
-  class: !ruby/class "Fahrenheit::AlephUbpb::Adapter"
-  name: "Aleph"
-  options:
-    default_document_base: "PAD01"
-    default_user_library: "PAD50"
-    restful_api_url: "http://ubtest.uni-paderborn.de:1891/rest-dlf"
-    x_services_url: "https://ubtest.uni-paderborn.de/X"
+label: "Primo Central"
+priority: 0
 
 search_engine_adapter:
-  class: !ruby/class "Celsius::PrimoUbpb::Adapter"
+  class: !ruby/class "Celsius::Primo::Adapter"
   options:
     institution: "PAD"
     languages: ["ger", "eng"]
-    locations: [{ type: "local", value: "scope:(PAD_ALEPH)" }]
+    locations: [{ type: "adaptor", value: "primo_central_multiple_fe" }]
     soap_api_options:
       searcher_url: "http://primo.kobv.de/primo_library/libweb/webservices/services/searcher"
+    on_campus:
+      - "131.234.0.0/16"
+      - "192.168.56.0/24"
     timeout: 10
 
 defaults:
@@ -52,5 +46,3 @@ sortable_fields:
   - created
   - creator
   - title
-  - lso49
-  - lso50
