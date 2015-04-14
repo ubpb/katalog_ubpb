@@ -7,10 +7,10 @@ GIT
 
 GIT
   remote: git://github.com/msievers/servizio.git
-  revision: 63b330c9efdc0b0ce4719b7c995e8687ceccf4b7
+  revision: e2da27049fe145fbada495f62f7244a4a90cf01a
   branch: master
   specs:
-    servizio (0.4.0)
+    servizio (0.4.1)
       activemodel (>= 4.0.0)
 
 GIT
@@ -406,7 +406,7 @@ GEM
     rspec-support (3.1.2)
     ruby-hmac (0.4.0)
     sass (3.4.13)
-    sass-rails (5.0.2)
+    sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
       sprockets (>= 2.8, < 4.0)
