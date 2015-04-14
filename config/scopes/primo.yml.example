@@ -16,6 +16,9 @@ search_engine_adapter:
     institution: "PAD"
     languages: ["ger", "eng"]
     locations: [{ type: "local", value: "scope:(PAD_ALEPH)" }]
+    on_campus:
+      - "131.234.0.0/16"
+      - "192.168.56.0/24"
     soap_api_options:
       searcher_url: "http://primo.kobv.de/primo_library/libweb/webservices/services/searcher"
     timeout: 10
