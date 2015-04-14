@@ -2,6 +2,7 @@ lock "3.4.0"
 
 set :application, "katalog"
 set :repo_url,    "git@github.com:ubpb/katalog_ubpb.git"
+set :branch,      "master"
 set :log_level,   :debug
 
 set :linked_files, fetch(:linked_files, []).push(
@@ -11,6 +12,11 @@ set :linked_dirs, fetch(:linked_dirs, []).push(
   "log", "tmp/pids", "tmp/cache", "tmp/sockets", "vendor/bundle",
   "public/system", "config/scopes"
 )
+
+set :rvm_type,         :user
+set :rvm_ruby_version, "2.2.1"
+
+set :rails_env, "production"
 
 namespace :deploy do
 
