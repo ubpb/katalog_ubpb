@@ -20,12 +20,11 @@ set :rails_env, "production"
 
 namespace :deploy do
 
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, "cache:clear"
-      # end
+  after :publishing, :restart_app do
+    on roles(:web) do
+      within release_path do
+        execute :touch, "tmp/restart.txt"
+      end
     end
   end
 
