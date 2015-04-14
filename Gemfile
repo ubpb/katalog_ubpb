@@ -16,6 +16,8 @@ gem "fahrenheit-loopback",   github: "ubpb/fahrenheit-loopback",   branch: :mast
 gem "servizio",              github: "msievers/servizio",          branch: :master
 gem "skala",                 github: "ubpb/skala",                 branch: :master
 
+gem 'sprockets', '~> 2.12.3'
+
 #
 # rails-assets.org
 #
