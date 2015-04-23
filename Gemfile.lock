@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/celsius-amazon.git
-  revision: 1255bf8471786d7ea729edfbe5aebb749ac79fe7
+  revision: da73eee7889a73931dd3c6d812899e62bcc2c1ec
   branch: master
   specs:
     celsius-amazon (0.0.1)
@@ -26,7 +26,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/celsius-primo.git
-  revision: 7fceb523cd9d3aa5c04cf194479b2765b3f9195f
+  revision: 43853c9461fd3d225a3a250972a70e390560cd27
   branch: master
   specs:
     celsius-primo (0.1.4)
@@ -37,11 +37,11 @@ GIT
       httpi (>= 2.1.0, < 3.0.0)
       mighty_tap (>= 0.4.0)
       ox (>= 2.1.0)
-      skala
+      skala (>= 0.3.0)
 
 GIT
   remote: git://github.com/ubpb/celsius-primo_ubpb.git
-  revision: eaeda82c7c779c5753d8da22d93ecddc847953e4
+  revision: 49817d8f790a64eaedde1294c402b90785fbc3c9
   branch: master
   specs:
     celsius-primo_ubpb (0.2.0)
@@ -52,8 +52,30 @@ GIT
       skala
 
 GIT
+  remote: git://github.com/ubpb/fahrenheit-aleph.git
+  revision: f736a74c613792b03a37f6a5e9e549d50c031d2e
+  branch: master
+  specs:
+    fahrenheit-aleph (0.0.1)
+      activesupport
+      badgerfish
+      ensure_array (>= 0.1.0)
+      httpi (>= 2.3.0, < 3.0.0)
+      mighty_tap (>= 0.4.0)
+      skala
+
+GIT
+  remote: git://github.com/ubpb/fahrenheit-aleph_ubpb.git
+  revision: cc17490d263541fe06e0974f31d2925b1f23d62a
+  branch: master
+  specs:
+    fahrenheit-aleph_ubpb (0.0.1)
+      fahrenheit-aleph
+      skala
+
+GIT
   remote: git://github.com/ubpb/katalog.git
-  revision: cbc3c4ae13c266a042b667766a7d07d6474d0853
+  revision: 21e378ada16dbb8411eae7a25457c302273a1f13
   branch: master
   specs:
     katalog (2.0.0.dev)
@@ -86,11 +108,12 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/skala.git
-  revision: 3899c0c7ee3b0d97799b9aec94bad6d14f7b2eb8
+  revision: 343ff2ec5a1e0781f55a8dc63767b70d4bb479c7
   branch: master
   specs:
-    skala (0.2.0)
+    skala (0.3.0)
       activesupport
+      mighty_tap
 
 GEM
   remote: https://rubygems.org/
@@ -136,7 +159,7 @@ GEM
       nokogiri (~> 1.4)
       ruby-hmac (~> 0.3)
     arel (6.0.0)
-    autoprefixer-rails (5.1.9)
+    autoprefixer-rails (5.1.11)
       execjs
       json
     badgerfish (0.2.1)
@@ -163,7 +186,7 @@ GEM
     capistrano-bundler (1.1.4)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
-    capistrano-rails (1.1.2)
+    capistrano-rails (1.1.3)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
     capistrano-rvm (0.1.2)
@@ -186,7 +209,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.9.1.1)
-    colorize (0.7.5)
+    colorize (0.7.7)
     columnize (0.9.0)
     css_parser (1.3.6)
       addressable
@@ -269,7 +292,7 @@ GEM
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     oauth (0.4.7)
-    ox (2.1.8)
+    ox (2.2.0)
     poltergeist (1.5.1)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -431,6 +454,8 @@ DEPENDENCIES
   codeclimate-test-reporter (~> 0.4.5)
   database_cleaner (~> 1.3.0)
   dotenv-rails (~> 1.0.2)
+  fahrenheit-aleph!
+  fahrenheit-aleph_ubpb!
   katalog!
   letter_opener (~> 1.2.0)
   newrelic_rpm (>= 3.9)

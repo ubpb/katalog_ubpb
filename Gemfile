@@ -7,9 +7,8 @@ gem "celsius-amazon",        github: "ubpb/celsius-amazon",        branch: :mast
 gem "celsius-elasticsearch", github: "ubpb/celsius-elasticsearch", branch: :master
 gem "celsius-primo",         github: "ubpb/celsius-primo",         branch: :master
 gem "celsius-primo_ubpb",    github: "ubpb/celsius-primo_ubpb",    branch: :master
-#gem "fahrenheit",            github: "ubpb/fahrenheit",            branch: :master
-#gem "fahrenheit-aleph",      github: "ubpb/fahrenheit-aleph",      branch: :master
-#gem "fahrenheit-aleph_ubpb", github: "ubpb/fahrenheit-aleph_ubpb", branch: :master
+gem "fahrenheit-aleph",      github: "ubpb/fahrenheit-aleph",      branch: :master
+gem "fahrenheit-aleph_ubpb", github: "ubpb/fahrenheit-aleph_ubpb", branch: :master
 #gem "fahrenheit-loopback",   github: "ubpb/fahrenheit-loopback",   branch: :master
 gem "servizio",              github: "msievers/servizio",          branch: :master
 gem "skala",                 github: "ubpb/skala",                 branch: :master
