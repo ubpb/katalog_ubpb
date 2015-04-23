@@ -66,7 +66,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/fahrenheit-aleph_ubpb.git
-  revision: cc17490d263541fe06e0974f31d2925b1f23d62a
+  revision: fff9785e0714c737d9e0e41d2eecba85610c6f51
   branch: master
   specs:
     fahrenheit-aleph_ubpb (0.0.1)
