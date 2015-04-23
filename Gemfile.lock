@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/celsius-elasticsearch.git
-  revision: 8fc50bc14c3845e88fbf5849955d640567a21d82
+  revision: 073b941553b0461f8293648102b039e445d8ec66
   branch: master
   specs:
     celsius-elasticsearch (0.1.0)
