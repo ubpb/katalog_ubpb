@@ -26,7 +26,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/celsius-primo.git
-  revision: 43853c9461fd3d225a3a250972a70e390560cd27
+  revision: 44f40a1f56b48d5f533dc5ef3f4d0cc72a1cdd9e
   branch: master
   specs:
     celsius-primo (0.1.4)
