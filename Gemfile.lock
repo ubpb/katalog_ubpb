@@ -41,7 +41,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/celsius-primo_ubpb.git
-  revision: 49817d8f790a64eaedde1294c402b90785fbc3c9
+  revision: 02efab45c3a79921db27222ed0e7696f9dee5ae8
   branch: master
   specs:
     celsius-primo_ubpb (0.2.0)
@@ -75,7 +75,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/katalog.git
-  revision: 6ff8f0c1954efff4104f2a818b1065551ce1e4d3
+  revision: 0531824bb3408b7215bb095bab30b9308d098cd4
   branch: master
   specs:
     katalog (2.0.0.dev)
