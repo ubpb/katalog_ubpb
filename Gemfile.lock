@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/celsius-amazon.git
-  revision: da73eee7889a73931dd3c6d812899e62bcc2c1ec
+  revision: 2552ab2f95fcd16be68f1818ac5ab5c01621503b
   branch: master
   specs:
     celsius-amazon (0.0.1)
@@ -26,7 +26,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/celsius-primo.git
-  revision: 44f40a1f56b48d5f533dc5ef3f4d0cc72a1cdd9e
+  revision: 3704cc36e93e0d3969bf589d3054f45578f65f11
   branch: master
   specs:
     celsius-primo (0.1.4)
@@ -41,7 +41,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/celsius-primo_ubpb.git
-  revision: 02efab45c3a79921db27222ed0e7696f9dee5ae8
+  revision: 3c4b2c9f4e338cd28bcccf4cc6fc264ca51f6e0b
   branch: master
   specs:
     celsius-primo_ubpb (0.2.0)
@@ -75,7 +75,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/katalog.git
-  revision: e3555fb49596a82f8070c210822768c21d0d93a1
+  revision: adc6f49adee6be9d4ca584047c08200ce6ce283d
   branch: master
   specs:
     katalog (2.0.0.dev)
