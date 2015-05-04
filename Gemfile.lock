@@ -26,7 +26,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/celsius-primo.git
-  revision: 3704cc36e93e0d3969bf589d3054f45578f65f11
+  revision: ef5557827c07e060f1df48c695884b70a7cc9379
   branch: master
   specs:
     celsius-primo (0.1.4)
@@ -41,7 +41,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/celsius-primo_ubpb.git
-  revision: 3c4b2c9f4e338cd28bcccf4cc6fc264ca51f6e0b
+  revision: 09fcbb14fdd83b9331a578e848a484c17cea15a6
   branch: master
   specs:
     celsius-primo_ubpb (0.2.0)
@@ -75,7 +75,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/katalog.git
-  revision: adc6f49adee6be9d4ca584047c08200ce6ce283d
+  revision: 2c56ef12307eff7391a9b89928f53326fc96b01d
   branch: master
   specs:
     katalog (2.0.0.dev)
@@ -108,7 +108,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/skala.git
-  revision: 80c4304d01516a76aac365a33bae2af52e6ec017
+  revision: b3b4b529a14ab9f1f6efd9b36100a04281301871
   branch: master
   specs:
     skala (0.3.0)
@@ -360,7 +360,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
     request_store (1.1.0)
-    roadie (3.0.4)
+    roadie (3.0.5)
       css_parser (~> 1.3.4)
       nokogiri (~> 1.6.0)
     roadie-rails (1.0.5)
