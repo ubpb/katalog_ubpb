@@ -47,7 +47,7 @@ searchable_fields:
   - title
   - subject
   - identifier
-  - is_part_of
+  - isPartOf
   - relation
 
 sortable_fields:
