@@ -66,7 +66,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/fahrenheit-aleph_ubpb.git
-  revision: 32ee8467269d7b6269b00d665a1380afc65be66c
+  revision: d59baa7f180f17d214de12486dcb09e6cb4f15b7
   branch: master
   specs:
     fahrenheit-aleph_ubpb (0.0.1)
@@ -75,7 +75,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/katalog.git
-  revision: 24f0c0344ce92fc5e315b1b5d2067be93fbfc65e
+  revision: d55213afe0d8965059c988d39861c29996b294fe
   branch: master
   specs:
     katalog (2.0.0.dev)
