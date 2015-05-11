@@ -66,7 +66,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/fahrenheit-aleph_ubpb.git
-  revision: d59baa7f180f17d214de12486dcb09e6cb4f15b7
+  revision: 3b816fa369f75c93e41941cc9c73a4b12a6e7ff0
   branch: master
   specs:
     fahrenheit-aleph_ubpb (0.0.1)
@@ -166,7 +166,7 @@ GEM
       htmlentities
       ox (>= 2.1.1)
     bcrypt (3.1.10)
-    bibtex-ruby (4.0.12)
+    bibtex-ruby (4.0.13)
       latex-decode (~> 0.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -279,7 +279,7 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
-    mighty_tap (0.4.0)
+    mighty_tap (0.5.0)
     mime-types (2.5)
     mini_portile (0.6.2)
     minitest (5.6.1)
@@ -288,7 +288,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
-    newrelic_rpm (3.11.2.286)
+    newrelic_rpm (3.12.0.288)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     oauth (0.4.7)
@@ -319,7 +319,7 @@ GEM
       rack (>= 1.1, < 2.0)
     quiet_assets (1.0.3)
       railties (>= 3.1, < 5.0)
-    rack (1.6.0)
+    rack (1.6.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.1)
@@ -363,7 +363,7 @@ GEM
     roadie (3.0.5)
       css_parser (~> 1.3.4)
       nokogiri (~> 1.6.0)
-    roadie-rails (1.0.5)
+    roadie-rails (1.0.6)
       railties (>= 3.0, < 4.3)
       roadie (~> 3.0)
     rspec-core (3.1.7)
@@ -407,7 +407,7 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.2.4)
+    sprockets-rails (2.3.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
