@@ -13,63 +13,45 @@
 
 ActiveRecord::Schema.define(version: 20141006140435) do
 
-  create_table "notes", force: :cascade do |t|
+  create_table "katalog_notes", force: :cascade do |t|
     t.string   "record_id"
     t.text     "value",      limit: 1073741823
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "notes", ["record_id"], name: "index_notes_on_record_id"
+  add_index "katalog_notes", ["record_id"], name: "index_katalog_notes_on_record_id"
 
-  create_table "users", force: :cascade do |t|
+  create_table "katalog_users", force: :cascade do |t|
     t.string   "api_key"
-    t.string   "username"
     t.string   "scope_id"
+    t.string   "username"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "users", ["api_key"], name: "index_users_on_api_key", unique: true
-  add_index "users", ["username"], name: "index_users_on_username"
+  add_index "katalog_users", ["api_key"], name: "index_katalog_users_on_api_key", unique: true
+  add_index "katalog_users", ["username"], name: "index_katalog_users_on_username"
 
-  create_table "watch_list_assignment_offers", force: :cascade do |t|
-    t.boolean  "may_delete"
-    t.boolean  "may_read"
-    t.boolean  "may_update"
-    t.string   "token"
-    t.integer  "watch_list_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "watch_list_assignment_offers", ["watch_list_id"], name: "index_watch_list_assignment_offers_on_watch_list_id"
-
-  create_table "watch_list_assignments", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "watch_list_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "watch_list_assignments", ["user_id"], name: "index_watch_list_assignments_on_user_id"
-  add_index "watch_list_assignments", ["watch_list_id"], name: "index_watch_list_assignments_on_watch_list_id"
-
-  create_table "watch_list_entries", force: :cascade do |t|
-    t.integer  "watch_list_id"
+  create_table "katalog_watch_list_entries", force: :cascade do |t|
     t.string   "record_id"
+    t.integer  "scope_id"
+    t.integer  "watch_list_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "watch_list_entries", ["watch_list_id"], name: "index_watch_list_entries_on_watch_list_id"
+  add_index "katalog_watch_list_entries", ["watch_list_id"], name: "index_katalog_watch_list_entries_on_watch_list_id"
 
-  create_table "watch_lists", force: :cascade do |t|
+  create_table "katalog_watch_lists", force: :cascade do |t|
     t.text     "description"
-    t.string   "label"
+    t.string   "name"
     t.boolean  "public",      default: false
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "katalog_watch_lists", ["user_id"], name: "index_katalog_watch_lists_on_user_id"
 
 end

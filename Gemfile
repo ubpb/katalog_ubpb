@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gem "katalog", ">= 0",       github: "ubpb/katalog",               branch: :master
 gem "sqlite3", "~> 1.3.9"
 
+gem "aleph_api",             github: "ubpb/aleph_api",             branch: :master
 gem "celsius-amazon",        github: "ubpb/celsius-amazon",        branch: :master
 gem "celsius-elasticsearch", github: "ubpb/celsius-elasticsearch", branch: :master
 gem "celsius-primo",         github: "ubpb/celsius-primo",         branch: :master
@@ -12,6 +13,7 @@ gem "fahrenheit-aleph_ubpb", github: "ubpb/fahrenheit-aleph_ubpb", branch: :mast
 #gem "fahrenheit-loopback",   github: "ubpb/fahrenheit-loopback",   branch: :master
 gem "servizio",              github: "msievers/servizio",          branch: :master
 gem "skala",                 github: "ubpb/skala",                 branch: :master
+gem "weak_xml",              github: "msievers/weak_xml",          branch: :master
 
 gem 'sprockets', '~> 2.12.3'
 
