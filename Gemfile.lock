@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/aleph_api.git
-  revision: b2c4f161923e2d5644da765cc82a2d3c5cb429f2
+  revision: 124d82ff73f9d623c6b2ee571e882f039cbed21b
   branch: master
   specs:
     aleph_api (0.1.0)
@@ -69,7 +69,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/fahrenheit-aleph.git
-  revision: 1ff829c89bc95133c6e20bdb1c8a91c35edb3f86
+  revision: ea7d25961c73a6e77cf0408ea71071799a4e14c6
   branch: master
   specs:
     fahrenheit-aleph (0.0.1)
@@ -84,7 +84,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/fahrenheit-aleph_ubpb.git
-  revision: 7f443b499bbe2f62c76409465cba8109de795ff3
+  revision: c5c19084a222d6467f767187adfb05a1b7331340
   branch: master
   specs:
     fahrenheit-aleph_ubpb (0.0.1)
@@ -95,7 +95,7 @@ GIT
 
 GIT
   remote: git://github.com/ubpb/katalog.git
-  revision: 341ce1083c203b43d186fc1b623c2f914da301dd
+  revision: e131767d845f266894702d92705da289e5e127c3
   branch: master
   specs:
     katalog (2.0.0.dev)
@@ -118,6 +118,7 @@ GIT
       rails (~> 4.2.0)
       rails-html-sanitizer (~> 1.0.1)
       rails-i18n (~> 4.0.3)
+      react-rails (~> 1.0.0)
       roadie-rails (~> 1.0.2)
       sass-rails (~> 5.0.1)
       simple_form (~> 3.1.0)
@@ -139,36 +140,36 @@ GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
   specs:
-    actionmailer (4.2.2)
-      actionpack (= 4.2.2)
-      actionview (= 4.2.2)
-      activejob (= 4.2.2)
+    actionmailer (4.2.3)
+      actionpack (= 4.2.3)
+      actionview (= 4.2.3)
+      activejob (= 4.2.3)
       mail (~> 2.5, >= 2.5.4)
       rails-dom-testing (~> 1.0, >= 1.0.5)
-    actionpack (4.2.2)
-      actionview (= 4.2.2)
-      activesupport (= 4.2.2)
+    actionpack (4.2.3)
+      actionview (= 4.2.3)
+      activesupport (= 4.2.3)
       rack (~> 1.6)
       rack-test (~> 0.6.2)
       rails-dom-testing (~> 1.0, >= 1.0.5)
-      rails-html-sanitizer (~> 1.0, >= 1.0.1)
-    actionview (4.2.2)
-      activesupport (= 4.2.2)
+      rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    actionview (4.2.3)
+      activesupport (= 4.2.3)
       builder (~> 3.1)
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
-      rails-html-sanitizer (~> 1.0, >= 1.0.1)
-    activejob (4.2.2)
-      activesupport (= 4.2.2)
+      rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    activejob (4.2.3)
+      activesupport (= 4.2.3)
       globalid (>= 0.3.0)
-    activemodel (4.2.2)
-      activesupport (= 4.2.2)
+    activemodel (4.2.3)
+      activesupport (= 4.2.3)
       builder (~> 3.1)
-    activerecord (4.2.2)
-      activemodel (= 4.2.2)
-      activesupport (= 4.2.2)
+    activerecord (4.2.3)
+      activemodel (= 4.2.3)
+      activesupport (= 4.2.3)
       arel (~> 6.0)
-    activesupport (4.2.2)
+    activesupport (4.2.3)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
@@ -179,20 +180,20 @@ GEM
       nokogiri (~> 1.4)
       ruby-hmac (~> 0.3)
     arel (6.0.0)
-    autoprefixer-rails (5.2.0.1)
+    autoprefixer-rails (5.2.1)
       execjs
       json
     badgerfish (0.2.1)
       htmlentities
       ox (>= 2.1.1)
     bcrypt (3.1.10)
-    bibtex-ruby (4.0.13)
+    bibtex-ruby (4.0.14)
       latex-decode (~> 0.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.5)
+    bootstrap-sass (3.3.5.1)
       autoprefixer-rails (>= 5.0.0.1)
-      sass (>= 3.2.19)
+      sass (>= 3.3.0)
     browser (0.8.0)
     builder (3.2.2)
     byebug (2.7.0)
@@ -231,6 +232,7 @@ GEM
     coffee-script-source (1.9.1.1)
     colorize (0.7.7)
     columnize (0.9.0)
+    connection_pool (2.2.0)
     css_parser (1.3.6)
       addressable
     dalli (2.7.4)
@@ -268,7 +270,7 @@ GEM
     hashie (3.4.2)
     hike (1.2.3)
     htmlentities (4.3.3)
-    httpi (2.4.0)
+    httpi (2.4.1)
       rack
     i18n (0.7.0)
     interception (0.5)
@@ -308,7 +310,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
-    newrelic_rpm (3.12.0.288)
+    newrelic_rpm (3.12.1.298)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     oauth (0.4.7)
@@ -339,19 +341,19 @@ GEM
       rack (>= 1.1, < 2.0)
     quiet_assets (1.0.3)
       railties (>= 3.1, < 5.0)
-    rack (1.6.2)
+    rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
-    rails (4.2.2)
-      actionmailer (= 4.2.2)
-      actionpack (= 4.2.2)
-      actionview (= 4.2.2)
-      activejob (= 4.2.2)
-      activemodel (= 4.2.2)
-      activerecord (= 4.2.2)
-      activesupport (= 4.2.2)
+    rails (4.2.3)
+      actionmailer (= 4.2.3)
+      actionpack (= 4.2.3)
+      actionview (= 4.2.3)
+      activejob (= 4.2.3)
+      activemodel (= 4.2.3)
+      activerecord (= 4.2.3)
+      activesupport (= 4.2.3)
       bundler (>= 1.3.0, < 2.0)
-      railties (= 4.2.2)
+      railties (= 4.2.3)
       sprockets-rails
     rails-assets-eventEmitter (4.2.11)
     rails-assets-eventie (1.0.6)
@@ -373,12 +375,19 @@ GEM
     rails-i18n (4.0.4)
       i18n (~> 0.6)
       railties (~> 4.0)
-    railties (4.2.2)
-      actionpack (= 4.2.2)
-      activesupport (= 4.2.2)
+    railties (4.2.3)
+      actionpack (= 4.2.3)
+      activesupport (= 4.2.3)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
+    react-rails (1.0.0)
+      coffee-script-source (~> 1.8)
+      connection_pool
+      execjs
+      rails (>= 3.1)
+      react-source (~> 0.13)
+    react-source (0.13.3)
     request_store (1.1.0)
     roadie (3.0.5)
       css_parser (~> 1.3.4)
@@ -403,7 +412,7 @@ GEM
       rspec-support (~> 3.1.0)
     rspec-support (3.1.2)
     ruby-hmac (0.4.0)
-    sass (3.4.14)
+    sass (3.4.15)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
@@ -422,12 +431,12 @@ GEM
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
-    sprockets (2.12.3)
+    sprockets (2.12.4)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.3.1)
+    sprockets-rails (2.3.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
