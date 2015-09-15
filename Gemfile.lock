@@ -23,15 +23,6 @@ GIT
       faraday
 
 GIT
-  remote: git://github.com/ubpb/celsius-amazon.git
-  revision: 2552ab2f95fcd16be68f1818ac5ab5c01621503b
-  branch: master
-  specs:
-    celsius-amazon (0.0.1)
-      amazon-ecs
-      hashie
-
-GIT
   remote: git://github.com/ubpb/celsius-elasticsearch.git
   revision: 073b941553b0461f8293648102b039e445d8ec66
   branch: master
@@ -39,33 +30,6 @@ GIT
     celsius-elasticsearch (0.1.0)
       activesupport
       elasticsearch (>= 1.0.0)
-
-GIT
-  remote: git://github.com/ubpb/celsius-primo.git
-  revision: ef5557827c07e060f1df48c695884b70a7cc9379
-  branch: master
-  specs:
-    celsius-primo (0.1.4)
-      activesupport
-      badgerfish
-      ensure_array (>= 0.1.0)
-      hashie (>= 3.4.1)
-      httpi (>= 2.1.0, < 3.0.0)
-      mighty_tap (>= 0.4.0)
-      ox (>= 2.1.0)
-      skala (>= 0.3.0)
-
-GIT
-  remote: git://github.com/ubpb/celsius-primo_ubpb.git
-  revision: 09fcbb14fdd83b9331a578e848a484c17cea15a6
-  branch: master
-  specs:
-    celsius-primo_ubpb (0.2.0)
-      activesupport
-      celsius-primo
-      hashie
-      mighty_tap
-      skala
 
 GIT
   remote: git://github.com/ubpb/fahrenheit-aleph.git
@@ -177,9 +141,6 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.8)
-    amazon-ecs (2.3.1)
-      nokogiri (~> 1.4)
-      ruby-hmac (~> 0.3)
     arel (6.0.3)
     autoprefixer-rails (5.2.1)
       execjs
@@ -272,8 +233,6 @@ GEM
       activesupport (>= 4.1.0)
     hashie (3.4.2)
     htmlentities (4.3.3)
-    httpi (2.4.1)
-      rack
     i18n (0.7.0)
     interception (0.5)
     isbn (2.0.10)
@@ -413,7 +372,6 @@ GEM
       rspec-mocks (~> 3.1.0)
       rspec-support (~> 3.1.0)
     rspec-support (3.1.2)
-    ruby-hmac (0.4.0)
     sass (3.4.15)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -481,10 +439,7 @@ DEPENDENCIES
   capistrano-rails (~> 1.1.2)
   capistrano-rvm (~> 0.1.2)
   capybara (~> 2.4.4)
-  celsius-amazon!
   celsius-elasticsearch!
-  celsius-primo!
-  celsius-primo_ubpb!
   codeclimate-test-reporter (~> 0.4.5)
   database_cleaner (~> 1.3.0)
   dotenv-rails (~> 1.0.2)
