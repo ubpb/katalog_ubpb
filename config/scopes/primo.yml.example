@@ -2,13 +2,13 @@ label: "Primo"
 priority: 3
 
 ils_adapter:
-  class: !ruby/class "Fahrenheit::AlephUbpb::Adapter"
-  name: "Aleph"
-  options:
-    default_document_base: "PAD01"
-    default_user_library: "PAD50"
-    restful_api_url: "http://ubtest.uni-paderborn.de:1891/rest-dlf"
-    x_services_url: "https://ubtest.uni-paderborn.de/X"
+ class: !ruby/class "Fahrenheit::AlephUbpb::Adapter"
+ name: "Aleph"
+ options:
+   default_document_base: "PAD01"
+   default_user_library: "PAD50"
+   restful_api_url: "http://ubtest.uni-paderborn.de:1891/rest-dlf"
+   x_services_url: "https://ubtest.uni-paderborn.de/X"
 
 search_engine_adapter:
   class: !ruby/class "Celsius::PrimoUbpb::Adapter"
@@ -47,7 +47,7 @@ searchable_fields:
   - title
   - subject
   - identifier
-  - isPartOf
+  - is_part_of
   - relation
 
 sortable_fields:
