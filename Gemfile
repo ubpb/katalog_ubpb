@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+gem "rails", "= 4.2.4"
+
 gem "katalog", ">= 0",       github: "ubpb/katalog",               branch: :master
 gem "sqlite3", "~> 1.3.9"
 
@@ -14,8 +16,6 @@ gem "fahrenheit-aleph_ubpb", github: "ubpb/fahrenheit-aleph_ubpb", branch: :mast
 gem "servizio",              github: "msievers/servizio",          branch: :master
 gem "skala",                 github: "ubpb/skala",                 branch: :master
 gem "weak_xml",              github: "msievers/weak_xml",          branch: :master
-
-gem 'sprockets', '~> 2.12.3'
 
 #
 # rails-assets.org
