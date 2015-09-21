@@ -1,0 +1,11 @@
+de:
+  users:
+    fees:
+      types:
+        OVERDUEFINE: "Überfällig (Rückg. od. Verl.)"
+
+  record:
+    item:
+      description:
+        description:
+          Handapparat: "Dieses Medium steht in einem Handapparat. Besitzt die Universitätsbibliothek kein weiteres Exemplar dieses Titels, können Sie sich im Bedarfsfall an das Informationszentrum wenden."
