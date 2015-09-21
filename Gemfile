@@ -2,16 +2,16 @@ source "https://rubygems.org"
 
 gem "rails", "= 4.2.4"
 
-gem "katalog", ">= 0",       github: "ubpb/katalog",               branch: :master
+gem "skala-adapter", path: "../skala/adapter"
+gem "skala-aleph_adapter", path: "../skala/adapter-aleph"
+gem "skala-elasticsearch_adapter", path: "../skala/adapter-elasticsearch"
+gem "skala-frontend", path: "../skala/frontend"
+
 gem "sqlite3", "~> 1.3.9"
 
-gem "aleph_api",             github: "ubpb/aleph_api",             branch: :master
-gem "celsius-elasticsearch", github: "ubpb/celsius-elasticsearch", branch: :master
-gem "fahrenheit-aleph",      github: "ubpb/fahrenheit-aleph",      branch: :master
-gem "fahrenheit-aleph_ubpb", github: "ubpb/fahrenheit-aleph_ubpb", branch: :master
-gem "servizio",              github: "msievers/servizio",          branch: :master
-gem "skala",                 github: "ubpb/skala",                 branch: :master
-gem "weak_xml",              github: "msievers/weak_xml",          branch: :master
+gem "aleph_api", github: "ubpb/aleph_api",    branch: :master
+gem "servizio",  github: "msievers/servizio", branch: :master
+gem "weak_xml",  github: "msievers/weak_xml", branch: :master
 
 #
 # rails-assets.org

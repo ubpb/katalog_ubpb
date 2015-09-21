@@ -2,16 +2,17 @@ label: "Katalog"
 priority: 3
 
 ils_adapter:
-  class: !ruby/class "Fahrenheit::AlephUbpb::Adapter"
+  class_name: "KatalogUbpb::UbpbAlephAdapter"
   name: "Aleph"
   options:
     default_document_base: "PAD01"
     default_user_library: "PAD50"
     restful_api_url: "http://ubtest.uni-paderborn.de:1891/rest-dlf"
     x_services_url: "https://ubtest.uni-paderborn.de/X"
+    #auth_key: aleph_id
 
 search_engine_adapter:
-  class: !ruby/class "Celsius::Elasticsearch::Adapter"
+  class_name: "Skala::ElasticsearchAdapter"
   options:
     hosts:
       - host: "ubstage1.uni-paderborn.de"

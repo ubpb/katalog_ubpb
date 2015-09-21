@@ -1,0 +1,15 @@
+common_settings: &common_settings
+  #login_adapter:
+  #  class_name: Katalog::AlephLogin
+  #  options:
+  #    default_user_library: "PAD50"
+  #    x_services_url: "https://ubtest.uni-paderborn.de/X"
+
+development: &development
+  <<: *common_settings
+
+test:
+  <<: *development
+
+production:
+ <<: *common_settings

@@ -13,14 +13,17 @@
 
 ActiveRecord::Schema.define(version: 20141006140435) do
 
-  create_table "katalog_notes", force: :cascade do |t|
+  create_table "katalog_user_notes", force: :cascade do |t|
+    t.integer  "user_id"
     t.string   "record_id"
+    t.string   "scope_id"
     t.text     "value",      limit: 1073741823
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "katalog_notes", ["record_id"], name: "index_katalog_notes_on_record_id"
+  add_index "katalog_user_notes", ["record_id"], name: "index_katalog_user_notes_on_record_id"
+  add_index "katalog_user_notes", ["user_id"], name: "index_katalog_user_notes_on_user_id"
 
   create_table "katalog_user_watch_list_entries", force: :cascade do |t|
     t.string   "record_id"

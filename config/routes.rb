@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  mount Katalog::Engine, at: "/"
+  mount Skala::Frontend::Engine, at: "/"
   root to:  redirect('/')
 end
