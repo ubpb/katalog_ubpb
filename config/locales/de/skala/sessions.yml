@@ -1,0 +1,6 @@
+de:
+  skala:
+    sessions:
+      new:
+        password_hint: "Das Standard-Passwort ist Ihr Geburtsdatum, in der Form: TTMMJJJJ (wenn Sie z.B. am 3. Mai 1991 geboren sind, dann lautet Ihr Passwort: 03051991)"
+        username_hint: Die Nummer finden Sie auf Ihrem Bibliotheks- oder Studierendenausweis.
