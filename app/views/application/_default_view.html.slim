@@ -1,0 +1,19 @@
+- view_filename = render_options.pop
+- render_options.push {} if render_options.length == 1
+
+.visible-phone
+  .row
+    .span12
+      = render 'actions_accordion', view_filename: view_filename
+
+  .row
+    .span12
+      = render render_options[0], render_options[1]
+
+.hidden-phone
+  .row
+    .span9
+      = render render_options[0], render_options[1]
+
+    .span3
+      = render 'actions_nav_list', view_filename: view_filename

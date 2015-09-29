@@ -1,0 +1,23 @@
+.cat-users {
+  table {
+    margin-bottom: 0px;
+
+    th, td {
+      vertical-align: middle !important;
+
+      ul, li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        .title {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .cat-responsive-table td .title {
+    font-weight: normal;    
+  }
+}

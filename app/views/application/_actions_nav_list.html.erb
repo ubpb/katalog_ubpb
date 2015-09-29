@@ -1,0 +1,6 @@
+<ul class="nav nav-list">
+  <% get_associated_actions(view_filename).each do |associated_action| %>
+    <li class="nav-header"><%= t(associated_action[:title]) %></li>
+    <%= render associated_action[:name] %>
+  <% end %>
+</ul>

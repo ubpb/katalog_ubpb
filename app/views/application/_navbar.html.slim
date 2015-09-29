@@ -1,0 +1,39 @@
+nav.navbar.navbar-default.cat-navbar-default(role="navigation")
+  .navbar-header
+    button.navbar-toggle(type="button" data-toggle="collapse" data-target="#navbar-collapse")
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+
+    = link_to "http://www.ub.uni-paderborn.de" do
+      = image_tag "ub-logo.png"
+
+  .collapse.navbar-collapse#navbar-collapse
+    ul.nav.navbar-nav.navbar-right
+      li
+        = link_to main_app.root_path do
+          => fa_icon("home lg")
+          = t("application.navbar.start")
+
+      li
+        = link_to new_ticket_path do
+          => fa_icon("bullhorn lg")
+          = t("application.navbar.feedback")
+
+      li
+        = link_to help_path, id: "menubar-help", target: "_blank" do
+          => fa_icon("lightbulb-o lg")
+          = t("application.navbar.help")
+
+      li
+        = link_to "http://blogs.uni-paderborn.de/ub-katalog/"
+          => fa_icon("rss lg")
+          = t("application.navbar.blog")
+
+      li.myaccount = link_to user_path do
+        => fa_icon("user lg")
+        = t(".my_account")
+
+      - if current_user?
+        li.logout = link_to session_path, class: "btn btn-default", method: :delete, title: t(".logout") do
+          i.fa.fa-power-off

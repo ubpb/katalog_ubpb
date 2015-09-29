@@ -1,0 +1,32 @@
+table.table.table-striped.record-items
+  thead
+    tr
+      th
+      th = t(".signature")
+      th = t(".description")
+      th = t(".status")
+      th = t(".due_date")
+
+  tbody
+    - record_items.each do |item|
+      tr
+        - if item.available?
+          td.available
+        - elsif item.restricted_available?
+          td.restricted-available
+        - elsif item.not_available?
+          td.not-available
+        - else # maybe there are no availability informations at all
+          td
+
+        td = item.signature
+        td
+          - if item.description["description"]
+            = ractive_component "ItemDescriptionPopover", item: { description: item.description }
+          - else
+            = item.description["title"]
+
+        td = ils_adapter.translate "records.items.loan_status.#{item.status}",\
+               expected_date: item.expected_date ? l(item.expected_date) : nil,\
+               locale: current_locale
+        td = item.due_date ? l(item.due_date) : "-"

@@ -1,0 +1,9 @@
+de:
+  users:
+    fees:
+      index:
+        balance: Gebühr / Gutschrift
+        creation_time: Datum
+        title: Titel / Beschreibung
+        no_fees_present: Im Augenblick liegen keine Gebühren vor.
+        unentered: unverbucht

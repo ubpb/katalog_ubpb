@@ -1,0 +1,6 @@
+de:
+  users:
+    former_loans:
+      index:
+        returned_date: Rückgabe am
+        title: Titel

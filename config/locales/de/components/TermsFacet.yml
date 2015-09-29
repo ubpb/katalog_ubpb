@@ -1,0 +1,5 @@
+de:
+  components:
+    TermsFacet:
+      collapse_terms_facet: "... ausblenden der letzten %{terms_to_hide}"
+      expand_terms_facet: "... zeige %{additional_terms} weitere"

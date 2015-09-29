@@ -1,0 +1,27 @@
+- if can?(:manage, @watch_list)
+  li
+    = link_to edit_watch_list_path(@watch_list) do
+      i.fa.fa-pencil
+      = " Merkliste bearbeiten"
+
+    = link_to watch_list_path(@watch_list, replace_referer_with: watch_lists_path), method: :delete, data: { confirm: 'Merkliste wirklich löschen?' } do
+      i.fa.fa-trash-o
+      = " Merkliste löschen"
+
+    - if current_user.pseudonym.present?
+      = link_to edit_watch_list_path(@watch_list, only_sharing_options: true) do
+        i.fa.fa-exchange
+        - if @watch_list.has_slave_watch_lists?
+          = " Freigaben verwalten"
+        - else
+          = " Merkliste freigeben"
+    - else
+      = link_to pseudonym_user_path, data: { confirm: 'Sie müssen zuerst ein Pseudonym festlegen, um Merklisten mit anderen Nutzern teilen zu können.' } do
+        i.fa.fa-exchange
+        = " Merkliste freigeben"
+
+- if @watch_list.is_shared_with?(current_user)
+  li
+    = link_to watch_list_path(@watch_list.slave_watch_list_for(current_user), replace_referer_with: watch_lists_path), method: :delete, data: { confirm: 'Merkliste wirklich verlassen?' } do
+      i.fa.fa-times
+      = " Merkliste verlassen"

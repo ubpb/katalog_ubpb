@@ -1,0 +1,14 @@
+<li>
+  <%= link_to watch_list_path(@watch_list, format: :bib) do %>
+    <i class="fa fa-cloud-download"></i>
+    Nach BibTeX exportieren
+  <% end %>
+  <%= link_to watch_list_path(@watch_list, format: :bib) do %>
+    <i class="fa fa-cloud-download"></i>
+    Nach Citavi exportieren
+  <% end %>
+  <%= link_to watch_list_path(@watch_list, format: :email) do %>
+    <i class="fa fa-envelope"></i>
+    Per E-Mail versenden
+  <% end %>
+</li>

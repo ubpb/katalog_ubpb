@@ -1,0 +1,21 @@
+= form_tag user_watch_list_path(watch_list), method: :delete, data: { confirm: t(".delete_entries_confirmation") } do
+  table.table.table-striped
+    tbody
+      - entries.each do |_entry|
+        tr
+          td.no-stretch.select-mode-control.hidden
+            input(type="checkbox" name="ids[#{_entry.id}]")
+
+          /td = render_relative "./entry", watch_list: _watch_list
+          td = _entry.id
+
+    tfoot
+      tr.select-mode-control.hidden
+        td
+          input(type="checkbox" onclick="#{javascript_event_handler(:toggle_select_all)}")
+
+        td
+          button.btn.btn-danger(type="submit") = t(".delete_entries")
+          = "&nbsp;".html_safe
+          a.btn.btn-default(href="#" onclick="#{javascript_event_handler(:toggle_select_mode)}")
+            = t(".cancel")

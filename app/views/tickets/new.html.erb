@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="span12">
+    <div class="panel padded">
+      <div class="row">
+        <div class="span6">
+          <%= panel_header 'Hilfe' %>
+          <%= render 'help_contact' %>
+        </div>
+        <div class="span6">
+          <%= panel_header 'Feedback' %>
+
+          <h4>
+            Sie haben einen Verbesserungsvorschlag, eine Anregung oder Kritik? Wir freuen uns auf Ihr Feedback.
+          </h4>
+
+          <%= simple_form_for @ticket do |f| %>
+            <%= f.input :email, label: 'Ihre E-Mail', input_html: {class: 'span4'} %>
+            <%= f.input :subject, label: 'Betreff', input_html: {class: 'span4'}  %>
+            <%= f.input :message, label: 'Nachricht', as: :text, input_html: {class: 'span4', rows: '8'}  %>
+
+            <div class="form-actions">
+              <button class="btn btn-primary btn-large" name="commit" type="submit">Feedback senden</button>
+              <%= link_to 'Abbrechen', root_url, class: 'btn btn-large' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

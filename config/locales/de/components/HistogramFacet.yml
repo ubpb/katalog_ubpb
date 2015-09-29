@@ -1,0 +1,5 @@
+de:
+  components:
+    HistogramFacet:
+      to: bis
+      update_search_result: Suchergebnis aktualisieren

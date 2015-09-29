@@ -1,0 +1,19 @@
+table.tablesorter {
+  .tablesorter-header:hover {
+    cursor: pointer;
+  }
+
+  .tablesorter-headerAsc {
+    .tablesorter-header-inner:after {
+      font-family: FontAwesome;
+      content: " \f0d8";
+    }
+  }
+
+  .tablesorter-headerDesc {
+    .tablesorter-header-inner:after {
+      font-family: FontAwesome;
+      content: " \f0d7"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+de:
+  activemodel:
+    errors:
+      messages:
+        distinctness: "muss sich unterscheiden"
+        must_be_correct: "muss korrekt sein"

@@ -1,0 +1,72 @@
+- content_for("layout.body.content") do
+  .container: .cat-layout-user: .row
+    / the col order has to be "reverse" because bootstrap is mobile first
+    / http://stackoverflow.com/questions/18057270/column-order-manipulation-using-col-lg-push-and-col-lg-pull-in-twitter-bootstrap
+    .col-md-3.col-md-push-9
+      nav.navbar.navbar-sidebar(role="navigation")
+        .navbar-header
+          button.btn.btn-default.navbar-toggle(type="button" data-toggle="collapse" data-target="#sidebar-actions")
+            i.fa.fa-bars
+
+        .collapse.navbar-collapse#sidebar-actions
+          .cat-nav-header
+            span = t(".actions")
+          ul.nav.nav-pills.nav-stacked
+            li = link_to edit_user_password_path do
+              i.fa.fa-lock>
+              span = t(".change_password")
+            li = link_to edit_user_email_address_path do
+              i.fa.fa-envelope>
+              span = t(".change_email_address")
+
+          .cat-nav-header
+            span = t(".functions")
+
+          ul.nav.nav-pills.nav-stacked
+            li = link_to user_fees_path do
+              i.fa.fa-money>
+              span => t(".fees")
+              - if current_user.cash_balance < 0
+                .label.label-info = number_to_currency(current_user.cash_balance)
+
+            li = link_to user_loans_path do
+              i.fa.fa-book>
+              span => t(".loans")
+              - if current_user.number_of_loans > 0
+                .label.label-info = current_user.number_of_loans
+
+            li = link_to user_hold_requests_path do
+              i.fa.fa-heart>
+              span => t(".hold_requests")
+              - if current_user.number_of_hold_requests > 0
+                .label.label-info = current_user.number_of_hold_requests
+
+            li = link_to user_former_loans_path do
+              i.fa.fa-clock-o>
+              span = t(".former_loans")
+
+            li = link_to user_inter_library_loans_path do
+              i.fa.fa-shopping-cart>
+              span = t(".inter_library_loans")
+
+            li: a(href="#")
+              i.fa.fa-calendar>
+              span = t(".calender")
+
+            li = link_to user_watch_lists_path do
+              i.fa.fa-list-alt>
+              span = t(".watch_lists")
+
+    .col-md-9.col-md-pull-3
+      - if content_for(:body)
+        = yield(:body)
+      - else
+        .panel.panel-default.panel-user
+          .panel-heading
+            = yield(:panel_heading)
+          .panel-body
+            = yield
+          - if content_for(:panel_footer)
+            = yield(:panel_footer)
+
+= render template: "layouts/application"

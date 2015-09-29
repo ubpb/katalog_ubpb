@@ -1,0 +1,41 @@
+- content_for(:panel_heading) do
+  div
+    span = t("actions.users.loans#index")
+    .dropdown
+      button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown")
+        i.fa.fa-cog>
+        span.caret
+
+      ul.dropdown-menu.dropdown-menu-right
+        li = link_to renew_all_user_loans_path, method: :post do
+          i.fa.fa-retweet>
+          = t(".renew_all")
+
+- if @loans.present?
+  = responsive_table do
+    table.table.table-striped(data-setup="jquery-tablesorter" data-sortlist="[[1,1]]")
+      thead
+        tr
+          th = t(".item.title")
+          th.text-center = t(".loan_date")
+          th.text-center = t(".due_date")
+
+      tbody
+        - @loans.each do |_loan|
+          tr
+            td: ul
+              li
+                - if _loan.item.record.id.present? && current_scope
+                  = link_to _loan.item.title, record_path(_loan.item.record.id, scope: current_scope)
+                - else
+                  = _loan.item.title
+
+              li = _loan.item.signature
+
+            td.text-center = l(_loan.loan_date)
+            td.text-center = l(_loan.due_date)
+            td.no-stretch
+              - if _loan.renewable?
+                = link_to renew_user_loan_path(_loan.id), method: :post, class: "btn btn-default btn-sm pull-right" do
+                  i.fa.fa-retweet>
+                  = t(".renew")

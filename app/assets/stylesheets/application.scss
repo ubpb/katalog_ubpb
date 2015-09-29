@@ -1,6 +1,38 @@
-$body-bg: #efefef;
-$breadcrumb-bg: lighten($body-bg, 5%);
+$bootstrap-loaded: false;
+@import "./bootstrap/**/*";
+@import "bootstrap-sprockets";
+@import "bootstrap";
 
-@import "katalog/application";
+$bootstrap-loaded: true;
+@import "./bootstrap/**/*";
 
-@import "breadcrumbs";
+/*** order should not matter from here on ***/
+
+/*
+ * vendor assets
+ */
+@import "bootstrap-switch";
+@import "bootstrap-tour";
+@import "font-awesome";
+@import "jquery-ui/core";
+@import "jquery-ui/theme";
+@import "jquery-ui/slider";
+
+/*
+ * local css and overrides
+ */
+@import "./app/**/*";
+@import "./jquery-tablesorter/**/*";
+
+// fix jquery-sparkline broken css with bs3
+// http://stackoverflow.com/questions/18894820/jquery-sparklines-and-twitter-bootstrap-3-tooltip-style-overrides
+.jqstooltip {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+html.turbolinks-progress-bar::before {
+  background-color: $brand-primary !important;
+  height: 3px !important;
+}

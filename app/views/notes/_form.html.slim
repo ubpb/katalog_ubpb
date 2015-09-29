@@ -1,0 +1,12 @@
+.row
+  .span8.offset2
+    .panel
+      = panel_header t(controller.controller_name + '#' + controller.action_name)
+
+      = simple_form_for @note, html: {class: 'form-horizontal'} do |f|
+        = f.hidden_field :resourceid, :value => @note.resourceid
+        = f.input :value, label: 'Notiz', input_html: { style: 'width: auto;', cols: 60, rows: 5 }
+        .form-actions
+          button.btn.btn-primary type="submit" name="commit" class="btn btn-primary"
+            | Speichern
+          = link_to 'Abbrechen', second_last_breadcrumb_url, class: 'btn'

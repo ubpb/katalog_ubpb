@@ -1,0 +1,22 @@
+.row: .col-sm-12
+  = render "application/search_bar",
+    scope: @scope,
+    search_request: @search_request
+
+.row: .col-sm-12: .search-results: .panel.panel-default: .panel-body
+  - if @search_request["query"].present?
+    - if @hits.present?
+      = render_relative "./show/search_result",
+        facets: @facets,\
+        hits: @hits,\
+        scope: @scope,\
+        search_request: @search_request,\
+        total_number_of_hits: @total_number_of_hits
+
+    - elsif @hits.is_a?(Array) && @hits.empty?
+      = default_content_for("searches.show.no_results")
+        .alert.alert-info.alert-no-records-found
+          = t(".no_records_found")
+  - else
+    = default_content_for("searches.show.search_hints")
+      h3(style="text-align: center; margin:0") Place your search hints content here...

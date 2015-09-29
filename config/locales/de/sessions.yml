@@ -1,0 +1,15 @@
+de:
+  sessions:
+    create:
+      error: Die Anmeldung konnte aufgrund eines Fehlers nicht durchgeführt werden.
+      failed: Authentifizierung fehlgeschlagen. Bitte überprüfen Sie Ihre Eingabedaten.
+    new:
+      cancel: ~> application.form.cancel
+      login: Anmelden
+      password: Passwort
+      password_hint: ""
+      password_placeholder: Passwort
+      submit: Anmelden
+      username: Benutzername
+      username_hint: ""
+      username_placeholder: Ausweisnummer

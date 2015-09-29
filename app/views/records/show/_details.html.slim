@@ -1,0 +1,65 @@
+.row
+  .col-sm-10#properties-table
+    = render_relative "./properties_table",
+      properties: [\
+        :creator,\
+        :title,\
+        :is_part_of,\
+        :edition,\
+        :place_of_publication,\
+        :publisher,\
+        :created,\
+        :accrual_policy,\
+        :relation\
+      ],
+      record: record,
+      scope: scope
+
+  .col-sm-2(data-same-height-as="#properties-table")
+    = ractive_component "skala.components.Image",
+      placeholder: "<i class='fa fa-book' style='font-size: 128px; color: lightgrey;' />",
+      src: record.image.try(:find) { |_image| _image["type"] == "large" }.try(:[], "url")
+
+.row(style="margin-bottom: 18px;")
+  .col-sm-12
+    = ractive_component "skala.components.Note",
+      note: @notes.try(:find) { |_note| \
+        _note.record_id == record.id\
+      },\
+      record: { id: record.id },
+      translations: I18n.config.backend.send(:translations)[current_locale][:components][:Note]
+
+    = ractive_component "skala.components.WatchLists",
+      record: { id: record.id },
+      user_watch_list_path: user_watch_list_path(":id"),
+      watch_lists: @watch_lists.try(:map) { |_watch_list| \
+        _watch_list.slice(:id, :name).merge( \
+          "entries" => _watch_list.entries.map { |_entry| \
+            _entry.slice(:id, :record_id) \
+          } \
+        ) \
+      }
+
+.row
+  .col-sm-6
+    = render_relative "./properties_table",
+      properties: [\
+        { :format      => { placeholder: "---"} },\
+        { :language    => { placeholder: "---"} },\
+        :isbn,\
+        :issn,\
+        { :description => { placeholder: "---"} }\
+      ],
+      record: record,
+      scope: scope
+
+  .col-sm-6
+    = render_relative "./properties_table",
+      properties: [\
+        { :has_toc        => { placeholder: "---"} },\
+        { :subject        => { placeholder: "---"} },\
+        { :classification => { placeholder: "---"} },\
+        { :signature      => { placeholder: "---"} }\
+      ],\
+      record: record,
+      scope: scope

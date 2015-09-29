@@ -1,0 +1,26 @@
+- content_for(:panel_heading) do
+  div
+    span = t("layouts.user.inter_library_loans")
+
+- if @inter_library_loans.present?
+  = responsive_table do
+    table.table.table-striped
+      thead
+        tr
+          th = t(".title")
+          th = t(".doc_number")
+          th = t(".update_date")
+          th = t(".status")
+          th = t(".pickup_location")
+
+      tbody
+        - @inter_library_loans.each do |ill|
+          tr
+            td: ul
+              li.title = ill.title
+              li.year = ill.year
+
+            td = ill.doc_number
+            td = l(ill.update_date)
+            td = ill.status
+            td = ill.pickup_location

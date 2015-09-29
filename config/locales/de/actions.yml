@@ -1,0 +1,19 @@
+de:
+  actions:
+    homepage#show: Katalog
+    records#show: Details
+    searches#show: Suchergebnis
+    users#edit: Benutzerdaten ändern
+    users#show: Mein Bibliothekskonto
+
+    users:
+      fees#index: Gebühren
+      email_addresses#edit: Emailadresse ändern
+      former_loans#index: Ausleihhistorie
+      hold_requests#index: Vormerkungen
+      inter_library_loans#index: Fernleihen
+      loans#index: Ausgeliehene Medien
+      passwords#edit: Passwort ändern
+      watch_lists#index: Merklisten
+      watch_lists#new: Merkliste anlegen
+      watch_lists#show: Merkliste

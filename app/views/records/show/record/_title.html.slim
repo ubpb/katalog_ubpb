@@ -1,0 +1,4 @@
+div(class="#{property}")
+  ul
+    - values.each do |_title|
+      li = link_to _title, record_path(record.id, scope: scope)

@@ -1,0 +1,43 @@
+- content_for(:panel_heading) do
+  span = t("actions.users.fees#index")
+  - if @fees.balance
+    span.label.label-info.hidden-lg.hidden-md.hidden-sm.pull-right
+      = number_to_currency(@fees.balance)
+
+- if @fees.present?
+  = responsive_table do
+    table.table.table-striped(data-setup="jquery-tablesorter" data-sortlist="[[0,1]]")
+      thead
+        tr
+          th = t(".creation_time")
+          th = t(".title")
+          th.text-right = t(".balance")
+
+      tbody
+        - @fees.each do |_fee|
+          tr
+            td
+              - if _fee.creation_time.present?
+                = l(_fee.creation_time)
+              - elsif _fee.unentered?
+                = t(".unentered")
+
+            td: ul
+              li
+                - if _fee.item.record.id.present? && current_scope
+                  = link_to _fee.item.title, record_path(_fee.item.record.id, scope: current_scope)
+                - else
+                  = _fee.item.title
+              li = _fee.item.signature
+              li = _fee.title
+
+            td.text-right = number_to_currency(_fee.balance)
+
+      tfoot
+        tr
+          td
+          td
+          td.text-right: span.cat-double-underlined = number_to_currency(@fees.balance)
+
+- else
+  .alert.alert-info.cat-no-bottom-margin = t(".no_fees_present")

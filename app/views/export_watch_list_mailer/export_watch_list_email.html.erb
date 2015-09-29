@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= message.subject %></title>
+  <link rel="stylesheet" type="text/css" href="email.css">
+</head>
+<body>
+  <table border="0" cellspacing="0" cellpadding="0" width="576">
+    <tr>
+      <td width="20" height="20"></td>
+      <td width="536"></td>
+      <td width="20"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <h2 class="user-greeting">Hallo <%= "#{@user.firstname} #{@user.lastname}" %>!</h2>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <p>Hiermit übersenden wir Ihnen die angeforderte Merkliste.</p>
+      </td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <h2 class="watch-list-name"><%= @watch_list.name %></h2>
+      </td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tbody>
+            <% @records.each do |record| %>
+              <tr>
+                <td>
+                <%= link_to records_url(record.id) do %>
+                  <li><%= if record.signature.present? then record.signature + ' - ' end %><%= record.title %> <%= '[' + record.model.authors.join(', ') + ']' %> (<%= record.model.creationdate_search %>)</li>
+                <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><p></p></td>
+      <td></td>
+    <tr>
+      <td></td>
+      <td>
+        <p>Mit freundlichen Grüßen</p>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <%= link_to root_url do %>
+          <%= image_tag 'ublogo.png', alt: "Universitätsbibliothek Paderborn" %>
+        <% end %>
+      </td>
+      <td></td>
+    </tr>
+  </table>
+</body>
+</html>

@@ -1,0 +1,5 @@
+ol.breadcrumb.cat-breadcrumb-default
+  li = link_to "Universitätsbibliothek", "http://www.ub.uni-paderborn.de/"
+  li = link_to "Recherchieren", "http://www.ub.uni-paderborn.de/recherchieren"
+  - breadcrumbs.each do |_breadcrumb|
+    li = link_to t("actions.#{_breadcrumb[:name]}"), _breadcrumb[:url]

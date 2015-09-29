@@ -1,0 +1,5 @@
+= link_to user_watch_list_path(watch_list) do
+  span = watch_list.name
+  - if watch_list.description.present?
+    span = " - "
+    span(style="font-style: italic;") = watch_list.description

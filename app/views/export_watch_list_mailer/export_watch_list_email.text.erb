@@ -1,0 +1,15 @@
+Hallo <%= "#{@user.firstname} #{@user.lastname}" %>!
+
+Hiermit übersenden wir Ihnen die angeforderte Merkliste.
+
+<% if @records.present? %>
+<%= @watch_list.name %>
+
+  <% @records.each do |record| %>
+* <%= if record.signature.present? then record.signature + ' - ' end %><%= record.title %> <%= '[' + record.model.authors.join(', ') + ']' %> (<%= record.model.creationdate_search %>) (<%= records_url(record.id) %>)
+  <% end %>
+<% end %>
+
+Mit freundlichen Grüßen
+
+Universitätsbibliothek Paderborn

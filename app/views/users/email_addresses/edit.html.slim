@@ -1,0 +1,16 @@
+- content_for(:body) do
+  .row
+    .col-sm-12
+      = simple_form_for @update_user_email_address, as: :update_user_email_address, url: user_email_address_path, method: :patch do |f|
+        .panel.panel-default
+          .panel-heading
+            h3 = t(".change_email_address")
+
+          .panel-body
+            = f.input :new_email_address, input_html: { value: f.object.current_email_address }, label: t(".email_address")
+
+          .panel-footer
+            .form-group
+              .col-sm-offset-4.col-sm-8
+                => f.submit t(".submit"), class: "btn btn-lg btn-primary"
+                = link_to t(".cancel"), user_path, class: "btn btn-lg btn-default"

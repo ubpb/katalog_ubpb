@@ -1,0 +1,91 @@
+#main-menu, #breadcrumbs-container, #searchbar, .facets,
+#header, #footer, #nav,
+.search-result-actions, .visible-phone, .btn, .btn-group, .accordion, .nav,
+.nav-list, .pagination, .show-all-volumes, .record-thumbnail
+{
+  display: none;
+}
+
+a {
+  text-decoration:none;
+  color: black;
+}
+
+a:visited {
+  color: black;
+}
+
+table {
+  page-break-inside: auto;
+  border-collapse: collapse;
+}
+
+tr {
+  border: 1px solid black;
+}
+
+td.search-result-bibdata {
+  border: 1px solid black;
+}
+
+td {
+  page-break-inside: avoid;
+  page-break-after: auto;
+}
+
+#search-results tr.search-result td.search-result-thumbnail .versions-tag {
+  position: absolute;
+}
+
+/*
+.panel {
+  @include border-radius(0);
+}
+*/
+
+.record-details {
+  .action {
+    display: none;
+  }
+
+  table {
+    width: 100%;
+    thead th {
+      border-style: solid;
+      border-width: 1px;
+    }
+
+    tbody td {
+      border-style: solid;
+      border-width: 1px;
+    }
+
+    ul {
+      padding: 0px;
+      margin: 0px;
+      list-style: none;
+    }
+
+  }
+
+  .hold-requests, table.items-list {
+    margin-top: 12px;
+  }
+
+  #tab1-1 {
+    display: none;
+  }
+}
+
+// make superorder informations look nice on printers (some styling as on the desktop)
+tr.record td.record-bibdata .is_part_of ul {
+  margin: 0;
+  padding: 0;
+
+  li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-style: italic;
+  }
+}

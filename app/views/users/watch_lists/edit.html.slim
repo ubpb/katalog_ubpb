@@ -1,0 +1,14 @@
+- content_for(:body) do
+  = simple_form_for @watch_list_edit, url: user_watch_list_path(@watch_list_edit.watch_list), method: :patch do |f|
+    .panel.panel-default
+      .panel-heading: span = t(".edit")
+      .panel-body
+        = f.input :new_label, input_html: { value: @watch_list_edit.current_label }
+        = f.input :new_description, input_html: { value: @watch_list_edit.current_description }
+
+      .panel-footer
+        .form-group
+          .col-sm-offset-4.col-sm-8
+            button.btn.btn-lg.btn-primary(type="submit") = t(".submit") 
+            = "&nbsp;".html_safe
+            = link_to t(".abort"), user_watch_list_path(@watch_list_edit.watch_list), class: "btn btn-lg btn-default"

@@ -1,0 +1,12 @@
+de:
+  components:
+    RecordActions:
+      actions: Aktionen
+      add_note: Notiz hinzufügen
+      create_watch_list: Neue Merkliste erstellen
+      destroy_note_confirmation: Möchten Sie diese Notiz wirklich löschen?
+      edit_note: Notiz bearbeiten
+      export: Exportieren
+      export_to_bibtex: Nach BibTeX exportieren
+      export_to_json: Nach JSON exportieren
+      my_watch_lists: Meine Merklisten

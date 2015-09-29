@@ -1,0 +1,9 @@
+de:
+  users:
+    inter_library_loans:
+      index:
+        doc_number: Bestellnummer
+        pickup_location: Abholort
+        status: Status
+        title: Titel
+        update_date: Änderungsdatum

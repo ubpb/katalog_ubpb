@@ -1,0 +1,21 @@
+/ The facets container is a derivat of bootstraps navbar. This way, we get the
+/ "collapsing" on small screens for free, without the need for much own code.
+nav.navbar.navbar-sidebar
+  .navbar-header
+    button.btn.btn-default.navbar-toggle(data-toggle="collapse" data-target="##{facets_id = random_id("facets-")}")
+      i.fa.fa-bars
+
+  / the actual facets
+  .collapse.navbar-collapse(id="#{facets_id}")
+    - facets.each do |facet|
+      - if facet.is_a?(Skala::Search::Result::TermsFacet) && facet.terms.count > 0
+        = ractive_component "TermsFacet",
+          facet: facet,
+          search_request: search_request,
+          searches_path: searches_path(scope: scope)
+
+      - elsif facet.is_a?(Skala::Search::Result::HistogramFacet)
+        = ractive_component "HistogramFacet",
+          facet: facet,
+          search_request: search_request,
+          searches_path: searches_path(scope: scope)

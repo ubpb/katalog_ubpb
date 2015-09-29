@@ -1,0 +1,25 @@
+de:
+  searches:
+    show:
+      no_records_found: "Es wurden leider keine Ergebnisse gefunden. Bitte versuchen Sie es mit einer anderen Suchanfrage."
+
+      facets:
+        histogram_facet:
+          to: bis
+          update_search_result: Suchergebnis aktualisieren
+
+      hit:
+        accrual_policy: ~> models.document.accrual_policy
+        actions: Aktionen
+        add_note: Notiz hinzufügen
+        export: Export
+        export_to_bibtex: Nach BibTeX
+        my_watch_lists: Meine Merklisten
+
+        is_part_of:
+          all_parts: alle Bände
+
+      hit_list:
+        total_number_of_hits:
+          one: Ergebnis
+          other: Ergebnisse

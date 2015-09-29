@@ -1,0 +1,11 @@
+/*
+ * In searches#show the sort dropdown might outstand to the right if the value
+ * is to long. Using pull-right aligns it right but removes the element from
+ * it's "normal" flow, meaning that it moves some pixels up.
+ */
+.cat-hit-list-header {
+  .cat-sort-field-select + .bootstrap-simple-select {
+    @extend .pull-right;
+    margin-top: 2px;
+  }
+}

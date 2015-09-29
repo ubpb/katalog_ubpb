@@ -1,0 +1,35 @@
+.search-bar {
+  .row.query-string-query {
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .nav.nav-tabs {
+    margin-left: 15px;
+    border-bottom: none;
+
+    > li > a:hover {
+      background-color: inherit;
+      text-decoration: underline;
+    }
+
+    > li.active > a {
+      background-color: $panel-bg;
+    }
+
+    > li.active > a:hover {
+      background-color: $panel-bg;
+      text-decoration: none;
+    }
+  }
+
+  // make the index field dropdown rougly the same (min) size
+  .query ~ .input-group-btn {
+    .btn-group button {
+      min-width: 150px;
+    }
+  }
+}

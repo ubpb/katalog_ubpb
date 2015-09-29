@@ -1,0 +1,23 @@
+de:
+  models:
+    document:
+      accrual_policy: Aufnahmerichtlinie(n)
+      bibliographic_citation: Erschienen in
+      classification: Systemstelle(n)
+      created: Erscheinungsjahr
+      creator: Autor(en)
+      description: Beschreibung(en)
+      edition: Auflage
+      format: Format
+      has_toc: Inhaltsverzeichnis(se)
+      identifier: Identifikator(en)
+      isbn: ISBN
+      issn: ISSN
+      is_part_of: Teil von
+      language: Sprache(n)
+      place_of_publication: Erscheinungsort
+      publisher: Verlag
+      relation: Verknüpfte Titel
+      signature: Signatur(en)
+      subject: Schlagwörter
+      title: Titel

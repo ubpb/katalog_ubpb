@@ -1,0 +1,35 @@
+| {{#facet}}
+.facet
+  .cat-nav-header
+    | {{name}}
+
+  ul.nav.nav-pills.nav-stacked
+    | {{#terms:index}}
+    | {{#if !is_collapsed || index < collapse_threshold}}
+    Term
+      li.term
+        | {{#if selected_by_search_request}}
+        a(href="{{deselect_term_path}}")
+          .fa.fa-times>
+          .label.label-info
+            = "{{term}}{{#if count}} ({{count}}){{/if}}"
+
+        | {{else}}
+        a(href="{{select_term_path}}")
+          = "{{term}}{{#if count}} ({{count}}){{/if}}"
+
+        | {{/if}}
+    | {{/if}}
+    | {{/terms}}
+
+    | {{#if can_be_collapsed && is_collapsed}}
+    a(href="#" on-click="Decollapse")
+      = t("app.components.TermsFacet.expand_terms_facet", additional_terms: "{{facet.terms.length - collapse_threshold}}")
+    | {{/if}}
+
+    | {{#if can_be_collapsed && !is_collapsed}}
+    a(href="#" on-click="Collapse")
+      = t("app.components.TermsFacet.collapse_terms_facet", terms_to_hide: "{{facet.terms.length - collapse_threshold}}")
+    | {{/if}}
+
+| {{/facet}}

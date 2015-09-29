@@ -1,0 +1,69 @@
+- content_for(:body) do
+
+- content_for(:panel_heading) do
+  div
+    span = t("actions.users.hold_requests#index")
+    .dropdown
+      button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown")
+        i.fa.fa-cog>
+        span.caret
+
+      ul.dropdown-menu.dropdown-menu-right
+        li(class="#{@hold_requests.any?(&:deleteable?) ? '' : 'disabled'}")
+          a(href="#" onclick="#{@hold_requests.any?(&:deleteable?) ? javascript_event_handler(:toggle_select_mode)  : ''}")
+            i.fa.fa-times>
+            = t(".delete_hold_requests")
+
+- if @hold_requests.present?
+  = form_tag user_hold_requests_path, method: :delete, data: { confirm: t(".delete_hold_requests_confirmation") } do |_form|
+    = responsive_table do
+      table.table.table-striped(data-setup="jquery-tablesorter" data-sortlist="[[1,0]]")
+        thead
+          tr
+            - if @hold_requests.any?(&:deleteable?)
+              th.select-mode-control.hidden
+
+            th = t(".title")
+            th.text-center = t(".request_date")
+            th.text-center = t(".status")
+
+        tbody
+          - @hold_requests.each do |_hold_request|
+            tr
+              td.no-stretch.select-mode-control.hidden
+                - if _hold_request.deleteable?
+                  input(type="checkbox" name="ids[#{_hold_request.id}]")
+
+              td: ul
+                li
+                  - if _hold_request.item.record.id.present? && current_scope
+                    = link_to _hold_request.item.title, record_path(_hold_request.item.record.id, scope: current_scope)
+                  - else
+                    = _hold_request.item.title
+
+                li.signature = _hold_request.item.signature
+
+              td.text-center = l(_hold_request.request_date)
+              td.text-center
+                - if _hold_request.place_in_queue
+                  ul
+                    li = t(".queued")
+                    li = "(" + t(".place_in_queue", place_in_queue: _hold_request.place_in_queue) + ")"
+                - elsif _hold_request.due_date
+                  = t(".on_hold_until", due_date: l(_hold_request.due_date))
+                - elsif _hold_request.request_status  == :in_process
+                  = t(".in_process")
+
+        tfoot
+          tr.select-mode-control.hidden
+            td
+              input(type="checkbox" onclick="#{javascript_event_handler(:toggle_select_all)}")
+
+            td
+              button.btn.btn-danger(type="submit") = t(".delete_hold_requests")
+              = "&nbsp;".html_safe
+              a.btn.btn-default(href="#" onclick="#{javascript_event_handler(:toggle_select_mode)}")
+                = t(".cancel")
+
+- else
+  .alert.alert-info.cat-no-bottom-margin = t(".no_hold_requests_present")

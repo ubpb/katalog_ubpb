@@ -1,0 +1,16 @@
+de:
+  users:
+    hold_requests:
+      index:
+        cancel: ~> application.form.cancel
+        delete: Vormerkung löschen
+        delete_hold_requests: Vormerkungen löschen
+        delete_hold_requests_confirmation: Wollen Sie diese Vormerkungen wirklich löschen?
+        in_process: In Bearbeitung
+        no_hold_requests_present: Sie haben momentan keine Titel vorgemerkt.
+        on_hold_until: Bereitgestellt bis %{due_date}
+        place_in_queue: Position %{place_in_queue} in Warteschlange
+        queued: Vorgemerkt
+        status: Status
+        request_date: Vorgemerkt am
+        title: Titel

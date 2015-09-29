@@ -1,0 +1,52 @@
+.cat-hit-list
+  .row.cat-hit-list-header
+    .col-sm-3.cat-total-number-of-hits
+      = "#{total_number_of_hits} #{t(".total_number_of_hits", count: total_number_of_hits)}"
+
+    .col-sm-6.text-center
+      - if total_number_of_hits > search_request["size"]
+        .visible-xs = render "searches/show/pagination",
+          pager_size: 5,
+          scope: scope,
+          search_request: search_request,
+          total_number_of_hits: total_number_of_hits
+
+        .hidden-xs = render "searches/show/pagination",
+          pager_size: 7,
+          scope: scope,
+          search_request: search_request,
+          total_number_of_hits: total_number_of_hits
+
+    .col-sm-3.text-right
+      = ractive_component "SortFieldSelect",
+        search_request: search_request,
+        searches_path: searches_path(scope: scope),
+        sort_fields: (scope.sortable_fields.map do |sortable_field|\
+          [sortable_field, scope.search_engine_adapter.instance.translate("field_names.#{sortable_field}", locale: current_locale)]\
+        end)
+
+  / render partial with collection is used for performance instead of "each do"
+  .row.cat-hit-list-body: .col-sm-12: table.table: tbody
+    = render partial: "searches/show/hit",\
+      collection: hits,\
+      as: :hit,\
+      locals: {\
+        hits: hits,\
+        scope: scope,\
+        search_request: search_request,\
+        total_number_of_hits: total_number_of_hits\
+      }
+
+  .row: .col-sm-offset-3.col-sm-6.text-center
+    - if total_number_of_hits > search_request["size"]
+      .visible-xs = render "searches/show/pagination",
+        pager_size: 5,
+        scope: scope,
+        search_request: search_request,
+        total_number_of_hits: total_number_of_hits
+
+      .hidden-xs = render "searches/show/pagination",
+        pager_size: 7,
+        scope: scope,
+        search_request: search_request,
+        total_number_of_hits: total_number_of_hits

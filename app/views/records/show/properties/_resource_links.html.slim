@@ -1,0 +1,11 @@
+ul
+  - resource_links.each do |resource_link|
+    li(style="margin-bottom: 4px;")
+      - label = resource_link.values.first[:label]
+      - url   = resource_link.values.first[:url]
+      
+      = link_to(url, target: "_blank") do
+        - if url[/sfx\.hbz\-nrw\.de/]
+          = image_tag("sfx-btn.gif")
+        - else
+          = (label || url).html_safe

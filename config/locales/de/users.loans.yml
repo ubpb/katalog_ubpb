@@ -1,0 +1,10 @@
+de:
+  users:
+    loans:
+      index:
+        due_date: Rückgabe bis
+        loan_date: Ausgeliehen am
+        renew: Verlängern
+        renew_all: Alle verlängern
+        signature: Signatur
+        title: Titel

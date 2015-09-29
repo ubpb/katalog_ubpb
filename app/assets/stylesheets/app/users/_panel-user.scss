@@ -1,0 +1,22 @@
+.panel-user {
+  .panel-heading {
+    font-size: $font-size-base * 1.8;
+
+    // make the global actions button move "over" the panel-heading on small devices
+    > div {
+      position: relative;
+
+      .dropdown {
+        display: inline-block;
+        position: absolute;
+        right: 0px;
+      }
+    }
+  }
+
+  .panel-body {
+    .alert {
+      margin-bottom: 0;
+    }
+  }
+}

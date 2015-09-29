@@ -5,13 +5,32 @@ gem "rails", "= 4.2.4"
 gem "skala-adapter", path: "../skala/adapter"
 gem "skala-aleph_adapter", path: "../skala/adapter-aleph"
 gem "skala-elasticsearch_adapter", path: "../skala/adapter-elasticsearch"
-gem "skala-frontend", path: "../skala/frontend"
+gem "skala-core", path: "../skala/core"
 
 gem "sqlite3", "~> 1.3.9"
 
 gem "aleph_api", github: "ubpb/aleph_api",    branch: :master
-gem "servizio",  github: "msievers/servizio", branch: :master
 gem "weak_xml",  github: "msievers/weak_xml", branch: :master
+
+gem "cancancan",             "~> 1.12.0"
+gem "bootstrap-sass",        "~> 3.3.4"
+gem "browser",               "~> 0.8.0"
+gem "coffee-rails",          "~> 4.1.0"
+gem "font-awesome-rails",    "~> 4.3.0.0"
+gem "jbuilder",              "~> 2.2.2"
+gem "jquery-rails",          "~> 4.0.3"
+gem "jquery-turbolinks",     "~> 2.1.0"
+gem "jquery-ui-rails",       "~> 5.0.3"
+gem "rails-html-sanitizer",  "~> 1.0.1"
+gem "roadie-rails",          "~> 1.0.2"
+gem "sass-rails",            "~> 5.0.1"
+gem "simple_form",           "~> 3.1.0"
+gem "slim",                  "~> 3.0.1"
+gem "turbolinks",            "~> 2.5.2"
+gem "uglifier",              "~> 2.5.3"
+gem "uservoice-ruby",        "~> 0.0.11"
+gem "jquery-tablesorter",    "~> 1.12.8"
+gem "autoprefixer-rails",    "~> 6.0.3"
 
 #
 # rails-assets.org

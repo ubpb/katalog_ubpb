@@ -1,0 +1,67 @@
+.row: .record(data-identifier="#{@record.identifier.to_json}"): .col-sm-12
+  .panel.panel-default
+    - if @search_request.present?
+      .panel-heading: .row
+        .col-xs-6.text-left
+          = link_to searches_path(search_request: @search_request, scope: @scope), class: "btn btn-success", :"data-use-history-back-if-possible" => true do
+            = "&laquo; Zur Ergebnisliste".html_safe
+
+        .col-xs-6.text-right
+          span(style="margin-right: 6px;")
+            ' Ergebnis
+            span#current-result-count
+              => @position_within_search
+            ' von
+            span#total-result-count
+              = @total_number_of_records
+
+          .btn-group
+            - if @predecessors.present? || @search_request["from"] > 0
+              = link_to_predecessor @record, @search_request, @scope, @predecessors, @successors, @total_number_of_records, class: 'btn btn-default' do
+                i.fa.fa-chevron-left
+            - else
+              button.btn.btn-default disabled="disabled"
+                i.fa.fa-chevron-left
+
+            - if @successors.present? || @search_request["from"] + @search_request["size"] < @total_number_of_records
+              = link_to_successor @record, @search_request, @scope, @predecessors, @successors, @total_number_of_records, class: 'btn btn-default' do
+                i.fa.fa-chevron-right
+            - else
+              button.btn.btn-default disabled="disabled"
+                i.fa.fa-chevron-right
+
+    .panel-body
+      ul.nav.nav-tabs(style="border-bottom: none;")
+        li.active
+          a(href="#record-details-tab" data-toggle="tab")
+            | Details
+
+        = ractive_component "skala.components.RecordActions",
+          api_v1_record_path: api_v1_record_path(":id"),
+          api_v1_user_notes_path: api_v1_user_notes_path(":user_id"),
+          api_v1_user_note_path: api_v1_user_note_path(":user_id", ":id"),
+          api_v1_user_watch_lists_path: api_v1_user_watch_lists_path(":user_id"),
+          api_v1_user_watch_list_entries_path: api_v1_user_watch_list_entries_path(":user_id", ":watch_list_id"),
+          api_v1_user_watch_list_entry_path: api_v1_user_watch_list_entry_path(":user_id", ":watch_list_id", ":id"),
+          class: "pull-right",
+          note: @notes.try(:find) { |_note| \
+            _note.record_id == @record.id\
+          },\
+          record: { id: @record.id },
+          scope: { id: @scope.id },
+          translations: I18n.config.backend.send(:translations)[current_locale][:components][:RecordActions],
+          user: current_user.try(:slice, :id),
+          watch_lists: @watch_lists.try(:map) { |_watch_list| \
+            _watch_list.slice(:id, :name).merge( \
+              "entries" => _watch_list.entries.map { |_entry| \
+                _entry.slice(:id, :record_id, :watch_list_id) \
+              } \
+            ) \
+          }
+
+      .tab-content
+        #record-details-tab.tab-pane.active
+          = render_relative "./show/details", notes: @notes, record: @record, scope: @scope, watch_lists: @watch_lists
+
+          - if @items.present?
+            = render_relative "./show/items", ils_adapter: @ils_adapter, record_items: @items

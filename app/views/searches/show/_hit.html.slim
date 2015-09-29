@@ -1,0 +1,105 @@
+tr.hit(data-id="#{hit.id}")
+  td.hidden-xs(style="vertical-align: middle; text-align: center;")
+    = ractive_component "skala.components.Image",
+      placeholder: "<i class='fa fa-book' style='font-size: 44px; color: lightgrey;' />",
+      src: hit.image.try(:find) { |_image| _image["type"] == "tiny" }.try(:[], "url")
+
+  td
+    .title
+      - if defined?(hit_iteration)
+        / prededecessor and successor ids are needed for records#show to be able to
+        / navigate through the hit list without the need for reissuing the search
+        - predecessor_ids = hits.slice(0..(hit_iteration.index - 1)).map(&:id) if hit_iteration.index > 0
+        - successor_ids = hits.slice((hit_iteration.index + 1)..-1).map(&:id) if hit_iteration.index < hits.length
+
+      = link_to record_path hit.id,\
+        scope: hit.scope,\
+        search_request: defined?(search_request) ? search_request : nil,\
+        predecessors: defined?(predecessor_ids) ? predecessor_ids.to_json : nil,\
+        successors: defined?(successor_ids) ? successor_ids.to_json : nil,\
+        total_number_of_records: defined?(total_number_of_hits) ? total_number_of_hits.to_json : nil do
+        = hit.title.is_a?(Array) ? hit.title.join("; ") : hit.title
+
+    - if hit.is_part_of.present?
+      .is-part-of: ul
+        - hit.is_part_of.each do |_superorder|
+          li
+            - if (_identifier = _superorder["identifier"].try(:first)).present?
+              = link_to _superorder["title"].first, searches_path(\
+                  search_request: hit.scope.search_request_factory(identifier: _identifier),\
+                  scope: hit.scope\
+                )
+
+            - else
+              = _superorder["title"].first
+
+            - if _superorder["volume"].present?
+              = "; Bd. #{_superorder["volume"].first}"
+
+            - if (_identifier = _superorder["identifier"].try(:first)).present?
+              = link_to searches_path(\
+                  search_request: hit.scope.search_request_factory(is_part_of: _identifier),\
+                  scope: hit.scope\
+                ) do
+                =< "(#{t('.all_parts')})"
+
+    .aggregated-details
+      = hit.aggregate(:creator, :edition, :created)
+
+    - if hit.accrual_policy.present?
+      .accrual_policy: ul
+        - hit.accrual_policy.each do |_accrual_policy|
+          li = "#{t('.accrual_policy')}: #{_accrual_policy}"
+
+    = ractive_component "skala.components.AvailabilityIndicator",
+      api_v1_record_items_path: api_v1_record_items_path(":record_id"),
+      record: { id: hit.id },
+      scope: { id: hit.scope.id },
+      style: "margin-right: 4px"
+
+    - if hit.signature.present?
+      span.signature = hit.signature.first
+
+    = ractive_component "skala.components.Note",
+      note: @notes.try(:find) { |_note| \
+        _note.record_id == hit.id\
+      },\
+      record: { id: hit.id },
+      translations: I18n.config.backend.send(:translations)[current_locale][:components][:Note]
+
+    = ractive_component "skala.components.WatchLists",
+      record: { id: hit.id },
+      user_watch_list_path: user_watch_list_path(":id"),
+      watch_lists: @watch_lists.try(:as_json, \
+        only: [:id, :name], \
+        include: { \
+          entries: { \
+            only: [:id, :record_id, :watch_list_id] \
+          } \
+        } \
+      )
+
+  td
+    = ractive_component "skala.components.RecordActions",
+      api_v1_record_path: api_v1_record_path(":id"),
+      api_v1_user_notes_path: api_v1_user_notes_path(":user_id"),
+      api_v1_user_note_path: api_v1_user_note_path(":user_id", ":id"),
+      api_v1_user_watch_lists_path: api_v1_user_watch_lists_path(":user_id"),
+      api_v1_user_watch_list_entries_path: api_v1_user_watch_list_entries_path(":user_id", ":watch_list_id"),
+      api_v1_user_watch_list_entry_path: api_v1_user_watch_list_entry_path(":user_id", ":watch_list_id", ":id"),
+      class: "pull-right",
+      note: @notes.try(:find) { |_note| \
+        _note.record_id == hit.id\
+      },\
+      record: { id: hit.id },
+      scope: { id: hit.scope.id },
+      translations: I18n.config.backend.send(:translations)[current_locale][:components][:RecordActions],
+      user: current_user.try(:slice, :id),
+      watch_lists: @watch_lists.try(:as_json, \
+        only: [:id, :name], \
+        include: { \
+          entries: { \
+            only: [:id, :record_id] \
+          } \
+        } \
+      )

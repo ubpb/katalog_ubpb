@@ -1,11 +1,33 @@
-- content_for("layout.head.stylesheets") do
-  = stylesheet_link_tag "application"
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(name="robots"   content="noindex, nofollow")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    = csrf_meta_tags
 
-- content_for("layout.head.additions") do
-  = favicon_link_tag "touch-icon.png", rel: "apple-touch-icon", type: "image/png"
+    title
+      - if @title_addition
+        = "Katalog - #{@title_addition}"
+      - else
+        = "Katalog"
 
-- content_for("layout.body.additions") do
-  = render "piwik_tracking"
+    = stylesheet_link_tag "application"
+    = stylesheet_link_tag "application_print", :media => "print"
 
-= render template: "layouts/katalog/application"
+    = javascript_include_tag "application"
 
+    script(type="text/javascript" src="//www.google.com/jsapi")
+
+    = favicon_link_tag "/favicon.ico"
+    = favicon_link_tag "touch-icon.png", rel: "apple-touch-icon", type: "image/png"
+    = render "piwik_tracking"
+
+  body
+    = render "global_message"
+    .container = render "navbar"
+    .container = render "breadcrumb"
+    .container = render "alerts"
+    .container = content_for?("layout.body.content") ? yield("layout.body.content") : yield
+    .container = render "footer"

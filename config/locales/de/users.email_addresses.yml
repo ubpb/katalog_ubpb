@@ -1,0 +1,12 @@
+de:
+  users:
+    email_addresses:
+      edit:
+        cancel: ~> application.form.cancel
+        email_address: Emailadresse
+        submit: ~> application.form.submit
+        change_email_address: ~> actions.users.email_addresses#edit
+
+      update:
+        error: Beim Versuch Ihre Emailaddresse zu ändern ist ein Fehler aufgetreten.
+        success: Ihre Emailadresse wurde erfolgreich geändert.

@@ -1,7 +1,9 @@
 de:
   application:
     navbar:
-      start: Startseite
-      feedback: Feedback
-      help: Hilfe
-      blog: Blog
+      my_account: ~> actions.users#show
+      logout: Abmelden
+
+    form:
+      cancel: Abbrechen
+      submit: Abschicken

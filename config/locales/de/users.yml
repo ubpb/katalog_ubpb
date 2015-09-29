@@ -1,0 +1,4 @@
+de:
+  users:
+    show:
+      my_account: ~> actions.users#show

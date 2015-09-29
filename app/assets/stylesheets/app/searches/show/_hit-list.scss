@@ -1,0 +1,39 @@
+.cat-hit-list {
+  .cat-hit-list-header {
+    line-height: 34px;
+    margin-bottom: $panel-body-padding;
+
+    .pagination {
+      vertical-align: middle;
+    }
+
+    .cat-total-number-of-hits {
+      white-space: nowrap;
+    }
+  }
+
+  .cat-hit-list-body {
+    table {
+      margin-bottom: 0;
+    }
+
+    .hit {
+      td {
+        padding: $table-cell-padding - 2 !important;
+        vertical-align: middle !important;
+      }
+
+      .accrual_policy {
+        font-style: italic;
+      }
+
+      .is-part-of {
+        font-style: italic;
+      }
+
+      .title {
+        font-weight: bold;
+      }
+    }
+  }
+}

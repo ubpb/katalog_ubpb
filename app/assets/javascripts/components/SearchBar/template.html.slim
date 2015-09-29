@@ -1,0 +1,36 @@
+.search-request
+  | {{#each query_string_queries}}
+  .row.query-string-query
+    .col-sm-7
+      .input-group
+        input.form-control.query(autocomplete="off" autofocus="" placeholder="Suchbegriff" value="{{query_string.query}}" on-keypress="KeypressInSearchInput")
+        .input-group-btn
+          | {{#query_string.fields}}
+          select.fields(decorator="bootstrap_simple_select" value="{{this}}")
+            |{{#~/search_fields}}
+            option(value="{{this[0]}}")
+              | {{this[1]}}
+            |{{/~/search_fields}}
+          | {{/fields}}
+
+    .col-sm-2
+      .btn-group
+        button.btn.btn-default(type="button" on-click="AddQueryStringQuery")
+          i.fa.fa-plus-circle
+
+        button.btn.btn-default type="button" class=="{{query_string_queries.length == 1 ? 'disabled' : ''}}" on-click="RemoveQueryStringQuery"
+          i.fa.fa-minus-circle
+
+    | {{#if query_string_queries.length == 1}}
+    .col-sm-2
+      button.btn.btn-primary.form-control(on-click="SubmitSearchRequest")
+        = t("app.components.SearchBar.search")
+    | {{/if}}
+  | {{/each}}
+
+  | {{#if query_string_queries.length > 1}}
+  .row
+    .col-sm-2
+      button.btn.btn-primaryform-control(on-click="SubmitSearchRequest")
+        = t("app.components.SearchBar.search")
+  | {{/if}}
