@@ -1,17 +1,7 @@
 source "https://rubygems.org"
 
-gem "rails", "= 4.2.4"
-
-gem "skala-adapter", path: "../skala/adapter"
-gem "skala-aleph_adapter", path: "../skala/adapter-aleph"
-gem "skala-elasticsearch_adapter", path: "../skala/adapter-elasticsearch"
-gem "skala-core", path: "../skala/core"
-
-gem "sqlite3", "~> 1.3.9"
-
-gem "aleph_api", github: "ubpb/aleph_api",    branch: :master
-gem "weak_xml",  github: "msievers/weak_xml", branch: :master
-
+gem "rails",                 "= 4.2.4"
+gem "sqlite3",               "~> 1.3.9"
 gem "cancancan",             "~> 1.12.0"
 gem "bootstrap-sass",        "~> 3.3.4"
 gem "browser",               "~> 0.8.0"
@@ -31,6 +21,8 @@ gem "uglifier",              "~> 2.5.3"
 gem "uservoice-ruby",        "~> 0.0.11"
 gem "jquery-tablesorter",    "~> 1.12.8"
 gem "autoprefixer-rails",    "~> 6.0.3"
+
+gem "skala", path: "../skala"
 
 #
 # rails-assets.org
