@@ -4,16 +4,14 @@
     search_request: @search_request
 
 .row: .col-sm-12: .search-results: .panel.panel-default: .panel-body
-  - if params[:query].present?
-    - if @hits.present?
+  - if @search_result 
+    - if @search_result.hits.present?
       = render_relative "./index/search_result",
-        facets: @facets,\
-        hits: @hits,\
-        scope: @scope,\
-        search_request: @search_request,\
-        total_number_of_hits: @total_number_of_hits
+        search_request: @search_request,
+        search_result: @search_result,
+        scope: current_scope
 
-    - elsif @hits.is_a?(Array) && @hits.empty?
+    - else
       .alert.alert-info.alert-no-records-found
         = t(".no_records_found")
   - else

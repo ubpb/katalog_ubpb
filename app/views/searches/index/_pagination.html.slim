@@ -3,7 +3,7 @@
 / it's index (e.g. 0). This may bite you, if not vigilant.
 /
 - current_page = (search_request["from"] + 1) / search_request["size"]
-- page_count =  (total_number_of_hits.to_f / search_request["size"].to_f).ceil
+- page_count =  (total_hits.to_f / search_request["size"].to_f).ceil
 - pager_size ||= 9
 
 / elements of the pager
@@ -52,7 +52,7 @@ ul.pagination.cat-pagination-marginless
   / right arrow
   - if pages.last + 1 < page_count
     - big_offset = 10 * search_request["size"]
-    - while(search_request["from"] + big_offset > total_number_of_hits)
+    - while(search_request["from"] + big_offset > total_hits)
       - big_offset -= search_request["size"]
     
     li

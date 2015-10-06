@@ -11,7 +11,7 @@ common_settings: &common_settings
   search_scopes:
     local:
       search_engine_adapter:
-        class_name: "Skala::ElasticsearchAdapter"
+        class_name: "KatalogUbpb::UbpbElasticsearchAdapter"
         options:
           hosts:
             - host: "ubstage1.uni-paderborn.de"
@@ -41,11 +41,18 @@ common_settings: &common_settings
             - _score
 
       searchable_fields:
-        - _all
-        - "__searchable.creator"
-        - "__searchable.title"
-        - "__searchable.subject"
-        - "__searchable.identifier"
+        - "_all"
+        - "creator_contributor_search"
+        - "title_search"
+        - "subject_search"
+        - "publisher"
+        - "toc"
+        - "creationdate_search"
+        - "isbn"
+        - "issn"
+        - "signature_search"
+        - "notation"
+        - "ht_number"
 
       sortable_fields:
         - _score

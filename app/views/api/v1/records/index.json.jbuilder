@@ -1,5 +1,5 @@
 json.hits do
-  json.total @total_number_of_hits
+  json.total @total_hits
   json.hits @hits do |hit|
     json.(hit,
       :classification,

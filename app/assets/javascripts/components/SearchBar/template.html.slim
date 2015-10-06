@@ -5,13 +5,11 @@
       .input-group
         input.form-control.query(autocomplete="off" autofocus="" placeholder="Suchbegriff" value="{{query}}" on-keypress="KeypressInSearchInput")
         .input-group-btn
-          | {{#field}}
-          select.field(decorator="bootstrap_simple_select" value="{{this[0]}}")
+          select.field(decorator="bootstrap_simple_select" value="{{field}}")
             |{{#searchable_fields}}
             option(value="{{this[0]}}")
               | {{this[1]}}
             |{{/searchable_fields}}
-          | {{/field}}
 
     .col-sm-2
       .btn-group

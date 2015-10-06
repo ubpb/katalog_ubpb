@@ -1,6 +1,6 @@
 de:
   searches:
-    show:
+    index:
       no_records_found: "Es wurden leider keine Ergebnisse gefunden. Bitte versuchen Sie es mit einer anderen Suchanfrage."
 
       facets:
@@ -20,6 +20,6 @@ de:
           all_parts: alle Bände
 
       hit_list:
-        total_number_of_hits:
-          one: Ergebnis
-          other: Ergebnisse
+        total_hits:
+          one: "%{count} Ergebnis"
+          other: "%{count} Ergebnisse"

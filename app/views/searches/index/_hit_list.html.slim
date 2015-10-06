@@ -1,23 +1,23 @@
 .cat-hit-list
   .row.cat-hit-list-header
     .col-sm-3.cat-total-number-of-hits
-      = "#{total_number_of_hits} #{t(".total_number_of_hits", count: total_number_of_hits)}"
+      = t(".total_hits", count: search_result.total_hits)
 
-    .col-sm-6.text-center
-      - if total_number_of_hits > search_request["size"]
+    /.col-sm-6.text-center
+      - if search_result.total_hits > search_request["size"]
         .visible-xs = render_relative "./pagination",
           pager_size: 5,
           scope: scope,
           search_request: search_request,
-          total_number_of_hits: total_number_of_hits
+          total_hits: search_result.total_hits
 
         .hidden-xs = render_relative "./pagination",
           pager_size: 7,
           scope: scope,
           search_request: search_request,
-          total_number_of_hits: total_number_of_hits
+          total_hits: search_result.total_hits
 
-    .col-sm-3.text-right
+    /.col-sm-3.text-right
       = ractive_component "SortFieldSelect",
         search_request: search_request,
         searches_path: searches_path(scope: scope),
@@ -28,25 +28,25 @@
   / render partial with collection is used for performance instead of "each do"
   .row.cat-hit-list-body: .col-sm-12: table.table: tbody
     = render partial: "searches/index/hit",\
-      collection: hits,\
+      collection: search_result.hits,\
       as: :hit,\
       locals: {\
-        hits: hits,\
+        hits: search_result.hits,\
         scope: scope,\
         search_request: search_request,\
-        total_number_of_hits: total_number_of_hits\
+        search_result: search_result\
       }
 
-  .row: .col-sm-offset-3.col-sm-6.text-center
-    - if total_number_of_hits > search_request["size"]
+  /.row: .col-sm-offset-3.col-sm-6.text-center
+    - if search_result.total_hits > search_request["size"]
       .visible-xs = render_relative "./pagination",
         pager_size: 5,
         scope: scope,
         search_request: search_request,
-        total_number_of_hits: total_number_of_hits
+        total_hits: search_result.total_hits
 
       .hidden-xs = render_relative "./pagination",
         pager_size: 7,
         scope: scope,
         search_request: search_request,
-        total_number_of_hits: total_number_of_hits
+        total_hits: search_result.total_hits

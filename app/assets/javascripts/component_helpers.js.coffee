@@ -25,10 +25,10 @@
         non_query_part = non_query_part.replace(/:\w*/, path_argument)
 
       if query_part
-        loosely_encoded_query = (_.map query_part.split("&"), (element) ->
-          decodeURIComponent(element).replace(/&/g, "%26")
-        ).join("&")
+        #loosely_encoded_query = (_.map query_part.split("&"), (element) ->
+        #  decodeURIComponent(element).replace(/&/g, "%26")
+        #).join("&")
 
-        [non_query_part, loosely_encoded_query].join("?")
+        [non_query_part, query_part].join("?")
       else
         non_query_part
