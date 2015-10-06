@@ -1,20 +1,13 @@
 .search-bar
   ul.nav.nav-tabs
     - if Skala.config.search_scopes.count > 1
-      - Skala.config.search_scopes.each do |scope|
-        li(class="scope #{scope.id}-scope #{scope == current_scope ? 'active' : 'inactive'}")
-          = link_to t(".scopes.#{scope.id}"), searches_path(scope: scope)
+      - Skala.config.search_scopes.each do |_scope|
+        li(class="#{_scope == current_scope ? 'active' : 'inactive'}")
+          = link_to t("scopes.#{_scope.id}"), searches_path(scope: _scope.id)
 
   .panel.panel-default
     .panel-body
-      - search_fields = current_scope.searchable_fields.map do |search_field|\
-          [search_field, current_scope.search_engine_adapter.instance.translate("field_names.#{search_field}", locale: current_locale)]\
-        end
-
-      / TODO: Why are sort_fields needed. The search bar can't handle sort fields.
-      / FIXME: The is a bug where the translated label (from above) is added to the search fields array.
       = ractive_component "SearchBar",
-        search_request: current_search_request,
-        searches_path: searches_path(scope: current_scope),
-        sort_fields: current_scope.sortable_fields,
-        search_fields: search_fields
+        search_request: search_request,
+        searchable_fields: scope.searchable_fields.map { |_fieldname| [_fieldname, t("#{scope.search_engine_adapter.i18n_key}.fields.#{_fieldname}")]},
+        searches_path: searches_path(scope: current_scope)

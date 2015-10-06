@@ -25,7 +25,7 @@ module Breadcrumbs
       session["breadcrumbs"] ||= [],
       {
         name: "homepage#show",
-        url: homepage_path
+        url: root_path
       }
     )
   end

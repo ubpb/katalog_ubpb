@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   resources :closed_stack_orders, only: [:new, :create], path: 'cso'
+  resource  :homepage, only: [:show]
   resources :records, only: [:show], constraints: { id: /.*/ }, format: false # pseudo-constraint id: /.*/ to allow weird ids
-  get "/searches" => "searches#show", as: :searches # normal resource would imply :id parameter for show
+  resources :searches, only: [:index]
 
   resource :session, only: [:create, :destroy, :new] do
     resource :local, only: [:update]
@@ -46,8 +47,7 @@ Rails.application.routes.draw do
   get  '/semapp/info' => 'semapp#info', as: :semapp_info
   get  '/realtime_availability' => 'realtime_availability#check_availability'
 
-  get "/" => "homepage#show", as: :homepage
-  root :to => redirect("/")
+  root :to => "homepage#show"
 
   #
   # api

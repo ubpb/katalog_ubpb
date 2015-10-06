@@ -15,7 +15,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_action
   helper_method :current_locale
   helper_method :current_scope
-  helper_method :current_search_request
   helper_method :global_message
   helper_method :skala_layout
   helper_method :random_id
@@ -23,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   # rescues
   rescue_from ActionController::RedirectBackError do
-    redirect_to homepage_path
+    redirect_to root_path
   end
 
   def set_title_addition(title_addition = nil)
@@ -59,15 +58,6 @@ class ApplicationController < ActionController::Base
   def current_scope
     Skala.config.find_search_scope(params[:scope]) || Skala.config.find_search_scope(session[:scope_id]) || Skala.config.search_scopes.first
   end
-
-  def current_search_request
-    @current_search_request ||= if params[:search_request].present?
-      Skala::Search::Request.new(params[:search_request])
-    else
-      Skala::Search::Request.new(current_scope.defaults["search_request"])
-    end
-  end
-
 
   def detect_browser
     request.variant =

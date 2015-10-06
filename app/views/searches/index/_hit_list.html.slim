@@ -5,13 +5,13 @@
 
     .col-sm-6.text-center
       - if total_number_of_hits > search_request["size"]
-        .visible-xs = render "searches/show/pagination",
+        .visible-xs = render_relative "./pagination",
           pager_size: 5,
           scope: scope,
           search_request: search_request,
           total_number_of_hits: total_number_of_hits
 
-        .hidden-xs = render "searches/show/pagination",
+        .hidden-xs = render_relative "./pagination",
           pager_size: 7,
           scope: scope,
           search_request: search_request,
@@ -27,7 +27,7 @@
 
   / render partial with collection is used for performance instead of "each do"
   .row.cat-hit-list-body: .col-sm-12: table.table: tbody
-    = render partial: "searches/show/hit",\
+    = render partial: "searches/index/hit",\
       collection: hits,\
       as: :hit,\
       locals: {\
@@ -39,13 +39,13 @@
 
   .row: .col-sm-offset-3.col-sm-6.text-center
     - if total_number_of_hits > search_request["size"]
-      .visible-xs = render "searches/show/pagination",
+      .visible-xs = render_relative "./pagination",
         pager_size: 5,
         scope: scope,
         search_request: search_request,
         total_number_of_hits: total_number_of_hits
 
-      .hidden-xs = render "searches/show/pagination",
+      .hidden-xs = render_relative "./pagination",
         pager_size: 7,
         scope: scope,
         search_request: search_request,

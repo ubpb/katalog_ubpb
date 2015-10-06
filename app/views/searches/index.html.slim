@@ -6,7 +6,7 @@
 .row: .col-sm-12: .search-results: .panel.panel-default: .panel-body
   - if params[:query].present?
     - if @hits.present?
-      = render_relative "./show/search_result",
+      = render_relative "./index/search_result",
         facets: @facets,\
         hits: @hits,\
         scope: @scope,\

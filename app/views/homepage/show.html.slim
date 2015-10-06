@@ -1,5 +1,7 @@
 .row: .col-sm-12
-  = render "application/search_bar"
+  = render "application/search_bar",
+    scope: current_scope,
+    search_request: @search_request
 
 .row: .col-sm-12: .panel.panel-default: .panel-body
   h3(style="text-align: center; margin:0") Place your homepage content here...

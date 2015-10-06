@@ -1,56 +1,45 @@
 class SearchesController < ApplicationController
-
-  def show
-    if params["query"].present?
-      search(params["query"])
-    end
+  rescue_from (MalformedQueryError = Class.new(StandardError)) do
+    redirect_to searches_path
   end
 
-private
+  def index
+    if (queries = queries_from_params).present?
+      @search_request = Skala::SearchRequest.new({
+        queries: queries
+      })
 
-  def search(query_string)
-    @search_request = Skala::SearchRequest.new(
-      queries: { query: query_string }
-    )
+      search_records = Skala::SearchRecordsService.new(
+        adapter: current_scope.search_engine_adapter.instance,
+        search_request: @search_request
+      )
 
-    @search_result = Skala::SearchRecordsService.new(
-      adapter: scope.search_engine_adapter.instance,
-      search_request: @search_request
-    ).call
+      @search_result = search_records.tap(&:call).result
+    else
+      @search_request = Skala::SearchRequest.new({
+        queries: Skala::SearchRequest::SimpleQueryStringQuery.new({
+          field: current_scope.searchable_fields.first
+        })
+      })
+    end
 
-
-    # @facets, @hits, @adapter_search_request, @total_number_of_hits = Skala::SearchRecords.call(
-    #   facets: @scope.defaults["facets"],
-    #   request: request,
-    #   search_engine_adapter: @scope.search_engine_adapter.instance,
-    #   search_request: @search_request
-    # )
-
-    # # if the adapter has modified the search request
-    # if @adapter_search_request != @search_request
-    #   redirect_to(
-    #     params
-    #     .deep_dup
-    #     .permit!
-    #     .merge(search_request: @adapter_search_request)
-    #     .to_h
-    #   )
-    # else
-    #   @facets.map! do |facet|
-    #     facet.decorate.tap do |decorated_facet|
-    #       decorated_facet.scope = @scope
-    #     end
-    #   end
-
-    #   @hits.map!(&:decorate).each do |_hit|
-    #     _hit.scope = @scope
-    #   end
-
-    #   if current_user
-    #     @notes       = current_user.try(:notes)
-    #     @watch_lists = current_user.watch_lists.includes(:entries)
-    #   end
+    # if current_user
+    #   @notes       = current_user.try(:notes)
+    #   @watch_lists = current_user.watch_lists.includes(:entries)
     # end
   end
 
+  private
+
+  def queries_from_params
+    if params[:queries]
+      JSON.parse(params[:queries])
+      .map do |_query|
+        Skala::SearchRequest::SimpleQueryStringQuery.new(_query)
+      end
+      .presence
+    end
+  rescue
+    raise MalformedQueryError
+  end
 end

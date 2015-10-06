@@ -1,7 +1,7 @@
 require "skala/aleph_adapter"
 
 module KatalogUbpb
-  class UbpbAlephAdapter < Skala::IlsAdapter
+  class UbpbAlephAdapter < Skala::Adapter
     require_relative "ubpb_aleph_adapter/get_record_items"
     require_relative "ubpb_aleph_adapter/get_user_fees"
     require_relative "ubpb_aleph_adapter/get_user_loans"

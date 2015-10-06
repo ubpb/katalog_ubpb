@@ -1,9 +1,7 @@
 #= require component_helpers
-#= require jspath
 #= require polyfills/Array_filter
 #= require polyfills/Array_indexOf
 #= require polyfills/Array_map
-#= require URIjs/src/URI
 
 ((window.app ?= {}).components ?= {}).SearchBar = Ractive.extend
   #
@@ -14,21 +12,16 @@
       $(node).bootstrapSimpleSelect()
       return teardown: ->
 
-  oncomplete: ->
-    @fire("ready")
-
   onconfig: ->
-    unless @get("search_request.query")
-      @set "search_request.query",
-        bool:
-          must: [@query_string_query_factory()]
-
-    @set "query_string_queries", JSPath("..query_string", @get("search_request")).map (element) ->
-      query_string: element
+    # ensure every query has a query property
+    for query, index in @get("search_request.queries")
+      unless query["query"]
+        query["query"] = null
+        @set("search_request.queries.#{index}", query)
 
   onrender: ->
-    @on "AddQueryStringQuery", (event) ->
-      @add_query_string_query(event.context)
+    @on "AddQuery", (event) ->
+      @add_query(event.context)
 
     @on "KeypressInSearchInput", (event) ->
       # submit the form if "enter" is pressed while inside the search input
@@ -36,8 +29,8 @@
         event.original.preventDefault()
         @submit_search_request()
 
-    @on "RemoveQueryStringQuery", (event) ->
-      @remove_query_string_query(event.context)
+    @on "RemoveQuery", (event) ->
+      @remove_query(event.context)
 
     @on "SubmitSearchRequest", (event) ->
       event.original.preventDefault()
@@ -46,43 +39,28 @@
   #
   # custom
   #
-  add_query_string_query: (preceding_query_string_query) ->
-    new_query_index = @get("query_string_queries").indexOf(preceding_query_string_query) + 1
-    @get("query_string_queries").splice(new_query_index, 0, @query_string_query_factory())
+  add_query: (preceding_query) ->
+    new_query_index = @get("search_request.queries").indexOf(preceding_query) + 1
+    @get("search_request.queries").splice(new_query_index, 0, @query_factory())
 
-  query_string_query_factory: ->
-    query_string:
-      default_operator: "AND"
-      fields: [@get("search_fields")[0]]
-      query: null
+  query_factory: ->
+    field: @get("searchable_fields")[0][0]
+    query: null
 
   searches_path: (options = {}) ->
     app.ComponentHelpers.path_helper_factory(@get("searches_path"))(options)
 
-  remove_query_string_query: (query_string_query) ->
-    query_string_queries = @get("query_string_queries")
-    index_of_query_to_remove = query_string_queries.indexOf(query_string_query)
+  remove_query: (query) ->
+    queries = @get("search_request.queries")
+    index_of_query_to_remove = queries.indexOf(query)
 
-    if query_string_queries.length > 1
-      query_string_queries.splice(index_of_query_to_remove, 1)
+    if queries.length > 1
+      queries.splice(index_of_query_to_remove, 1)
 
   submit_search_request: ->
-    query_string_queries = @get("query_string_queries").filter (element) ->
-      element["query_string"]["query"].match(/\S/)?
+    queries = @get("search_request.queries").filter (element) ->
+      element["query"].match(/\S/)?
 
-    if query_string_queries.length > 0
-      newly_created_search_request = _.chain(@get("search_request"))
-        .cloneDeep()
-
-        .tap (cloned_search_request) =>
-          cloned_search_request["from"] = 0
-          cloned_search_request["query"] =
-            bool:
-              must: query_string_queries
-
-          cloned_search_request["sort"] = [@get("sort_fields")[0]]
-
-        .value()
-
-      path = @searches_path(search_request: newly_created_search_request)
+    if queries.length > 0
+      path = @searches_path(queries: queries)
       if Turbolinks? then Turbolinks.visit(path) else window.location.href = path

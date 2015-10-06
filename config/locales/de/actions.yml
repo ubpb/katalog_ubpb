@@ -2,7 +2,7 @@ de:
   actions:
     homepage#show: Katalog
     records#show: Details
-    searches#show: Suchergebnis
+    searches#index: Suche
     users#edit: Benutzerdaten ändern
     users#show: Mein Bibliothekskonto
 
