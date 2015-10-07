@@ -1,5 +1,6 @@
 class SearchesController < ApplicationController
   rescue_from (MalformedSearchRequestError = Class.new(StandardError)) do
+    binding.pry
     redirect_to searches_path
   end
 

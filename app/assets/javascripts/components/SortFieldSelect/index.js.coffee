@@ -9,21 +9,20 @@
         $(node).bootstrapSimpleSelect()
         return teardown: ->
 
-    oncomplete: ->
-      @fire("ready")
+    onconfig: ->
+      @set("primary_sort_field", @get("search_request.sort.0.field") || @get("sortable_fields")[0][0])
 
     onrender: ->
       @on "Change", (event) ->
         selected_sort_field = $(event.node).find("option:selected").attr("value")
+        new_search_request = _.cloneDeep(@get("search_request"))
 
-        newly_created_search_request = _.chain(@get("search_request"))
-          .cloneDeep()
-          .tap (cloned_search_request) ->
-            cloned_search_request["from"] = 0
-            cloned_search_request["sort"] = [selected_sort_field]
-          .value()
+        if selected_sort_field != @get("sortable_fields")[0][0]
+          new_search_request["sort"] = [{field: selected_sort_field}]
+        else
+          new_search_request["sort"] = undefined
 
-        path = @searches_path(search_request: newly_created_search_request)
+        path = @searches_path(search_request: new_search_request)
         if Turbolinks? then Turbolinks.visit(path) else window.location.href = path
 
     #

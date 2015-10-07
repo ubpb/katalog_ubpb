@@ -17,14 +17,12 @@
           search_request: search_request,
           total_hits: search_result.total_hits
 
-    /.col-sm-3.text-right
+    .col-sm-3.text-right
       = ractive_component "SortFieldSelect",
         search_request: search_request,
         searches_path: searches_path(scope: scope),
-        sort_fields: (scope.sortable_fields.map do |sortable_field|\
-          [sortable_field, scope.search_engine_adapter.instance.translate("field_names.#{sortable_field}", locale: current_locale)]\
-        end)
-
+        sortable_fields: scope.sortable_fields.map { |_fieldname| [_fieldname, t("#{scope.search_engine_adapter.i18n_key}.fields.#{_fieldname}", default: _fieldname)] }
+        
   / render partial with collection is used for performance instead of "each do"
   .row.cat-hit-list-body: .col-sm-12: table.table: tbody
     = render partial: "searches/index/hit",\

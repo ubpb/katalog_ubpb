@@ -9,5 +9,5 @@
     .panel-body
       = ractive_component "SearchBar",
         search_request: search_request,
-        searchable_fields: scope.searchable_fields.map { |_fieldname| [_fieldname, t("#{scope.search_engine_adapter.i18n_key}.fields.#{_fieldname}")]},
+        searchable_fields: scope.searchable_fields.map { |_fieldname| [_fieldname, t("#{scope.search_engine_adapter.i18n_key}.fields.#{_fieldname}", default: _fieldname)]},
         searches_path: searches_path(scope: current_scope)

@@ -1,5 +1,5 @@
-select.cat-sort-field-select(decorator="bootstrap_simple_select" value="{{search_request.sort[0]}}" on-change="Change")
-  | {{#sort_fields}}
+select.cat-sort-field-select(decorator="bootstrap_simple_select" value="{{primary_sort_field}}" on-change="Change")
+  | {{#sortable_fields}}
   option(value="{{this[0]}}")
     | {{this[1]}}
-  | {{/sort_fields}}
+  | {{/sortable_fields}}
