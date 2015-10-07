@@ -3,8 +3,8 @@
     .col-sm-3.cat-total-number-of-hits
       = t(".total_hits", count: search_result.total_hits)
 
-    /.col-sm-6.text-center
-      - if search_result.total_hits > search_request["size"]
+    .col-sm-6.text-center
+      - if search_result.total_hits > search_request.size
         .visible-xs = render_relative "./pagination",
           pager_size: 5,
           scope: scope,
@@ -37,8 +37,8 @@
         search_result: search_result\
       }
 
-  /.row: .col-sm-offset-3.col-sm-6.text-center
-    - if search_result.total_hits > search_request["size"]
+  .row: .col-sm-offset-3.col-sm-6.text-center
+    - if search_result.total_hits > search_request.size
       .visible-xs = render_relative "./pagination",
         pager_size: 5,
         scope: scope,

@@ -26,7 +26,7 @@ tr.hit
     - if hit.fields["is_part_of"].present?
       .is-part-of
         ul
-          - [*[hit.fields["is_part_of"]]].each do |_superorder|
+          - [*[hit.fields["is_part_of"]]].flatten.each do |_superorder|
             li
               - if (ht_number = _superorder["ht_number"]).present?
                 = link_to _superorder["label"], searches_path(search_request: Skala::SearchRequest.new(queries: { query: ht_number, field: "ht_number" }), scope: scope.id)

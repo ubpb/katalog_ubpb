@@ -5,6 +5,8 @@ class KatalogUbpb::UbpbElasticsearchAdapter::SearchRecords < Skala::Elasticsearc
   def call(search_request)
     search_request = search_request.deep_dup
     add_query_to_ignore_deleted_records!(search_request)
+    set_size!(search_request)
+   
     result = super(search_request)
     
     result.hits.each do |_hit|
@@ -18,13 +20,17 @@ class KatalogUbpb::UbpbElasticsearchAdapter::SearchRecords < Skala::Elasticsearc
     result
   end
 
-  private
+  private # search request transformation
 
   def add_query_to_ignore_deleted_records!(search_request)
     search_request.queries << Skala::SearchRequest::SimpleQueryStringQuery.new(query: "A", field: "status")
   end
 
-  private
+  def set_size!(search_request)
+    search_request.size = 25
+  end
+
+  private # seach result transformation
 
   def rename_superorder_display_to_is_part_of!(hit)
     if hit.fields["superorder_display"].present?

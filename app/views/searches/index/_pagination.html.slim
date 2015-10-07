@@ -2,8 +2,8 @@
 / Be aware of the difference between a page number (e.g. 1) and
 / it's index (e.g. 0). This may bite you, if not vigilant.
 /
-- current_page = (search_request["from"] + 1) / search_request["size"]
-- page_count =  (total_hits.to_f / search_request["size"].to_f).ceil
+- current_page = (search_request.from + 1) / search_request.size
+- page_count =  (total_hits.to_f / search_request.size.to_f).ceil
 - pager_size ||= 9
 
 / elements of the pager
@@ -27,14 +27,14 @@
 ul.pagination.cat-pagination-marginless
   / left arrow
   - if pages.first != 0
-    - big_offset = 10 * search_request["size"]
-    - while(search_request["from"] - big_offset < 0)
-      - big_offset -= search_request["size"]
+    - big_offset = 10 * search_request.size
+    - while(search_request.from - big_offset < 0)
+      - big_offset -= search_request.size
 
     li
       = link_to "&laquo;".html_safe, searches_path(\
           search_request: search_request.deep_dup.tap do |duplicated_search_request| \
-            duplicated_search_request["from"] -= big_offset \
+            duplicated_search_request.from = duplicated_search_request.from - big_offset \
           end, \
           scope: scope \
         )
@@ -44,21 +44,21 @@ ul.pagination.cat-pagination-marginless
     li(class="#{page_index == current_page ? 'active' : ''}")
       = link_to (page_index + 1), searches_path(\
           search_request: search_request.deep_dup.tap do |duplicated_search_request| \
-            duplicated_search_request["from"] = page_index * search_request["size"] \
+            duplicated_search_request.from = page_index * search_request.size \
           end, \
           scope: scope \
         )
 
   / right arrow
   - if pages.last + 1 < page_count
-    - big_offset = 10 * search_request["size"]
-    - while(search_request["from"] + big_offset > total_hits)
-      - big_offset -= search_request["size"]
+    - big_offset = 10 * search_request.size
+    - while(search_request.from + big_offset > total_hits)
+      - big_offset -= search_request.size
     
     li
       = link_to "&raquo;".html_safe, searches_path(\
           search_request: search_request.deep_dup.tap do |duplicated_search_request| \
-            duplicated_search_request["from"] += big_offset \
+            duplicated_search_request.from = duplicated_search_request.from + big_offset \
           end, \
           scope: scope \
         )
