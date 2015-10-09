@@ -23,7 +23,7 @@ class KatalogUbpb::UbpbElasticsearchAdapter::SearchRecords < Skala::Elasticsearc
   private # search request transformation
 
   def add_query_to_ignore_deleted_records!(search_request)
-    search_request.queries << Skala::SearchRequest::SimpleQueryStringQuery.new(query: "A", field: "status")
+    search_request.queries << Skala::SearchRequest::MatchQuery.new(query: "A", field: "status")
   end
 
   def set_size!(search_request)

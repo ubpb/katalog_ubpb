@@ -2,6 +2,44 @@ class RecordsController < ApplicationController
   #before_filter :set_page_title_addition, only: [:show] # for nicer browser page title
 
   def show
+    @scope = current_scope
+
+    if @search_request = search_request_from_params
+      flash[:search_request] = @search_request.to_h
+      return redirect_to(record_path(params[:id], scope: params[:scope]))
+    elsif serialized_search_request = flash[:search_request]
+      @search_request = Skala::SearchRequest.new(serialized_search_request)
+    end
+
+    @record = Skala::GetRecordService.call(
+      adapter: @scope.search_engine_adapter.instance,
+      id: params[:id]
+    )
+
+    binding.pry
+
+    if @search_request
+      temporary_search_request = @search_request.deep_dup
+      temporary_search_request.from = (@search_request.from - 5) < 0 ? 0 : @search_request.from - 5
+      temporary_search_request.size = @search_request.size + 5
+
+      search_result = Skala::SearchRecordsService.call(
+        adapter: @scope.search_engine_adapter.instance,
+        search_request: temporary_search_request
+      )
+      
+      @total_hits = search_result.total_hits
+      
+      if index = search_result.hits.find_index { |_hit| _hit.id == params[:id] }
+        @position_within_search_result = index + @search_request.from
+      else
+
+      end
+
+      binding.pry
+    end
+
+=begin
     @scope = Skala.config.find_search_scope(params[:scope])
     @ils_adapter = Skala.config.ils_adapter.instance # for translate
 
@@ -41,5 +79,6 @@ class RecordsController < ApplicationController
       format.bibtex { send_data(@record.to_bibtex, filename: "#{@record.id}.bib") }
       format.html
     end
+=end
   end
 end

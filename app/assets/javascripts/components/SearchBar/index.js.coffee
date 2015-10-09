@@ -41,11 +41,17 @@
   #
   add_query: (preceding_query) ->
     new_query_index = @get("search_request.queries").indexOf(preceding_query) + 1
-    @get("search_request.queries").splice(new_query_index, 0, @query_factory())
+    @get("search_request.queries").splice(new_query_index, 0, @query_factory(type: "query_string"))
 
-  query_factory: ->
-    field: @get("searchable_fields")[0][0]
-    query: null
+  query_factory: (options = {}) ->
+    if options["type"] == "query_string"
+      default_field: @get("searchable_fields")[0][0]
+      query: null
+      type: "query_string"
+    else if options["type"] == "simple_query_string"
+      field: @get("searchable_fields")[0][0]
+      query: null
+      type: "simple_query_string"
 
   searches_path: (options = {}) ->
     app.ComponentHelpers.path_helper_factory(@get("searches_path"))(options)

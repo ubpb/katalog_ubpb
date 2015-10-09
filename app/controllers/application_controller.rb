@@ -25,6 +25,11 @@ class ApplicationController < ActionController::Base
     redirect_to root_path
   end
 
+  rescue_from (MalformedSearchRequestError = Class.new(StandardError)) do
+    binding.pry
+    redirect_to searches_path
+  end
+
   def set_title_addition(title_addition = nil)
     @title_addition = title_addition ? title_addition : I18n.t("actions.#{current_action}")
   end
@@ -79,6 +84,16 @@ class ApplicationController < ActionController::Base
 
   def search_only_mode
     false
+  end
+
+  def search_request_from_params
+    if params[:search_request]
+      JSON.parse(params[:search_request]).try do |_deserialized_search_request|
+        Skala::SearchRequest.new(_deserialized_search_request)
+      end
+    end
+  rescue
+    raise MalformedSearchRequestError
   end
 
   def ip_addr_in_range?(low, high, addr)

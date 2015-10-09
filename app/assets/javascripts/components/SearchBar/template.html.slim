@@ -5,7 +5,7 @@
       .input-group
         input.form-control.query(autocomplete="off" autofocus="" placeholder="Suchbegriff" value="{{query}}" on-keypress="KeypressInSearchInput")
         .input-group-btn
-          select.field(decorator="bootstrap_simple_select" value="{{field}}")
+          select.field(decorator="bootstrap_simple_select" value="{{default_field}}")
             |{{#searchable_fields}}
             option(value="{{this[0]}}")
               | {{this[1]}}

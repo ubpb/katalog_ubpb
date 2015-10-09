@@ -9,18 +9,9 @@ tr.hit
 
   td
     .title
-      - if defined?(hit_iteration)
-        / prededecessor and successor ids are needed for records#show to be able to
-        / navigate through the hit list without the need for reissuing the search
-        - predecessor_ids = hits.slice(0..(hit_iteration.index - 1)).map(&:id) if hit_iteration.index > 0
-        - successor_ids = hits.slice((hit_iteration.index + 1)..-1).map(&:id) if hit_iteration.index < hits.length
-
       = link_to record_path hit.id,\
         scope: scope,\
-        search_request: search_request,\
-        predecessors: predecessor_ids.to_json,\
-        successors: successor_ids.to_json,\
-        total_number_of_records: search_result.total_hits  do
+        search_request: search_request do
         = [*hit.fields["title"]].join("; ")
 
     - if hit.fields["is_part_of"].present?
@@ -29,7 +20,16 @@ tr.hit
           - [*[hit.fields["is_part_of"]]].flatten.each do |_superorder|
             li
               - if (ht_number = _superorder["ht_number"]).present?
-                = link_to _superorder["label"], searches_path(search_request: Skala::SearchRequest.new(queries: { query: ht_number, field: "ht_number" }), scope: scope.id)
+                = link_to _superorder["label"], searches_path(\
+                  search_request: Skala::SearchRequest.new(\
+                    queries: {\
+                      type: "query_string",\
+                      query: ht_number,\
+                      default_field: "ht_number"\
+                    }\
+                  ),\
+                  scope: scope.id\
+                )
                 /= link_to _superorder["label"], new_searches_path({query: ht_number, field: "ht_number"}, scope: scope.id, sort: { field: "volume_count2" })
 
               - else

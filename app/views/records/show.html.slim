@@ -1,21 +1,21 @@
-.row: .record(data-identifier="#{@record.identifier.to_json}"): .col-sm-12
+.row: .record: .col-sm-12
   .panel.panel-default
     - if @search_request.present?
       .panel-heading: .row
         .col-xs-6.text-left
-          = link_to searches_path(search_request: @search_request, scope: @scope), class: "btn btn-success", :"data-use-history-back-if-possible" => true do
+          = link_to searches_path(search_request: @search_request, scope: @scope), class: "btn btn-success"  do
             = "&laquo; Zur Ergebnisliste".html_safe
 
         .col-xs-6.text-right
           span(style="margin-right: 6px;")
             ' Ergebnis
             span#current-result-count
-              => @position_within_search
+              => @position_within_search_result + 1
             ' von
             span#total-result-count
-              = @total_number_of_records
+              = @total_hits
 
-          .btn-group
+          /.btn-group
             - if @predecessors.present? || @search_request["from"] > 0
               = link_to_predecessor @record, @search_request, @scope, @predecessors, @successors, @total_number_of_records, class: 'btn btn-default' do
                 i.fa.fa-chevron-left
@@ -36,7 +36,7 @@
           a(href="#record-details-tab" data-toggle="tab")
             | Details
 
-        = ractive_component "skala.components.RecordActions",
+        /= ractive_component "skala.components.RecordActions",
           api_v1_record_path: api_v1_record_path(":id"),
           api_v1_user_notes_path: api_v1_user_notes_path(":user_id"),
           api_v1_user_note_path: api_v1_user_note_path(":user_id", ":id"),
@@ -60,7 +60,7 @@
           }
 
       .tab-content
-        #record-details-tab.tab-pane.active
+        /#record-details-tab.tab-pane.active
           = render_relative "./show/details", notes: @notes, record: @record, scope: @scope, watch_lists: @watch_lists
 
           - if @items.present?
