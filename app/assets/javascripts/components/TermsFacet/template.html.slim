@@ -9,13 +9,14 @@
     Term
       li.term
         | {{#if selected_by_search_request}}
-        a(href="{{deselect_term_path}}")
-          .fa.fa-times>
+        a(href="{{remove_term_path}}")
+          i.fa.fa-check-square-o>
           .label.label-info
             = "{{term}}{{#if count}} ({{count}}){{/if}}"
 
         | {{else}}
-        a(href="{{select_term_path}}")
+        a(href="{{include_term_path}}")
+          i.fa.fa-square-o>
           = "{{term}}{{#if count}} ({{count}}){{/if}}"
 
         | {{/if}}

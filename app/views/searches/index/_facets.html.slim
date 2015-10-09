@@ -8,13 +8,14 @@ nav.navbar.navbar-sidebar
   / the actual facets
   .collapse.navbar-collapse(id="#{facets_id}")
     - facets.each do |facet|
-      - if facet.is_a?(Skala::Search::Result::TermsFacet) && facet.terms.count > 0
+      - if facet.is_a?(Skala::SearchResult::TermsFacet) && facet.terms.count > 0
         = ractive_component "TermsFacet",
           facet: facet,
+          i18n_key: scope.search_engine_adapter.i18n_key,
           search_request: search_request,
           searches_path: searches_path(scope: scope)
 
-      - elsif facet.is_a?(Skala::Search::Result::HistogramFacet)
+      /- elsif facet.is_a?(Skala::Search::Result::HistogramFacet)
         = ractive_component "HistogramFacet",
           facet: facet,
           search_request: search_request,

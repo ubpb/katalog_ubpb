@@ -1,6 +1,5 @@
 class SearchesController < ApplicationController
   rescue_from (MalformedSearchRequestError = Class.new(StandardError)) do
-    binding.pry
     redirect_to searches_path
   end
 
@@ -8,6 +7,7 @@ class SearchesController < ApplicationController
     if (@search_request = search_request_from_params).present?
       search_records = Skala::SearchRecordsService.new(
         adapter: current_scope.search_engine_adapter.instance,
+        facets: current_scope.facets,
         search_request: @search_request
       )
 

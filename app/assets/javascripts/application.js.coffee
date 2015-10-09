@@ -13,6 +13,12 @@
 #= require turbolinks
 
 #
+# translations
+#
+#= require i18n
+#= require i18n/translations
+
+#
 # all other javascript
 #
 #= require bootstrap-sprockets

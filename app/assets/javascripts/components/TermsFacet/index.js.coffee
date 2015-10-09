@@ -16,9 +16,6 @@
       collapse_threshold: 5
       is_collapsed: true # initially the facet is collapsed
 
-    oncomplete: ->
-      @fire("ready")
-
     onrender: ->
       @on "Collapse", -> @set("is_collapsed", true)
       @on "Decollapse", -> @set("is_collapsed", false)
