@@ -15,16 +15,16 @@
             span#total-result-count
               = @total_hits
 
-          /.btn-group
-            - if @predecessors.present? || @search_request["from"] > 0
-              = link_to_predecessor @record, @search_request, @scope, @predecessors, @successors, @total_number_of_records, class: 'btn btn-default' do
+          .btn-group
+            - if @predecessor
+              = link_to record_path(@predecessor.id, search_request: @predecessor_search_request, scope: @scope), class: "btn btn-default" do
                 i.fa.fa-chevron-left
             - else
               button.btn.btn-default disabled="disabled"
                 i.fa.fa-chevron-left
 
-            - if @successors.present? || @search_request["from"] + @search_request["size"] < @total_number_of_records
-              = link_to_successor @record, @search_request, @scope, @predecessors, @successors, @total_number_of_records, class: 'btn btn-default' do
+            - if @successor
+              = link_to record_path(@successor.id, search_request: @successor_search_request, scope: @scope), class: "btn btn-default" do
                 i.fa.fa-chevron-right
             - else
               button.btn.btn-default disabled="disabled"
@@ -60,8 +60,9 @@
           }
 
       .tab-content
-        /#record-details-tab.tab-pane.active
-          = render_relative "./show/details", notes: @notes, record: @record, scope: @scope, watch_lists: @watch_lists
+        #record-details-tab.tab-pane.active
+          h1 = @record.fields["title"]
+          /= render_relative "./show/details", notes: @notes, record: @record, scope: @scope, watch_lists: @watch_lists
 
-          - if @items.present?
+          /- if @items.present?
             = render_relative "./show/items", ils_adapter: @ils_adapter, record_items: @items

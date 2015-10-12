@@ -5,7 +5,6 @@ class KatalogUbpb::UbpbElasticsearchAdapter::SearchRecords < Skala::Elasticsearc
   def call(search_request)
     search_request = search_request.deep_dup
     add_query_to_ignore_deleted_records!(search_request)
-    set_size!(search_request)
    
     result = super(search_request)
     
@@ -24,10 +23,6 @@ class KatalogUbpb::UbpbElasticsearchAdapter::SearchRecords < Skala::Elasticsearc
 
   def add_query_to_ignore_deleted_records!(search_request)
     search_request.queries << Skala::SearchRequest::MatchQuery.new(query: "A", field: "status")
-  end
-
-  def set_size!(search_request)
-    search_request.size = 25
   end
 
   private # seach result transformation
