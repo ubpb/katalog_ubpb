@@ -22,7 +22,7 @@ gem "uservoice-ruby",        "~> 0.0.11"
 gem "jquery-tablesorter",    "~> 1.12.8"
 gem "autoprefixer-rails",    "~> 6.0.3"
 
-gem "skala", path: "../skala"
+gem "skala", github: "ubpb/skala", branch: :master
 
 #
 # rails-assets.org

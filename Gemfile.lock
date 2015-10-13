@@ -1,5 +1,7 @@
-PATH
-  remote: ../skala
+GIT
+  remote: git://github.com/ubpb/skala.git
+  revision: f2c06e806d31a2b3260ac6ed6ac2dfb1aa629a26
+  branch: master
   specs:
     skala (1.0.0)
       aleph_api (~> 0.1)
