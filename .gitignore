@@ -17,4 +17,6 @@
 /tmp
 
 # dotenv
-.env
+.env*
+
+public/assets/**/*

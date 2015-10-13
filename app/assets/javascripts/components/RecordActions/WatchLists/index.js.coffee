@@ -2,7 +2,7 @@
 #= require components/ComboInput
 #= require polyfills/Array_find
 
-do(app = (window.App ?= {}), ComboInput = app.components.ComboInput) ->
+do(app = (window.app ?= {}), ComboInput = app.components.ComboInput) ->
   ((app.components ?= {}).RecordActions ?= {}).WatchLists = Ractive.extend
     components:
       ComboInput: ComboInput

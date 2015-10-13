@@ -21,6 +21,7 @@ gem "uglifier",              "~> 2.5.3"
 gem "uservoice-ruby",        "~> 0.0.11"
 gem "jquery-tablesorter",    "~> 1.12.8"
 gem "autoprefixer-rails",    "~> 6.0.3"
+gem "dotenv-rails"
 
 gem "skala", github: "ubpb/skala", branch: :master
 
@@ -48,7 +49,6 @@ group :development do
 end
 
 group :development, :test do
-  gem "dotenv-rails",       "~> 1.0.2"
   gem "pry",                "~> 0.9.12.6"
   gem "pry-byebug",         "<= 1.3.2"
   gem "pry-rails",          "~> 0.3.2"

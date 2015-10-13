@@ -1,7 +1,7 @@
 #= require component_helpers
 #= require components/ComboInput
 
-do(app = (window.App ?= {}), ComboInput = app.components.ComboInput) ->
+do(app = (window.app ?= {}), ComboInput = app.components.ComboInput) ->
   ((app.components ?= {}).RecordActions ?= {}).Note = Ractive.extend
     components:
       ComboInput: ComboInput

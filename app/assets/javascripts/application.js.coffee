@@ -35,7 +35,6 @@
 #= require ractive/ractive-events-keys
 #= require trunker
 
-#= require_directory .
 #= require_tree ./components
 #= require_tree ./decorators
 #= require_tree ./users

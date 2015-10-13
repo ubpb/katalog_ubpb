@@ -3,7 +3,7 @@
 #= require ./WatchLists
 
 do(
-  app = (window.App ?= {}),
+  app = (window.app ?= {}),
   Note = app.components.RecordActions.Note,
   WatchLists = app.components.RecordActions.WatchLists
 ) ->
