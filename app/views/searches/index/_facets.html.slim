@@ -15,8 +15,9 @@ nav.navbar.navbar-sidebar
           search_request: search_request,
           searches_path: searches_path(scope: scope)
 
-      /- elsif facet.is_a?(Skala::Search::Result::HistogramFacet)
+      - elsif facet.is_a?(Skala::SearchResult::HistogramFacet)
         = ractive_component "HistogramFacet",
           facet: facet,
+          i18n_key: scope.search_engine_adapter.i18n_key,
           search_request: search_request,
           searches_path: searches_path(scope: scope)

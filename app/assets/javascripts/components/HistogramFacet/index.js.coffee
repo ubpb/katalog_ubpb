@@ -24,25 +24,12 @@
       @get("selected_by_search_request") || (@get("min_key")? && @get("max_key")?)
 
     deselect_path: ->
-      unfacetted_search_request = _.cloneDeep @get("search_request")
-
-      for range_query_parent in JSONPath({json: unfacetted_search_request, path: "$..range^^^"})
-        _.remove range_query_parent, (query) =>
-          query["range"]?[@undecorated_facet()["name"]]?
-
-      @searches_path(search_request: unfacetted_search_request)
+      new_search_request = _.cloneDeep(@get("search_request"))
+      @remove_facet_query(new_search_request)
+      @searches_path(search_request: new_search_request)
 
     selected_by_search_request: ->
-      # JSONPath has to be nested because it does not find if given as one path
-      JSONPath(
-        json: JSONPath
-          json: @get("search_request")
-          path: "$.query..range"
-        path: "$.[?(@.#{@undecorated_facet()["name"]})]"
-      ).length > 0
-
-  oncomplete: ->
-    @fire("ready")
+      !!(@get("search_request.facet_queries")?.find (element) => element.field == @get("facet.field"))
 
   onconfig: ->
     [entries, min_key, max_key] = @process_facet(@get("facet")) || []
@@ -106,34 +93,28 @@
       # return the calculated values
       return [entries, min_key, max_key]
 
+  remove_facet_query: (search_request) ->
+    if search_request.facet_queries
+      search_request.facet_queries = _.reject(search_request.facet_queries, (element) =>
+        element.field == @get("facet.field")
+      )
+
+    search_request
+
   searches_path: (options = {}) ->
     app.ComponentHelpers.path_helper_factory(@get("searches_path"))(options)
 
   submit_search_request: ->
-    # create a range query
-    (range_query = { range: {}}).range[@undecorated_facet()["name"]] =
-      gte: @get("current_lower_key")
-      lte: @get("current_upper_key")
+    if @get("current_lower_key") != @get("min_key") || @get("current_upper_key") != @get("max_key")
+      new_search_request = _.cloneDeep(@get("search_request"))
+      new_search_request.facet_queries ?= []
+      @remove_facet_query(new_search_request)
+      new_search_request.facet_queries.push({
+        field: @get("facet.field"),
+        gte: @get("current_lower_key"),
+        lte: @get("current_upper_key"),
+        type: "range"
+      })
 
-    facetted_search_request = _.chain(@get("search_request"))
-      # clone the original search request to prevent modification
-      .cloneDeep()
-
-      # add the created range query
-      .tap (cloned_search_request) ->
-        cloned_search_request.query.bool.must.push(range_query)
-
-      # reset pagination on the newly created search request
-      .tap (cloned_search_request) ->
-        cloned_search_request.from = 0
-
-      # unchain the value
-      .value()
-
-    # GET the url
-    (Turbolinks?.visit || (url) -> window.location.href = url)(
-      @searches_path(search_request: facetted_search_request)
-    )
-
-  undecorated_facet: ->
-    @get("facet.object")
+      path = @searches_path(search_request: new_search_request)
+      if Turbolinks? then Turbolinks.visit(path) else window.location.href = path

@@ -19,11 +19,13 @@
     include_term_path: ->
       new_search_request = _.cloneDeep(@parent.get("search_request"))
       @add_facet_query(new_search_request, @parent.get("facet"), @get("term"))
+      @reset_from(new_search_request)
       @searches_path(search_request: new_search_request)
 
     remove_term_path: ->
       new_search_request = _.cloneDeep(@parent.get("search_request"))
       @remove_facet_query(new_search_request, @parent.get("facet"), @get("term"))
+      @reset_from(new_search_request)
       @searches_path(search_request: new_search_request)
 
     selected_by_search_request: ->
@@ -55,6 +57,9 @@
     )
 
     search_request.facet_queries = if new_facet_queries.length == 0 then undefined else new_facet_queries
+
+  reset_from: (search_request) ->
+    search_request.from = undefined # remove from to let server default it
 
   searches_path: (options = {}) ->
     @parent.searches_path(options)

@@ -12,7 +12,7 @@ tr.hit
       = link_to record_path hit.id,\
         scope: scope,\
         search_request: search_request do
-        = [*hit.fields["title"]].join("; ")
+        = [*hit.fields["title"]].join("; ").presence || "-"
 
     - if hit.fields["is_part_of"].present?
       .is-part-of
