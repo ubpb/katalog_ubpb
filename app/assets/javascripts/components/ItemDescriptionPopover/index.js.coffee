@@ -6,6 +6,3 @@
     bootstrap_popover: (node) ->
       $(node).popover()
       return teardown: ->
-
-  oncomplete: ->
-    @fire("ready")

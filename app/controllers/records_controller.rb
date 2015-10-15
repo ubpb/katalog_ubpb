@@ -25,7 +25,7 @@ class RecordsController < ApplicationController
         return redirect_to(searches_path)
       end
     end
-    
+
     if @search_request
       on_first_page = @search_request.from == 0
       offset = 1
@@ -62,6 +62,19 @@ class RecordsController < ApplicationController
         flash[:error] = t(".record_missing_within_page")
         return redirect_to(searches_path(search_request: @search_request))
       end
+    end
+
+    # items
+    if @record.id.start_with?("PAD_ALEPH") || true
+      @items = Skala::GetRecordItemsService.call(
+        adapter: Skala.config.ils_adapter.instance,
+        id: @record.fields["id"]
+      ).items
+    end
+
+    respond_to do |format|
+      format.html
+      format.json { render json: JSON.pretty_generate(record: @record.as_json, items: @items.as_json) }
     end
 
 =begin

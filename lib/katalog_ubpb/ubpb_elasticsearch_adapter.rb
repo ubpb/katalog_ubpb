@@ -1,4 +1,4 @@
-require "skala/aleph_adapter"
+require "skala/elasticsearch_adapter"
 
 module KatalogUbpb
   class UbpbElasticsearchAdapter < Skala::ElasticsearchAdapter

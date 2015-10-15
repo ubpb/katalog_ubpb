@@ -7,7 +7,7 @@ gem "bootstrap-sass",        "~> 3.3.4"
 gem "browser",               "~> 0.8.0"
 gem "coffee-rails",          "~> 4.1.0"
 gem "font-awesome-rails",    "~> 4.3.0.0"
-gem "jbuilder",              "~> 2.2.2"
+gem "jbuilder",              "~> 2.2"
 gem "jquery-rails",          "~> 4.0.3"
 gem "jquery-turbolinks",     "~> 2.1.0"
 gem "jquery-ui-rails",       "~> 5.0.3"
@@ -22,6 +22,7 @@ gem "uservoice-ruby",        "~> 0.0.11"
 gem "jquery-tablesorter",    "~> 1.12.8"
 gem "autoprefixer-rails",    "~> 6.0.3"
 gem "dotenv-rails"
+gem "rails-i18n"
 
 gem "skala", github: "ubpb/skala", branch: :master
 

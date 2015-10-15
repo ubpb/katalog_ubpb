@@ -64,5 +64,5 @@
           h1 = @record.fields["title"]
           /= render_relative "./show/details", notes: @notes, record: @record, scope: @scope, watch_lists: @watch_lists
 
-          /- if @items.present?
-            = render_relative "./show/items", ils_adapter: @ils_adapter, record_items: @items
+          - if @items.present?
+            = render_relative "./show/items", items: @items

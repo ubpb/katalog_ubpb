@@ -26,6 +26,7 @@
     deselect_path: ->
       new_search_request = _.cloneDeep(@get("search_request"))
       @remove_facet_query(new_search_request)
+      @remove_from(new_search_request)
       @searches_path(search_request: new_search_request)
 
     selected_by_search_request: ->
@@ -101,6 +102,9 @@
 
     search_request
 
+  reset_from: (search_request) ->
+    search_request.from = undefined # remove from to let server default it
+
   searches_path: (options = {}) ->
     app.ComponentHelpers.path_helper_factory(@get("searches_path"))(options)
 
@@ -109,6 +113,8 @@
       new_search_request = _.cloneDeep(@get("search_request"))
       new_search_request.facet_queries ?= []
       @remove_facet_query(new_search_request)
+      @reset_from(new_search_request)
+
       new_search_request.facet_queries.push({
         field: @get("facet.field"),
         gte: @get("current_lower_key"),

@@ -28,6 +28,19 @@ de:
 
       items:
         due_date: Leihfrist
+        item_status: Leihart
+        location: Standort
         status: Status
         status_description: Leihart
         signature: Signatur
+
+        item:
+          status:
+            claimed_returned: Angeblich zurück
+            loaned: Entliehen
+            lost: Verlust
+            on_hold: Bereitgestellt
+            on_shelf: Nicht entliehen
+            reshelving: Wird zurückgestellt
+            expected: Erwartet zum %{expected_date}
+
