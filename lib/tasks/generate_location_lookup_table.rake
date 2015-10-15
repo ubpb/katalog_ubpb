@@ -22,6 +22,6 @@ task :generate_location_lookup_table => :environment do
   end
 
   if lookup_table.present?
-    File.write(File.join(Rails.root, "config", "location_lookup_table.yml"), YAML.dump(lookup_table))
+    File.write(File.join(Rails.root, "lib", "katalog_ubpb", "ubpb_aleph_adapter", "location_lookup_table.yml"), YAML.dump(lookup_table))
   end
 end
