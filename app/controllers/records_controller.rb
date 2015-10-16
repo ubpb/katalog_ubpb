@@ -32,7 +32,7 @@ class RecordsController < ApplicationController
 
       extended_search_request = @search_request.deep_dup
       extended_search_request.from = @search_request.from - offset unless on_first_page
-      extended_search_request.size = @search_request.size + offset
+      extended_search_request.size = @search_request.size + 2 * offset
 
       search_result = Skala::SearchRecordsService.call(
         adapter: @scope.search_engine_adapter.instance,
