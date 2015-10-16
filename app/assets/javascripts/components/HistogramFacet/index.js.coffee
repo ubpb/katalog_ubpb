@@ -26,7 +26,7 @@
     deselect_path: ->
       new_search_request = _.cloneDeep(@get("search_request"))
       @remove_facet_query(new_search_request)
-      @remove_from(new_search_request)
+      @reset_from(new_search_request)
       @searches_path(search_request: new_search_request)
 
     selected_by_search_request: ->
