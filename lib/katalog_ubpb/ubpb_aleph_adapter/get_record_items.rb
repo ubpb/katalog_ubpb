@@ -14,10 +14,12 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
 
       ubpb_item.tap do |_ubpb_item|
         add_availability!(_ubpb_item)
-        add_signature!(_ubpb_item)
         add_ubpb_specific_status!(_ubpb_item)
         correct_journal_signatures!(_ubpb_item)
         set_location!(_ubpb_item)
+
+        # depends on corrected signatures
+        add_signature!(_ubpb_item)
       end
     end
 
@@ -119,9 +121,9 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
   end
 
   def correct_journal_signatures!(item)
-    if z30_call_no = item.fields["z30-call-no"].try(:[], /\A\d+\w\d+\Z/)
+    if z30_call_no = item.fields["z30-call-no"].try(:sub, /\A\//, "").try(:[], /\A\d+\w\d+\Z/)
       collection_code = item.fields["z30-collection-code"].presence
-      item.fields["z30-call-no"] = [collection_code ? "P#{collection_code}" : nil, z30_call_no].compact.join("/")
+      item.fields["z30-call-no"] = [collection_code ? "P#{collection_code}" : nil, z30_call_no.downcase].compact.join("/")
     end
   end
 
@@ -139,7 +141,7 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
       end
     else
       collection_code = item.fields["z30-collection-code"]
-      notation = item.fields["z30-call-no"][/\A[A-Z]{3}/]
+      notation = item.fields["z30-call-no"].try(:[], /\A[A-Z]{3}/)
 
       if collection_code && notation
         KatalogUbpb::UbpbAlephAdapter::LOCATION_LOOKUP_TABLE.find do |_row|
