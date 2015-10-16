@@ -74,7 +74,7 @@ class RecordsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: JSON.pretty_generate(record: @record.as_json, items: @items.as_json) }
+      format.json { render json: JSON.pretty_generate(@record.as_json) }
     end
 
 =begin
