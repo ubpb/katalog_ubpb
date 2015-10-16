@@ -1,5 +1,7 @@
-json.array! @items do |item|
-  %w(id availability description due_date status signature).each do |field_name|
-    json.set!(field_name, item.send(field_name))
+json.array! @items do |_item|
+  %w(availability).each do |_property|
+    if _item.respond_to?(_property)
+      json.set!(_property, _item.public_send(_property))
+    end
   end
 end

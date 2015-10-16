@@ -3,30 +3,30 @@
 #= require polyfills/Array_some
 #= require polyfills/Object_keys
 
-do(app = (window.App ?= {})) ->
+do(app = (window.app ?= {})) ->
   (app.components ?= {}).AvailabilityIndicator = Ractive.extend
-    data:
-      _css: (key) ->
-        app.Utils.CssHelper.normalize """
-          border-radius: 10px;
-          color: white;
-          padding-left: 5px;
-          padding-right: 5px;
-        """ + (
-          switch key
-            when "available" then "background-color: rgba(70, 165, 70, 0.8);"
-            when "not_available" then "background-color: rgba(204, 21, 0, 0.8);"
-            when "restricted_available" then "background-color: rgba(255, 196, 13, 0.8);"
-        ) +
-        if @get("style")? then @get("style") else ""
+#    _css: (key) ->
+#      debugger
+#      app.Utils.CssHelper.normalize """
+#        border-radius: 10px;
+#        color: white;
+#        padding-left: 5px;
+#        padding-right: 5px;
+#      """ + (
+#        switch key
+#          when "available" then "background-color: rgba(70, 165, 70, 0.8);"
+#          when "not_available" then "background-color: rgba(204, 21, 0, 0.8);"
+#          when "restricted_available" then "background-color: rgba(255, 196, 13, 0.8);"
+#      ) +
+#      if @get("style")? then @get("style") else ""
 
     onconfig: ->
       @set "pending", true
-      @["_api_v1_record_items_path"] = app.ComponentHelpers.path_helper_factory(@get("api_v1_record_items_path"))
+      @["api_v1_record_items_path"] = app.ComponentHelpers.path_helper_factory(@get("api_v1_record_items_path"))
 
     oninit: ->
       $.ajax
-        url: @_api_v1_record_items_path(@get("record.id"), scope: @get("scope.id"))
+        url: @api_v1_record_items_path(@get("record_id"), scope: @get("scope_id"))
         type: "GET"
         success: (items) =>
           @set "pending", false
@@ -42,23 +42,24 @@ do(app = (window.App ?= {})) ->
     # elements children because it seems it is delete once and reinserted
     # when pending etc. changes
     template: """
-      <span>
+      <span class="availability-indicator">
         {{#if available}}
-          <span style={{{_css("available")}}}>
+          <span>
             <i class="fa fa-check-circle" />
           </span>
         {{elseif not_available}}
-          <span style={{{_css("not_available")}}}>
+          <span>
             <i class="fa fa-minus-circle" />
           </span>
         {{elseif restricted_available}}
-          <span style={{{_css("restricted_available")}}}>
+          <span>
             <i class="fa fa-adjust" />
           </span>
         {{elseif pending}}
-          <span style="padding-right: 5px;">
+          <span>
             <i class="fa fa-spinner fa-spin" />
           </span>
         {{/if}}
       </span>
     """
+

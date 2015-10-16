@@ -43,7 +43,11 @@ module ApplicationHelper
     if block_given?
       capture(&block)
     elsif template_name
-      render :file => "javascripts/components/#{template_name}/template"
+      template_filename = "javascripts/components/#{template_name}/template"
+
+      if lookup_context.find_all(template_filename).any?
+        render :file => "javascripts/components/#{template_name}/template"
+      end
     end
 
     content_tag(:script, template,

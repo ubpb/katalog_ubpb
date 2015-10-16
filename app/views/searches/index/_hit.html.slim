@@ -53,14 +53,15 @@ tr.hit
         - hit.accrual_policy.each do |_accrual_policy|
           li = "#{t('.accrual_policy')}: #{_accrual_policy}"
 
-    /= ractive_component "skala.components.AvailabilityIndicator",
-      api_v1_record_items_path: api_v1_record_items_path(":record_id"),
-      record: { id: hit.id },
-      scope: { id: hit.scope.id },
-      style: "margin-right: 4px"
+    - if hit.id.start_with?("PAD_ALEPH")
+      = ractive_component "app.components.AvailabilityIndicator",
+        api_v1_record_items_path: api_v1_record_items_path(":record_id"),
+        record_id: hit.fields["id"],
+        scope_id: scope.id,
+        style: "margin-right: 4px"
 
-    /- if hit.signature.present?
-      span.signature = hit.signature.first
+    - if hit.fields["signature"].present?
+      span.signature =< [*hit.fields["signature"]].first
 
     /= ractive_component "skala.components.Note",
       note: @notes.try(:find) { |_note| \
