@@ -4,7 +4,7 @@
     end: AZY
     excl: false
   :fachgebiet: Allgemeines
-  :ebene: '4'
+  :location: Ebene 4
   :standortkennziffern:
   - '10'
   - '11'
@@ -16,7 +16,7 @@
     end: ZZZ
     excl: false
   :fachgebiet: Alle Fachgebiete
-  :ebene: IEMAN
+  :location: IEMAN
   :standortkennziffern:
   - '28'
   :fachkennziffern: []
@@ -25,7 +25,7 @@
     end: ZZZ
     excl: false
   :fachgebiet: Alle Fachgebiete
-  :ebene: 'IMT: Medien'
+  :location: 'IMT: Medien'
   :standortkennziffern:
   - '88'
   :fachkennziffern: []
@@ -34,7 +34,7 @@
     end: ZZZ
     excl: false
   :fachgebiet: Alle Fachgebiete
-  :ebene: Magazin
+  :location: Magazin
   :standortkennziffern:
   - '02'
   - '06'
@@ -54,7 +54,7 @@
     end: ZZZ
     excl: false
   :fachgebiet: Alle Fachgebiete
-  :ebene: 'Zentrum für Sprachlehre        '
+  :location: 'Zentrum für Sprachlehre        '
   :standortkennziffern:
   - '86'
   :fachkennziffern: []
@@ -63,7 +63,7 @@
     end: ZZZ
     excl: false
   :fachgebiet: Bibliografischer Apparat
-  :ebene: '1'
+  :location: Ebene 1
   :standortkennziffern:
   - 08
   :fachkennziffern: []
@@ -72,7 +72,7 @@
     end: BSK
     excl: false
   :fachgebiet: Allgemeine und vergleichende Sprach- und Literaturwissenschaft
-  :ebene: '4'
+  :location: Ebene 4
   :standortkennziffern:
   - '10'
   - '11'
@@ -84,7 +84,7 @@
     end: DDZ
     excl: false
   :fachgebiet: Germanistik
-  :ebene: '4'
+  :location: Ebene 4
   :standortkennziffern:
   - '10'
   - '11'
@@ -96,7 +96,7 @@
     end: D
     excl: false
   :fachgebiet: Alle Fachgebiete
-  :ebene: Magazin
+  :location: Magazin
   :standortkennziffern:
   - '02'
   - '03'
@@ -106,7 +106,7 @@
     end: EOF
     excl: false
   :fachgebiet: Anglistik
-  :ebene: '4'
+  :location: Ebene 4
   :standortkennziffern:
   - '10'
   - '11'
@@ -118,7 +118,7 @@
     end: DQ
     excl: false
   :fachgebiet: Alle Fachgebiete
-  :ebene: Magazin
+  :location: Magazin
   :standortkennziffern:
   - '02'
   - '03'
@@ -128,7 +128,7 @@
     end: FZT
     excl: false
   :fachgebiet: Romanistik
-  :ebene: '4'
+  :location: Ebene 4
   :standortkennziffern:
   - '10'
   - '11'
@@ -140,7 +140,7 @@
     end: HGY
     excl: false
   :fachgebiet: Philologien, sonstige
-  :ebene: '4'
+  :location: Ebene 4
   :standortkennziffern:
   - '10'
   - '11'
@@ -152,7 +152,7 @@
     end: HPQ
     excl: false
   :fachgebiet: Philosophie
-  :ebene: '2'
+  :location: Ebene 2
   :standortkennziffern:
   - '10'
   - '11'
@@ -164,7 +164,7 @@
     end: HXQ
     excl: false
   :fachgebiet: Psychologie
-  :ebene: '2'
+  :location: Ebene 2
   :standortkennziffern:
   - '10'
   - '11'
@@ -176,7 +176,7 @@
     end: IKY
     excl: false
   :fachgebiet: Erziehungswiss.
-  :ebene: '2'
+  :location: Ebene 2
   :standortkennziffern:
   - '10'
   - '11'
@@ -188,7 +188,7 @@
     end: IVX
     excl: false
   :fachgebiet: Theologie
-  :ebene: '2'
+  :location: Ebene 2
   :standortkennziffern:
   - '10'
   - '11'
@@ -200,7 +200,7 @@
     end: JSZ
     excl: false
   :fachgebiet: Autoren Geisteswissenschaften  
-  :ebene: '2'
+  :location: Ebene 2
   :standortkennziffern:
   - '10'
   - '11'
@@ -211,7 +211,7 @@
     end: KKP
     excl: false
   :fachgebiet: Kunst
-  :ebene: '1'
+  :location: Ebene 1
   :standortkennziffern:
   - '10'
   - '11'
@@ -223,7 +223,7 @@
     end: K
     excl: false
   :fachgebiet: Alle Fachgebiete
-  :ebene: Magazin
+  :location: Magazin
   :standortkennziffern:
   - '02'
   - '03'
@@ -233,7 +233,7 @@
     end: KKP
     excl: false
   :fachgebiet: Musik
-  :ebene: '1'
+  :location: Ebene 1
   :standortkennziffern:
   - '10'
   - '11'
@@ -245,7 +245,7 @@
     end: KNZZ
     excl: false
   :fachgebiet: Medienwissenschaft
-  :ebene: '1'
+  :location: Ebene 1
   :standortkennziffern:
   - '10'
   - '11'
@@ -257,7 +257,7 @@
     end: KWV
     excl: false
   :fachgebiet: Sportwissenschaft
-  :ebene: '3'
+  :location: Ebene 3
   :standortkennziffern:
   - '10'
   - '11'
@@ -269,7 +269,7 @@
     end: MQX
     excl: false
   :fachgebiet: Geschichte
-  :ebene: '5'
+  :location: Ebene 5
   :standortkennziffern:
   - '30'
   - '31'
@@ -281,7 +281,7 @@
     end: M
     excl: false
   :fachgebiet: Alle Fachgebiete
-  :ebene: Magazin
+  :location: Magazin
   :standortkennziffern:
   - '02'
   - '03'
@@ -291,7 +291,7 @@
     end: MQ
     excl: false
   :fachgebiet: Alle Fachgebiete
-  :ebene: Magazin
+  :location: Magazin
   :standortkennziffern:
   - '02'
   - '03'
@@ -301,7 +301,7 @@
     end: NMU
     excl: false
   :fachgebiet: Geowissenschaften
-  :ebene: '5'
+  :location: Ebene 5
   :standortkennziffern:
   - '30'
   - '31'
@@ -313,7 +313,7 @@
     end: NRX
     excl: false
   :fachgebiet: Sozialwissenschaften
-  :ebene: '5'
+  :location: Ebene 5
   :standortkennziffern:
   - '30'
   - '31'
@@ -325,7 +325,7 @@
     end: OSG
     excl: false
   :fachgebiet: Soziologie
-  :ebene: '5'
+  :location: Ebene 5
   :standortkennziffern:
   - '30'
   - '31'
@@ -337,7 +337,7 @@
     end: PFZ
     excl: false
   :fachgebiet: Politikwissenschaft
-  :ebene: '5'
+  :location: Ebene 5
   :standortkennziffern:
   - '30'
   - '31'
@@ -349,7 +349,7 @@
     end: P
     excl: false
   :fachgebiet: Paderborner Dissertationen
-  :ebene: Magazin
+  :location: Magazin
   :standortkennziffern:
   - '04'
   :fachkennziffern: []
@@ -358,7 +358,7 @@
     end: QKU
     excl: false
   :fachgebiet: Wirtschaftswiss.
-  :ebene: '5'
+  :location: Ebene 5
   :standortkennziffern:
   - '30'
   - '31'
@@ -370,7 +370,7 @@
     end: PQ
     excl: false
   :fachgebiet: Paderborner Dissertationen
-  :ebene: Magazin
+  :location: Magazin
   :standortkennziffern:
   - '04'
   :fachkennziffern: []
@@ -379,7 +379,7 @@
     end: QWW
     excl: false
   :fachgebiet: Rechtswissenschaft
-  :ebene: '5'
+  :location: Ebene 5
   :standortkennziffern:
   - '30'
   - '31'
@@ -391,7 +391,7 @@
     end: RSX
     excl: false
   :fachgebiet: Land- und Forstwirt.
-  :ebene: '3'
+  :location: Ebene 3
   :standortkennziffern:
   - '40'
   - '41'
@@ -403,7 +403,7 @@
     end: SA
     excl: false
   :fachgebiet: Akademieschriften
-  :ebene: Magazin
+  :location: Magazin
   :standortkennziffern:
   - '02'
   - '03'
@@ -413,7 +413,7 @@
     end: SB
     excl: false
   :fachgebiet: NS-Belletristik
-  :ebene: Magazin
+  :location: Magazin
   :standortkennziffern:
   - '02'
   - '03'
@@ -423,7 +423,7 @@
     end: SF
     excl: false
   :fachgebiet: Steinhoff-Forschungsbibliothek
-  :ebene: Magazin
+  :location: Magazin
   :standortkennziffern:
   - '02'
   - '03'
@@ -433,7 +433,7 @@
     end: SR
     excl: false
   :fachgebiet: Regionalliteratur
-  :ebene: Magazin
+  :location: Magazin
   :standortkennziffern:
   - '02'
   - '03'
@@ -443,7 +443,7 @@
     end: SZO
     excl: false
   :fachgebiet: Naturwissenschaften, allg.
-  :ebene: '3'
+  :location: Ebene 3
   :standortkennziffern:
   - '40'
   - '41'
@@ -455,7 +455,7 @@
     end: SU
     excl: false
   :fachgebiet: Literatur zur Universität Paderborn  
-  :ebene: Magazin
+  :location: Magazin
   :standortkennziffern:
   - '02'
   - '03'
@@ -465,7 +465,7 @@
     end: SZ
     excl: false
   :fachgebiet: Zugschwerdt'sche Leihbibliothek
-  :ebene: Magazin
+  :location: Magazin
   :standortkennziffern:
   - '02'
   - '03'
@@ -475,7 +475,7 @@
     end: TSN
     excl: false
   :fachgebiet: Mathematik
-  :ebene: '3'
+  :location: Ebene 3
   :standortkennziffern:
   - '40'
   - '41'
@@ -487,7 +487,7 @@
     end: TZZ
     excl: false
   :fachgebiet: Informatik
-  :ebene: '3'
+  :location: Ebene 3
   :standortkennziffern:
   - '40'
   - '41'
@@ -499,7 +499,7 @@
     end: UMP
     excl: false
   :fachgebiet: Physik
-  :ebene: '3'
+  :location: Ebene 3
   :standortkennziffern:
   - '40'
   - '41'
@@ -511,7 +511,7 @@
     end: UYO
     excl: false
   :fachgebiet: Chemie
-  :ebene: '3'
+  :location: Ebene 3
   :standortkennziffern:
   - '40'
   - '41'
@@ -523,7 +523,7 @@
     end: VHO
     excl: false
   :fachgebiet: Astronomie
-  :ebene: '3'
+  :location: Ebene 3
   :standortkennziffern:
   - '40'
   - '41'
@@ -535,7 +535,7 @@
     end: VTW
     excl: false
   :fachgebiet: Biologie
-  :ebene: '3'
+  :location: Ebene 3
   :standortkennziffern:
   - '40'
   - '41'
@@ -547,7 +547,7 @@
     end: VZX
     excl: false
   :fachgebiet: Medizin
-  :ebene: '3'
+  :location: Ebene 3
   :standortkennziffern:
   - '40'
   - '41'
@@ -559,7 +559,7 @@
     end: W
     excl: false
   :fachgebiet: Alle Fachgebiete
-  :ebene: Magazin
+  :location: Magazin
   :standortkennziffern:
   - '07'
   :fachkennziffern: []
@@ -568,7 +568,7 @@
     end: WHR
     excl: false
   :fachgebiet: Technik
-  :ebene: '3'
+  :location: Ebene 3
   :standortkennziffern:
   - '50'
   - '51'
@@ -580,7 +580,7 @@
     end: XHV
     excl: false
   :fachgebiet: Architektur
-  :ebene: '3'
+  :location: Ebene 3
   :standortkennziffern:
   - '50'
   - '51'
@@ -592,7 +592,7 @@
     end: WQ
     excl: false
   :fachgebiet: Alle Fachgebiete
-  :ebene: Magazin
+  :location: Magazin
   :standortkennziffern:
   - '07'
   :fachkennziffern: []
@@ -601,7 +601,7 @@
     end: XTV
     excl: false
   :fachgebiet: Maschinenbau
-  :ebene: '3'
+  :location: Ebene 3
   :standortkennziffern:
   - '50'
   - '51'
@@ -613,7 +613,7 @@
     end: YGY
     excl: false
   :fachgebiet: Elektrotechnik
-  :ebene: '3'
+  :location: Ebene 3
   :standortkennziffern:
   - '50'
   - '51'
@@ -625,7 +625,7 @@
     end: ZWT
     excl: false
   :fachgebiet: Sonstige Gebiete der Technik
-  :ebene: '3'
+  :location: Ebene 3
   :standortkennziffern:
   - '50'
   - '51'
@@ -637,7 +637,7 @@
     end: 
     excl: false
   :fachgebiet: Akademieschriften
-  :ebene: '3'
+  :location: Ebene 3
   :standortkennziffern:
   - '50'
   :fachkennziffern:

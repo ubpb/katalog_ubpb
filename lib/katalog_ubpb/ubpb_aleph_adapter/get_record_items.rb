@@ -146,7 +146,7 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
           _row[:standortkennziffern].include?(collection_code) && _row[:systemstellen].include?(notation)
         end
         .try do |_row|
-          item.location = "Ebene #{_row[:ebene]}"
+          item.location = _row[:location]
         end
       end
     end

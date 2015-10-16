@@ -14,7 +14,7 @@ task :generate_location_lookup_table => :environment do
       lookup_table.push({
         systemstellen: notation_range_min..(notation_range_max || notation_range_min),
         fachgebiet: cells[1].content,
-        ebene: cells[2].content,
+        location: if (content = cells[2].content)[/\A\d+\Z/] then "Ebene #{content}" else content end,
         standortkennziffern: cells[3].content.gsub(/P/, "").split(",").map(&:strip),
         fachkennziffern: cells[4].content.split("-").map(&:strip)
       })
