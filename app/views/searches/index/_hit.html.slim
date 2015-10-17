@@ -2,10 +2,10 @@
 - search_result  ||= nil
 
 tr.hit
-  /td.hidden-xs(style="vertical-align: middle; text-align: center;")
-    = ractive_component "skala.components.Image",
+  td.hidden-xs(style="vertical-align: middle; text-align: center;")
+    = ractive_component "app.components.Image",
       placeholder: "<i class='fa fa-book' style='font-size: 44px; color: lightgrey;' />",
-      src: hit.image.try(:find) { |_image| _image["type"] == "tiny" }.try(:[], "url")
+      src: amazon_image_url(hit)
 
   td
     .title

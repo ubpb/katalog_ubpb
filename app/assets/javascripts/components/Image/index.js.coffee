@@ -1,6 +1,6 @@
 #= require imagesloaded.pkgd
 
-((window.App ?= {}).components ?= {}).Image = Ractive.extend
+((window.app ?= {}).components ?= {}).Image = Ractive.extend
   onconfig: ->
     @set "image_dimensions", height: "auto", width: "auto"
 
