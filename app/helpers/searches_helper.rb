@@ -29,4 +29,12 @@ module SearchesHelper
     end
   end
 
+  def amazon_image_url(hit, format: "THUMBZZZ")
+    isbn = [*hit.fields["isbn"]].first
+    if isbn
+      isbn = isbn.gsub("-", "")
+      "https://images-na.ssl-images-amazon.com/images/P/#{isbn}.03.#{format}.jpg"
+    end
+  end
+
 end
