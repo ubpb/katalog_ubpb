@@ -5,11 +5,8 @@ class KatalogUbpb::UbpbElasticsearchAdapter::SearchRecords < Skala::Elasticsearc
   def call(search_request)
     search_request = search_request.deep_dup
     add_query_to_ignore_deleted_records!(search_request)
-   
+
     result = super(search_request)
-    
-    #result.hits.each do |_hit|
-    #end
 
     result
   end
@@ -21,4 +18,5 @@ class KatalogUbpb::UbpbElasticsearchAdapter::SearchRecords < Skala::Elasticsearc
   end
 
   private # seach result transformation
+
 end
