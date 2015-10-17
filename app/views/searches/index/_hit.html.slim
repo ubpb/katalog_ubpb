@@ -19,31 +19,19 @@ tr.hit
         ul
           - [*[hit.fields["is_part_of"]]].flatten.each do |_superorder|
             li
-              - if (ht_number = _superorder["ht_number"]).present?
-                = link_to _superorder["label"], searches_path(\
-                  search_request: Skala::SearchRequest.new(\
-                    queries: {\
-                      type: "query_string",\
-                      query: ht_number,\
-                      default_field: "ht_number"\
-                    }\
-                  ),\
-                  scope: scope.id\
-                )
-                /= link_to _superorder["label"], new_searches_path({query: ht_number, field: "ht_number"}, scope: scope.id, sort: { field: "volume_count2" })
+              - if _superorder["label_additions"].present?
+                  - _superorder["label"] = "#{_superorder["label"]} : #{[*_superorder["label_additions"]].join(", ")}"
 
+              - if _superorder["ht_number"].present?
+                = link_to_superorder(scope, _superorder)
               - else
                 = _superorder["label"]
 
-              /- if _superorder["volume"].present?
-                = "; Bd. #{_superorder["volume"].first}"
+              - if _superorder["volume_count"].present?
+                = "; #{_superorder["volume_count"]}"
 
-              /- if (_identifier = _superorder["identifier"].try(:first)).present?
-                = link_to searches_path(\
-                    search_request: hit.scope.search_request_factory(is_part_of: _identifier),\
-                    scope: hit.scope\
-                  ) do
-                  =< "(#{t('.all_parts')})"
+              - if _superorder["ht_number"].present?
+                =< link_to_volumes(scope, _superorder)
 
     /.aggregated-details
       = hit.aggregate(:creator, :edition, :created)
