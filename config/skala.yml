@@ -6,7 +6,6 @@ common_settings: &common_settings
       default_user_library: "PAD50"
       restful_api_url: "http://ubtest.uni-paderborn.de:1891/rest-dlf"
       x_services_url: "https://ubtest.uni-paderborn.de/X"
-      #source_id: "PAD_ALEPH"
 
   search_scopes:
     local:
@@ -14,7 +13,7 @@ common_settings: &common_settings
         class_name: "KatalogUbpb::UbpbElasticsearchAdapter"
         options:
           hosts:
-            - host: "ubstage1.uni-paderborn.de"
+            - host: "localhost"
           facets_via_aggregations: true
           index: katalog
 
@@ -22,14 +21,28 @@ common_settings: &common_settings
         - name: "creators"
           type: "terms"
           field: "creator_contributor_facet"
-
         - name: "erscheinungsformen"
           type: "terms"
           field: "erscheinungsform"
-
         - name: "creation_dates"
           type: "histogram"
           field: "creationdate_facet"
+        - name: "subjects"
+          type: "terms"
+          field: "subject_facet"
+        - name: "languages"
+          type: "terms"
+          field: "language"
+        - name: "notations"
+          type: "terms"
+          field: "notation"
+        - name: "inhaltstypen"
+          type: "terms"
+          field: "inhaltstyp"
+        - name: "materialtypen"
+          type: "terms"
+          field: "materialtyp"
+
 
         #- name: "neuerwerbungen"
         #  type: "range"
