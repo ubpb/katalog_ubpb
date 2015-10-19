@@ -2,7 +2,7 @@
 | {{#facet}}
 .facet.cat-histogram-facet
   .cat-nav-header
-    | {{name}}
+    | {{ t("facets." + name, {defaultValue: name}) }}
 
   | {{#if selected_by_search_request}}
   ul.nav.nav-pills.nav-stacked: li: a(href="{{deselect_path}}")

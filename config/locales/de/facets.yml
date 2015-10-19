@@ -1,7 +1,10 @@
 de:
   facets:
-    creators:
-      header: "Autoren / Herausgeber"
-
-    languages:
-      header: "Sprachen"
+    creators: "Autor / Autorin"
+    erscheinungsformen: "Erscheinunsgform"
+    subjects: "Schlagwort"
+    creation_dates: "Erscheinungsjahr"
+    languages: "Sprache"
+    notations: "Systemstelle"
+    inhaltstypen: "Inhaltstyp"
+    materialtypen: "Materialtyp"
