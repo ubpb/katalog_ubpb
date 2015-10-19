@@ -23,6 +23,7 @@ gem "jquery-tablesorter",    "~> 1.12.8"
 gem "autoprefixer-rails",    "~> 6.0.3"
 gem "dotenv-rails"
 gem "rails-i18n"
+gem "i18n-js", ">= 3.0.0.rc11"
 
 gem "skala", github: "ubpb/skala", branch: :master
 

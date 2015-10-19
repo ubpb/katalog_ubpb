@@ -32,3 +32,9 @@
         [non_query_part, query_part].join("?")
       else
         non_query_part
+
+
+# Register some Ractive helpers
+helpers = Ractive.defaults.data
+helpers.t = (path, options = {})->
+  I18n.t(path, options)

@@ -34,6 +34,15 @@
         element["field"] == @parent.get("facet.field") && element["query"] == @get("term")
       )
 
+    translated_term: ->
+      i18n_key = @parent.get("facet.i18n_key")
+      term     = @get("term")
+
+      if i18n_key
+        I18n.t("#{i18n_key}.#{term}", {defaultValue: term})
+      else
+        term
+
   template: "{{>content}}"
 
   #

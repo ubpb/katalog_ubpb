@@ -1,7 +1,0 @@
-locales = '''
-<%= JSON.generate(I18n.backend.send(:translations)) %>
-'''
-
-window.I18n.translations = JSON.parse(locales)
-window.I18n.defaultLocale = "<%= I18n.default_locale %>"
-window.I18n.locale = "<%= I18n.locale %>"
