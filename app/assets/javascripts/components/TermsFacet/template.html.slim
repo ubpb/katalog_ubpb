@@ -25,12 +25,12 @@
 
     | {{#if can_be_collapsed && is_collapsed}}
     a(href="#" on-click="Decollapse")
-      = t("app.components.TermsFacet.expand_terms_facet", additional_terms: "{{facet.terms.length - collapse_threshold}}")
+      = t("components.TermsFacet.expand_terms_facet", additional_terms: "{{facet.terms.length - collapse_threshold}}")
     | {{/if}}
 
     | {{#if can_be_collapsed && !is_collapsed}}
     a(href="#" on-click="Collapse")
-      = t("app.components.TermsFacet.collapse_terms_facet", terms_to_hide: "{{facet.terms.length - collapse_threshold}}")
+      = t("components.TermsFacet.collapse_terms_facet", terms_to_hide: "{{facet.terms.length - collapse_threshold}}")
     | {{/if}}
 
 | {{/facet}}

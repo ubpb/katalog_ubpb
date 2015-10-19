@@ -9,7 +9,7 @@
     .fa.fa-times>
     .label.label-info
       | {{min_key}}
-      =<>  t("app.components.HistogramFacet.to")
+      =<>  t("components.HistogramFacet.to")
       | {{max_key}}
 
   | {{/if}}
@@ -30,7 +30,7 @@
   .row(style="margin-top: 10px")
     .col-sm-12
       button.btn.btn-default(style="width: 100%" on-click="update_search_result")
-        = t("app.components.HistogramFacet.update_search_result")
+        = t("components.HistogramFacet.update_search_result")
 
 | {{/facet}}
 | {{/if}}
