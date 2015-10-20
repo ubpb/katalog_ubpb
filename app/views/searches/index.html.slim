@@ -1,10 +1,10 @@
 .row: .col-sm-12
-  = render "application/search_bar",
+  = render "application/search_panel",
     scope: current_scope,
     search_request: @search_request
 
 .row: .col-sm-12: .search-results: .panel.panel-default: .panel-body
-  - if @search_result 
+  - if @search_result
     - if @search_result.hits.present?
       = render_relative "./index/search_result",
         search_request: @search_request,

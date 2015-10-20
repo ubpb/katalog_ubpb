@@ -1,10 +1,16 @@
-.search-bar {
-  .row.query-string-query {
-    margin-bottom: 10px;
+.search-panel {
+  $row-gap: 10px;
 
-    &:last-child {
-      margin-bottom: 0;
-    }
+  .panel-body {
+    margin-bottom: -$row-gap;
+  }
+
+  .input-group {
+    margin-bottom: $row-gap;
+  }
+
+  .search-button {
+    margin-bottom: $row-gap;
   }
 
   .nav.nav-tabs {
@@ -23,13 +29,6 @@
     > li.active > a:hover {
       background-color: $panel-bg;
       text-decoration: none;
-    }
-  }
-
-  // make the index field dropdown rougly the same (min) size
-  .query ~ .input-group-btn {
-    .btn-group button {
-      min-width: 150px;
     }
   }
 }
