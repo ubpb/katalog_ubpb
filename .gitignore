@@ -20,3 +20,4 @@
 .env*
 
 public/assets/**/*
+public/javascripts/translations.js
