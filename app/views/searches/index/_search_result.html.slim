@@ -10,7 +10,9 @@
 
   / if there are no facets, make the search result full width
   div(class="#{search_result.facets.present? ? 'col-md-9 col-md-pull-3' : 'col-md-12'}")
-    = render_relative "./hit_list",
-      search_request: search_request,
-      search_result: search_result,
-      scope: scope
+    .panel.panel-primary
+      .panel-body.panel-cutoffcorner
+        = render_relative "./hit_list",
+          search_request: search_request,
+          search_result: search_result,
+          scope: scope

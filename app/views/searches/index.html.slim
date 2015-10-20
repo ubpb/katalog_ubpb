@@ -3,7 +3,7 @@
     scope: current_scope,
     search_request: @search_request
 
-.row: .col-sm-12: .search-results: .panel.panel-default: .panel-body
+.row: .col-sm-12: .search-results
   - if @search_result
     - if @search_result.hits.present?
       = render_relative "./index/search_result",
@@ -15,4 +15,6 @@
       .alert.alert-info.alert-no-records-found
         = t(".no_records_found")
   - else
-    h3(style="text-align: center; margin:0") Place your search hints content here...
+    .panel.panel-primary
+      .panel-body.panel-cutoffcorner
+        h3(style="text-align: center; margin:0") Place your search hints content here...

@@ -1,0 +1,27 @@
+$upb-blue: #00205b;
+$upb-cyan: #18b0e2;
+$upb-gray: #c7c9c7;
+$upb-gray-dark: #555555;
+
+$brand-primary: $upb-cyan;
+$gray-darker: #2d2d32;
+$gray-dark: $upb-gray-dark;
+$gray: $upb-gray;
+$gray-light: #e3e4e3;
+$gray-lighter: #ededed;
+
+$content-area-bg: $gray-lighter;
+
+$font-size-base: 14px;
+$font-family-sans-serif: Signika, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+$border-radius-base: 0;
+$text-color: $gray-dark;
+
+$input-color: $gray-dark;
+
+$panel-default-text: $text-color;
+
+@if $bootstrap-loaded {
+
+}

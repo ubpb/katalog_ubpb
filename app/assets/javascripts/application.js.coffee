@@ -30,7 +30,6 @@
 #= require jquery.ui.touch-punch
 #= require bootstrap-simple-select
 #= require bootstrap-switch
-#= require bootstrap-tour
 #= require ractive/ractive
 #= require ractive/ractive-events-keys
 #= require trunker

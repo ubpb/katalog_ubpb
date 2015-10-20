@@ -1,0 +1,33 @@
+.panel {
+  box-shadow: none;
+  border: none;
+  border-color: transparent;
+
+  &.panel-primary {
+    border-bottom-width: 4px;
+    border-bottom-style: solid;
+    border-bottom-color: $brand-primary;
+  }
+
+  .panel-cutoffcorner {
+    position: relative;
+
+    &:before {
+      content: " ";
+      border-left-color: rgba(0, 0, 0, 0);
+      border-left-style: solid;
+      border-left-width: 17px;
+      border-top-color: $content-area-bg;
+      border-top-style: solid;
+      border-top-width: 17px;
+      box-sizing: border-box;
+      display: block;
+      height: 17px;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      width: 17px;
+      z-index: 3;
+    }
+  }
+}

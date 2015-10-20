@@ -1,0 +1,17 @@
+.facet {
+  &.term-facet {
+    .nav {
+      margin-left: -$panel-body-padding;
+      margin-right: -$panel-body-padding;
+
+      > li > a {
+        padding: 0 $panel-body-padding;
+
+        &:hover,
+        &:focus {
+          background: none;
+        }
+      }
+    }
+  }
+}

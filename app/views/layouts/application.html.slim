@@ -30,9 +30,15 @@ html
       I18n.fallbacks = true;
 
   body
-    = render "global_message"
-    .container = render "navbar"
-    .container = render "breadcrumb"
-    .container = render "alerts"
-    .container = content_for?("layout.body.content") ? yield("layout.body.content") : yield
-    .container = render "footer"
+    #global-message-wrapper
+      .container = render "global_message"
+    #navbar-wrapper
+      .container = render "navbar"
+    /#breadcrumb-wrapper
+    /  .container = render "breadcrumb"
+    #alerts-wrapper
+      .container-float = render "alerts"
+    #content-area-wrapper
+      .container = yield
+    #footer-wrapper
+      .container = render "footer"

@@ -6,7 +6,7 @@
           = link_to t("scopes.#{_scope.id}"), searches_path(scope: _scope.id)
 
   .panel.panel-default
-    .panel-body
+    .panel-body.panel-cutoffcorner
       = ractive_component "SearchBar",
         search_request: search_request,
         searchable_fields: scope.searchable_fields.map { |_fieldname| [_fieldname, t("#{scope.search_engine_adapter.i18n_key}.fields.#{_fieldname}", default: _fieldname)]},

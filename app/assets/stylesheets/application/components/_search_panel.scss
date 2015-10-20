@@ -1,0 +1,41 @@
+.search-panel {
+  $row-gap: $line-height-computed / 2;
+
+  .panel-body {
+    padding-bottom: $panel-body-padding - $row-gap;
+  }
+
+  .input-group,
+  .search-button {
+    margin-bottom: $row-gap;
+  }
+
+  .nav.nav-tabs {
+    margin-left: $panel-body-padding;
+    border: none;
+
+    > li > a,
+    > li > a:hover {
+      background-color: transparent;
+      border: none;
+      border-top-style: solid;
+      border-top-width: 2px;
+      border-top-color: transparent;
+    }
+
+    > li > a:hover {
+      text-decoration: underline;
+    }
+
+    > li.active > a,
+    > li.active > a:hover {
+      color: $text-color;
+      background-color: $panel-bg;
+      border-top-color: $brand-primary;
+    }
+
+    > li.active > a:hover {
+      text-decoration: none;
+    }
+  }
+}
