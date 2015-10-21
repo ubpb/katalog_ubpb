@@ -25,12 +25,17 @@
 
     .navbar-nav {
       margin-top: 8px;
+
       > li > a {
         color: $text-color;
         &:hover {
           color: $brand-primary;
         }
       }
+    }
+
+    .myaccount {
+      margin-top: 8px;
     }
   }
 }
