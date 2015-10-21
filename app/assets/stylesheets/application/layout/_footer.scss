@@ -3,5 +3,38 @@
   color: #fff;
   a {
     color: #fff;
+    &:hover {
+      color: $upb-blue;
+    }
+  }
+
+  #footer {
+    font-size: 90%;
+    padding: 10px 0;
+
+    ul {
+      @extend .list-unstyled;
+      li {
+        text-transform: uppercase;
+      }
+    }
+
+    .copyright {
+      @media (min-width: $screen-sm-min) {
+        text-align: right;
+      }
+    }
+  }
+
+  #footer-image {
+    background: transparent image-url("footer-sm.jpg") no-repeat center bottom;
+    background-size: contain;
+    height: 82px;
+    margin-bottom: $line-height-computed;
+
+    @media (min-width: $screen-sm-min) {
+      background-image: image-url("footer-lg.jpg");
+      height: 275px;
+    }
   }
 }

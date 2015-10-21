@@ -1,0 +1,12 @@
+.to_top {
+  font-size: 90%;
+  text-align: right;
+  margin-bottom: $line-height-computed / 2;
+  a {
+    color: $brand-primary;
+    &:hover,
+    &:focus {
+      color: $upb-blue;
+    }
+  }
+}

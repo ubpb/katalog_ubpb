@@ -1,6 +1,28 @@
-.row
-  .col-sm-12
-    #footer
-      = "&copy;".html_safe
-      = "&nbsp;#{Time.now.year}&nbsp;".html_safe
-      = link_to "Universitätsbibiothek Paderborn", "http://ub.uni-paderborn.de"
+footer
+  #footer
+    .row
+      .col-sm-3
+        ul
+          li
+            = link_to main_app.root_path do
+              = t("application.navbar.start")
+
+          li
+            = link_to new_ticket_path do
+              = t("application.navbar.feedback")
+
+          li
+            = link_to help_path, id: "menubar-help", target: "_blank" do
+              = t("application.navbar.help")
+
+          li
+            = link_to "http://blogs.uni-paderborn.de/ub-katalog/"
+              = t("application.navbar.blog")
+
+      .col-sm-6.col-sm-offset-3
+        .copyright
+          = "&copy;".html_safe
+          = "&nbsp;#{Time.now.year}&nbsp;".html_safe
+          = link_to "Universitätsbibiothek Paderborn", "http://ub.uni-paderborn.de"
+
+  #footer-image
