@@ -1,0 +1,28 @@
+#breadcrumb {
+  .breadcrumb {
+    font-size: 90%;
+    background-color: transparent;
+    padding: 0;
+
+    > li {
+      a {
+        color: $brand-primary;
+        &:hover,
+        &:focus {
+          color: $upb-blue;
+        }
+      }
+    }
+
+    > li:last-child {
+      a {
+        color: $text-color;
+      }
+    }
+
+    > li + li:before {
+      font-family: FontAwesome;
+      content: "\f178";
+    }
+  }
+}

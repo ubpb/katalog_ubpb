@@ -1,12 +1,10 @@
 nav.navbar.navbar-default(role="navigation")
   .navbar-header
     button.navbar-toggle(type="button" data-toggle="collapse" data-target="#navbar-collapse")
-      span.icon-bar
-      span.icon-bar
-      span.icon-bar
+      = fa_icon("bars")
 
     = link_to "http://www.ub.uni-paderborn.de" do
-      = image_tag "ub-logo.png"
+      = image_tag "ub-logo.png", class: "logo"
 
   .collapse.navbar-collapse#navbar-collapse
     ul.nav.navbar-nav.navbar-right

@@ -6,6 +6,31 @@
     background: none;
     border: none;
     border-radius: 0;
+    border-color: transparent;
     margin-top: $navbar-margin-bottom;
+
+    .logo {
+      height: 66px;
+    }
+
+    .navbar-collapse {
+      padding: 0;
+      border: none;
+    }
+
+    .navbar-toggle {
+      margin-right: 0;
+      margin-top: 13px;
+    }
+
+    .navbar-nav {
+      margin-top: 8px;
+      > li > a {
+        color: $text-color;
+        &:hover {
+          color: $brand-primary;
+        }
+      }
+    }
   }
 }
