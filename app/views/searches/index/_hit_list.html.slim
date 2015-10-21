@@ -1,50 +1,37 @@
-.cat-hit-list
-  .row.cat-hit-list-header
-    .col-sm-3.cat-total-number-of-hits
-      = t(".total_hits", count: search_result.total_hits)
-
-    .col-sm-6.text-center
-      - if search_result.total_hits > search_request.size
-        .visible-xs = render_relative "./pagination",
-          pager_size: 5,
-          scope: scope,
+.panel.panel-primary
+  .panel-heading.panel-cutoffcorner
+    .row
+      .col-sm-6
+        = ractive_component "SortFieldSelect",
           search_request: search_request,
-          total_hits: search_result.total_hits
+          searches_path: searches_path(scope: scope),
+          sortable_fields: scope.sortable_fields.map { |_fieldname| [_fieldname, t("#{scope.search_engine_adapter.i18n_key}.fields.#{_fieldname}", default: _fieldname)] }
+      .col-sm-6
+        .pull-right
+          = render "searches/index/pagination",
+            scope: scope,
+            search_request: search_request,
+            search_result: search_result
 
-        .hidden-xs = render_relative "./pagination",
-          pager_size: 7,
-          scope: scope,
-          search_request: search_request,
-          total_hits: search_result.total_hits
+  .panel-body
+    / render partial with collection is used for performance instead of "each do"
+    .row: .col-sm-12: table.table: tbody
+      = render partial: "searches/index/hit",\
+        collection: search_result.hits,\
+        as: :hit,\
+        locals: {\
+          hits: search_result.hits,\
+          scope: scope,\
+          search_request: search_request,\
+          search_result: search_result\
+        }
 
-    .col-sm-3.text-right
-      = ractive_component "SortFieldSelect",
-        search_request: search_request,
-        searches_path: searches_path(scope: scope),
-        sortable_fields: scope.sortable_fields.map { |_fieldname| [_fieldname, t("#{scope.search_engine_adapter.i18n_key}.fields.#{_fieldname}", default: _fieldname)] }
-        
-  / render partial with collection is used for performance instead of "each do"
-  .row.cat-hit-list-body: .col-sm-12: table.table: tbody
-    = render partial: "searches/index/hit",\
-      collection: search_result.hits,\
-      as: :hit,\
-      locals: {\
-        hits: search_result.hits,\
-        scope: scope,\
-        search_request: search_request,\
-        search_result: search_result\
-      }
+  .panel-footer
+    .row
+      .col-sm-12
+        .pull-right
+          = render "searches/index/pagination",
+            scope: scope,
+            search_request: search_request,
+            search_result: search_result
 
-  .row: .col-sm-offset-3.col-sm-6.text-center
-    - if search_result.total_hits > search_request.size
-      .visible-xs = render_relative "./pagination",
-        pager_size: 5,
-        scope: scope,
-        search_request: search_request,
-        total_hits: search_result.total_hits
-
-      .hidden-xs = render_relative "./pagination",
-        pager_size: 7,
-        scope: scope,
-        search_request: search_request,
-        total_hits: search_result.total_hits

@@ -1,0 +1,11 @@
+.pagination {
+  margin: 0;
+  padding: 0;
+
+  > .btn,
+  > .page-stats {
+    line-height: $line-height-computed;
+    padding: 6px 12px;
+    border: 1px solid transparent;
+  }
+}

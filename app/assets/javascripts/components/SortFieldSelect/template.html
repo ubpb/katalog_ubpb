@@ -1,0 +1,5 @@
+<select decorator="bootstrap_simple_select" value="{{primary_sort_field}}" on-change="Change">
+  {{#sortable_fields}}
+    <option value="{{this[0]}}">{{this[1]}}</option>
+  {{/sortable_fields}}
+</select>
