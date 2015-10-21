@@ -22,6 +22,10 @@ $input-color: $gray-dark;
 
 $panel-default-text: $text-color;
 
+$link-color: $upb-blue;
+$link-hover-color: $brand-primary;
+$link-hover-decoration: none;
+
 @if $bootstrap-loaded {
 
 }

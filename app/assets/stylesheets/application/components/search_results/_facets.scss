@@ -1,15 +1,37 @@
-.facet {
-  &.term-facet {
-    .nav {
-      margin-left: -$panel-body-padding;
-      margin-right: -$panel-body-padding;
+#facets {
+  .btn-collapse {
+    margin-bottom: $line-height-computed;
+  }
 
-      > li > a {
-        padding: 0 $panel-body-padding;
+  .facet {
+    .panel {
+      .panel-heading {
+        padding: 7px 15px;
+        background-color: $upb-blue;
 
-        &:hover,
-        &:focus {
-          background: none;
+        .panel-title {
+          font-size: $font-size-base;
+          font-weight: bold;
+        }
+      }
+
+      .panel-footer {
+        padding: 5px 15px;
+      }
+    }
+
+    &.term-facet {
+      .nav {
+        margin-left: -$panel-body-padding;
+        margin-right: -$panel-body-padding;
+
+        > li > a {
+          padding: 0 $panel-body-padding;
+
+          &:hover,
+          &:focus {
+            background: none;
+          }
         }
       }
     }
