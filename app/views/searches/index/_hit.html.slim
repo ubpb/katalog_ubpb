@@ -48,13 +48,13 @@
             = journal_holdings
 
         .status
-          - if hit.id.start_with?("PAD_ALEPH") && !is_online_resource?(hit)
-            => ractive_component "app.components.AvailabilityIndicator",
-              api_v1_record_items_path: api_v1_record_items_path(":record_id"),
-              record_id: hit.fields["id"],
-              scope_id: scope.id
-
           - if (signature = hit.fields["signature"]).present?
+            - if show_availability?(hit)
+              => ractive_component "app.components.AvailabilityIndicator",
+                api_v1_record_items_path: api_v1_record_items_path(":record_id"),
+                record_id: hit.fields["id"],
+                scope_id: scope.id
+
             span.signature
               ' Signatur:
               = link_to(signature, "http://www.ub.uni-paderborn.de/lernen_und_arbeiten/bestaende/medienaufstellung-systemstelle.shtml", target: "_blank")

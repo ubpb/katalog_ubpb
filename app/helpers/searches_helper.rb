@@ -139,8 +139,16 @@ module SearchesHelper
     end
   end
 
+  def is_journal?(hit)
+    hit.fields["erscheinungsform"] == "journal"
+  end
+
   def is_online_resource?(hit)
     hit.fields["materialtyp"] == "online_resource"
+  end
+
+  def show_availability?(hit)
+    hit.id.start_with?("PAD_ALEPH") && !is_online_resource?(hit) && !is_journal?(hit)
   end
 
 end
