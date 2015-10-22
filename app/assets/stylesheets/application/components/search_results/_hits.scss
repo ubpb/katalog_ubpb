@@ -1,5 +1,7 @@
 #hits {
   .hit {
+    @include clearfix();
+
     padding-bottom: $line-height-computed / 2;
     margin-bottom: $line-height-computed / 2;
     border-bottom: 1px solid $gray-light;
@@ -10,17 +12,41 @@
       border-bottom: none;
     }
 
+    $hit-icon-width: 55px;
 
-    .title {
-      font-weight: bold;
+    .hit-icon {
+      display: none;
+      @media (min-width: $screen-sm-min) {
+        display: block;
+      }
+
+      float: left;
+      width: $hit-icon-width;
+      margin-right: $line-height-computed;
+      text-align: center;
+
+      .fa {
+        font-size: $hit-icon-width;
+        color: $gray-light;
+      }
     }
 
-    .is-part-of {
-      font-style: italic;
-      ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
+    .metadata {
+      @media (min-width: $screen-sm-min) {
+        margin-left: $hit-icon-width + $line-height-computed;
+      }
+
+      .title {
+        font-weight: bold;
+      }
+
+      .is-part-of {
+        font-style: italic;
+        ul {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
       }
     }
   }
