@@ -48,7 +48,7 @@
             = journal_holdings
 
         .status
-          - if hit.id.start_with?("PAD_ALEPH")
+          - if hit.id.start_with?("PAD_ALEPH") && !is_online_resource?(hit)
             => ractive_component "app.components.AvailabilityIndicator",
               api_v1_record_items_path: api_v1_record_items_path(":record_id"),
               record_id: hit.fields["id"],

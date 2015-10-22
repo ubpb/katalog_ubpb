@@ -139,4 +139,8 @@ module SearchesHelper
     end
   end
 
+  def is_online_resource?(hit)
+    hit.fields["materialtyp"] == "online_resource"
+  end
+
 end
