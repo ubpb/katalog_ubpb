@@ -44,19 +44,19 @@ do(app = (window.app ?= {})) ->
     template: """
       <span class="availability-indicator">
         {{#if available}}
-          <span>
+          <span class="state available">
             <i class="fa fa-check-circle" />
           </span>
         {{elseif not_available}}
-          <span>
+          <span class="state not-available">
             <i class="fa fa-minus-circle" />
           </span>
         {{elseif restricted_available}}
-          <span>
+          <span class="state restricted-available">
             <i class="fa fa-adjust" />
           </span>
         {{elseif pending}}
-          <span>
+          <span class="state loading">
             <i class="fa fa-spinner fa-spin" />
           </span>
         {{/if}}

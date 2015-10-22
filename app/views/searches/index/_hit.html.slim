@@ -1,26 +1,24 @@
-- search_request ||= nil
-- search_result  ||= nil
+.hit
+  .row
+    / .col-md-1
+    /   .hit-icon
+    /     = ractive_component "app.components.Image",
+    /       placeholder: "<i class='fa fa-book' style='font-size: 44px; color: lightgrey;' />",
+    /       src: amazon_image_url(hit)
 
-tr.hit
-  td.hidden-xs(style="vertical-align: middle; text-align: center;")
-    = ractive_component "app.components.Image",
-      placeholder: "<i class='fa fa-book' style='font-size: 44px; color: lightgrey;' />",
-      src: amazon_image_url(hit)
+    .col-sm-12
+      .title
+        = link_to record_path hit.id, scope: scope, search_request: search_request do
+          = [*hit.fields["title"]].join("; ").presence || "-"
 
-  td
-    .title
-      = link_to record_path hit.id,\
-        scope: scope,\
-        search_request: search_request do
-        = [*hit.fields["title"]].join("; ").presence || "-"
-
-    - if hit.fields["is_part_of"].present?
-      .is-part-of
-        ul
-          - [*[hit.fields["is_part_of"]]].flatten.each do |_superorder|
-            li
+      - if hit.fields["is_part_of"].present?
+       .is-part-of
+         ul
+           - [*[hit.fields["is_part_of"]]].flatten.each do |_superorder|
+             li
+              ' Teil von:
               - if _superorder["label_additions"].present?
-                  - _superorder["label"] = "#{_superorder["label"]} : #{[*_superorder["label_additions"]].join(", ")}"
+                - _superorder["label"] = "#{_superorder["label"]} : #{[*_superorder["label_additions"]].join(", ")}"
 
               - if _superorder["ht_number"].present?
                 = link_to_superorder(scope, _superorder)
@@ -33,64 +31,105 @@ tr.hit
               - if _superorder["ht_number"].present?
                 =< link_to_volumes(scope, _superorder)
 
-    /.aggregated-details
-      = hit.aggregate(:creator, :edition, :created)
+      ruby:
+        parts = []
+        parts << [*hit.fields["creator_contributor_display"]].join("; ")
+        parts << hit.fields["edition"]
+        parts << hit.fields["creationdate"]
+        additional_info = parts.map(&:presence).compact.join(" - ")
 
-    /- if hit.accrual_policy.present?
-      .accrual_policy: ul
-        - hit.accrual_policy.each do |_accrual_policy|
-          li = "#{t('.accrual_policy')}: #{_accrual_policy}"
+      - if additional_info.present?
+        .additional-info
+          = additional_info
 
-    - if hit.id.start_with?("PAD_ALEPH")
-      = ractive_component "app.components.AvailabilityIndicator",
-        api_v1_record_items_path: api_v1_record_items_path(":record_id"),
-        record_id: hit.fields["id"],
-        scope_id: scope.id,
-        style: "margin-right: 4px"
+      - if journal_holdings = journal_holdings(hit)
+        .journal-holdings
+          ' Bestand UB:
+          = journal_holdings
 
-    - if hit.fields["signature"].present?
-      span.signature =< [*hit.fields["signature"]].first
+      .status
+        - if hit.id.start_with?("PAD_ALEPH")
+          => ractive_component "app.components.AvailabilityIndicator",
+            api_v1_record_items_path: api_v1_record_items_path(":record_id"),
+            record_id: hit.fields["id"],
+            scope_id: scope.id
 
-    /= ractive_component "skala.components.Note",
-      note: @notes.try(:find) { |_note| \
-        _note.record_id == hit.id\
-      },\
-      record: { id: hit.id },
-      translations: I18n.config.backend.send(:translations)[current_locale][:components][:Note]
+        - if (signature = hit.fields["signature"]).present?
+          span.signature
+            ' Signatur:
+            = link_to(signature, "http://www.ub.uni-paderborn.de/lernen_und_arbeiten/bestaende/medienaufstellung-systemstelle.shtml", target: "_blank")
 
-    /= ractive_component "skala.components.WatchLists",
-      record: { id: hit.id },
-      user_watch_list_path: user_watch_list_path(":id"),
-      watch_lists: @watch_lists.try(:as_json, \
-        only: [:id, :name], \
-        include: { \
-          entries: { \
-            only: [:id, :record_id, :watch_list_id] \
-          } \
-        } \
-      )
+      - if (links = resource_links(hit)).present?
+        .link_to_resource
+          = link_to links.first, target: "_blank" do
+            => fa_icon("external-link")
+            = "Direkt zur Online-Ressource"
+          - if (info = vpn_info)
+            .vpn-info = info
 
-  /td
-    = ractive_component "skala.components.RecordActions",
-      api_v1_record_path: api_v1_record_path(":id"),
-      api_v1_user_notes_path: api_v1_user_notes_path(":user_id"),
-      api_v1_user_note_path: api_v1_user_note_path(":user_id", ":id"),
-      api_v1_user_watch_lists_path: api_v1_user_watch_lists_path(":user_id"),
-      api_v1_user_watch_list_entries_path: api_v1_user_watch_list_entries_path(":user_id", ":watch_list_id"),
-      api_v1_user_watch_list_entry_path: api_v1_user_watch_list_entry_path(":user_id", ":watch_list_id", ":id"),
-      class: "pull-right",
-      note: @notes.try(:find) { |_note| \
-        _note.record_id == hit.id\
-      },\
-      record: { id: hit.id },
-      scope: { id: hit.scope.id },
-      translations: I18n.config.backend.send(:translations)[current_locale][:components][:RecordActions],
-      user: current_user.try(:slice, :id),
-      watch_lists: @watch_lists.try(:as_json, \
-        only: [:id, :name], \
-        include: { \
-          entries: { \
-            only: [:id, :record_id] \
-          } \
-        } \
-      )
+
+/ - search_request ||= nil
+/ - search_result  ||= nil
+
+/ tr.hit
+/     /.aggregated-details
+/       = hit.aggregate(:creator, :edition, :created)
+
+/     /- if hit.accrual_policy.present?
+/       .accrual_policy: ul
+/         - hit.accrual_policy.each do |_accrual_policy|
+/           li = "#{t('.accrual_policy')}: #{_accrual_policy}"
+
+/     - if hit.id.start_with?("PAD_ALEPH")
+/       = ractive_component "app.components.AvailabilityIndicator",
+/         api_v1_record_items_path: api_v1_record_items_path(":record_id"),
+/         record_id: hit.fields["id"],
+/         scope_id: scope.id,
+/         style: "margin-right: 4px"
+
+/     - if hit.fields["signature"].present?
+/       span.signature =< [*hit.fields["signature"]].first
+
+/     /= ractive_component "skala.components.Note",
+/       note: @notes.try(:find) { |_note| \
+/         _note.record_id == hit.id\
+/       },\
+/       record: { id: hit.id },
+/       translations: I18n.config.backend.send(:translations)[current_locale][:components][:Note]
+
+/     /= ractive_component "skala.components.WatchLists",
+/       record: { id: hit.id },
+/       user_watch_list_path: user_watch_list_path(":id"),
+/       watch_lists: @watch_lists.try(:as_json, \
+/         only: [:id, :name], \
+/         include: { \
+/           entries: { \
+/             only: [:id, :record_id, :watch_list_id] \
+/           } \
+/         } \
+/       )
+
+/   /td
+/     = ractive_component "skala.components.RecordActions",
+/       api_v1_record_path: api_v1_record_path(":id"),
+/       api_v1_user_notes_path: api_v1_user_notes_path(":user_id"),
+/       api_v1_user_note_path: api_v1_user_note_path(":user_id", ":id"),
+/       api_v1_user_watch_lists_path: api_v1_user_watch_lists_path(":user_id"),
+/       api_v1_user_watch_list_entries_path: api_v1_user_watch_list_entries_path(":user_id", ":watch_list_id"),
+/       api_v1_user_watch_list_entry_path: api_v1_user_watch_list_entry_path(":user_id", ":watch_list_id", ":id"),
+/       class: "pull-right",
+/       note: @notes.try(:find) { |_note| \
+/         _note.record_id == hit.id\
+/       },\
+/       record: { id: hit.id },
+/       scope: { id: hit.scope.id },
+/       translations: I18n.config.backend.send(:translations)[current_locale][:components][:RecordActions],
+/       user: current_user.try(:slice, :id),
+/       watch_lists: @watch_lists.try(:as_json, \
+/         only: [:id, :name], \
+/         include: { \
+/           entries: { \
+/             only: [:id, :record_id] \
+/           } \
+/         } \
+/       )

@@ -1,0 +1,27 @@
+.availability-indicator {
+  $available-color: #66b357;
+  $not-available-color: #d64333;
+  $restricted-available-color: #fabc0a;
+
+  .state {
+    color: #fff;
+    padding: 1px 4px;
+    border-radius: 2px;
+
+    &.available {
+      background-color: $available-color;
+    }
+
+    &.not-available {
+      background-color: $not-available-color;
+    }
+
+    &.restricted-available {
+      background-color: $restricted-available-color;
+    }
+
+    &.loading {
+      color: $text-color;
+    }
+  }
+}

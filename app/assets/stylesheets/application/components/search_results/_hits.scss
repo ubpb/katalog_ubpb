@@ -1,0 +1,27 @@
+#hits {
+  .hit {
+    padding-bottom: $line-height-computed / 2;
+    margin-bottom: $line-height-computed / 2;
+    border-bottom: 1px solid $gray-light;
+
+    &:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+
+    .title {
+      font-weight: bold;
+    }
+
+    .is-part-of {
+      font-style: italic;
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+    }
+  }
+}
