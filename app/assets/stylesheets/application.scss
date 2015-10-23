@@ -1,5 +1,14 @@
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Signika+Negative:400,600,700");
+@font-face {
+  font-family: "Signika";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Signika"), local("Signika-Regular"), font-url("Signika.woff") format("woff"); }
+@font-face {
+  font-family: "Signika";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Signika-Bold"), font-url("Signika-Bold.woff") format("woff"); }
 
 //
 // Bootstrap and application variables
