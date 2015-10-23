@@ -1,0 +1,37 @@
+#record {
+  .nav-tabs {
+    margin-bottom: $line-height-computed;
+  }
+
+  dl {
+    @include clearfix();
+    margin: 0;
+    margin-bottom: $line-height-computed;
+    padding: 0;
+
+    $dt-width: 120px;
+    $dt-margin: 10px;
+
+    dt {
+      float: left;
+      margin-right: $dt-margin;
+      width: $dt-width;
+      text-align: right;
+      &:after {
+        //content: ":";
+      }
+    }
+
+    dd {
+      padding-left: $dt-width + $dt-margin;
+
+      &.is-part-of {
+        ul {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+      }
+    }
+  }
+}

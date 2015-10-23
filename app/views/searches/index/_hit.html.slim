@@ -13,23 +13,7 @@
 
         - if hit.fields["is_part_of"].present?
          .is-part-of
-           ul
-             - [*[hit.fields["is_part_of"]]].flatten.each do |_superorder|
-               li
-                ' Teil von:
-                - if _superorder["label_additions"].present?
-                  - _superorder["label"] = "#{_superorder["label"]} : #{[*_superorder["label_additions"]].join(", ")}"
-
-                - if _superorder["ht_number"].present?
-                  = link_to_superorder(scope, _superorder)
-                - else
-                  = _superorder["label"]
-
-                - if _superorder["volume_count"].present?
-                  = "; #{_superorder["volume_count"]}"
-
-                - if _superorder["ht_number"].present?
-                  =< link_to_volumes(scope, _superorder)
+            = is_part_of(scope, hit.fields)
 
         ruby:
           parts = []
@@ -67,28 +51,6 @@
             - if (info = vpn_info)
               .vpn-info = info
 
-
-/ - search_request ||= nil
-/ - search_result  ||= nil
-
-/ tr.hit
-/     /.aggregated-details
-/       = hit.aggregate(:creator, :edition, :created)
-
-/     /- if hit.accrual_policy.present?
-/       .accrual_policy: ul
-/         - hit.accrual_policy.each do |_accrual_policy|
-/           li = "#{t('.accrual_policy')}: #{_accrual_policy}"
-
-/     - if hit.id.start_with?("PAD_ALEPH")
-/       = ractive_component "app.components.AvailabilityIndicator",
-/         api_v1_record_items_path: api_v1_record_items_path(":record_id"),
-/         record_id: hit.fields["id"],
-/         scope_id: scope.id,
-/         style: "margin-right: 4px"
-
-/     - if hit.fields["signature"].present?
-/       span.signature =< [*hit.fields["signature"]].first
 
 /     /= ractive_component "skala.components.Note",
 /       note: @notes.try(:find) { |_note| \

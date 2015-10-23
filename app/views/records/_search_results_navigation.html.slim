@@ -1,0 +1,28 @@
+.row
+  .col-xs-6.text-left
+    = link_to searches_path(search_request: @search_request, scope: @scope), class: "btn btn-success"  do
+      = "&laquo; Zur Ergebnisliste".html_safe
+
+  .col-xs-6.text-right
+    span(style="margin-right: 6px;")
+      ' Ergebnis
+      span#current-result-count
+        => @position_within_search_result + 1
+      ' von
+      span#total-result-count
+        = @total_hits
+
+    .btn-group
+      - if @predecessor
+        = link_to record_path(@predecessor.id, search_request: @predecessor_search_request, scope: @scope), class: "btn btn-default" do
+          i.fa.fa-chevron-left
+      - else
+        button.btn.btn-default disabled="disabled"
+          i.fa.fa-chevron-left
+
+      - if @successor
+        = link_to record_path(@successor.id, search_request: @successor_search_request, scope: @scope), class: "btn btn-default" do
+          i.fa.fa-chevron-right
+      - else
+        button.btn.btn-default disabled="disabled"
+          i.fa.fa-chevron-right

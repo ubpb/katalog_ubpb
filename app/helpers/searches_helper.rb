@@ -151,4 +151,37 @@ module SearchesHelper
     hit.id.start_with?("PAD_ALEPH") && !is_online_resource?(hit) && !is_journal?(hit)
   end
 
+  #
+  # ------
+  #
+
+  def is_part_of(scope, fields)
+    if (superorders = fields["is_part_of"]).present?
+      content_tag :ul do
+        [*[superorders]].flatten.map do |superorder|
+          content_tag(:li) do
+            buffer = "Teil von:"
+
+            label  = superorder["label"]
+            label << ": #{[*superorder["label_additions"]].join(", ")}" if superorder["label_additions"].present?
+            label << "; #{superorder["volume_count"]}" if superorder["volume_count"].present?
+            superorder["label"] = label
+
+            if superorder["ht_number"].present?
+              buffer << " #{link_to_superorder(scope, superorder)}"
+            else
+              buffer << " #{superorder["label"]}"
+            end
+
+            if superorder["ht_number"].present?
+              buffer << " #{link_to_volumes(scope, superorder)}"
+            end
+
+            buffer.html_safe
+          end
+        end.join.html_safe
+      end
+    end
+  end
+
 end
