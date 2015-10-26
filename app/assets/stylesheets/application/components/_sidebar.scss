@@ -1,0 +1,22 @@
+.sidebar {
+
+  .sidebar-toggle {
+    @extend .btn;
+    @extend .btn-default;
+    @extend .btn-block;
+    margin-bottom: $line-height-computed;
+
+    @media (min-width: $grid-float-breakpoint) {
+      display: none;
+    }
+  }
+
+  .sidebar-collapse {
+    @media (min-width: $grid-float-breakpoint) {
+      &.collapse {
+        display: block !important;
+      }
+    }
+  }
+
+}

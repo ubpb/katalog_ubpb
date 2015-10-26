@@ -1,33 +1,20 @@
 #facets
-  a.btn.btn-default.btn-block.btn-collapse(href="#facets-collapse" role="button" data-toggle="collapse")
-    => fa_icon("bars")
-    | Facetten
+  .sidebar
+    button.sidebar-toggle.collapsed(data-target="#facets-collapse" role="button" data-toggle="collapse")
+      => fa_icon("bars")
+      | Facetten
 
-  #facets-collapse.collapse
-    - facets.each do |facet|
-      - if facet.is_a?(Skala::SearchResult::TermsFacet) && facet.terms.count > 0
-        = ractive_component "TermsFacet",
-          facet: facet,
-          search_request: search_request,
-          searches_path: searches_path(scope: scope)
+    #facets-collapse.collapse.sidebar-collapse
+      - facets.each do |facet|
+        - if facet.is_a?(Skala::SearchResult::TermsFacet) && facet.terms.count > 0
+          = ractive_component "TermsFacet",
+            facet: facet,
+            search_request: search_request,
+            searches_path: searches_path(scope: scope)
 
-      - elsif facet.is_a?(Skala::SearchResult::HistogramFacet)
-        = ractive_component "HistogramFacet",
-          facet: facet,
-          search_request: search_request,
-          searches_path: searches_path(scope: scope)
+        - elsif facet.is_a?(Skala::SearchResult::HistogramFacet)
+          = ractive_component "HistogramFacet",
+            facet: facet,
+            search_request: search_request,
+            searches_path: searches_path(scope: scope)
 
-javascript:
-  $(function() {
-    $(window).on("resize", function () {
-      if (window.innerWidth < 992) {
-        $("#facets > .btn-collapse").show();
-        $("#facets-collapse").removeClass("in");
-      } else {
-        $("#facets > .btn-collapse").hide();
-        $("#facets-collapse").addClass("in");
-      }
-    });
-
-    $(window).trigger("resize");
-  });
