@@ -13,9 +13,8 @@ common_settings: &common_settings
         class_name: "KatalogUbpb::UbpbElasticsearchAdapter"
         options:
           hosts:
-            - host: "localhost"
-          facets_via_aggregations: true
-          index: katalog
+            - host: "ubstage1"
+          index: katalog_20151026_1438
 
       facets:
         - name: "creators"
@@ -23,7 +22,7 @@ common_settings: &common_settings
           field: "creator_contributor_facet"
         - name: "erscheinungsformen"
           type: "terms"
-          field: "erscheinungsform"
+          field: "erscheinungsform_facet"
           i18n_key: "erscheinungsformen"
         - name: "subjects"
           type: "terms"
@@ -33,18 +32,18 @@ common_settings: &common_settings
           field: "creationdate_facet"
         - name: "languages"
           type: "terms"
-          field: "language"
+          field: "language_facet"
           i18n_key: "languages"
         - name: "notations"
           type: "terms"
-          field: "notation"
+          field: "notation_facet"
         - name: "inhaltstypen"
           type: "terms"
-          field: "inhaltstyp"
+          field: "inhaltstyp_facet"
           i18n_key: "inhaltstypen"
         - name: "materialtypen"
           type: "terms"
-          field: "materialtyp"
+          field: "materialtyp_facet"
           i18n_key: "materialtypen"
 
         #- name: "neuerwerbungen"

@@ -1,5 +1,3 @@
-#= require utils/deep_locate
-#= require jsonpath
 #= require polyfills/Array_find
 
 (((window.app ?= {}).components ?= {}).TermsFacet ?= {}).Term = Ractive.extend
@@ -7,15 +5,6 @@
   # ractive
   #
   computed:
-    deselect_term_path: ->
-      unfacetted_search_request = _.cloneDeep @parent.get("search_request")
-
-      for match_query_parent in JSONPath({json: unfacetted_search_request, path: "$..match^^^"})
-        _.remove match_query_parent, (query) =>
-          query["match"]?[@facet_name()] == @undecorated_term()["term"]
-
-      @searches_path(search_request: unfacetted_search_request)
-
     include_term_path: ->
       new_search_request = _.cloneDeep(@parent.get("search_request"))
       @add_facet_query(new_search_request, @parent.get("facet"), @get("term"))

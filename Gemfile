@@ -31,11 +31,9 @@ gem "skala", github: "ubpb/skala", branch: :master
 # rails-assets.org
 #
 source "https://rails-assets.org" do
-  gem "rails-assets-imagesloaded",  "~> 3.1.8"
-  gem "rails-assets-json3",         "~> 3.3.2"
-  gem "rails-assets-jspath",        "~> 0.3.0"
-  gem "rails-assets-lodash-compat", "~> 3.0.0"
-  gem "rails-assets-matchHeight",   "~> 0.5.2"
+  gem "rails-assets-imagesloaded",  "~> 3.1"
+  gem "rails-assets-lodash",        "~> 3.0"
+  gem "rails-assets-matchHeight",   "~> 0.5"
 end
 
 group :production do

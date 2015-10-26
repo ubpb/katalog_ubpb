@@ -39,30 +39,16 @@ module ApplicationHelper
     value.presence || default
   end
 
-  def ractive_component(name, options = {}, &block)
-    ractive_class = name.include?(".") ? name : nil
-    template_name = name.include?(".") ? nil : name
+  def ractive_component(ractive_class, options = {}, &block)
+    tag_options = {
+      "data-ractive-class" => ractive_class,
+      "data-ractive-options" => options.to_json,
+      "type" => "text/ractive"
+    }
 
-    template =
-    if block_given?
-      capture(&block)
-    elsif template_name
-      template_filename = "javascripts/components/#{template_name}/template"
+    tag_text = capture(&block) if block_given?
 
-      if lookup_context.find_all(template_filename).any?
-        render :file => "javascripts/components/#{template_name}/template"
-      end
-    end
-
-    content_tag(:script, template,
-      {
-        "data-ractive-class" => ractive_class,
-        "data-ractive-component" => template_name,
-        "data-ractive-options" => options.to_json,
-        "type" => "text/ractive"
-      }
-      .tap(&:compact!)
-    )
+    content_tag(:script, tag_text, tag_options)
   end
 
   def render_relative(relative_partial_path, options = {}, &block)

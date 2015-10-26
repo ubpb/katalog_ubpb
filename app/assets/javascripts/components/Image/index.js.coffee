@@ -9,18 +9,7 @@
   template: """
     <div>
       {{#if src}}
-        <img
-          src={{src}}
-          class=""
-          style="
-            {{#unless image_loaded_successfully}}
-              display: none;
-            {{/unless}}
-            {{#if style}}
-              {{style}}
-            {{/if}}
-          "
-        >
+        <img src={{src}} style="{{#if image_loaded_successfully}}{{style}}{{else}}display: none;{{/if}}">
       {{/if}}
 
       {{#unless image_loaded_successfully}}

@@ -236,10 +236,8 @@ GEM
     rails-assets-imagesloaded (3.1.8)
       rails-assets-eventEmitter (~> 4.0)
       rails-assets-eventie (>= 1.0.4, < 2)
-    rails-assets-json3 (3.3.2)
-    rails-assets-jspath (0.3.2)
-    rails-assets-lodash-compat (3.0.1)
-    rails-assets-matchHeight (0.5.2)
+    rails-assets-lodash (3.10.1)
+    rails-assets-matchHeight (0.6.0)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -377,11 +375,9 @@ DEPENDENCIES
   puma (~> 2.9.0)
   quiet_assets (~> 1.0.3)
   rails (= 4.2.4)
-  rails-assets-imagesloaded (~> 3.1.8)!
-  rails-assets-json3 (~> 3.3.2)!
-  rails-assets-jspath (~> 0.3.0)!
-  rails-assets-lodash-compat (~> 3.0.0)!
-  rails-assets-matchHeight (~> 0.5.2)!
+  rails-assets-imagesloaded (~> 3.1)!
+  rails-assets-lodash (~> 3.0)!
+  rails-assets-matchHeight (~> 0.5)!
   rails-html-sanitizer (~> 1.0.1)
   rails-i18n
   roadie-rails (~> 1.0.2)

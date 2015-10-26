@@ -42,14 +42,14 @@
               .vpn-info = info
 
 
-/     /= ractive_component "skala.components.Note",
+/     /= ractive_component "app.components.Note",
 /       note: @notes.try(:find) { |_note| \
 /         _note.record_id == hit.id\
 /       },\
 /       record: { id: hit.id },
 /       translations: I18n.config.backend.send(:translations)[current_locale][:components][:Note]
 
-/     /= ractive_component "skala.components.WatchLists",
+/     /= ractive_component "app.components.WatchLists",
 /       record: { id: hit.id },
 /       user_watch_list_path: user_watch_list_path(":id"),
 /       watch_lists: @watch_lists.try(:as_json, \
@@ -62,7 +62,7 @@
 /       )
 
 /   /td
-/     = ractive_component "skala.components.RecordActions",
+/     = ractive_component "app.components.RecordActions",
 /       api_v1_record_path: api_v1_record_path(":id"),
 /       api_v1_user_notes_path: api_v1_user_notes_path(":user_id"),
 /       api_v1_user_note_path: api_v1_user_note_path(":user_id", ":id"),

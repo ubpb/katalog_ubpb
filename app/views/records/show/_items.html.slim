@@ -31,7 +31,7 @@ table.table.table-striped.record-items
 
         td
           = item.item_status
-          /= ractive_component "ItemDescriptionPopover", item: { description: item.field["z30-item-status"] }
+          /= ractive_component "app.components.ItemDescriptionPopover", item: { description: item.field["z30-item-status"] }
 
         - if has_location
           td = item.location

@@ -12,7 +12,7 @@ table.table.table-striped.record-details-table(style="margin-bottom: 0px; width:
 
           td(class="#{[trunkered_properties.include?(property) ? 'trunker' : nil, property.to_s].compact.join(' ')}" style="padding: 6px;")
             - if property == :relation
-              = ractive_component "RecordRelations", api_v1_recors_path: api_v1_records_path do
+              = ractive_component "app.components.RecordRelations", api_v1_recors_path: api_v1_records_path do
                 = rendered_property
 
             - else

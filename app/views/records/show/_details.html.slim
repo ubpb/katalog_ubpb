@@ -16,20 +16,20 @@
       scope: scope
 
   .col-sm-2(data-same-height-as="#properties-table")
-    = ractive_component "skala.components.Image",
+    = ractive_component "app.components.Image",
       placeholder: "<i class='fa fa-book' style='font-size: 128px; color: lightgrey;' />",
       src: record.image.try(:find) { |_image| _image["type"] == "large" }.try(:[], "url")
 
 .row(style="margin-bottom: 18px;")
   .col-sm-12
-    = ractive_component "skala.components.Note",
+    = ractive_component "app.components.Note",
       note: @notes.try(:find) { |_note| \
         _note.record_id == record.id\
       },\
       record: { id: record.id },
       translations: I18n.config.backend.send(:translations)[current_locale][:components][:Note]
 
-    = ractive_component "skala.components.WatchLists",
+    = ractive_component "app.components.WatchLists",
       record: { id: record.id },
       user_watch_list_path: user_watch_list_path(":id"),
       watch_lists: @watch_lists.try(:map) { |_watch_list| \

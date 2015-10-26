@@ -7,13 +7,13 @@
     #facets-collapse.collapse.sidebar-collapse
       - facets.each do |facet|
         - if facet.is_a?(Skala::SearchResult::TermsFacet) && facet.terms.count > 0
-          = ractive_component "TermsFacet",
+          = ractive_component "app.components.TermsFacet",
             facet: facet,
             search_request: search_request,
             searches_path: searches_path(scope: scope)
 
         - elsif facet.is_a?(Skala::SearchResult::HistogramFacet)
-          = ractive_component "HistogramFacet",
+          = ractive_component "app.components.HistogramFacet",
             facet: facet,
             search_request: search_request,
             searches_path: searches_path(scope: scope)
