@@ -24,14 +24,15 @@
 
     dd {
       padding-left: $dt-width + $dt-margin;
+
       &:after {
         display: table;
         content: "";
         clear: both;
       }
 
-
-      &.is-part-of {
+      &.is-part-of,
+      &.identifier {
         ul {
           margin: 0;
           padding: 0;

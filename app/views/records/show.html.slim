@@ -44,7 +44,7 @@
               dd.language = value_or_default(language(@record))
 
               dt = "Identifikator(en)"
-              dd.identicator = "TODO"
+              dd.identifier = value_or_default(identifier(@record))
 
               dt = "Erschienen in"
               dd = "TODO"
@@ -58,13 +58,13 @@
               dd.toc = "TODO"
 
               dt = "Schlagwörter"
-              dd.toc = "TODO"
+              dd.toc = value_or_default(subject(@record, link: true, scope: @scope))
 
               dt = "Systemstelle"
-              dd.toc = "TODO"
+              dd.toc = value_or_default(notation(@record, link: true, scope: @scope))
 
               dt = "Signatur"
-              dd.toc = "TODO"
+              dd.toc = value_or_default(signature(@record, link: true))
 
               dt = "Externer Link"
               dd.toc = "TODO"

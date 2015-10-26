@@ -46,47 +46,51 @@ module SearchesHelper
     end
   end
 
-  def link_to_superorder(scope, superorder)
-    link_to superorder["label"], searches_path(
-      search_request: Skala::SearchRequest.new(
-        queries: {
-          type: "query_string",
-          query: superorder["ht_number"],
-          default_field: "ht_number"
-        }
-      ),
-      scope: scope.id
-    )
-  end
 
-  def link_to_creator(creator, scope:scope)
-    link_to creator, searches_path(
-      search_request: Skala::SearchRequest.new(
-        queries: {
-          type: "query_string",
-          query: creator,
-          default_field: "creator_contributor_search"
-        }
-      ),
-      scope: scope.id
-    )
+  #
+  # ------
+  #
+
+
+  def link_to_superorder(superorder, scope:)
+    link_to_new_search(superorder["ht_number"], scope: scope, default_field: "ht_number", label: superorder["label"])
   end
 
   # TODO: Add sort for volume count
-  def link_to_volumes(scope, superorder)
-    link_to searches_path(
+  def link_to_volumes(superorder, scope:)
+    link_to_new_search(superorder["ht_number"], scope: scope, default_field: "superorder", label: "(alle Bände)")
+  end
+
+  def link_to_creator(creator, scope:)
+    link_to_new_search(creator, scope: scope, default_field: "creator_contributor_search")
+  end
+
+  def link_to_notation(notation, scope:)
+    link_to_new_search(notation, scope: scope, default_field: "notation")
+  end
+
+  def link_to_subject(subject, scope:)
+    link_to_new_search(subject, scope: scope, default_field: "subject_search")
+  end
+
+  def link_to_new_search(query_string, scope:, default_field:, label:nil)
+    link_to (label || query_string), searches_path(
       search_request: Skala::SearchRequest.new(
         queries: {
           type: "query_string",
-          query: superorder["ht_number"],
-          default_field: "superorder"
+          query: query_string,
+          default_field: default_field
         }
       ),
       scope: scope.id
-    ) do
-      "(alle Bände)"
-    end
+    )
   end
+
+
+  #
+  # ------
+  #
+
 
   def amazon_image_url(record, format: "THUMBZZZ")
     isbn = [*record.fields["isbn"]].first
@@ -95,6 +99,12 @@ module SearchesHelper
       "https://images-na.ssl-images-amazon.com/images/P/#{isbn}.03.#{format}.jpg"
     end
   end
+
+
+  #
+  # ------
+  #
+
 
   def journal_holdings(record, fullview:false)
     journal_holdings = [*record.fields["ldsX"]]
@@ -152,6 +162,12 @@ module SearchesHelper
     end
   end
 
+
+  #
+  # ------
+  #
+
+
   def is_journal?(record)
     record.fields["erscheinungsform"] == "journal"
   end
@@ -167,9 +183,11 @@ module SearchesHelper
     !is_journal?(record)
   end
 
+
   #
   # ------
   #
+
 
   def title(record, scope:nil, search_request:nil)
     title = [*record.fields["title"]].join("; ").presence
@@ -231,6 +249,51 @@ module SearchesHelper
     [*record.fields["description"]].join("<br/>").presence.try(:html_safe)
   end
 
+  def identifier(record)
+    identifiers = []
+
+    # ISBNS
+    identifiers += [*record.fields["isbn"]].map{|isbn| "ISBN: #{isbn}"}
+    # ISSNS
+    identifiers += [*record.fields["issn"]].map{|issn| "ISSN: #{issn}"}
+    # TODO
+    # DOIs, HT Number, ...
+
+    if identifiers.present?
+      content_tag(:ul) do
+        identifiers.map do |identifier|
+          content_tag(:li) do
+            identifier
+          end
+        end.join.html_safe
+      end
+    end
+  end
+
+  def notation(record, link:false, scope:nil)
+    notation = record.fields["notation"].presence
+
+    if notation
+      if link && scope
+        link_to_notation(notation, scope: scope)
+      else
+        notation
+      end
+    end
+  end
+
+  def subject(record, link:false, scope:nil)
+    subjects = [*record.fields["subject"]]
+
+    subjects.map do |subject|
+      if link && scope
+        link_to_subject(subject, scope: scope)
+      else
+        subject
+      end
+    end.join(", ").html_safe
+  end
+
   #
   # -------
   #
@@ -246,7 +309,7 @@ module SearchesHelper
 
   def is_part_of(record, prefix_label:nil, scope:nil)
     if (superorders = record.fields["is_part_of"]).present?
-      content_tag :ul do
+      content_tag(:ul) do
         [*[superorders]].flatten.map do |superorder|
           content_tag(:li) do
             buffer = "#{prefix_label}"
@@ -257,13 +320,13 @@ module SearchesHelper
             superorder["label"] = label
 
             if scope.present? && superorder["ht_number"].present?
-              buffer << " #{link_to_superorder(scope, superorder)}"
+              buffer << " #{link_to_superorder(superorder, scope: scope)}"
             else
               buffer << " #{superorder["label"]}"
             end
 
             if scope.present? && superorder["ht_number"].present?
-              buffer << " #{link_to_volumes(scope, superorder)}"
+              buffer << " #{link_to_volumes(superorder, scope: scope)}"
             end
 
             buffer.html_safe
