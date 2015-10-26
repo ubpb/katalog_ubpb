@@ -14,7 +14,7 @@ common_settings: &common_settings
         options:
           hosts:
             - host: "ubstage1"
-          index: katalog_20151026_1438
+          index: katalog
 
       facets:
         - name: "creators"
