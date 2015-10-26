@@ -1,48 +1,38 @@
 .hit
   .row
     .col-sm-12
-      .hit-icon
+      .image
         = ractive_component "app.components.Image",
           placeholder: fa_icon("book"),
           src: amazon_image_url(hit)
 
       .metadata
-        .title
-          = link_to record_path hit.id, scope: scope, search_request: search_request do
-            = [*hit.fields["title"]].join("; ").presence || "-"
+        / Title
+        .title = title(hit, scope: scope, search_request: search_request)
 
-        - if hit.fields["is_part_of"].present?
-         .is-part-of
-            = is_part_of(scope, hit.fields)
+        / Superorder
+        - if is_part_of?(hit)
+         .is-part-of = is_part_of(hit, scope: scope)
 
-        ruby:
-          parts = []
-          parts << [*hit.fields["creator_contributor_display"]].join("; ")
-          parts << hit.fields["edition"]
-          parts << hit.fields["creationdate"]
-          additional_info = parts.map(&:presence).compact.join(" - ")
-
-        - if additional_info.present?
-          .additional-info
-            = additional_info
+        / Additional record info
+        - if (info = additional_record_info(hit)).present?
+          .additional-info = info
 
         - if journal_holdings = journal_holdings(hit)
-          .journal-holdings
-            ' Bestand UB:
-            = journal_holdings
+          .journal-holdings = "Bestand UB: #{journal_holdings}"
 
+        / Status
         .status
-          - if (signature = hit.fields["signature"]).present?
-            - if show_availability?(hit)
-              => ractive_component "app.components.AvailabilityIndicator",
-                api_v1_record_items_path: api_v1_record_items_path(":record_id"),
-                record_id: hit.fields["id"],
-                scope_id: scope.id
+          - if show_availability?(hit)
+            => ractive_component "app.components.AvailabilityIndicator",
+              api_v1_record_items_path: api_v1_record_items_path(":record_id"),
+              record_id: hit.fields["id"],
+              scope_id: scope.id
 
-            span.signature
-              ' Signatur:
-              = link_to(signature, "http://www.ub.uni-paderborn.de/lernen_und_arbeiten/bestaende/medienaufstellung-systemstelle.shtml", target: "_blank")
+          - if (signature = signature(hit, link: true)).present?
+            span.signature = "Signatur: #{signature}".html_safe
 
+        / Link to online resource
         - if (links = resource_links(hit)).present?
           .link_to_resource
             = link_to links.first, target: "_blank" do

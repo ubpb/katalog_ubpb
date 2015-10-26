@@ -11,9 +11,9 @@ module SearchesHelper
     end
   end
 
-  def link_to_next_page(scope, search_request, total_hits)
+  def link_to_next_page(scope, search_request, total_records)
     from = search_request.from + search_request.size
-    enabled = from < total_hits
+    enabled = from < total_records
 
     if enabled
       link_to_page(scope, search_request, from) do
@@ -22,14 +22,14 @@ module SearchesHelper
     end
   end
 
-  def page_stats(scope, search_request, total_hits)
+  def page_stats(scope, search_request, total_records)
     page_start = search_request.from + 1
     page_end   = search_request.from + search_request.size
-    page_end   = total_hits if page_end > total_hits
+    page_end   = total_records if page_end > total_records
 
     link_to_page(scope, search_request, 0) do
       content_tag :span, class: "page-stats" do
-        "#{page_start} – #{page_end} von #{total_hits}"
+        "#{page_start} – #{page_end} von #{total_records}"
       end
     end
   end
@@ -75,16 +75,16 @@ module SearchesHelper
     end
   end
 
-  def amazon_image_url(hit, format: "THUMBZZZ")
-    isbn = [*hit.fields["isbn"]].first
+  def amazon_image_url(record, format: "THUMBZZZ")
+    isbn = [*record.fields["isbn"]].first
     if isbn
       isbn = isbn.gsub("-", "")
       "https://images-na.ssl-images-amazon.com/images/P/#{isbn}.03.#{format}.jpg"
     end
   end
 
-  def journal_holdings(hit, options = {})
-    journal_holdings = [*hit.fields["ldsX"]]
+  def journal_holdings(record, fullview:false)
+    journal_holdings = [*record.fields["ldsX"]]
 
     if journal_holdings.present?
 
@@ -95,7 +95,7 @@ module SearchesHelper
       has_holdings_statement_before_1986 = (cleaned_journal_holdings.map { |journal_holding| journal_holding.scan(/\d\d\d\d/) }.flatten.min.try(:<, '1986').try(:==, true))
 
       # location number
-      journal_location_code = journal_location_code(hit)
+      journal_location_code = journal_location_code(record)
 
       # check if the journal has a closed stack location number
       has_closed_stack_location = %w(02 03 04 06 07 92 93 94 95 96 97 98).include?(journal_location_code)
@@ -103,7 +103,7 @@ module SearchesHelper
       # check if the location number indicates some non local location, like 'ZfS'
       has_non_local_location = %w(86 88).include?(journal_location_code)
 
-      if options[:as_html]
+      if fullview
         content_tag(:ul) do
           cleaned_journal_holdings.map do |d|
             content_tag(:li, d.html_safe)
@@ -123,12 +123,12 @@ module SearchesHelper
     end
   end
 
-  def journal_location_code(hit)
-    journal_signature(hit).try(:scan, /P\s(\d\d)/).try(:flatten).try(:first)
+  def journal_location_code(record)
+    journal_signature(record).try(:scan, /P\s(\d\d)/).try(:flatten).try(:first)
   end
 
-  def journal_signature(hit)
-    signature = hit.fields["signature"]
+  def journal_signature(record)
+    signature = record.fields["signature"]
 
     if signature.present?
       if (match_result = signature.match(/\A(\w)(\d\d)\/(\d\d*)(\w)(\d\d*)\Z/)).present?
@@ -139,24 +139,74 @@ module SearchesHelper
     end
   end
 
-  def is_journal?(hit)
-    hit.fields["erscheinungsform"] == "journal"
+  def is_journal?(record)
+    record.fields["erscheinungsform"] == "journal"
   end
 
-  def is_online_resource?(hit)
-    hit.fields["materialtyp"] == "online_resource"
+  def is_online_resource?(record)
+    record.fields["materialtyp"] == "online_resource"
   end
 
-  def show_availability?(hit)
-    hit.id.start_with?("PAD_ALEPH") && !is_online_resource?(hit) && !is_journal?(hit)
+  def show_availability?(record)
+    signature(record).present? &&
+    record.id.start_with?("PAD_ALEPH") &&
+    !is_online_resource?(record) &&
+    !is_journal?(record)
   end
 
   #
   # ------
   #
 
-  def is_part_of(scope, fields)
-    if (superorders = fields["is_part_of"]).present?
+  def title(record, scope:nil, search_request:nil)
+    title = [*record.fields["title"]].join("; ").presence || "–"
+
+    if scope && search_request
+      link_to title, record_path(record.id, scope: scope, search_request: search_request)
+    else
+      title
+    end
+  end
+
+  def creators(record) # TODO: Link options
+    [*record.fields["creator_contributor_display"]].join("; ")
+  end
+
+  def edition(record)
+    record.fields["edition"]
+  end
+
+  def date_of_publication(record)
+    record.fields["creationdate"]
+  end
+
+  def signature(record, link: false)
+    signature = record.fields["signature"]
+
+    if signature
+      if link
+        link_to(signature, "http://www.ub.uni-paderborn.de/lernen_und_arbeiten/bestaende/medienaufstellung-systemstelle.shtml", target: "_blank").html_safe
+      else
+        signature
+      end
+    end
+  end
+
+  def additional_record_info(record)
+    parts = []
+    parts << creators(record)
+    parts << edition(record)
+    parts << date_of_publication(record)
+
+    parts.map(&:presence).compact.join(" - ")
+  end
+
+  def is_part_of?(record)
+    record.fields["is_part_of"].present?
+  end
+
+  def is_part_of(record, scope:nil)
+    if (superorders = record.fields["is_part_of"]).present?
       content_tag :ul do
         [*[superorders]].flatten.map do |superorder|
           content_tag(:li) do
@@ -167,13 +217,13 @@ module SearchesHelper
             label << "; #{superorder["volume_count"]}" if superorder["volume_count"].present?
             superorder["label"] = label
 
-            if superorder["ht_number"].present?
+            if scope.present? && superorder["ht_number"].present?
               buffer << " #{link_to_superorder(scope, superorder)}"
             else
               buffer << " #{superorder["label"]}"
             end
 
-            if superorder["ht_number"].present?
+            if scope.present? && superorder["ht_number"].present?
               buffer << " #{link_to_volumes(scope, superorder)}"
             end
 

@@ -12,28 +12,28 @@
       border-bottom: none;
     }
 
-    $hit-icon-width: 55px;
+    $hit-image-width: 55px;
 
-    .hit-icon {
+    .image {
       display: none;
       @media (min-width: $screen-sm-min) {
         display: block;
       }
 
       float: left;
-      width: $hit-icon-width;
+      width: $hit-image-width;
       margin-right: $line-height-computed;
       text-align: center;
 
       .fa {
-        font-size: $hit-icon-width;
+        font-size: $hit-image-width;
         color: $gray-light;
       }
     }
 
     .metadata {
       @media (min-width: $screen-sm-min) {
-        margin-left: $hit-icon-width + $line-height-computed;
+        margin-left: $hit-image-width + $line-height-computed;
       }
 
       .title {
