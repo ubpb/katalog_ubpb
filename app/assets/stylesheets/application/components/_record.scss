@@ -24,6 +24,12 @@
 
     dd {
       padding-left: $dt-width + $dt-margin;
+      &:after {
+        display: table;
+        content: "";
+        clear: both;
+      }
+
 
       &.is-part-of {
         ul {

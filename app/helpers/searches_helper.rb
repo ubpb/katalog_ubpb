@@ -59,6 +59,19 @@ module SearchesHelper
     )
   end
 
+  def link_to_creator(creator, scope:scope)
+    link_to creator, searches_path(
+      search_request: Skala::SearchRequest.new(
+        queries: {
+          type: "query_string",
+          query: creator,
+          default_field: "creator_contributor_search"
+        }
+      ),
+      scope: scope.id
+    )
+  end
+
   # TODO: Add sort for volume count
   def link_to_volumes(scope, superorder)
     link_to searches_path(
@@ -159,25 +172,39 @@ module SearchesHelper
   #
 
   def title(record, scope:nil, search_request:nil)
-    title = [*record.fields["title"]].join("; ").presence || "–"
+    title = [*record.fields["title"]].join("; ").presence
 
     if scope && search_request
-      link_to title, record_path(record.id, scope: scope, search_request: search_request)
+      link_to(title, record_path(record.id, scope: scope, search_request: search_request)).html_safe
     else
       title
     end
   end
 
-  def creators(record) # TODO: Link options
-    [*record.fields["creator_contributor_display"]].join("; ")
+  def creators(record, link:false, scope:nil)
+    [*record.fields["creator_contributor_display"]].map do |creator|
+      if link && scope
+        link_to_creator(creator, scope: scope)
+      else
+        creator
+      end
+    end.join("; ").html_safe
   end
 
   def edition(record)
-    record.fields["edition"]
+    record.fields["edition"].presence
   end
 
   def date_of_publication(record)
-    record.fields["creationdate"]
+    record.fields["creationdate"].presence
+  end
+
+  def place_of_publication(record)
+    record.fields["publisher"].try(:split, ":")[0].try(:strip).presence
+  end
+
+  def publisher(record)
+    record.fields["publisher"].try(:split, ":")[1].try(:strip).presence
   end
 
   def signature(record, link: false)
@@ -192,6 +219,22 @@ module SearchesHelper
     end
   end
 
+  def format(record)
+    record.fields["format"].presence
+  end
+
+  def language(record)
+    [*record.fields["language"]].map{|l| t("languages.#{l}")}.join(", ").presence
+  end
+
+  def description(record)
+    [*record.fields["description"]].join("<br/>").presence.try(:html_safe)
+  end
+
+  #
+  # -------
+  #
+
   def additional_record_info(record)
     parts = []
     parts << creators(record)
@@ -201,16 +244,12 @@ module SearchesHelper
     parts.map(&:presence).compact.join(" - ")
   end
 
-  def is_part_of?(record)
-    record.fields["is_part_of"].present?
-  end
-
-  def is_part_of(record, scope:nil)
+  def is_part_of(record, prefix_label:nil, scope:nil)
     if (superorders = record.fields["is_part_of"]).present?
       content_tag :ul do
         [*[superorders]].flatten.map do |superorder|
           content_tag(:li) do
-            buffer = "Teil von:"
+            buffer = "#{prefix_label}"
 
             label  = superorder["label"]
             label << ": #{[*superorder["label_additions"]].join(", ")}" if superorder["label_additions"].present?

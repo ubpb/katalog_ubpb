@@ -14,38 +14,34 @@
         #record-details-tab.tab-pane.active
           dl
             dt = "Autor(en)"
-            dd.creators = [*@record.fields["creator_contributor_display"]].join("; ")
+            dd.creators = value_or_default(creators(@record, link: true, scope: @scope))
 
             dt = "Titel"
-            dd.title = @record.fields["title"]
+            dd.title = value_or_default(title(@record))
 
             dt = "Teil von"
-            dd.is-part-of
-              - if (is_part_of = @record.fields["is_part_of"]).present?
-                = is_part_of(@scope, @record.fields)
-              - else
-                = "–"
+            dd.is-part-of = value_or_default(is_part_of(@record, scope: @scope))
 
             dt = "Auflage"
-            dd.edition = @record.fields["edition"].presence || "–"
+            dd.edition = value_or_default(edition(@record))
 
             dt = "Erscheinungsort"
-            dd.place = @record.fields["publisher"].try(:split, ":")[0].try(:strip).presence || "–"
+            dd.place = value_or_default(place_of_publication(@record))
 
             dt = "Verlag"
-            dd.publisher = @record.fields["publisher"].try(:split, ":")[1].try(:strip).presence || "–"
+            dd.publisher = value_or_default(publisher(@record))
 
             dt = "Erscheinungsjahr"
-            dd.date-of-publication = @record.fields["creationdate"].presence || "–"
+            dd.date-of-publication = value_or_default(date_of_publication(@record))
 
         .row
           .col-sm-6
             dl
               dt = "Format"
-              dd.format = @record.fields["format"].presence || "–"
+              dd.format = value_or_default(format(@record))
 
               dt = "Sprache(n)"
-              dd.language = [*@record.fields["language"]].map{|l| t("languages.#{l}")}.join(", ").presence || "–"
+              dd.language = value_or_default(language(@record))
 
               dt = "Identifikator(en)"
               dd.identicator = "TODO"
@@ -54,7 +50,7 @@
               dd = "TODO"
 
               dt = "Beschreibungen"
-              dd == [*@record.fields["description"]].join("<br/>").presence || "–"
+              dd.description = value_or_default(description(@record))
 
           .col-sm-6
             dl

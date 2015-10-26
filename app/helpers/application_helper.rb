@@ -35,6 +35,10 @@ module ApplicationHelper
     .join(".") << "(event)"
   end
 
+  def value_or_default(value, default: "–")
+    value.presence || default
+  end
+
   def ractive_component(name, options = {}, &block)
     ractive_class = name.include?(".") ? name : nil
     template_name = name.include?(".") ? nil : name
