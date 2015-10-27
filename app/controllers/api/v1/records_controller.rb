@@ -16,7 +16,7 @@ class Api::V1::RecordsController < Api::V1::ApplicationController
   end
 
   def show
-    scope = Skala.config.find_search_scope(params[:scope])
+    scope = KatalogUbpb.config.find_search_scope(params[:scope])
 
     get_record = Skala::GetRecord.new({
       id: params[:id],

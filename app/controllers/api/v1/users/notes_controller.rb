@@ -8,7 +8,7 @@ class Api::V1::Users::NotesController < Api::V1::UsersController
 
     create_note = Skala::User::CreateNote.new({
       record: Skala::Record.new(record_params),
-      scope: Skala.config.find_search_scope(params[:scope_id]),
+      scope: KatalogUbpb.config.find_search_scope(params[:scope_id]),
       user: user,
       value: params[:value]
     })

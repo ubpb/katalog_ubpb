@@ -1,7 +1,7 @@
 class SearchesController < ApplicationController
   def index
     if (@search_request = search_request_from_params).present?
-      @search_result = Skala::SearchRecordsService.call(
+      @search_result = SearchRecordsService.call(
         adapter: current_scope.search_engine_adapter.instance,
         facets: current_scope.facets,
         search_request: @search_request

@@ -6,7 +6,7 @@ class Users::HoldRequestsController < UsersController
 
   def index
     @hold_requests = Skala::User::HoldRequestDecorator.decorate_collection Skala::GetUserHoldRequestsService.call({
-      ils_adapter: Skala.config.ils_adapter.instance,
+      ils_adapter: KatalogUbpb.config.ils_adapter.instance,
       user_id: current_user.username
     })
   end
@@ -15,7 +15,7 @@ class Users::HoldRequestsController < UsersController
     (destroy_params[:ids] || [destroy_params[:id].compact]).each do |_id|
       Skala::DeleteUserHoldRequestService.call({
         hold_id: _id,
-        ils_adapter: Skala.config.ils_adapter.instance,
+        ils_adapter: KatalogUbpb.config.ils_adapter.instance,
         user_id: current_user.username
       })
     end
