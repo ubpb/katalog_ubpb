@@ -11,49 +11,64 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141006140435) do
+ActiveRecord::Schema.define(version: 20151027134705) do
 
-  create_table "skala_user_notes", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "record_id"
-    t.string   "scope_id"
-    t.text     "value",      limit: 1073741823
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "api_keys", force: :cascade do |t|
+    t.integer  "user_id",      limit: 4
+    t.string   "access_token", limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
-  add_index "skala_user_notes", ["record_id"], name: "index_skala_user_notes_on_record_id"
-  add_index "skala_user_notes", ["user_id"], name: "index_skala_user_notes_on_user_id"
+  add_index "api_keys", ["access_token"], name: "index_api_keys_on_access_token", unique: true, using: :btree
+  add_index "api_keys", ["user_id"], name: "index_api_keys_on_user_id", using: :btree
 
-  create_table "skala_user_watch_list_entries", force: :cascade do |t|
-    t.string   "record_id"
-    t.string   "scope_id"
-    t.integer  "watch_list_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "notes", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.string   "recordid",   limit: 255
+    t.text     "value",      limit: 4294967295
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
-  add_index "skala_user_watch_list_entries", ["watch_list_id"], name: "index_skala_user_watch_list_entries_on_watch_list_id"
+  add_index "notes", ["recordid"], name: "index_notes_on_recordid", using: :btree
+  add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
 
-  create_table "skala_user_watch_lists", force: :cascade do |t|
-    t.text     "description"
-    t.string   "name"
-    t.boolean  "public",      default: false
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "users", force: :cascade do |t|
+    t.string   "first_name",    limit: 255
+    t.string   "last_name",     limit: 255
+    t.string   "email_address", limit: 255
+    t.decimal  "cash_balance",              precision: 10, scale: 2
+    t.date     "expiry_date"
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.string   "ilsuserid",     limit: 255
+    t.string   "pseudonym",     limit: 255
   end
 
-  add_index "skala_user_watch_lists", ["user_id"], name: "index_skala_user_watch_lists_on_user_id"
+  add_index "users", ["ilsuserid"], name: "index_users_on_ilsuserid", unique: true, using: :btree
+  add_index "users", ["pseudonym"], name: "index_users_on_pseudonym", unique: true, using: :btree
 
-  create_table "skala_users", force: :cascade do |t|
-    t.string   "api_key"
-    t.string   "username"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "watch_list_entries", force: :cascade do |t|
+    t.integer  "watch_list_id", limit: 4
+    t.string   "recordid",      limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "scopeid",       limit: 255, null: false
   end
 
-  add_index "skala_users", ["api_key"], name: "index_skala_users_on_api_key", unique: true
-  add_index "skala_users", ["username"], name: "index_skala_users_on_username", unique: true
+  add_index "watch_list_entries", ["recordid"], name: "index_watch_list_entries_on_recordid", using: :btree
+  add_index "watch_list_entries", ["scopeid"], name: "index_watch_list_entries_on_scopeid", using: :btree
+  add_index "watch_list_entries", ["watch_list_id"], name: "index_watch_list_entries_on_watch_list_id", using: :btree
+
+  create_table "watch_lists", force: :cascade do |t|
+    t.integer  "user_id",     limit: 4
+    t.string   "name",        limit: 255
+    t.text     "description", limit: 4294967295
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "watch_lists", ["user_id"], name: "index_watch_lists_on_user_id", using: :btree
 
 end

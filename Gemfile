@@ -1,7 +1,6 @@
 source "https://rubygems.org"
 
 gem "rails",                 "= 4.2.4"
-gem "sqlite3",               "~> 1.3.9"
 gem "cancancan",             "~> 1.12.0"
 gem "bootstrap-sass",        "~> 3.3.5"
 gem "browser",               "~> 0.8.0"
@@ -24,6 +23,9 @@ gem "autoprefixer-rails",    "~> 6.0.3"
 gem "dotenv-rails"
 gem "rails-i18n"
 gem "i18n-js", ">= 3.0.0.rc11"
+
+gem "mysql2",  "~> 0.3.0"
+gem "sqlite3", "~> 1.3"
 
 gem "skala", github: "ubpb/skala", branch: :master
 
