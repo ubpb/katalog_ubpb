@@ -277,16 +277,14 @@ module SearchesHelper
     end
   end
 
-  def notation(record, link:false, scope:nil)
-    notation = record.fields["notation"].presence
-
-    if notation
+  def notations(record, link:false, scope:nil)
+    [*record.fields["notation"]].map do |notation|
       if link && scope
         link_to_notation(notation, scope: scope)
       else
         notation
       end
-    end
+    end.join(", ").html_safe
   end
 
   def subject(record, link:false, scope:nil)
