@@ -52,13 +52,13 @@ module SearchesHelper
   #
 
 
-  def link_to_superorder(superorder, scope:)
-    link_to_new_search(superorder["ht_number"], scope: scope, default_field: "ht_number", label: superorder["label"])
+  def link_to_superorder(ht_number, scope:, label:)
+    link_to_new_search(ht_number, scope: scope, default_field: "ht_number", label: label)
   end
 
   # TODO: Add sort for volume count
-  def link_to_volumes(superorder, scope:)
-    link_to_new_search(superorder["ht_number"], scope: scope, default_field: "superorder", label: "(alle Bände)")
+  def link_to_volumes(ht_number, scope:, label:)
+    link_to_new_search(ht_number, scope: scope, default_field: "superorder", label: label)
   end
 
   def link_to_creator(creator, scope:)
@@ -183,11 +183,18 @@ module SearchesHelper
     !is_journal?(record)
   end
 
+  def is_superorder?(record)
+    record.fields["is_superorder"] == true
+  end
+
 
   #
   # ------
   #
 
+  def ht_number(record)
+    record.fields["ht_number"].presence
+  end
 
   def title(record, scope:nil, search_request:nil)
     title = [*record.fields["title"]].join("; ").presence
@@ -320,13 +327,13 @@ module SearchesHelper
             superorder["label"] = label
 
             if scope.present? && superorder["ht_number"].present?
-              buffer << " #{link_to_superorder(superorder, scope: scope)}"
+              buffer << " #{link_to_superorder(superorder["ht_number"], scope: scope, label: superorder["label"])}"
             else
               buffer << " #{superorder["label"]}"
             end
 
             if scope.present? && superorder["ht_number"].present?
-              buffer << " #{link_to_volumes(superorder, scope: scope)}"
+              buffer << " #{link_to_volumes(superorder["ht_number"], scope: scope, label: "(alle Bände)")}"
             end
 
             buffer.html_safe

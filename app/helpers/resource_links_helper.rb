@@ -1,7 +1,7 @@
 module ResourceLinksHelper
 
-  def resource_links(hit)
-    links = [*hit.fields["resource_link"]]
+  def resource_links(record)
+    links = [*record.fields["resource_link"]]
     LinksFilter.new(links).links
   end
 

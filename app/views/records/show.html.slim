@@ -34,6 +34,24 @@
             dt = "Erscheinungsjahr"
             dd.date-of-publication = value_or_default(date_of_publication(@record))
 
+            - if is_superorder?(@record) && (ht_number = ht_number(@record))
+              dt = "Bände"
+              dd.suborders = link_to_volumes(ht_number, scope: @scope, label: "Zeige Bände")
+
+            dt = "Links"
+            dd.resource-links =
+
+            dt = "journal_holdings"
+            dd
+
+            dt = "relations"
+            dd
+
+            dt = "source"
+            dd
+
+            dt = "local_comments"
+
         .row
           .col-sm-6
             dl
