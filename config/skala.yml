@@ -17,6 +17,10 @@ common_settings: &common_settings
           index: katalog
 
       facets:
+        - name: "materialtypen"
+          type: "terms"
+          field: "materialtyp_facet"
+          i18n_key: "materialtypen"
         - name: "creators"
           type: "terms"
           field: "creator_contributor_facet"
@@ -41,10 +45,6 @@ common_settings: &common_settings
           type: "terms"
           field: "inhaltstyp_facet"
           i18n_key: "inhaltstypen"
-        - name: "materialtypen"
-          type: "terms"
-          field: "materialtyp_facet"
-          i18n_key: "materialtypen"
 
         #- name: "neuerwerbungen"
         #  type: "range"
