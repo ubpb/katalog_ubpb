@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_scope
-    Skala.config.find_search_scope(params[:scope]) || Skala.config.find_search_scope(session[:scope_id]) || Skala.config.search_scopes.first
+    KatalogUbpb.config.find_search_scope(params[:scope]) || KatalogUbpb.config.find_search_scope(session[:scope_id]) || KatalogUbpb.config.search_scopes.first
   end
 
   def detect_browser

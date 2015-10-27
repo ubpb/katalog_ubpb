@@ -6,7 +6,7 @@ class Users::FeesController < UsersController
 
   def index
     @fees = Skala::User::FeesDecorator.decorate Skala::GetUserFeesService.call({
-      ils_adapter: Skala.config.ils_adapter.instance,
+      ils_adapter: KatalogUbpb.config.ils_adapter.instance,
       locale: current_locale,
       user_id: current_user.username
     })

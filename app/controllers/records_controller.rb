@@ -3,7 +3,7 @@ class RecordsController < ApplicationController
 
   def show
     @scope = current_scope
-    
+
     if @search_request = search_request_from_params
       flash[:search_request] = @search_request.to_h
       return redirect_to(record_path(params[:id], scope: @scope))
@@ -11,7 +11,7 @@ class RecordsController < ApplicationController
       @search_request = Skala::SearchRequest.new(serialized_search_request)
     end
 
-    @record = Skala::GetRecordService.call(
+    @record = GetRecordService.call(
       adapter: @scope.search_engine_adapter.instance,
       id: params[:id]
     )
@@ -34,11 +34,11 @@ class RecordsController < ApplicationController
       extended_search_request.from = @search_request.from - offset unless on_first_page
       extended_search_request.size = @search_request.size + 2 * offset
 
-      search_result = Skala::SearchRecordsService.call(
+      search_result = SearchRecordsService.call(
         adapter: @scope.search_engine_adapter.instance,
         search_request: extended_search_request
       )
-      
+
       @total_hits = search_result.total_hits
       hits = on_first_page ? [nil].concat(search_result.hits) : search_result.hits
 
@@ -66,8 +66,8 @@ class RecordsController < ApplicationController
 
     # items
     if @record.id.start_with?("PAD_ALEPH") || true
-      @items = Skala::GetRecordItemsService.call(
-        adapter: Skala.config.ils_adapter.instance,
+      @items = GetRecordItemsService.call(
+        adapter: KatalogUbpb.config.ils_adapter.instance,
         id: @record.fields["id"]
       ).items
     end
@@ -78,8 +78,8 @@ class RecordsController < ApplicationController
     end
 
 =begin
-    @scope = Skala.config.find_search_scope(params[:scope])
-    @ils_adapter = Skala.config.ils_adapter.instance # for translate
+    @scope = KatalogUbpb.config.find_search_scope(params[:scope])
+    @ils_adapter = KatalogUbpb.config.ils_adapter.instance # for translate
 
     if params[:search_request].present?
       @search_request = Skala::Search::Request.new(JSON.parse(params[:search_request]))
@@ -99,7 +99,7 @@ class RecordsController < ApplicationController
     end
 
     @items = if @ils_adapter # TODO: Check if the ILS Adapter can handle the current record id
-      Skala::GetRecordItemsService.call(ils_adapter: @ils_adapter, record_id: params[:id])
+      GetRecordItemsService.call(ils_adapter: @ils_adapter, record_id: params[:id])
     else
       []
     end.map! do |_item|

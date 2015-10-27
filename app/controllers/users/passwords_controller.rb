@@ -1,14 +1,14 @@
 class Users::PasswordsController < UsersController
   def edit
     @update_user_password = Skala::UpdateUserPasswordService.new({
-      ils_adapter: Skala.config.ils_adapter.instance,
+      ils_adapter: KatalogUbpb.config.ils_adapter.instance,
       user_id: current_user.username
     })
   end
 
   def update
     @update_user_password = Skala::UpdateUserPasswordService.new({
-      ils_adapter: Skala.config.ils_adapter.instance,
+      ils_adapter: KatalogUbpb.config.ils_adapter.instance,
       user_id: current_user.username
     }.merge(update_user_password_params))
 

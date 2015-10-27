@@ -9,7 +9,7 @@ class Api::V1::Users::WatchLists::EntriesController < Api::V1::UsersController
 
     create_entry = Skala::User::WatchList::CreateEntry.new({
       record: Skala::Record.new(record_params),
-      scope: Skala.config.find_search_scope(params[:scope][:id]),
+      scope: KatalogUbpb.config.find_search_scope(params[:scope][:id]),
       watch_list: watch_list
     })
 
