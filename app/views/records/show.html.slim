@@ -79,7 +79,7 @@
               dd.toc = value_or_default(subject(@record, link: true, scope: @scope))
 
               dt = "Systemstelle"
-              dd.toc = value_or_default(notation(@record, link: true, scope: @scope))
+              dd.toc = value_or_default(notations(@record, link: true, scope: @scope))
 
               dt = "Signatur"
               dd.toc = value_or_default(signature(@record, link: true))
