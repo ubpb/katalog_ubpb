@@ -12,122 +12,127 @@
 
       .tab-content
         #record-details-tab.tab-pane.active
-          dl
-            - if (creators = creators(@record, link: true, scope: @scope)).present?
-              dt = "Autor(en)"
-              dd.creators = creators
+          .row
+            .col-sm-12
+              dl
+                - if (creators = creators(@record, link: true, scope: @scope)).present?
+                  dt = "Autor(en)"
+                  dd.creators = creators
 
-            dt = "Titel"
-            dd.title = value_or_default(title(@record))
+                dt = "Titel"
+                dd.title = value_or_default(title(@record))
 
-            - if (is_part_of = is_part_of(@record, scope: @scope)).present?
-              dt = "Teil von"
-              dd.is-part-of = is_part_of
+                - if (is_part_of = is_part_of(@record, scope: @scope)).present?
+                  dt = "Teil von"
+                  dd.is-part-of = is_part_of
 
-            - if (edition = edition(@record)).present?
-              dt = "Auflage"
-              dd.edition = edition
+                - if (edition = edition(@record)).present?
+                  dt = "Auflage"
+                  dd.edition = edition
 
-            - if (place_of_publication = place_of_publication(@record)).present?
-              dt = "Erscheinungsort"
-              dd.place = place_of_publication
+                - if (place_of_publication = place_of_publication(@record)).present?
+                  dt = "Erscheinungsort"
+                  dd.place = place_of_publication
 
-            - if (publisher = publisher(@record)).present?
-              dt = "Verlag"
-              dd.publisher = publisher
+                - if (publisher = publisher(@record)).present?
+                  dt = "Verlag"
+                  dd.publisher = publisher
 
-            - if (date_of_publication = date_of_publication(@record)).present?
-              dt = "Erscheinungsjahr"
-              dd.date-of-publication = date_of_publication
+                - if (date_of_publication = date_of_publication(@record)).present?
+                  dt = "Erscheinungsjahr"
+                  dd.date-of-publication = date_of_publication
 
-            - if is_superorder?(@record) && (ht_number = ht_number(@record)).present?
-              dt = "Bände"
-              dd.suborders = link_to_volumes(ht_number, scope: @scope, label: "Zeige Bände")
+                - if is_superorder?(@record) && (ht_number = ht_number(@record)).present?
+                  dt = "Bände"
+                  dd.suborders = link_to_volumes(ht_number, scope: @scope, label: "Zeige Bände")
 
-            - if (links = resource_links(@record)).present?
-              dt = "Links"
-              dd.resource-links
-                = links
-                = vpn_info
+                - if (links = resource_links(@record)).present?
+                  dt = "Links"
+                  dd.resource-links
+                    = links
+                    = vpn_info
 
-            - if (journal_holdings = journal_holdings(@record, fullview: true)).present?
-              dt = "Bestand UB"
-              dd.journal-holdings = journal_holdings
+                - if (journal_holdings = journal_holdings(@record, fullview: true)).present?
+                  dt = "Bestand UB"
+                  dd.journal-holdings = journal_holdings
 
-            - if (relations = relations(@record, link: true, scope: @scope)).present?
-              dt = "Verknüpfte Titel"
-              dd.relations = relations
+                - if (relations = relations(@record, link: true, scope: @scope)).present?
+                  dt = "Verknüpfte Titel"
+                  dd.relations = relations
 
-            - if (source = source(@record)).present?
-              dt = "Quelle"
-              dd.source = source
+                - if (source = source(@record)).present?
+                  dt = "Quelle"
+                  dd.source = source
 
-            - if (local_comments = local_comments(@record)).present?
-              dt = "Kommentare"
-              dd.local_comments = local_comments
+                - if (local_comments = local_comments(@record)).present?
+                  dt = "Kommentare"
+                  dd.local_comments = local_comments
 
-        .row
-          .col-sm-6
-            dl
-              dt = "Format"
-              dd.format = value_or_default(format(@record))
+          .row
+            .col-sm-6
+              dl
+                dt = "Format"
+                dd.format = value_or_default(format(@record))
 
-              dt = "Sprache(n)"
-              dd.language = value_or_default(language(@record))
+                dt = "Sprache(n)"
+                dd.language = value_or_default(language(@record))
 
-              dt = "Identifikator(en)"
-              dd.identifier = value_or_default(identifier(@record))
+                dt = "Identifikator(en)"
+                dd.identifier = value_or_default(identifier(@record))
 
-              / TODO
-              dt = "Erschienen in"
-              dd = "–"
+                / TODO
+                dt = "Erschienen in"
+                dd = "–"
 
-              dt = "Beschreibungen"
-              dd.description = value_or_default(description(@record))
+                dt = "Beschreibungen"
+                dd.description = value_or_default(description(@record))
 
-          .col-sm-6
-            dl
-              dt = "Inhaltsverzeichnisse"
-              dd.toc = value_or_default(links_to_toc(@record))
+            .col-sm-6
+              dl
+                dt = "Inhaltsverzeichnisse"
+                dd.toc = value_or_default(links_to_toc(@record))
 
-              dt = "Schlagwörter"
-              dd.toc = value_or_default(subject(@record, link: true, scope: @scope))
+                dt = "Schlagwörter"
+                dd.toc = value_or_default(subject(@record, link: true, scope: @scope))
 
-              dt = "Systemstelle"
-              dd.toc = value_or_default(notations(@record, link: true, scope: @scope))
+                dt = "Systemstelle"
+                dd.toc = value_or_default(notations(@record, link: true, scope: @scope))
 
-              dt = "Signatur"
-              dd.toc = value_or_default(signature(@record, link: true))
+                dt = "Signatur"
+                dd.toc = value_or_default(signature(@record, link: true))
 
-              / TODO
-              dt = "Externer Link"
-              dd.toc = "–"
-
-          /= render_relative "./show/details", notes: @notes, record: @record, scope: @scope, watch_lists: @watch_lists
+                / TODO
+                dt = "Externer Link"
+                dd.toc = "–"
 
           - if @items.present?
-            = render_relative "./show/items", items: @items
+            .row
+              .col-sm-12
+                = render_relative "./show/items", items: @items
 
 
-  / = ractive_component "app.components.RecordActions",
-  /   api_v1_record_path: api_v1_record_path(":id"),
-  /   api_v1_user_notes_path: api_v1_user_notes_path(":user_id"),
-  /   api_v1_user_note_path: api_v1_user_note_path(":user_id", ":id"),
-  /   api_v1_user_watch_lists_path: api_v1_user_watch_lists_path(":user_id"),
-  /   api_v1_user_watch_list_entries_path: api_v1_user_watch_list_entries_path(":user_id", ":watch_list_id"),
-  /   api_v1_user_watch_list_entry_path: api_v1_user_watch_list_entry_path(":user_id", ":watch_list_id", ":id"),
-  /   class: "pull-right",
-  /   note: @notes.try(:find) { |_note| \
-  /     _note.record_id == @record.id\
-  /   },\
-  /   record: { id: @record.id },
-  /   scope: { id: @scope.id },
-  /   translations: I18n.config.backend.send(:translations)[current_locale][:components][:RecordActions],
-  /   user: current_user.try(:slice, :id),
-  /   watch_lists: @watch_lists.try(:map) { |_watch_list| \
-  /     _watch_list.slice(:id, :name).merge( \
-  /       "entries" => _watch_list.entries.map { |_entry| \
-  /         _entry.slice(:id, :record_id, :watch_list_id) \
-  /       } \
-  /     ) \
-  /   }
+/= render_relative "./show/details", notes: @notes, record: @record, scope: @scope, watch_lists: @watch_lists
+
+
+/ = ractive_component "app.components.RecordActions",
+/   api_v1_record_path: api_v1_record_path(":id"),
+/   api_v1_user_notes_path: api_v1_user_notes_path(":user_id"),
+/   api_v1_user_note_path: api_v1_user_note_path(":user_id", ":id"),
+/   api_v1_user_watch_lists_path: api_v1_user_watch_lists_path(":user_id"),
+/   api_v1_user_watch_list_entries_path: api_v1_user_watch_list_entries_path(":user_id", ":watch_list_id"),
+/   api_v1_user_watch_list_entry_path: api_v1_user_watch_list_entry_path(":user_id", ":watch_list_id", ":id"),
+/   class: "pull-right",
+/   note: @notes.try(:find) { |_note| \
+/     _note.record_id == @record.id\
+/   },\
+/   record: { id: @record.id },
+/   scope: { id: @scope.id },
+/   translations: I18n.config.backend.send(:translations)[current_locale][:components][:RecordActions],
+/   user: current_user.try(:slice, :id),
+/   watch_lists: @watch_lists.try(:map) { |_watch_list| \
+/     _watch_list.slice(:id, :name).merge( \
+/       "entries" => _watch_list.entries.map { |_entry| \
+/         _entry.slice(:id, :record_id, :watch_list_id) \
+/       } \
+/     ) \
+/   }

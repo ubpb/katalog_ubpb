@@ -1,46 +1,48 @@
 - has_location = items.any? { |_item| _item.location }
-- has_note = items.any? { |_item| _item.note }
+- has_note     = items.any? { |_item| _item.note }
 
-table.table.table-striped.table-responsive
-  thead
-    tr
-      th
-      th = t(".signature")
-      th = t(".item_status")
-      - if has_location
-        th = t(".location")
-      th = t(".status")
-      th = t(".due_date")
-      - if has_note
-        th = t(".note")
+#items
+  .table-responsive
+    table.table.table-striped
+      thead
+        tr
+          th
+          th = t(".signature")
+          th = t(".item_status")
+          - if has_location
+            th = t(".location")
+          th = t(".status")
+          th = t(".due_date")
+          - if has_note
+            th = t(".note")
 
-  tbody
-    - items.each do |item|
-      tr
-        - if item.availability == :available
-          td.available
-        - elsif item.availability == :restricted_available
-          td.restricted-available
-        - elsif item.availability == :not_available
-          td.not-available
-        - else # maybe there are no availability informations at all
-          td
+      tbody
+        - items.each do |item|
+          tr
+            - if item.availability == :available
+              td.state.available
+            - elsif item.availability == :restricted_available
+              td.state.restricted-available
+            - elsif item.availability == :not_available
+              td.state.not-available
+            - else # maybe there are no availability informations at all
+              td.state.unknown
 
-        td
-          = item.signature || "-"
+            td
+              = item.signature || "–"
 
-        td
-          = item.item_status
-          /= ractive_component "app.components.ItemDescriptionPopover", item: { description: item.field["z30-item-status"] }
+            td
+              = item.item_status
+              /= ractive_component "app.components.ItemDescriptionPopover", item: { description: item.field["z30-item-status"] }
 
-        - if has_location
-          td = item.location
+            - if has_location
+              td = item.location
 
-        td
-          = t(".item.status.#{item.status}", expected_date: item.expected_date ? l(item.expected_date) : nil, default: item.status)
+            td
+              = t(".item.status.#{item.status}", expected_date: item.expected_date ? l(item.expected_date) : nil, default: item.status)
 
-        td
-          = item.due_date ? l(item.due_date) : "-"
+            td
+              = item.due_date ? l(item.due_date) : "–"
 
-        - if has_note
-          td = [*item.note].try(:join, "\n")
+            - if has_note
+              td = ensure_array(item.note).join("<br/>")
