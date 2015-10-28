@@ -33,13 +33,10 @@
             span.signature = "Signatur: #{signature}".html_safe
 
         / Link to online resource
-        - if (links = resource_links(hit)).present?
+        - if (links = resource_links(hit, default_link_only: true))
           .link_to_resource
-            = link_to links.first, target: "_blank" do
-              => fa_icon("external-link")
-              = "Direkt zur Online-Ressource"
-            - if (info = vpn_info)
-              .vpn-info = info
+            = links
+            = vpn_info
 
 
 /     /= ractive_component "app.components.Note",
