@@ -55,6 +55,7 @@ module SearchesHelper
   def link_to_superorder(ht_number, scope:, label:)
     link_to_new_search(ht_number, scope: scope, default_field: "ht_number", label: label)
   end
+  alias_method :link_to_ht_number, :link_to_superorder
 
   # TODO: Add sort for volume count
   def link_to_volumes(ht_number, scope:, label:)
@@ -93,7 +94,7 @@ module SearchesHelper
 
 
   def amazon_image_url(record, format: "THUMBZZZ")
-    isbn = [*record.fields["isbn"]].first
+    isbn = ensure_array(record.fields["isbn"]).first
     if isbn
       isbn = isbn.gsub("-", "")
       "https://images-na.ssl-images-amazon.com/images/P/#{isbn}.03.#{format}.jpg"
@@ -107,7 +108,7 @@ module SearchesHelper
 
 
   def journal_holdings(record, fullview:false)
-    journal_holdings = [*record.fields["ldsX"]]
+    journal_holdings = ensure_array(record.fields["ldsX"])
 
     if journal_holdings.present?
 
@@ -137,8 +138,8 @@ module SearchesHelper
             content_tag(:em, '*Zeitschriftenbestände bis einschließlich 1985 befinden sich in der Regel im Magazin. Um darauf zuzugreifen müssen Sie eine entsprechende Magazinbestellung aufgeben.')
           elsif has_closed_stack_location
             content_tag(:em, '*Es handelt sich um einen Magazinstandort. Um darauf zuzugreifen müssen Sie eine entsprechende Magazinbestellung aufgeben.')
-          end <<
-          content_tag(:div, link_to('&raquo; Magazinbestellung aufgeben'.html_safe, "#")) # TODO: Add path
+          end << " " <<
+          content_tag(:span, link_to('&raquo; Magazinbestellung aufgeben'.html_safe, "#")) # TODO: Add path
         end.to_s
       else
         cleaned_journal_holdings.join(', ')
@@ -193,11 +194,11 @@ module SearchesHelper
   #
 
   def ht_number(record)
-    record.fields["ht_number"].presence
+    ensure_array(record.fields["ht_number"]).first
   end
 
   def title(record, scope:nil, search_request:nil)
-    title = [*record.fields["title"]].join("; ").presence
+    title = ensure_array(record.fields["title"]).join("; ")
 
     if scope && search_request
       link_to(title, record_path(record.id, scope: scope, search_request: search_request)).html_safe
@@ -207,7 +208,7 @@ module SearchesHelper
   end
 
   def creators(record, link:false, scope:nil)
-    [*record.fields["creator_contributor_display"]].map do |creator|
+    ensure_array(record.fields["creator_contributor_display"]).map do |creator|
       if link && scope
         link_to_creator(creator, scope: scope)
       else
@@ -217,23 +218,23 @@ module SearchesHelper
   end
 
   def edition(record)
-    record.fields["edition"].presence
+    ensure_array(record.fields["edition"]).first
   end
 
   def date_of_publication(record)
-    record.fields["creationdate"].presence
+    ensure_array(record.fields["creationdate"]).first
   end
 
   def place_of_publication(record)
-    record.fields["publisher"].try(:split, ":")[0].try(:strip).presence
+    ensure_array(record.fields["publisher"]).first.try(:split, ":").try(:[], 0).try(:strip)
   end
 
   def publisher(record)
-    record.fields["publisher"].try(:split, ":")[1].try(:strip).presence
+    ensure_array(record.fields["publisher"]).first.try(:split, ":").try(:[], 1).try(:strip)
   end
 
   def signature(record, link: false)
-    signature = record.fields["signature"]
+    signature = ensure_array(record.fields["signature"]).first
 
     if signature
       if link
@@ -245,15 +246,15 @@ module SearchesHelper
   end
 
   def format(record)
-    record.fields["format"].presence
+    ensure_array(record.fields["format"]).first
   end
 
   def language(record)
-    [*record.fields["language"]].map{|l| t("languages.#{l}")}.join(", ").presence
+    ensure_array(record.fields["language"]).map{|l| t("languages.#{l}")}.join(", ")
   end
 
   def description(record)
-    [*record.fields["description"]].join("<br/>").presence.try(:html_safe)
+    ensure_array(record.fields["description"]).join("<br/>").html_safe
   end
 
   def identifier(record)
@@ -278,7 +279,7 @@ module SearchesHelper
   end
 
   def notations(record, link:false, scope:nil)
-    [*record.fields["notation"]].map do |notation|
+    ensure_array(record.fields["notation"]).map do |notation|
       if link && scope
         link_to_notation(notation, scope: scope)
       else
@@ -287,8 +288,31 @@ module SearchesHelper
     end.join(", ").html_safe
   end
 
+  def relations(record, link:false, scope:nil)
+    relations = ensure_array(record.fields["relation"])
+
+    if relations.present?
+      content_tag(:ul) do
+        relations.map do |relation|
+          ht_number = relation["ht_number"]
+          label     = relation["label"] || "n.a."
+
+          content_tag(:li) do
+            if link && scope && ht_number
+              link_to_ht_number(ht_number, scope: scope, label: label)
+            else
+              label
+            end
+          end
+        end.join.html_safe
+      end
+    end
+  rescue
+    binding.pry
+  end
+
   def subject(record, link:false, scope:nil)
-    subjects = [*record.fields["subject"]]
+    subjects = ensure_array(record.fields["subject"])
 
     subjects.map do |subject|
       if link && scope
@@ -297,6 +321,24 @@ module SearchesHelper
         subject
       end
     end.join(", ").html_safe
+  end
+
+  def local_comments(record)
+    add_data = ensure_array(record.fields["additional_data"]).first
+    comments = ensure_array(add_data.try(:[], "local_comment"))
+    comments.join("<br/>").html_safe
+  end
+
+  def source(record)
+    # TODO: Implement me.
+    nil
+  end
+
+  def links_to_toc(record)
+    ensure_array(record.fields["link_to_toc"]).map.with_index do |link, index|
+      label = index == 0 ? "Inhaltsverzeichnis anzeigen" : "Weiteres Inhaltsverzeichnis anzeigen"
+      link_to label, link, target: "_blank"
+    end.join("<br/>").html_safe
   end
 
   #
@@ -313,9 +355,9 @@ module SearchesHelper
   end
 
   def is_part_of(record, prefix_label:nil, scope:nil)
-    if (superorders = record.fields["is_part_of"]).present?
+    if (superorders = ensure_array(record.fields["is_part_of"])).present?
       content_tag(:ul) do
-        [*[superorders]].flatten.map do |superorder|
+        superorders.map do |superorder|
           content_tag(:li) do
             buffer = "#{prefix_label}"
 

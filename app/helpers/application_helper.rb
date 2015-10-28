@@ -22,6 +22,10 @@ module ApplicationHelper
     end
   end
 
+  def ensure_array(value)
+    [value].flatten(1).compact
+  end
+
   def javascript_event_handler(event_name)
     # "...(event)" is a js convention for passing events to inline js e.g. <a onclick="foo(event)")></a>
     [

@@ -1,15 +1,29 @@
 module ResourceLinksHelper
 
-  def resource_links(record)
-    links = [*record.fields["resource_link"]]
-    LinksFilter.new(links).links
+  def resource_links(record, default_link_only: false)
+    links = ensure_array(record.fields["resource_link"])
+    links = LinksFilter.new(links).links
+
+    if links.present?
+      if default_link_only || links.size == 1
+        link_to "Direkt zur Online-Resource", links.first, target: "_blank"
+      else
+        content_tag(:ul) do
+          links.map do |link|
+            content_tag(:li) do
+              link_to link, target: "_blank"
+            end
+          end.join.html_safe
+        end
+      end
+    end
   end
 
   def vpn_info
     # In case of request from an ip rage outside of Uni Paderborn
     # show hint about VPN.
     unless request_from_campus?
-      content_tag(:span) do
+      content_tag(:div, class: "vpn-info") do
         content_tag(:i, "", class: "fa fa-exclamation-triangle") <<
         content_tag(:span, " Gegebenenfalls nur ") <<
         content_tag(:a, "via VPN erreichbar", href: "http://imt.uni-paderborn.de/netzbetrieb/vpn-installieren", target: "_blank")
