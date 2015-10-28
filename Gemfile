@@ -25,8 +25,9 @@ gem "dotenv-rails"
 gem "rails-i18n"
 gem "i18n-js", ">= 3.0.0.rc11"
 
-gem "mysql2",  "~> 0.3.0"
-gem "sqlite3", "~> 1.3"
+gem "libxml-ruby", "~> 2.8",   require: "libxml" # for ActiveSupport::XmlMini.backend = "LibXML"
+gem "mysql2",      "~> 0.3.0"
+gem "sqlite3",     "~> 1.3"
 
 gem "skala", github: "ubpb/skala", branch: :master
 
