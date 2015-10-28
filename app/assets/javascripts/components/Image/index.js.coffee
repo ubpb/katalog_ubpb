@@ -1,19 +1,34 @@
 #= require imagesloaded.pkgd
 
 ((window.app ?= {}).components ?= {}).Image = Ractive.extend
-  onrender: ->
-    imagesLoaded(@el).on "done", (args...) =>
-      if $(@el).find("img")[0]?.naturalHeight > 1 && $(@el).find("img")[0]?.naturalWidth > 1
-        @set "image_loaded_successfully", true
+  oninit: ->
+    # reuse ractive internal component id
+    @set("guid", @_guid)
+
+    # set initial state
+    if @get("src")
+      @set("state", "pending")
+    else
+      @set("state", "show_placeholder")
+
+  oncomplete: ->
+    if @get("state") == "pending"
+      component_root = $(@el).find("[data-ractive-guid='#{@get("guid")}']")
+
+      imagesLoaded(component_root).on "done", (args...) =>
+        if $(component_root).find("img.image")[0]?.naturalHeight > 1 && $(component_root).find("img.image")[0]?.naturalWidth > 1
+          @set "state", "show_image"
+        else
+          @set "state", "show_placeholder"
 
   template: """
-    <div>
-      {{#if src}}
-        <img src={{src}} style="{{#if image_loaded_successfully}}{{style}}{{else}}display: none;{{/if}}">
+    <div data-ractive-guid="{{guid}}">
+      {{#if state == "pending" || state == "show_image" }}
+        <img class="image" src="{{src}}" style="{{style}}">
       {{/if}}
 
-      {{#unless image_loaded_successfully}}
+      {{#if state == "show_placeholder"}}
         {{{placeholder}}}
-      {{/unless}}
+      {{/if}}
     </div>
   """
