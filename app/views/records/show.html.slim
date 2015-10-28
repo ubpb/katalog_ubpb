@@ -13,7 +13,7 @@
       .tab-content
         #record-details-tab.tab-pane.active
           dl
-            - if (creators = creators(@record, link: true, scope: @scope))
+            - if (creators = creators(@record, link: true, scope: @scope)).present?
               dt = "Autor(en)"
               dd.creators = creators
 
