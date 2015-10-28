@@ -2,11 +2,6 @@
 module ApplicationHelper
   include FontAwesome::Rails::IconHelper
 
-  # this method avoids hitting the ils to speed up view rendering
-  def current_user?
-    session[:user_id].present?
-  end
-
   def flash_message_class(type)
     case type.to_sym
       when :alert

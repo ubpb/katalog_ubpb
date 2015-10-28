@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151027153553) do
+ActiveRecord::Schema.define(version: 20151028134753) do
 
   create_table "api_keys", force: :cascade do |t|
     t.integer  "user_id",      limit: 4
@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 20151027153553) do
     t.datetime "updated_at",               null: false
   end
 
-  add_index "api_keys", ["access_token"], name: "index_api_keys_on_access_token", unique: true, using: :btree
-  add_index "api_keys", ["user_id"], name: "index_api_keys_on_user_id", using: :btree
+  add_index "api_keys", ["access_token"], name: "index_api_keys_on_access_token", unique: true
+  add_index "api_keys", ["user_id"], name: "index_api_keys_on_user_id"
 
   create_table "notes", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -31,23 +31,25 @@ ActiveRecord::Schema.define(version: 20151027153553) do
     t.datetime "updated_at",                    null: false
   end
 
-  add_index "notes", ["recordid"], name: "index_notes_on_recordid", using: :btree
-  add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
+  add_index "notes", ["recordid"], name: "index_notes_on_recordid"
+  add_index "notes", ["user_id"], name: "index_notes_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "first_name",    limit: 255
-    t.string   "last_name",     limit: 255
-    t.string   "email_address", limit: 255
-    t.decimal  "cash_balance",              precision: 10, scale: 2
+    t.string   "first_name",              limit: 255
+    t.string   "last_name",               limit: 255
+    t.string   "email_address",           limit: 255
+    t.decimal  "cash_balance",                        precision: 10, scale: 2
     t.date     "expiry_date"
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
-    t.string   "ilsuserid",     limit: 255
-    t.string   "pseudonym",     limit: 255
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
+    t.string   "ilsuserid",               limit: 255
+    t.string   "pseudonym",               limit: 255
+    t.integer  "number_of_hold_requests"
+    t.integer  "number_of_loans"
   end
 
-  add_index "users", ["ilsuserid"], name: "index_users_on_ilsuserid", unique: true, using: :btree
-  add_index "users", ["pseudonym"], name: "index_users_on_pseudonym", unique: true, using: :btree
+  add_index "users", ["ilsuserid"], name: "index_users_on_ilsuserid", unique: true
+  add_index "users", ["pseudonym"], name: "index_users_on_pseudonym", unique: true
 
   create_table "watch_list_entries", force: :cascade do |t|
     t.integer  "watch_list_id", limit: 4
@@ -57,9 +59,9 @@ ActiveRecord::Schema.define(version: 20151027153553) do
     t.string   "scopeid",       limit: 255, null: false
   end
 
-  add_index "watch_list_entries", ["recordid"], name: "index_watch_list_entries_on_recordid", using: :btree
-  add_index "watch_list_entries", ["scopeid"], name: "index_watch_list_entries_on_scopeid", using: :btree
-  add_index "watch_list_entries", ["watch_list_id"], name: "index_watch_list_entries_on_watch_list_id", using: :btree
+  add_index "watch_list_entries", ["recordid"], name: "index_watch_list_entries_on_recordid"
+  add_index "watch_list_entries", ["scopeid"], name: "index_watch_list_entries_on_scopeid"
+  add_index "watch_list_entries", ["watch_list_id"], name: "index_watch_list_entries_on_watch_list_id"
 
   create_table "watch_lists", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
@@ -69,6 +71,6 @@ ActiveRecord::Schema.define(version: 20151027153553) do
     t.datetime "updated_at",                     null: false
   end
 
-  add_index "watch_lists", ["user_id"], name: "index_watch_lists_on_user_id", using: :btree
+  add_index "watch_lists", ["user_id"], name: "index_watch_lists_on_user_id"
 
 end

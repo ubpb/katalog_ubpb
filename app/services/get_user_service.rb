@@ -20,7 +20,9 @@ class GetUserService < Servizio::Service
               email_address: get_user_result.email_address,
               expiry_date: get_user_result.expiry_date,
               first_name: get_user_result.first_name,
-              last_name: get_user_result.last_name
+              last_name: get_user_result.last_name,
+              number_of_hold_requests: get_user_result.number_of_hold_requests,
+              number_of_loans: get_user_result.number_of_loans
             )
           end
         else
