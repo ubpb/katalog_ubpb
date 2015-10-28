@@ -13,44 +13,58 @@
       .tab-content
         #record-details-tab.tab-pane.active
           dl
-            dt = "Autor(en)"
-            dd.creators = value_or_default(creators(@record, link: true, scope: @scope))
+            - if (creators = creators(@record, link: true, scope: @scope))
+              dt = "Autor(en)"
+              dd.creators = creators
 
             dt = "Titel"
             dd.title = value_or_default(title(@record))
 
-            dt = "Teil von"
-            dd.is-part-of = value_or_default(is_part_of(@record, scope: @scope))
+            - if (is_part_of = is_part_of(@record, scope: @scope)).present?
+              dt = "Teil von"
+              dd.is-part-of = is_part_of
 
-            dt = "Auflage"
-            dd.edition = value_or_default(edition(@record))
+            - if (edition = edition(@record)).present?
+              dt = "Auflage"
+              dd.edition = edition
 
-            dt = "Erscheinungsort"
-            dd.place = value_or_default(place_of_publication(@record))
+            - if (place_of_publication = place_of_publication(@record)).present?
+              dt = "Erscheinungsort"
+              dd.place = place_of_publication
 
-            dt = "Verlag"
-            dd.publisher = value_or_default(publisher(@record))
+            - if (publisher = publisher(@record)).present?
+              dt = "Verlag"
+              dd.publisher = publisher
 
-            dt = "Erscheinungsjahr"
-            dd.date-of-publication = value_or_default(date_of_publication(@record))
+            - if (date_of_publication = date_of_publication(@record)).present?
+              dt = "Erscheinungsjahr"
+              dd.date-of-publication = date_of_publication
 
-            - if is_superorder?(@record) && (ht_number = ht_number(@record))
+            - if is_superorder?(@record) && (ht_number = ht_number(@record)).present?
               dt = "Bände"
               dd.suborders = link_to_volumes(ht_number, scope: @scope, label: "Zeige Bände")
 
-            dt = "Links"
-            dd.resource-links =
+            - if (links = resource_links(@record)).present?
+              dt = "Links"
+              dd.resource-links
+                = links
+                = vpn_info
 
-            dt = "journal_holdings"
-            dd
+            - if (journal_holdings = journal_holdings(@record, fullview: true)).present?
+              dt = "Bestand UB"
+              dd.journal-holdings = journal_holdings
 
-            dt = "relations"
-            dd
+            - if (relations = relations(@record, link: true, scope: @scope)).present?
+              dt = "Verknüpfte Titel"
+              dd.relations = relations
 
-            dt = "source"
-            dd
+            - if (source = source(@record)).present?
+              dt = "Quelle"
+              dd.source = source
 
-            dt = "local_comments"
+            - if (local_comments = local_comments(@record)).present?
+              dt = "Kommentare"
+              dd.local_comments = local_comments
 
         .row
           .col-sm-6
@@ -64,8 +78,9 @@
               dt = "Identifikator(en)"
               dd.identifier = value_or_default(identifier(@record))
 
+              / TODO
               dt = "Erschienen in"
-              dd = "TODO"
+              dd = "–"
 
               dt = "Beschreibungen"
               dd.description = value_or_default(description(@record))
@@ -73,7 +88,7 @@
           .col-sm-6
             dl
               dt = "Inhaltsverzeichnisse"
-              dd.toc = "TODO"
+              dd.toc = value_or_default(links_to_toc(@record))
 
               dt = "Schlagwörter"
               dd.toc = value_or_default(subject(@record, link: true, scope: @scope))
@@ -84,8 +99,9 @@
               dt = "Signatur"
               dd.toc = value_or_default(signature(@record, link: true))
 
+              / TODO
               dt = "Externer Link"
-              dd.toc = "TODO"
+              dd.toc = "–"
 
           /= render_relative "./show/details", notes: @notes, record: @record, scope: @scope, watch_lists: @watch_lists
 
