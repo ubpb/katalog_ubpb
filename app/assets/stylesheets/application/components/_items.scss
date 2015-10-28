@@ -1,8 +1,6 @@
-.availability-indicator {
-  .state {
-    color: #fff;
-    padding: 1px 4px;
-    border-radius: 2px;
+#items {
+  td.state {
+    width: 10px;
 
     &.available {
       background-color: $item-available-color;
@@ -14,10 +12,6 @@
 
     &.restricted-available {
       background-color: $item-restricted-available-color;
-    }
-
-    &.loading {
-      color: $text-color;
     }
   }
 }
