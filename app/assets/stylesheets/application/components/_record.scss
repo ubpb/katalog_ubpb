@@ -32,7 +32,10 @@
       }
 
       &.is-part-of,
-      &.identifier {
+      &.identifier,
+      &.resource-links,
+      &.journal-holdings,
+      &.relations {
         ul {
           margin: 0;
           padding: 0;
