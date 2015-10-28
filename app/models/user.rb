@@ -17,4 +17,16 @@ class User < ActiveRecord::Base
     super(value.try(:to_s).try(:upcase))
   end
 
+  def name
+    [first_name, last_name].compact.join(" ").presence
+  end
+
+  def number_of_hold_requests
+    super || 0
+  end
+
+  def number_of_loans
+    super || 0
+  end
+
 end

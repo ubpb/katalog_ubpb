@@ -34,7 +34,7 @@ html
     #content-area-wrapper
       .container
         = render "breadcrumb"
-        = yield
+        = content_for?("content-area") ? yield("content-area") : yield
         = render "to_top"
     #claim-wrapper
       .container = render "claim"

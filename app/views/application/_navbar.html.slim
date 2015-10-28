@@ -8,15 +8,16 @@ nav.navbar.navbar-default(role="navigation")
 
   .collapse.navbar-collapse#navbar-collapse
     .myaccount.navbar-right
-      - unless current_user?
-        = link_to user_path, class: "btn btn-primary navbar-btn" do
-          => fa_icon("user lg")
+      = link_to user_path, class: "btn btn-primary navbar-btn" do
+        => fa_icon("user lg")
+        - if current_user
+          = current_user.name
+        - else
           = t(".my_account")
-      - else
-        | TODO
-        / - if current_user?
-        / li.logout = link_to session_path, class: "btn btn-default", method: :delete, title: t(".logout") do
-        /   i.fa.fa-power-off
+
+      - if current_user
+        = link_to session_path, class: "btn btn-default", method: :delete, title: t(".logout") do
+          i.fa.fa-power-off
 
     ul.nav.navbar-nav.navbar-right
       li

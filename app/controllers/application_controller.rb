@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   include Breadcrumbs
-  include CurrentUser
 
   protect_from_forgery
 
@@ -15,6 +14,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_action
   helper_method :current_locale
   helper_method :current_scope
+  helper_method :current_user
   helper_method :global_message
   helper_method :skala_layout
   helper_method :random_id
@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
 
   # @Override
   def current_ability
-    @current_ability ||= Skala::Ability.new(current_user)
+    @current_ability ||= Ability.new(current_user)
   end
 
   def current_action
@@ -62,6 +62,14 @@ class ApplicationController < ActionController::Base
 
   def current_scope
     KatalogUbpb.config.find_search_scope(params[:scope]) || KatalogUbpb.config.find_search_scope(session[:scope_id]) || KatalogUbpb.config.search_scopes.first
+  end
+
+  def current_user
+    @current_user ||= begin
+      if user_id = session["user_id"]
+        GetUserService.call(id: user_id)
+      end
+    end
   end
 
   def detect_browser
