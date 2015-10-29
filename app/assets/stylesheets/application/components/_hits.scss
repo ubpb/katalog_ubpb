@@ -16,6 +16,11 @@
 
     .image {
       display: none;
+
+      img {
+        @extend .img-responsive;
+      }
+
       @media (min-width: $screen-sm-min) {
         display: block;
       }
@@ -23,12 +28,6 @@
       float: left;
       width: $hit-image-width;
       margin-right: $line-height-computed;
-      text-align: center;
-
-      .fa {
-        font-size: $hit-image-width;
-        color: $gray-light;
-      }
     }
 
     .metadata {
