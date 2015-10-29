@@ -33,6 +33,7 @@ de:
         status: Status
         status_description: Leihart
         signature: Signatur
+        note: Notiz
 
         item:
           status:

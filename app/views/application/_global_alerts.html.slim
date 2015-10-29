@@ -1,0 +1,9 @@
+- flash.each do |type, message|
+  - if message.is_a?(String)
+      div(class="#{flash_message_class(type)}")
+        .container
+          button.close(type="button" data-dismiss="alert")
+            span = "&times".html_safe
+            span.sr-only = "Close"
+
+          = message

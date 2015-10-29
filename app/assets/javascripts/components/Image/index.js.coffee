@@ -16,7 +16,7 @@
       component_root = $(@el).find("[data-ractive-guid='#{@get("guid")}']")
 
       imagesLoaded(component_root).on "done", (args...) =>
-        if $(component_root).find("img.image")[0]?.naturalHeight > 1 && $(component_root).find("img.image")[0]?.naturalWidth > 1
+        if $(component_root).find("img")[0]?.naturalHeight > 1 && $(component_root).find("img")[0]?.naturalWidth > 1
           @set "state", "show_image"
         else
           @set "state", "show_placeholder"
@@ -24,7 +24,7 @@
   template: """
     <div data-ractive-guid="{{guid}}">
       {{#if state == "pending" || state == "show_image" }}
-        <img class="image" src="{{src}}" style="{{style}}">
+        <img src="{{src}}" style="{{style}}">
       {{/if}}
 
       {{#if state == "show_placeholder"}}

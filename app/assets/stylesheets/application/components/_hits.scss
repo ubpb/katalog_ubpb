@@ -1,4 +1,37 @@
 #hits {
+  .pagination {
+    display: block;
+    text-align: right;
+
+    @media (max-width: $screen-sm-min) {
+      text-align: left;
+      .btn-group {
+        display: table;
+        width: 100%;
+        border-collapse: collapse;
+
+        > .btn {
+          float: none;
+          display: table-cell;
+          width: auto;
+        }
+      }
+    }
+  }
+
+  .sort {
+    @media (max-width: $screen-sm-min) {
+      margin-bottom: $line-height-computed / 2;
+
+      .btn-group {
+        width: 100%;
+        > button.btn {
+          width: 100%;
+        }
+      }
+    }
+  }
+
   .hit {
     @include clearfix();
 
@@ -16,6 +49,11 @@
 
     .image {
       display: none;
+
+      img {
+        @extend .img-responsive;
+      }
+
       @media (min-width: $screen-sm-min) {
         display: block;
       }
@@ -23,12 +61,6 @@
       float: left;
       width: $hit-image-width;
       margin-right: $line-height-computed;
-      text-align: center;
-
-      .fa {
-        font-size: $hit-image-width;
-        color: $gray-light;
-      }
     }
 
     .metadata {
