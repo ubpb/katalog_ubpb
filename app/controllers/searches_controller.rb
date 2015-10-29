@@ -18,7 +18,7 @@ class SearchesController < ApplicationController
     #   @notes       = current_user.try(:notes)
     #   @watch_lists = current_user.watch_lists.includes(:entries)
     # end
-  rescue Skala::BadRequestError
+  rescue Skala::Adapter::BadRequestError
     flash.now[:error] = t(".bad_request_error")
     render
   end

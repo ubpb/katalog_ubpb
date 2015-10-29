@@ -13,7 +13,10 @@ module KatalogUbpb
     # -- all .rb files in that directory are automatically loaded.
 
     # Add lib/ to autoload paths
-    config.autoload_paths << Rails.root.join("lib")
+    config.autoload_paths.concat([
+      Rails.root.join("lib"),
+      Rails.root.join("app", "services", "concerns")
+    ])
 
     config.paths["app/views"] << "app/assets"
 
