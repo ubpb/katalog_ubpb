@@ -1,20 +1,18 @@
-.panel.panel-primary
-  .panel-heading.panel-cutoffcorner
-    .row
-      .col-sm-6
-        = ractive_component "app.components.SortFieldSelect",
-          search_request: search_request,
-          searches_path: searches_path(scope: scope),
-          sortable_fields: scope.sortable_fields.map { |_fieldname| [_fieldname, t("#{scope.search_engine_adapter.i18n_key}.fields.#{_fieldname}", default: _fieldname)] }
-      .col-sm-6
-        .pull-right
+#hits
+  .panel.panel-primary
+    .panel-heading.panel-cutoffcorner
+      .row
+        .col-sm-6
+          = render "searches/index/sort",
+            scope: scope,
+            search_request: search_request
+        .col-sm-6
           = render "searches/index/pagination",
             scope: scope,
             search_request: search_request,
             search_result: search_result
 
-  .panel-body
-    #hits
+    .panel-body
       = render partial: "searches/index/hit",\
         collection: search_result.hits,\
         as: :hit,\
@@ -25,12 +23,12 @@
           search_result: search_result\
         }
 
-  .panel-footer
-    .row
-      .col-sm-12
-        .pull-right
-          = render "searches/index/pagination",
-            scope: scope,
-            search_request: search_request,
-            search_result: search_result
+    .panel-footer
+      .row
+        .col-sm-12
+          .pull-right
+            = render "searches/index/pagination",
+              scope: scope,
+              search_request: search_request,
+              search_result: search_result
 
