@@ -1,4 +1,46 @@
 #hits {
+  .pagination {
+    display: block;
+    text-align: right;
+
+    @media (max-width: $screen-sm-min) {
+      text-align: left;
+      .btn-group {
+        /* code for .btn-group-justified */
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: separate;
+        > .btn,
+        > .btn-group {
+          float: none;
+          display: table-cell;
+          width: 1%;
+        }
+        > .btn-group .btn {
+          width: 100%;
+        }
+
+        > .btn-group .dropdown-menu {
+          left: auto;
+        }
+      }
+    }
+  }
+
+  .sort {
+    @media (max-width: $screen-sm-min) {
+      margin-bottom: $line-height-computed / 2;
+
+      .btn-group {
+        width: 100%;
+        > button.btn {
+          width: 100%;
+        }
+      }
+    }
+  }
+
   .hit {
     @include clearfix();
 
