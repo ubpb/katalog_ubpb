@@ -1,3 +1,6 @@
+- can_update_email_address = can?(:call, UpdateUserEmailAddressService.new(user: current_user))
+- can_update_password      = can?(:call, UpdateUserPasswordService.new(user: current_user))
+
 - content_for("content-area") do
   .row
     / the col order has to be "reverse" because bootstrap is mobile first
@@ -9,15 +12,20 @@
             i.fa.fa-bars
 
         .collapse.navbar-collapse#sidebar-actions
-          .cat-nav-header
-            span = t(".actions")
-          ul.nav.nav-pills.nav-stacked
-            li = link_to edit_user_password_path do
-              i.fa.fa-lock>
-              span = t(".change_password")
-            li = link_to edit_user_email_address_path do
-              i.fa.fa-envelope>
-              span = t(".change_email_address")
+          - if can_update_email_address || can_update_password
+            .cat-nav-header
+              span = t(".actions")
+
+            ul.nav.nav-pills.nav-stacked
+              - if can_update_email_address
+                li = link_to edit_user_email_address_path do
+                  i.fa.fa-envelope>
+                  span = t(".change_email_address")
+
+              - if can_update_password
+                li = link_to edit_user_password_path do
+                  i.fa.fa-lock>
+                  span = t(".change_password")
 
           .cat-nav-header
             span = t(".functions")

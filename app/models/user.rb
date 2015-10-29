@@ -13,10 +13,6 @@ class User < ActiveRecord::Base
     super.try(:to_f) # in order to make BigDecimal a float to the outside
   end
 
-  def ilsuserid=(value)
-    super(value.try(:to_s).try(:upcase))
-  end
-
   def name
     [first_name, last_name].compact.join(" ").presence
   end

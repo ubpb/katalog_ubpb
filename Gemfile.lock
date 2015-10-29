@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ubpb/skala.git
-  revision: 88dfc483b962c90fc37c9c7b4a73fa2633874c94
+  revision: 1446b1db7bb467f6f2815717ab1d58c76fbd2754
   branch: master
   specs:
     skala (1.0.0)
@@ -235,9 +235,9 @@ GEM
       sprockets-rails
     rails-assets-eventEmitter (4.3.0)
     rails-assets-eventie (1.0.6)
-    rails-assets-imagesloaded (3.1.8)
-      rails-assets-eventEmitter (~> 4.0)
-      rails-assets-eventie (>= 1.0.4, < 2)
+    rails-assets-imagesloaded (3.2.0)
+      rails-assets-eventEmitter (>= 4.2, < 5.0)
+      rails-assets-eventie (~> 1.0.4)
     rails-assets-lodash (3.10.1)
     rails-assets-matchHeight (0.6.0)
     rails-deprecated_sanitizer (1.0.3)

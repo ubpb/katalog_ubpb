@@ -1,29 +1,33 @@
 class Users::EmailAddressesController < UsersController
   def edit
-    @update_user_email_address = Skala::UpdateUserEmailAddressService.new({
-      current_email_address: current_user.email_address,
-      ils_adapter: KatalogUbpb.config.ils_adapter.instance,
-      user_id: current_user.username
-    })
+    @update_user_email_address = UpdateUserEmailAddressService.new(
+      adapter: KatalogUbpb.config.ils_adapter.instance,
+      user: current_user
+    )
+
+    return raise NotAuthorizedError if cannot?(:call, @update_user_email_address)
   end
 
   def update
-    @update_user_email_address = Skala::UpdateUserEmailAddressService.new({
-      ils_adapter: KatalogUbpb.config.ils_adapter.instance,
-      user_id: current_user.username
-    }.merge(update_user_email_address_params))
+    @update_user_email_address = UpdateUserEmailAddressService.new(
+      update_user_email_address_params.merge(
+        adapter: KatalogUbpb.config.ils_adapter.instance,
+        user: current_user
+      )
+    )
+
+    return raise NotAuthorizedError if cannot?(:call, @update_user_email_address)
 
     if @update_user_email_address.invalid?
       render action: :edit
     else
-      @update_user_email_address.call!.tap do |called_operation|
-        if called_operation.succeeded?
-          flash[:success] = t(".success")
-          redirect_to user_path
-        else
-          raise Servizio::OperationFailedError
-        end
+      if @update_user_email_address.call!.succeeded?
+        flash[:success] = t(".success")
+      else
+        flash[:error] = t(".update_user_email_address_failed")
       end
+
+      redirect_to user_path
     end
   end
 
