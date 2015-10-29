@@ -3,6 +3,18 @@
     margin-bottom: $line-height-computed;
   }
 
+  .image {
+    margin-bottom: $line-height-computed;
+
+    @media (max-width: $screen-sm-min) {
+      display: none;
+    }
+
+    img {
+      @extend .img-responsive;
+    }
+  }
+
   dl {
     @include clearfix();
     margin: 0;
