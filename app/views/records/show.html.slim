@@ -9,11 +9,16 @@
         li.active
           a(href="#record-details-tab" data-toggle="tab")
             | Details
+            - if show_availability?(@record)
+              =< ractive_component "app.components.AvailabilityIndicator",
+                api_v1_record_items_path: api_v1_record_items_path(":record_id"),
+                record_id: @record.fields["id"],
+                scope_id: @scope.id
 
       .tab-content
         #record-details-tab.tab-pane.active
           .row
-            .col-sm-12
+            .col-sm-10
               dl
                 - if (creators = creators(@record, link: true, scope: @scope)).present?
                   dt = "Autor(en)"
@@ -68,6 +73,12 @@
                   dt = "Kommentare"
                   dd.local_comments = local_comments
 
+            .col-sm-2
+              .image
+                = ractive_component "app.components.Image",
+                  placeholder: image_tag("record-print-lg.png"),
+                  src: amazon_image_url(@record, format: "LZZZZZZZ")
+
           .row
             .col-sm-6
               dl
@@ -106,6 +117,7 @@
                 dd.toc = "–"
 
           - if @items.present?
+            h3 Exemplare
             .row
               .col-sm-12
                 = render_relative "./show/items", items: @items

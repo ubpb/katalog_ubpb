@@ -1,0 +1,5 @@
+.sort
+  =< ractive_component "app.components.SortFieldSelect",
+    search_request: search_request,
+    searches_path: searches_path(scope: scope),
+    sortable_fields: scope.sortable_fields.map { |_fieldname| [_fieldname, t("#{scope.search_engine_adapter.i18n_key}.fields.#{_fieldname}", default: _fieldname)] }

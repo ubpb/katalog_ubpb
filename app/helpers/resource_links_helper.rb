@@ -6,7 +6,9 @@ module ResourceLinksHelper
 
     if links.present?
       if default_link_only || links.size == 1
-        link_to "Direkt zur Online-Resource", links.first, target: "_blank"
+        link_to links.first, target: "_blank" do
+          "#{fa_icon "external-link"} Direkt zur Online-Resource".html_safe
+        end
       else
         content_tag(:ul) do
           links.map do |link|

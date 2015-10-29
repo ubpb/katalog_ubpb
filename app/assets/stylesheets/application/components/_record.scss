@@ -3,6 +3,19 @@
     margin-bottom: $line-height-computed;
   }
 
+  .image {
+    margin-bottom: $line-height-computed;
+    margin-left: -$grid-gutter-width / 2;
+
+    @media (max-width: $screen-sm-min) {
+      display: none;
+    }
+
+    img {
+      @extend .img-responsive;
+    }
+  }
+
   dl {
     @include clearfix();
     margin: 0;
