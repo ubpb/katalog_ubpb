@@ -2,20 +2,24 @@ class Ability
   include CanCan::Ability
 
   def initialize(current_user = nil)
-    #
-    # UpdateUserEmailAddressService
-    #
-    can :call, UpdateUserEmailAddressService do |_instance|
-      current_user.present? &&
-      current_user.ilsuserid == _instance.ilsuserid &&
-      !student?(_instance.ilsuserid)
-    end
+    if current_user
+      #
+      # UpdateUserEmailAddressService
+      #
+      if student?(current_user)
+        cannot :call, UpdateUserEmailAddressService
+      else
+        can :call, UpdateUserEmailAddressService do |_instance|
+          current_user.ilsuserid == _instance.ilsuserid
+        end
+      end
 
-    #
-    # UpdateUserPasswordService
-    #
-    can :call, UpdateUserPasswordService do |_instance|
-      current_user.present? && current_user.ilsuserid == _instance.ilsuserid
+      #
+      # UpdateUserPasswordService
+      #
+      can :call, UpdateUserPasswordService do |_instance|
+        current_user.ilsuserid == _instance.ilsuserid
+      end
     end
   end
 
