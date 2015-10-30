@@ -1,0 +1,59 @@
+#closed_stack_order
+  .panel
+    .panel-heading.panel-cutoffcorner
+      h3.panel-title Magazinbestllung aufgeben
+
+    .panel-body
+      p
+        strong Bitte beachten Sie:
+        ul
+          li Bestellungen von Medien, die im Magazin der Bibliothek aufgestellt sind, werden montags bis freitags zwischen 7.30 und 18.30 Uhr sowie samstags zwischen 9.00 und 16.30 Uhr bearbeitet und in der Regel innerhalb einer Stunde für Sie in der Ortsleihe bereitgestellt.
+          li Außerhalb dieser Zeiten aufgegebene Bestellungen werden am nächsten Werktag bearbeitet.
+          li Das Abholen bereitgestellter Medien an der Ortsleihtheke ist während der gesamten <a href="http://www.ub.uni-paderborn.de/oeffnungszeiten.shtml" target="_blank">Öffnungszeiten</a> der Bibliothek möglich.
+
+      = render "alerts"
+
+      .row
+        .col-md-6
+          = form_tag(closed_stack_orders_path, method: :post) do
+            fieldset
+              legend Buch
+
+              .form-group
+                label(for="m1") Signatur
+                input.form-control(type="text" id="m1" name="m1" placeholder="Signatur" value="#{@m1}")
+
+              - if @m1 == 'BYH1141'
+                .form-group
+                  label(for="k1") Titel
+                  input.form-control(type="text" id="k1" name="k1" placeholder="Titel" value="#{@k1}")
+
+            button.btn.btn-primary(type="submit") Buch jetzt bestellen
+
+        .col-md-6
+          = form_tag(closed_stack_orders_path, method: :post) do
+            fieldset
+              legend Zeitschrift
+
+              .form-group
+                label(for="z1") Signatur
+                input.form-control(type="text" id="z1" name="z1" placeholder="Signatur" value="#{@z1}")
+
+              .form-group
+                label(for="j1") Jahr
+                input.form-control(type="text" id="j1" name="j1" placeholder="Jahr" value="#{@j1}")
+
+              .form-group
+                label(for="b1") Band
+                input.form-control(type="text" id="b1" name="b1" placeholder="Band" value="#{@b1}")
+
+              .form-group
+                label(for="s1") Seite
+                input.form-control(type="text" id="s1" name="s1" placeholder="Seite" value="#{@s1}")
+
+              .checkbox(style="display: #{@volume_error ? 'block' : 'none'}")
+                label
+                  input(type="checkbox" name="volume_check" value="true" checked)
+                  | Jahrgangsprüfung durchführen
+
+            button.btn.btn-primary(type="submit") Zeitschrift jetzt bestellen

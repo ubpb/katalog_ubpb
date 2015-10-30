@@ -1,9 +1,3 @@
-# coding: utf-8
-
-# Diese Variante ist aus der vorhanden Aleph-Katalog-Magazinbestellung entstanden und nur
-# soweit notwendig an Primo angepasst. So koennen die Aleph-Katalog-Bestellungen und die
-# Bestellungen via Primo-Frontend parallel laufen.
-
 # Aufzurufende URL:
 # den Reversproxy
 # http(s):\\ubtesa.uni-paderborn.de/cgi-bin/magbest_via_primo?para1=wert1&para2=wert2&...&parax=wertx
@@ -106,13 +100,14 @@ class ClosedStackOrdersController < ApplicationController
 
   def create
     if @m1 == 'BYH1141' && @k1.blank?
+      flash.now[:error] = "ACHTUNG!!! Sie bestellen gerade ein Mikrofiche. In diesem Fall tragen Sie bitte unbedingt den geünschten Titel des Werkes ein."
       return render action: :new
     end
 
-    url  = "#{Primo.config.aleph_x_service_base_url}/../cgi-bin/magbest_via_primo"
+    url  = "#{KatalogUbpb.config.ils_adapter.options["x_services_url"]}/../cgi-bin/magbest_via_primo"
     options = {
       name: current_user.name_reversed,
-      ausweis: current_user.ilsid,
+      ausweis: current_user.ilsuserid,
       m1: @m1,
       k1: @k1,
       z1: @z1,

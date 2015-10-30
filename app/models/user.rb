@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
     [first_name, last_name].compact.join(" ").presence
   end
 
+  def name_reversed
+    [last_name, first_name].compact.join(", ").presence
+  end
+
   def number_of_hold_requests
     super || 0
   end

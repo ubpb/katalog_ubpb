@@ -3,13 +3,14 @@ de:
     create:
       error: Die Anmeldung konnte aufgrund eines Fehlers nicht durchgeführt werden.
       failed: Authentifizierung fehlgeschlagen. Bitte überprüfen Sie Ihre Eingabedaten.
+
     new:
       cancel: ~> application.form.cancel
       login: Anmelden
       password: Passwort
-      password_hint: ""
-      password_placeholder: Passwort
-      submit: Anmelden
-      username: Benutzername
-      username_hint: ""
-      username_placeholder: Ausweisnummer
+      password_hint: "Das Standard-Passwort ist Ihr Geburtsdatum, in der Form: TTMMJJJJ (wenn Sie z.B. am 3. Mai 1991 geboren sind, dann lautet Ihr Passwort: 03051991)"
+      password_placeholder: "Ihr Bibliothekspasswort"
+      submit: "Anmelden"
+      username: "Ausweisnummer"
+      username_hint: "Die Nummer finden Sie auf Ihrem Bibliotheks- oder Studierendenausweis."
+      username_placeholder: "Ihre Bibliotheksausweisnummer"
