@@ -34,6 +34,7 @@ de:
         status_description: Leihart
         signature: Signatur
         note: Notiz
+        cso: Magazinbestellung
 
         item:
           status:

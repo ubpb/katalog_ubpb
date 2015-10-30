@@ -238,7 +238,7 @@ module SearchesHelper
 
     if signature
       if link
-        link_to(signature, "http://www.ub.uni-paderborn.de/lernen_und_arbeiten/bestaende/medienaufstellung-systemstelle.shtml", target: "_blank").html_safe
+        link_to(signature, go_signature_path, target: "_blank").html_safe
       else
         signature
       end

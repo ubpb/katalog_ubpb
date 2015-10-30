@@ -43,8 +43,12 @@ Rails.application.routes.draw do
     end
   end
 
-  get  '/semapp/info' => 'semapp#info', as: :semapp_info
-  get  '/realtime_availability' => 'realtime_availability#check_availability'
+  get '/semapp/info' => 'semapp#info', as: :semapp_info
+  get '/realtime_availability' => 'realtime_availability#check_availability'
+
+
+  get "/go/signature", to: redirect("http://www.ub.uni-paderborn.de/lernen_und_arbeiten/bestaende/medienaufstellung-systemstelle.shtml"), as: :go_signature
+
 
   root :to => "homepage#show"
 

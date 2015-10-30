@@ -6,8 +6,10 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
     aleph_adapter_result = super(document_number)
 
     aleph_adapter_result.items = aleph_adapter_result.items.map do |_item|
+
       ubpb_item_class = Class.new(_item.class) do
         attribute :signature
+        attribute :must_be_ordered_from_closed_stack, Virtus::Attribute::Boolean, default: false
       end
 
       ubpb_item = ubpb_item_class.new(_item)
@@ -17,6 +19,7 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
         add_ubpb_specific_status!(_ubpb_item)
         correct_journal_signatures!(_ubpb_item)
         set_location!(_ubpb_item)
+        set_cso_status!(_ubpb_item)
 
         # depends on corrected signatures
         add_signature!(_ubpb_item)
@@ -125,6 +128,10 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
       collection_code = item.fields["z30-collection-code"].presence
       item.fields["z30-call-no"] = [collection_code ? "P#{collection_code}" : nil, z30_call_no.downcase].compact.join("/")
     end
+  end
+
+  def set_cso_status!(item)
+    item.must_be_ordered_from_closed_stack = item.location.try(:downcase).try(:include?, "maga")
   end
 
   def set_location!(item)
