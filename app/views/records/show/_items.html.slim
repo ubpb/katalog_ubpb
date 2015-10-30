@@ -1,3 +1,4 @@
+- has_cso      = items.any? { |_item| _item.must_be_ordered_from_closed_stack? }
 - has_location = items.any? { |_item| _item.location }
 - has_note     = items.any? { |_item| _item.note }
 
@@ -15,6 +16,8 @@
           th = t(".due_date")
           - if has_note
             th = t(".note")
+          - if has_cso
+            th = t(".cso")
 
       tbody
         - items.each do |item|
@@ -29,7 +32,8 @@
               td.state.unknown
 
             td
-              = item.signature || "–"
+              / FIXME: Build an OpenStruct to fake fields API with so we can reuse the signature helper
+              = signature(OpenStruct.new(fields: {"signature" => item.signature}), link: true)
 
             td
               = item.item_status
@@ -46,3 +50,12 @@
 
             - if has_note
               td = ensure_array(item.note).join("<br/>")
+
+            - if has_cso
+              td
+                - if item.must_be_ordered_from_closed_stack?
+                  - if current_user.present?
+                    = link_to 'Magazinbestellung', new_closed_stack_order_path(m1: item.signature), class: 'btn btn-primary btn-mini'
+                  - else
+                    = link_to 'Bitte zuerst anmelden', new_session_path
+
