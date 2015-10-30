@@ -43,7 +43,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get  '/help'        => redirect('http://blogs.uni-paderborn.de/ub-skala/hilfe/')
   get  '/semapp/info' => 'semapp#info', as: :semapp_info
   get  '/realtime_availability' => 'realtime_availability#check_availability'
 

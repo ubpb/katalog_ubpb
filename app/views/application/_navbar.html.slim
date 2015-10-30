@@ -23,19 +23,37 @@ nav.navbar.navbar-default(role="navigation")
       li
         = link_to main_app.root_path do
           => fa_icon("home lg")
-          = t("application.navbar.start")
+          = t(".start")
 
       li
         = link_to new_ticket_path do
           => fa_icon("bullhorn lg")
-          = t("application.navbar.feedback")
+          = t(".feedback")
 
       li
-        = link_to help_path, id: "menubar-help", target: "_blank" do
+        = link_to "http://blogs.uni-paderborn.de/ub-katalog/hilfe/", target: "_blank" do
           => fa_icon("lightbulb-o lg")
-          = t("application.navbar.help")
+          = t(".help")
 
       li
-        = link_to "http://blogs.uni-paderborn.de/ub-katalog/"
+        = link_to "http://blogs.uni-paderborn.de/ub-katalog/", target: "_blank"
           => fa_icon("rss lg")
-          = t("application.navbar.blog")
+          = t(".blog")
+
+      li.dropdown
+        a.dropdown-toggle(href="#" data-toggle="dropdown")
+          => fa_icon("cogs lg")
+          = t(".additional_services")
+          span.caret
+
+        ul.dropdown-menu
+          li
+            = link_to "Neuerwerbungslisten", "https://blogs.uni-paderborn.de/ub-katalog/2014/08/27/neuerwerbungen/", target: "_blank"
+          li
+            = link_to "Fachsystematik Bücher", "http://www.ub.uni-paderborn.de/recherchieren/fachsystematik/", target: "_blank"
+          li
+            = link_to "Erwerbungsvorschlag", "http://www.ub.uni-paderborn.de/kontakt/erwerbungsvorschlag.shtml", target: "_blank"
+          li
+            = link_to "Bestellung aus dem Magazin", new_closed_stack_order_path
+          li
+            = link_to "Fernleihe", "http://www.ub.uni-paderborn.de/ausleihen_und_bestellen/fernleihe/index.shtml", target: "_blank"

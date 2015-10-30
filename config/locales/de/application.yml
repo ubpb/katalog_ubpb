@@ -1,7 +1,12 @@
 de:
   application:
     navbar:
-      my_account: ~> actions.users#show
+      start: Start
+      feedback: Feedback
+      help: Hilfe
+      blog: Blog
+      additional_services: Weitere Dienste
+      my_account: Mein Bibliothekskonto
       logout: Abmelden
 
     form:

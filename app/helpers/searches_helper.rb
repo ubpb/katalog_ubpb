@@ -139,7 +139,7 @@ module SearchesHelper
           elsif has_closed_stack_location
             content_tag(:em, '*Es handelt sich um einen Magazinstandort. Um darauf zuzugreifen müssen Sie eine entsprechende Magazinbestellung aufgeben.')
           end << " " <<
-          content_tag(:span, link_to('&raquo; Magazinbestellung aufgeben'.html_safe, "#")) # TODO: Add path
+          content_tag(:span, link_to('&raquo; Magazinbestellung aufgeben'.html_safe, new_closed_stack_order_path))
         end.to_s
       else
         cleaned_journal_holdings.join(', ')

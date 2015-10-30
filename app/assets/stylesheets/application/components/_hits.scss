@@ -60,12 +60,11 @@
 
       float: left;
       width: $hit-image-width;
-      margin-right: $line-height-computed;
     }
 
     .metadata {
       @media (min-width: $screen-sm-min) {
-        margin-left: $hit-image-width + $line-height-computed;
+        margin-left: $hit-image-width + ($grid-gutter-width / 2);
       }
 
       .title {

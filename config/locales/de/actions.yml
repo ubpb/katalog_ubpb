@@ -6,6 +6,12 @@ de:
     users#edit: Benutzerdaten ändern
     users#show: Mein Bibliothekskonto
 
+    closed_stack_orders#new: Magazinbstellung aufgeben
+    closed_stack_orders#create: Magazinbestellung aufgeben
+
+    sessions#new: Anmelden
+    sessions#create: Anmelden
+
     users:
       fees#index: Gebühren
       email_addresses#edit: Emailadresse ändern
