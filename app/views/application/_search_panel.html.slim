@@ -1,7 +1,7 @@
 .search-panel
   ul.nav.nav-tabs
-    - if KatalogUbpb.config.search_scopes.count > 1
-      - KatalogUbpb.config.search_scopes.each do |_scope|
+    - if KatalogUbpb.config.scopes.count > 1
+      - KatalogUbpb.config.scopes.each do |_scope|
         li(class="#{_scope == current_scope ? 'active' : 'inactive'}")
           = link_to t("scopes.#{_scope.id}"), searches_path(scope: _scope.id)
 

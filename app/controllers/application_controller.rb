@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_scope
-    KatalogUbpb.config.find_search_scope(params[:scope]) || KatalogUbpb.config.find_search_scope(session[:scope_id]) || KatalogUbpb.config.search_scopes.first
+    KatalogUbpb.config.find_scope(params[:scope]) || KatalogUbpb.config.find_scope(session[:scope_id]) || KatalogUbpb.config.scopes.first
   end
 
   def current_user
