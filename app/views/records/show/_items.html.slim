@@ -55,7 +55,7 @@
               td
                 - if item.must_be_ordered_from_closed_stack?
                   - if current_user.present?
-                    = link_to 'Magazinbestellung', new_closed_stack_order_path(m1: item.signature), class: 'btn btn-primary btn-mini'
+                    = link_to 'Magazinbestellung', new_closed_stack_order_path(m1: item.signature), class: 'btn btn-primary btn-xs'
                   - else
                     = link_to 'Bitte zuerst anmelden', new_session_path
 
