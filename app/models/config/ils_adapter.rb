@@ -7,7 +7,7 @@ class Config
     attr_accessor :i18n_key
     attr_accessor :id
     attr_accessor :options
-    attr_accessor :search_engine_adapter
+    attr_accessor :scope
 
     def i18n_key
       instance.i18n_key
@@ -17,8 +17,8 @@ class Config
       @instance ||= self.class_name.constantize.new(self.options)
     end
 
-    def search_engine_adapter
-      @config.find_search_engine_adapter(@search_engine_adapter)
+    def scope
+      @config.find_scope(@scope)
     end
   end
 end
