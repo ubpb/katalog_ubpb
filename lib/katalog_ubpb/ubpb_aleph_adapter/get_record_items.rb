@@ -146,6 +146,8 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
           end
         end
       end
+    elsif ["Handapparat"].include?(item.fields["z30-item-status"])
+      item.location = "Handapparat"
     else
       collection_code = item.fields["z30-collection-code"]
       notation = item.fields["z30-call-no"].try(:[], /\A[A-Z]{3}/)
