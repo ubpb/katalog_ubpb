@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151028134753) do
+ActiveRecord::Schema.define(version: 20151030085042) do
 
   create_table "api_keys", force: :cascade do |t|
     t.integer  "user_id",      limit: 4
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 20151028134753) do
 
   add_index "api_keys", ["access_token"], name: "index_api_keys_on_access_token", unique: true
   add_index "api_keys", ["user_id"], name: "index_api_keys_on_user_id"
+
+  create_table "cache_entries", force: :cascade do |t|
+    t.string   "key"
+    t.text     "value",      limit: 4294967295
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cache_entries", ["key"], name: "index_cache_entries_on_key"
 
   create_table "notes", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
