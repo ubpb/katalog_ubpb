@@ -1,6 +1,5 @@
-- has_cso      = items.any? { |_item| _item.must_be_ordered_from_closed_stack? }
-- has_location = items.any? { |_item| _item.location }
-- has_note     = items.any? { |_item| _item.note }
+- has_cso  = items.any? { |_item| _item.must_be_ordered_from_closed_stack? }
+- has_note = items.any? { |_item| _item.note }
 
 #items
   .table-responsive
@@ -10,8 +9,7 @@
           th
           th = t(".signature")
           th = t(".item_status")
-          - if has_location
-            th = t(".location")
+          th = t(".location")
           th = t(".status")
           th = t(".due_date")
           - if has_note
@@ -33,18 +31,13 @@
 
             td
               / FIXME: Build an OpenStruct to fake fields API with so we can reuse the signature helper
-              = signature(OpenStruct.new(fields: {"signature" => item.signature}), link: true)
-
+              = value_or_default(signature(OpenStruct.new(fields: {"signature" => item.signature}), link: true))
             td
-              = item.item_status
-              /= ractive_component "app.components.ItemDescriptionPopover", item: { description: item.field["z30-item-status"] }
-
-            - if has_location
-              td = item.location
-
+              = value_or_default(item.item_status)
+            td
+              = value_or_default(item_location(item))
             td
               = t(".item.status.#{item.status}", expected_date: item.expected_date ? l(item.expected_date) : nil, default: item.status)
-
             td
               = item.due_date ? l(item.due_date) : "–"
 
