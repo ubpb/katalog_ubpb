@@ -3,10 +3,11 @@ class RecordsController < ApplicationController
 
   def show
     @scope = current_scope
+    @referer_path = params[:referer_path]
 
     if @search_request = search_request_from_params
       flash[:search_request] = @search_request.to_h
-      return redirect_to(record_path(params[:id], scope: @scope))
+      return redirect_to(record_path(request.query_parameters.except(:search_request)))
     elsif serialized_search_request = flash[:search_request]
       @search_request = Skala::SearchRequest.new(serialized_search_request)
     end
@@ -70,6 +71,16 @@ class RecordsController < ApplicationController
         adapter: KatalogUbpb.config.ils_adapter.instance,
         id: @record.fields["id"]
       ).items
+    end
+
+    # hold requests
+    if current_user
+      @hold_requests = GetUserHoldRequestsService.call(
+        adapter: KatalogUbpb.config.ils_adapter.instance,
+        from_cache: true,
+        max_cache_age: 12.hours,
+        user: current_user
+      )
     end
 
     respond_to do |format|
