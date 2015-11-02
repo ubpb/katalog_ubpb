@@ -36,7 +36,7 @@ class Config
   alias_method :find_search_engine_adapter, :find_adapter
 
   def find_scope(scope_id)
-    scopes.find{|scope| scope.id == scope_id.to_s}
+    scopes.find { |_scope| _scope.id == scope_id }
   end
 
 end

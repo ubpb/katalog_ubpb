@@ -7,7 +7,7 @@ common_settings: &common_settings
         default_user_library: "PAD50"
         restful_api_url: "http://ubtest.uni-paderborn.de:1891/rest-dlf"
         x_services_url: "https://ubtest.uni-paderborn.de/X"
-      search_engine_adapter: "ubpb_elasticsearch_adapter"
+      scope: "local"
 
   search_engine_adapter:
     ubpb_elasticsearch_adapter:
