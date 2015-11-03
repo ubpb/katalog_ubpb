@@ -1,7 +1,0 @@
-div(class="#{property}")
-  - values.each.with_index do |_classification, _index|
-    = link_to _classification, searches_path(\
-        search_request: scope.search_request_factory(classification: _classification),
-        scope: scope\
-      )
-    = "; " unless _index + 1 == values.length

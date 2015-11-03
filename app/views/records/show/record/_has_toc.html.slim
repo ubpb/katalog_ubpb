@@ -1,8 +1,0 @@
-div(class="#{property}")
-  ul
-    - values.each.with_index do |_value, _index|
-      li
-        - if _value.is_a?(Hash)
-          = link_to (_index == 0 ? t(".toc") : t(".additional_toc")), _value["uri"]
-        - else
-          = _value
