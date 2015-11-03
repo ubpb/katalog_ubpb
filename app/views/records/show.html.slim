@@ -17,110 +17,19 @@
 
       .tab-content
         #record-details-tab.tab-pane.active
-          .row
-            .col-sm-10
-              dl
-                - if (creators = creators(@record, link: true, scope: @scope)).present?
-                  dt = "Autor(en)"
-                  dd.creators = creators
+          / Main properties
+          = render "details", record: @record, scope: @scope
 
-                dt = "Titel"
-                dd.title = value_or_default(title(@record))
+          / Secondary form properties
+          - if is_secondary_form?(@record)
+            h4 Angaben zur Sekundärform
+            = render "snd_details", record: @record, scope: @scope
 
-                - if (is_part_of = is_part_of(@record, scope: @scope)).present?
-                  dt = "Teil von"
-                  dd.is-part-of = is_part_of
-
-                - if (edition = edition(@record)).present?
-                  dt = "Auflage"
-                  dd.edition = edition
-
-                - if (place_of_publication = place_of_publication(@record)).present?
-                  dt = "Erscheinungsort"
-                  dd.place = place_of_publication
-
-                - if (publisher = publisher(@record)).present?
-                  dt = "Verlag"
-                  dd.publisher = publisher
-
-                - if (date_of_publication = date_of_publication(@record)).present?
-                  dt = "Erscheinungsjahr"
-                  dd.date-of-publication = date_of_publication
-
-                - if is_superorder?(@record) && (ht_number = ht_number(@record)).present?
-                  dt = "Bände"
-                  dd.suborders = link_to_volumes(ht_number, scope: @scope, label: "Zeige Bände")
-
-                - if (links = resource_links(@record)).present?
-                  dt = "Links"
-                  dd.resource-links
-                    = links
-                    = vpn_info
-
-                - if (journal_holdings = journal_holdings(@record, fullview: true)).present?
-                  dt = "Bestand UB"
-                  dd.journal-holdings = journal_holdings
-
-                - if (relations = relations(@record, link: true, scope: @scope)).present?
-                  dt = "Verknüpfte Titel"
-                  dd.relations = relations
-
-                - if (source = source(@record)).present?
-                  dt = "Quelle"
-                  dd.source = source
-
-                - if (local_comments = local_comments(@record)).present?
-                  dt = "Kommentare"
-                  dd.local_comments = local_comments
-
-            .col-sm-2
-              .image
-                = ractive_component "app.components.Image",
-                  placeholder: image_tag("record-print-lg.png"),
-                  src: amazon_image_url(@record, format: "LZZZZZZZ")
-
-          .row
-            .col-sm-6
-              dl
-                dt = "Format"
-                dd.format = value_or_default(format(@record))
-
-                dt = "Sprache(n)"
-                dd.language = value_or_default(language(@record))
-
-                dt = "Identifikator(en)"
-                dd.identifier = value_or_default(identifier(@record))
-
-                / TODO
-                dt = "Erschienen in"
-                dd = "–"
-
-                dt = "Beschreibungen"
-                dd.description = value_or_default(description(@record))
-
-            .col-sm-6
-              dl
-                dt = "Inhaltsverzeichnisse"
-                dd.toc = value_or_default(links_to_toc(@record))
-
-                dt = "Schlagwörter"
-                dd.toc = value_or_default(subject(@record, link: true, scope: @scope))
-
-                dt = "Systemstelle"
-                dd.toc = value_or_default(notations(@record, link: true, scope: @scope))
-
-                dt = "Signatur"
-                dd.toc = value_or_default(signature(@record, link: true))
-
-                / TODO
-                dt = "Externer Link"
-                dd.toc = "–"
-
+          / Items
           - if @items.present?
-            h3 Exemplare
-            .row
-              .col-sm-12
-                = render_relative "./show/items", items: @items
+            h4 Exemplare
+            = render "items", items: @items
+
 
 
 /= render_relative "./show/details", notes: @notes, record: @record, scope: @scope, watch_lists: @watch_lists
