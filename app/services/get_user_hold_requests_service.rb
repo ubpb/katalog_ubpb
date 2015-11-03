@@ -11,5 +11,7 @@ class GetUserHoldRequestsService < Servizio::Service
     cache(key: [self.class, ilsuserid]) do
       adapter.get_user_hold_requests(ilsuserid).try(:hold_requests)
     end
+  rescue
+    errors[:call] = :failed and return nil
   end
 end
