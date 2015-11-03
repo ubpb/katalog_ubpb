@@ -188,6 +188,10 @@ module SearchesHelper
     record.fields["is_superorder"] == true
   end
 
+  def is_secondary_form?(record)
+    record.fields["is_secondary_form"] == true
+  end
+
 
   #
   # ------
@@ -345,6 +349,42 @@ module SearchesHelper
   # -------
   #
 
+  def snd_date_of_publication(record)
+    ensure_array(record.fields["secondary_form_creationdate"]).first
+  end
+
+  def snd_preliminary_phrase(record)
+    ensure_array(record.fields["secondary_form_preliminary_phrase"]).first
+  end
+
+  def snd_isbn(record)
+    ensure_array(record.fields["secondary_form_isbn"]).first
+  end
+
+  def snd_publisher(record)
+    ensure_array(record.fields["secondary_form_publisher"]).first
+  end
+
+  def snd_physical_description(record)
+    ensure_array(record.fields["secondary_form_physical_description"]).first
+  end
+
+  def snd_is_part_of(record, prefix_label:nil, scope: scope)
+    if (superorders = ensure_array(record.fields["secondary_form_superorder"])).present?
+      content_tag(:ul) do
+        superorders.map do |superorder|
+          content_tag(:li) do
+            superorder_entry(superorder, prefix_label: prefix_label, scope: scope)
+          end
+        end.join.html_safe
+      end
+    end
+  end
+
+  #
+  # -------
+  #
+
   def additional_record_info(record)
     parts = []
     parts << creators(record)
@@ -359,28 +399,34 @@ module SearchesHelper
       content_tag(:ul) do
         superorders.map do |superorder|
           content_tag(:li) do
-            buffer = "#{prefix_label}"
-
-            label  = superorder["label"]
-            label << ": #{[*superorder["label_additions"]].join(", ")}" if superorder["label_additions"].present?
-            label << "; #{superorder["volume_count"]}" if superorder["volume_count"].present?
-            superorder["label"] = label
-
-            if scope.present? && superorder["ht_number"].present?
-              buffer << " #{link_to_superorder(superorder["ht_number"], scope: scope, label: superorder["label"])}"
-            else
-              buffer << " #{superorder["label"]}"
-            end
-
-            if scope.present? && superorder["ht_number"].present?
-              buffer << " #{link_to_volumes(superorder["ht_number"], scope: scope, label: "(alle Bände)")}"
-            end
-
-            buffer.html_safe
+            superorder_entry(superorder, prefix_label: prefix_label, scope: scope)
           end
         end.join.html_safe
       end
     end
+  end
+
+private
+
+  def superorder_entry(superorder, prefix_label:nil, scope:nil)
+    buffer = "#{prefix_label}"
+
+    label  = superorder["label"]
+    label << ": #{[*superorder["label_additions"]].join(", ")}" if superorder["label_additions"].present?
+    label << "; #{superorder["volume_count"]}" if superorder["volume_count"].present?
+    superorder["label"] = label
+
+    if scope.present? && superorder["ht_number"].present?
+      buffer << " #{link_to_superorder(superorder["ht_number"], scope: scope, label: superorder["label"])}"
+    else
+      buffer << " #{superorder["label"]}"
+    end
+
+    if scope.present? && superorder["ht_number"].present?
+      buffer << " #{link_to_volumes(superorder["ht_number"], scope: scope, label: "(alle Bände)")}"
+    end
+
+    buffer.html_safe
   end
 
 end
