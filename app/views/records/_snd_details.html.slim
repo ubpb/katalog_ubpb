@@ -1,26 +1,26 @@
 .row
-.col-sm-12
-  dl
-    - if (snd_date_of_publication = snd_date_of_publication(record)).present?
-      dt = "Erscheinungsjahr"
-      dd = snd_date_of_publication
+  .col-sm-12
+    dl
+      - if (snd_date_of_publication = snd_date_of_publication(record)).present?
+        dt = "Erscheinungsjahr"
+        dd = snd_date_of_publication
 
-    - if (snd_preliminary_phrase = snd_preliminary_phrase(record)).present?
-      dt = "Erscheinungsform"
-      dd = snd_preliminary_phrase
+      - if (snd_preliminary_phrase = snd_preliminary_phrase(record)).present?
+        dt = "Erscheinungsform"
+        dd = snd_preliminary_phrase
 
-    - if (snd_isbn = snd_isbn(record)).present?
-      dt = "ISBN"
-      dd = snd_isbn
+      - if (snd_isbn = snd_isbn(record)).present?
+        dt = "ISBN"
+        dd = snd_isbn
 
-    - if (snd_publisher = snd_publisher(record)).present?
-      dt = "Verlag / Erscheinungsort"
-      dd = snd_publisher
+      - if (snd_publisher = snd_publisher(record)).present?
+        dt = "Verlag / Erscheinungsort"
+        dd = snd_publisher
 
-    - if (snd_physical_description = snd_physical_description(record)).present?
-      dt = "Physische Beschreibung"
-      dd = snd_physical_description
+      - if (snd_physical_description = snd_physical_description(record)).present?
+        dt = "Physische Beschreibung"
+        dd = snd_physical_description
 
-    - if (snd_is_part_of = snd_is_part_of(record, scope: scope)).present?
-      dt = "Teil von"
-      dd.snd-is-part-of = snd_is_part_of
+      - if (snd_is_part_of = snd_is_part_of(record, scope: scope)).present?
+        dt = "Teil von"
+        dd.snd-is-part-of = snd_is_part_of

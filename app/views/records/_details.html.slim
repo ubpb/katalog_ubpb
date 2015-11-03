@@ -1,5 +1,5 @@
 .row
-  .col-sm-10
+  .col-sm-12
     dl
       - if (creators = creators(record, link: true, scope: scope)).present?
         dt = "Autor(en)"
@@ -53,12 +53,6 @@
       - if (local_comments = local_comments(record)).present?
         dt = "Kommentare"
         dd.local_comments = local_comments
-
-  .col-sm-2
-    .image
-      = ractive_component "app.components.Image",
-        placeholder: image_tag("record-print-lg.png"),
-        src: amazon_image_url(record, format: "LZZZZZZZ")
 
 .row
   .col-sm-6
