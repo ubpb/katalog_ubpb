@@ -6,6 +6,8 @@
   .image {
     margin-bottom: $line-height-computed;
     margin-left: -$grid-gutter-width / 2;
+    border: 1px solid $gray-light;
+    padding: 4px;
 
     @media (max-width: $screen-sm-min) {
       display: none;

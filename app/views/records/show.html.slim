@@ -17,13 +17,20 @@
 
       .tab-content
         #record-details-tab.tab-pane.active
-          / Main properties
-          = render "details", record: @record, scope: @scope
+          .row
+            .col-sm-10
+              / Main properties
+              = render "details", record: @record, scope: @scope
 
-          / Secondary form properties
-          - if is_secondary_form?(@record)
-            h4 Angaben zur Sekundärform
-            = render "snd_details", record: @record, scope: @scope
+              / Secondary form properties
+              - if is_secondary_form?(@record)
+                h4 Angaben zur Sekundärform
+                = render "snd_details", record: @record, scope: @scope
+            .col-sm-2
+              .image
+                = ractive_component "app.components.Image",
+                  placeholder: image_tag("record-print-lg.png"),
+                  src: amazon_image_url(@record, format: "LZZZZZZZ")
 
           / Items
           - if @items.present?
