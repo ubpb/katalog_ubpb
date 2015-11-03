@@ -5,12 +5,36 @@ class Users::LoansController < UsersController
   end, only: :index
 
   def index
-    @loans = Skala::User::LoanDecorator.decorate_collection Skala::GetUserLoansService.call({
-      ils_adapter: KatalogUbpb.config.ils_adapter.instance,
-      user_id: current_user.username
-    })
+    ils_adapter = KatalogUbpb.config.ils_adapter.instance
+    search_engine_adapter = KatalogUbpb.config.ils_adapter.scope.search_engine_adapter.instance
+    @scope = KatalogUbpb.config.ils_adapter.scope
+
+    @loans = GetUserLoansService.call(
+      adapter: ils_adapter,
+      user: current_user
+    )
+
+    @search_result = SearchRecordsService.call(
+      adapter: search_engine_adapter,
+      search_request: @search_request = Skala::SearchRequest.new(
+        queries: [
+          {
+            type: "ordered_terms",
+            field: "id",
+            terms: @loans.map(&:record_id)
+          }
+        ],
+        size: @loans.length
+      )
+    )
+
+    @records_by_id = @search_result.hits.each_with_object({}) do |_hit, _hash|
+      _hash[_hit.fields["id"]] = _hit
+    end
   end
 
+
+=begin
   def renew
     call_operation Skala::RenewUserLoanService.new(user: current_user, loan_id: params[:id]),
     on_error: -> (op)   { flash[:error] = t(".error") },
@@ -26,4 +50,5 @@ class Users::LoansController < UsersController
 
     redirect_to action: :index
   end
+=end
 end

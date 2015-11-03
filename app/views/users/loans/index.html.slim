@@ -6,7 +6,7 @@
         i.fa.fa-cog>
         span.caret
 
-      ul.dropdown-menu.dropdown-menu-right
+      ul.dropdown-menu
         li = link_to renew_all_user_loans_path, method: :post do
           i.fa.fa-retweet>
           = t(".renew_all")
@@ -19,18 +19,21 @@
           th = t(".item.title")
           th.text-center = t(".loan_date")
           th.text-center = t(".due_date")
+          th
 
       tbody
         - @loans.each do |_loan|
+          - _record = @records_by_id[_loan.record_id]
+
           tr
             td: ul
               li
-                - if _loan.item.record.id.present? && current_scope
-                  = link_to _loan.item.title, record_path(_loan.item.record.id, scope: current_scope)
+                - if _record.present? && current_scope
+                  = link_to value_or_default(title(_record)), record_path(_record.id, scope: current_scope)
                 - else
-                  = _loan.item.title
+                  = value_or_default(title(_record))
 
-              li = _loan.item.signature
+              li = value_or_default(signature(_record, link: true))
 
             td.text-center = l(_loan.loan_date)
             td.text-center = l(_loan.due_date)
