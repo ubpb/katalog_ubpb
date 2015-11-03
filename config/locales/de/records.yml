@@ -1,48 +1,21 @@
 de:
   records:
-    show:
-      properties_table:
-        accrual_policy: ~> models.document.accrual_policy
-        classification: ~> models.document.classification
-        creator: ~> models.document.creator
-        created: ~> models.document.created
-        description: ~> models.document.description
-        edition: ~> models.document.edition
-        format: ~> models.document.format
-        has_toc: ~> models.document.has_toc
-        is_part_of: ~> models.document.is_part_of
-        isbn: ~> models.document.isbn
-        issn: ~> models.document.issn
-        language: ~> models.document.language
-        place_of_publication: ~> models.document.place_of_publication
-        publisher: ~> models.document.publisher
-        relation: ~> models.document.relation
-        signature: ~> models.document.signature
-        subject: ~> models.document.subject
-        title: ~> models.document.title
+    items:
+      signature: Signatur
+      item_status: Leihart
+      location: Standort
+      due_date: Leihfrist
+      loan_status: Status
+      note: Notiz
+      cso: Magazinbestellung
+      login_first: Bitte zuerst anmelden
 
-      record:
-        has_toc:
-          additional_toc: weiteres Inhaltsverzeichnis anzeigen
-          toc: Inhaltsverzeichnis anzeigen
-
-      items:
-        due_date: Leihfrist
-        item_status: Leihart
-        location: Standort
-        status: Status
-        status_description: Leihart
-        signature: Signatur
-        note: Notiz
-        cso: Magazinbestellung
-
-        item:
-          status:
-            claimed_returned: Angeblich zurück
-            loaned: Entliehen
-            lost: Verlust
-            on_hold: Bereitgestellt
-            on_shelf: Nicht entliehen
-            reshelving: Wird zurückgestellt
-            expected: Erwartet zum %{expected_date}
+      status:
+        claimed_returned: Angeblich zurück
+        loaned: Entliehen
+        lost: Verlust
+        on_hold: Bereitgestellt
+        on_shelf: Nicht entliehen
+        reshelving: Wird zurückgestellt
+        expected: Erwartet zum %{expected_date}
 

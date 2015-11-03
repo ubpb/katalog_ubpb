@@ -12,7 +12,7 @@
               th = t(".signature")
               th = t(".item_status")
               th = t(".location")
-              th = t(".status")
+              th = t(".loan_status")
               th = t(".due_date")
               - if has_note
                 th = t(".note")
@@ -39,7 +39,7 @@
                 td
                   = value_or_default(item_location(item))
                 td
-                  = t(".item.status.#{item.status}", expected_date: item.expected_date ? l(item.expected_date) : nil, default: item.status)
+                  = t(".status.#{item.status}", expected_date: item.expected_date ? l(item.expected_date) : nil, default: item.status)
                 td
                   = item.due_date ? l(item.due_date) : "–"
 
@@ -50,7 +50,7 @@
                   td
                     - if item.must_be_ordered_from_closed_stack?
                       - if current_user.present?
-                        = link_to 'Magazinbestellung', new_closed_stack_order_path(m1: item.signature), class: 'btn btn-primary btn-xs'
+                        = link_to t(".cso"), new_closed_stack_order_path(m1: item.signature), class: 'btn btn-primary btn-xs'
                       - else
-                        = link_to 'Bitte zuerst anmelden', new_session_path
+                        = link_to t(".login_first"), new_session_path
 
