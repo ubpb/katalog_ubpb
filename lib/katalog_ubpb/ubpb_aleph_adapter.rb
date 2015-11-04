@@ -6,7 +6,7 @@ module KatalogUbpb
     require_relative "ubpb_aleph_adapter/get_record_holdable_items"
     require_relative "ubpb_aleph_adapter/get_record_items"
 
-    LOCATION_LOOKUP_TABLE = begin
+    LOCATION_LOOKUP_TABLE ||= begin
       location_lookup_table_filename = File.join(File.dirname(__FILE__), "ubpb_aleph_adapter", "location_lookup_table.yml")
 
       if File.exist?(location_lookup_table_filename)
