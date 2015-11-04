@@ -3,6 +3,6 @@ class Api::V1::Records::ItemsController < Api::V1::ApplicationController
     @items = GetRecordItemsService.call(
       adapter: KatalogUbpb.config.ils_adapter.instance,
       id: params[:record_id]
-    ).items
+    )
   end
 end
