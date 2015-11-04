@@ -56,7 +56,7 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
           #
           # if present
           #
-          if item.status == :on_shelf
+          if item.status == :on_shelf || item.status == :reshelving
             case _z30_item_status_code
             #
             # available
