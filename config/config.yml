@@ -19,6 +19,7 @@ common_settings: &common_settings
 
   scopes:
     local:
+      ils_adapter: "ubpb_aleph_adapter"
       search_engine_adapter: "ubpb_elasticsearch_adapter"
       facets:
         - name: "materialtypen"
