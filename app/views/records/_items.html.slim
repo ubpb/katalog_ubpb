@@ -1,5 +1,21 @@
 - has_cso  = items.any? { |_item| _item.must_be_ordered_from_closed_stack? }
 - has_note = items.any? { |_item| _item.note }
+- user_hold_requests ||= []
+- record_holdable_items ||= []
+
+- user_hold_request_possible = record_holdable_items.present? && record_holdable_items.all? do |_record_holdable_item| \
+    user_hold_requests.none? do |_user_hold_request|\
+      _user_hold_request.record_id == _record_holdable_item.record_id\
+    end\
+  end
+
+- if user_hold_request_possible
+  .row
+    .col-sm-12
+      - if number_of_record_hold_requests > 0
+        label.label-info = "#{number_of_record_hold_requests} Vormerkungen"
+
+      button.btn.btn-primary.pull-right = "Vormerken"
 
 .row
   .col-sm-12

@@ -65,69 +65,42 @@ class RecordsController < ApplicationController
       end
     end
 
-    # items
-    if @record.id.start_with?("PAD_ALEPH") || true
-      @items = GetRecordItemsService.call(
-        adapter: KatalogUbpb.config.ils_adapter.instance,
-        id: @record.fields["id"]
-      ).items
-    end
+    record_id = @record.fields["id"]
 
-    # hold requests
-    if current_user
-      @hold_requests = GetUserHoldRequestsService.call(
-        adapter: KatalogUbpb.config.ils_adapter.instance,
-        from_cache: true,
-        max_cache_age: 12.hours,
-        user: current_user
-      )
-    end
+    @items = record_items(record_id)
+    @user_hold_requests = user_hold_requests(from_cache: true)
+    @record_holdable_items = record_holdable_items(record_id)
+    @number_of_record_hold_requests = @items.try(:map, &:number_of_hold_requests).try(:max)
 
     respond_to do |format|
       format.html
       format.json { render json: JSON.pretty_generate(@record.as_json) }
     end
+  end
 
-=begin
-    @scope = KatalogUbpb.config.find_search_scope(params[:scope])
-    @ils_adapter = KatalogUbpb.config.ils_adapter.instance # for translate
+  private
 
-    if params[:search_request].present?
-      @search_request = Skala::Search::Request.new(JSON.parse(params[:search_request]))
+  def user_hold_requests(user: current_user, **options)
+    options[:adapter] ||= current_scope.ils_adapter.try(:instance)
+    options[:from_cache] == !!options[:from_cache]
+    options[:max_cache_age] ||= 12.hours
+    options[:user] ||= user
 
-      @predecessors = params[:predecessors] == "null" ? nil : JSON.parse(params[:predecessors])
-      @successors = params[:successors] == "null" ? nil : JSON.parse(params[:successors])
+    GetUserHoldRequestsService.call(options)
+  end
 
-      @total_number_of_records = params[:total_number_of_records].to_i
-      @position_within_search = 1 + @search_request.from + (@predecessors.try(:length) || 0)
-    end
+  def record_holdable_items(record_id, user: current_user, **options)
+    options[:adapter] ||= current_scope.ils_adapter.try(:instance)
+    options[:id] ||= record_id
+    options[:user] ||= user
 
-    @record = Skala::GetRecord.call(
-      id: params[:id],
-      search_engine_adapter: @scope.search_engine_adapter.instance
-    ).decorate.tap do |decorated_record|
-      decorated_record.scope = @scope
-    end
+    GetRecordHoldableItemsService.call(options)
+  end
 
-    @items = if @ils_adapter # TODO: Check if the ILS Adapter can handle the current record id
-      GetRecordItemsService.call(ils_adapter: @ils_adapter, record_id: params[:id])
-    else
-      []
-    end.map! do |_item|
-      _item.decorate.mtap(:scope=, @scope)
-    end
+  def record_items(record_id, **options)
+    options[:adapter] ||= current_scope.ils_adapter.try(:instance)
+    options[:id] ||= record_id
 
-    if current_user
-      @notes = current_user.notes
-      @watch_lists = current_user.watch_lists.includes(:entries)
-    end
-
-    set_title_addition(@record.title.first.truncate(80))
-
-    respond_to do |format|
-      format.bibtex { send_data(@record.to_bibtex, filename: "#{@record.id}.bib") }
-      format.html
-    end
-=end
+    GetRecordItemsService.call(options)
   end
 end
