@@ -6,6 +6,8 @@ class GetRecordItemsService < Servizio::Service
   validates_presence_of :id
 
   def call
-    adapter.get_record_items(id)
+    adapter.get_record_items(id).try(:items)
+  rescue
+    errors[:call] = :failed and return nil
   end
 end

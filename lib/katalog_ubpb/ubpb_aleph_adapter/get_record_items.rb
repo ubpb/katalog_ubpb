@@ -1,28 +1,20 @@
 require "skala/aleph_adapter/get_record_items"
 require_relative "../ubpb_aleph_adapter"
+require_relative "./item"
 
 class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRecordItems
-  def call(document_number)
-    aleph_adapter_result = super(document_number)
+  def call(document_number, options = {})
+    aleph_adapter_result = super
 
-    aleph_adapter_result.items = aleph_adapter_result.items.map do |_item|
+    aleph_adapter_result.items.map! do |_aleph_adapter_item|
+      self.class.parent::Item.new(_aleph_adapter_item).tap do |_ubpb_aleph_adapter_item|
+        doc = Nokogiri::XML(aleph_adapter_result.source).xpath("//item[contains(@href, '#{_ubpb_aleph_adapter_item.id}')]")
 
-      ubpb_item_class = Class.new(_item.class) do
-        attribute :signature
-        attribute :must_be_ordered_from_closed_stack, Virtus::Attribute::Boolean, default: false
-      end
-
-      ubpb_item = ubpb_item_class.new(_item)
-
-      ubpb_item.tap do |_ubpb_item|
-        add_availability!(_ubpb_item)
-        add_ubpb_specific_status!(_ubpb_item)
-        correct_journal_signatures!(_ubpb_item)
-        set_location!(_ubpb_item)
-        set_cso_status!(_ubpb_item)
-
-        # depends on corrected signatures
-        add_signature!(_ubpb_item)
+        set_availability!(_ubpb_aleph_adapter_item, doc)
+        add_signature!(_ubpb_aleph_adapter_item, doc)
+        set_ubpb_specific_status!(_ubpb_aleph_adapter_item, doc)
+        add_location!(_ubpb_aleph_adapter_item, doc)
+        set_cso_status!(_ubpb_aleph_adapter_item, doc)
       end
     end
 
@@ -33,13 +25,13 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
 
   private
 
-  def add_availability!(item)
+  def set_availability!(item, doc)
     suppress_availability_for = ["Überordnung", "Zeitschriftenheft"]
 
-    if suppress_availability_for.include?(item.fields["z30-material"])
+    if suppress_availability_for.include?(xpath(doc, "./z30/z30-material"))
       :unknown
     else
-      item.fields["z30-item-status-code"].try do |_z30_item_status_code|
+      xpath(doc, "./z30-item-status-code").try do |_z30_item_status_code|
         case _z30_item_status_code
         #
         # restricted_available (under any conditions)
@@ -106,58 +98,63 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
     end
   end
 
-  def add_signature!(item)
-    item.signature = item.fields["z30-call-no"]
-  end
-
-  def add_ubpb_specific_status!(item)
-    item.status = case item.fields["status"]
-    when /Storniert/      then "cancelled"
-    when /Reklamiert/     then "complained"
-    when /Erwartet/       then "expected"
-    when /In Bearbeitung/ then "in_process"
-    when /Verlust/        then "lost"
-    when /Vermisst/       then "missing"
-    when /Bestellt/       then "on_order"
-    else item.status
+  def add_signature!(item, doc)
+    item.signature ||= begin
+      if z30_call_no = xpath(doc, "./z30/z30-call-no").try(:sub, /\A\//, "").try(:[], /\A\d+\w\d+\Z/)
+        collection_code = xpath(doc, "./z30-collection-code")
+        item.signature = [collection_code ? "P#{collection_code}" : nil, z30_call_no.downcase].compact.join("/")
+      else
+        xpath(doc, "./z30/z30-call-no")
+      end
     end
   end
 
-  def correct_journal_signatures!(item)
-    if z30_call_no = item.fields["z30-call-no"].try(:sub, /\A\//, "").try(:[], /\A\d+\w\d+\Z/)
-      collection_code = item.fields["z30-collection-code"].presence
-      item.fields["z30-call-no"] = [collection_code ? "P#{collection_code}" : nil, z30_call_no.downcase].compact.join("/")
+  def set_ubpb_specific_status!(item, doc)
+    item.status = case xpath(doc, "./status")
+      when /Storniert/      then "cancelled"
+      when /Reklamiert/     then "complained"
+      when /Erwartet/       then "expected"
+      when /In Bearbeitung/ then "in_process"
+      when /Verlust/        then "lost"
+      when /Vermisst/       then "missing"
+      when /Bestellt/       then "on_order"
+      else item.status
     end
   end
 
-  def set_cso_status!(item)
+  def set_cso_status!(item, doc)
+    add_location!(item, doc)
     item.must_be_ordered_from_closed_stack = item.location.try(:downcase).try(:include?, "maga")
   end
 
-  def set_location!(item)
-    # Seminar/Tischapparate get their description by a script
-    if ["Seminarapparat", "Tischapparat"].include?(item.fields["z30-item-status"])
-      if (signature = item.fields["z30-call-no"]).present?
-        Timeout::timeout(5) do
-          Net::HTTP.get(URI("#{@adapter.x_services_url}/../ub-cgi/ausleiher_von_signatur.pl?#{signature}")).try do |_response|
-            if ["IEMAN", "Sem", "Tisch"].any? { |_accepted_phrase| _response.include?(_accepted_phrase) }
-              item.location = _response
+  def add_location!(item, doc)
+    item.location ||= begin
+      add_signature!(item, doc)
+
+      # Seminar/Tischapparate get their description by a script
+      if ["Seminarapparat", "Tischapparat"].include?(item.item_status)
+        if item.signature.present?
+          Timeout::timeout(5) do
+            Net::HTTP.get(URI("#{@adapter.x_services_url}/../ub-cgi/ausleiher_von_signatur.pl?#{item.signature}")).try do |_response|
+              if ["IEMAN", "Sem", "Tisch"].any? { |_accepted_phrase| _response.include?(_accepted_phrase) }
+                item.location = _response
+              end
             end
           end
         end
-      end
-    elsif ["Handapparat"].include?(item.fields["z30-item-status"])
-      item.location = "Handapparat"
-    else
-      collection_code = item.fields["z30-collection-code"]
-      notation = item.fields["z30-call-no"].try(:[], /\A[A-Z]{3}/)
+      elsif ["Handapparat"].include?(item.item_status)
+        item.location = "Handapparat"
+      else
+        collection_code = xpath(doc, "./z30-collection-code")
+        notation = xpath(doc, "./z30/z30-call-no").try(:[], /\A[A-Z]{2,3}/)
 
-      if collection_code && notation
-        KatalogUbpb::UbpbAlephAdapter::LOCATION_LOOKUP_TABLE.find do |_row|
-          _row[:standortkennziffern].include?(collection_code) && _row[:systemstellen].include?(notation)
-        end
-        .try do |_row|
-          item.location = _row[:location]
+        if collection_code && notation
+          KatalogUbpb::UbpbAlephAdapter::LOCATION_LOOKUP_TABLE.find do |_row|
+            _row[:standortkennziffern].include?(collection_code) && _row[:systemstellen].include?(notation)
+          end
+          .try do |_row|
+            item.location = _row[:location]
+          end
         end
       end
     end
@@ -165,5 +162,9 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
 
   def sort_items!(get_record_items_result)
     get_record_items_result.items.sort_by!(&:id)
+  end
+
+  def xpath(doc, xpath)
+    doc.at_xpath(xpath).try(:content).presence
   end
 end
