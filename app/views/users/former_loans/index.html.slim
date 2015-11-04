@@ -11,13 +11,16 @@
 
       tbody
         - @former_loans.each do |_former_loan|
+          - _record = @records_by_id[_former_loan.record_id]
+
           tr
             td: ul
               li
-                - if _former_loan.item.record.id.present? && current_scope
-                  = link_to _former_loan.item.title, record_path(_former_loan.item.record.id, scope: current_scope)
+                - if _record.present? && current_scope
+                  = link_to value_or_default(title(_record)), record_path(_record.id, scope: current_scope)
                 - else
-                  = _former_loan.item.title
-              li.signature = _former_loan.item.signature
+                  = value_or_default(title(_record))
+
+              li.signature = value_or_default(signature(_record, link: true))
 
             td.text-right = l(_former_loan.returned_date)
