@@ -35,9 +35,11 @@
           / Items
           - if @items.present?
             h4 Exemplare
-            = render "items", items: @items
-
-
+            = render "items",
+              user_hold_requests: @user_hold_requests,
+              record_holdable_items: @record_holdable_items,
+              items: @items,
+              number_of_record_hold_requests: @number_of_record_hold_requests
 
 /= render_relative "./show/details", notes: @notes, record: @record, scope: @scope, watch_lists: @watch_lists
 
