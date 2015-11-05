@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
           )
 
           session[:user_id] = user.id
-          redirect_to user_path
+          redirect_back_or_to(user_path)
         else
           flash.now[:error] = t(".failed")
           render action: :new
