@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   # before filters
   before_filter :set_title_addition
   before_filter :set_robots_tag
+  before_filter :capture_return_path
 
   # helper methods
   helper_method :current_action
@@ -21,6 +22,14 @@ class ApplicationController < ActionController::Base
 
   rescue_from (MalformedSearchRequestError = Class.new(StandardError)) do
     redirect_to searches_path
+  end
+
+  def capture_return_path
+    session[:return_to] = params[:return_to] if params[:return_to].present?
+  end
+
+  def redirect_back_or_to(default_path)
+    redirect_to(session.delete(:return_to) || default_path)
   end
 
   def set_title_addition(title_addition = nil)
