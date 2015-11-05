@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_scope
   helper_method :current_user
   helper_method :global_message
+  helper_method :return_path
 
   # rescues
   rescue_from ActionController::RedirectBackError do
@@ -26,6 +27,10 @@ class ApplicationController < ActionController::Base
 
   def capture_return_path
     session[:return_to] = params[:return_to] if params[:return_to].present?
+  end
+
+  def return_path
+    session[:return_to]
   end
 
   def redirect_back_or_to(default_path)
