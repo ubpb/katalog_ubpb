@@ -5,10 +5,7 @@ class ApplicationController < ActionController::Base
 
   # before filters
   before_filter :set_title_addition
-  before_filter :detect_browser
   before_filter :set_robots_tag
-  before_filter :set_locale
-  before_filter :search_only_mode
 
   # helper methods
   helper_method :current_action
@@ -16,9 +13,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_scope
   helper_method :current_user
   helper_method :global_message
-  helper_method :skala_layout
-  helper_method :random_id
-  helper_method :search_only_mode
 
   # rescues
   rescue_from ActionController::RedirectBackError do
@@ -26,7 +20,6 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from (MalformedSearchRequestError = Class.new(StandardError)) do
-    binding.pry
     redirect_to searches_path
   end
 
@@ -35,11 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate!
-    if search_only_mode
-      redirect_to root_url, notice: 'Diese Funktion ist auf Grund von Wartungsarbeiten zur Zeit deaktiviert.'
-    else
-      redirect_to new_session_path unless current_user
-    end
+    redirect_to new_session_path unless current_user
   end
 
   # @Override
@@ -72,15 +61,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def detect_browser
-    request.variant =
-    if browser.mobile?
-      :phone
-    else
-      :desktop
-    end
-  end
-
   def set_robots_tag
     response.headers["X-Robots-Tag"] = 'noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex'
   end
@@ -88,10 +68,6 @@ class ApplicationController < ActionController::Base
   def global_message
     fn = File.join(Rails.root, 'config', 'GLOBAL_MESSAGE')
     @global_message ||= File.open(fn, 'r').read.html_safe if File.exists?(fn)
-  end
-
-  def search_only_mode
-    false
   end
 
   def search_request_from_params
@@ -111,18 +87,6 @@ class ApplicationController < ActionController::Base
 
   def numeric_ip(ip_str)
     ip_str.split('.').inject(0) { |ip_num, part| ( ip_num << 8 ) + part.to_i }
-  end
-
-  def random_id(prefix = nil)
-    "#{prefix}#{Random.rand(1000000)}"
-  end
-
-  def set_locale
-    if params[:locale].present?
-      session[:locale] = params[:locale]
-    end
-
-    I18n.locale = session[:locale] || I18n.default_locale
   end
 
   def handle_connection_error(exception)
