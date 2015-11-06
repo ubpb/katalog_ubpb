@@ -11,6 +11,7 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
         doc = Nokogiri::XML(aleph_adapter_result.source).xpath("//item[contains(@href, '#{_ubpb_aleph_adapter_item.id}')]")
 
         set_availability!(_ubpb_aleph_adapter_item, doc)
+        set_hold_request_can_be_created!(_ubpb_aleph_adapter_item, doc)
         add_signature!(_ubpb_aleph_adapter_item, doc)
         set_ubpb_specific_status!(_ubpb_aleph_adapter_item, doc)
         add_location!(_ubpb_aleph_adapter_item, doc)
@@ -105,6 +106,16 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
         item.signature = [collection_code ? "P#{collection_code}" : nil, z30_call_no.downcase].compact.join("/")
       else
         xpath(doc, "./z30/z30-call-no")
+      end
+    end
+  end
+
+  def set_hold_request_can_be_created!(item, doc)
+    if item.hold_request_can_be_created == true # only of the generic method has determined it is
+      item_status_blacklist = ["Tischapparat", "Seminarapparat", "Handapparat"]
+
+      if item_status_blacklist.include?(doc.at_xpath("./z30/z30-item-status").try(:content))
+        item.hold_request_can_be_created = false
       end
     end
   end
