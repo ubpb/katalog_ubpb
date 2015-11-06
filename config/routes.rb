@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     resource :local, only: [:update]
   end
 
+
+
   resources :tickets, :only => [:new, :create]
   resources :thumbnails, :only => :show
 
@@ -16,11 +18,8 @@ Rails.application.routes.draw do
       resource  :email_address, only: [:edit, :update]
       resources :fees, only: [:index]
       resources :former_loans, only: [:index]
-      resources :hold_requests, only: [:index, :destroy] do
-        #collection do
-        #  get "events/:id", to: "hold_requests#events", as: :events
-        #end
-        delete :index, on: :collection, action: :destroy
+      resources :hold_requests, only: [:index, :create, :destroy] do
+        #delete :index, on: :collection, action: :destroy
       end
 
       resources :inter_library_loans, only: [:index]

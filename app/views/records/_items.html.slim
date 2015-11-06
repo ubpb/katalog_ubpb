@@ -11,7 +11,7 @@
     - if can_create_hold_request
       .tools
         == t(".no_of_hold_requests", count: number_of_hold_requests)
-        button.btn.btn-sm.btn-primary =< "Jetzt vormerken"
+        =< link_to "Jetzt vormerken", user_hold_requests_path(ils_record_id: record.fields["id"], return_to: request.fullpath), method: :post, class: "btn btn-primary btn-sm"
 
   - if hold_request.present?
     - if hold_request.end_hold_date.present? && hold_request.end_hold_date < Time.zone.today

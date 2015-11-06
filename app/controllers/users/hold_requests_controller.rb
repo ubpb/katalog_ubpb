@@ -4,6 +4,8 @@ class Users::HoldRequestsController < UsersController
     add_breadcrumb
   end, only: :index
 
+  before_action -> { flash.keep }, only: :create
+
   def index
     ils_adapter = KatalogUbpb.config.ils_adapter.instance
     search_engine_adapter = KatalogUbpb.config.ils_adapter.scope.search_engine_adapter.instance
@@ -33,6 +35,10 @@ class Users::HoldRequestsController < UsersController
     end
   end
 
+  def create
+    redirect_back_or_to(user_hold_requests_path)
+  end
+
   def destroy
     (destroy_params[:ids] || [destroy_params[:id].compact]).each do |_id|
       Skala::DeleteUserHoldRequestService.call({
@@ -45,9 +51,6 @@ class Users::HoldRequestsController < UsersController
     redirect_to action: :index
   end
 
-  def events
-    render "#{action_name}_#{params[:id]}"
-  end
 
   #
   private
