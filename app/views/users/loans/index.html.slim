@@ -1,44 +1,41 @@
-- content_for(:panel_heading) do
-  div
-    span = t("actions.users.loans#index")
-    .dropdown
-      button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown")
-        i.fa.fa-cog>
-        span.caret
+.panel.panel-default
+  .panel-heading
+    h3.panel-title = t("actions.users.loans#index")
 
-      ul.dropdown-menu
-        li = link_to renew_all_user_loans_path, method: :post do
-          i.fa.fa-retweet>
-          = t(".renew_all")
-
-- if @loans.present?
-  = responsive_table do
-    table.table.table-striped(data-setup="jquery-tablesorter" data-sortlist="[[1,1]]")
-      thead
-        tr
-          th = t(".item.title")
-          th.text-center = t(".loan_date")
-          th.text-center = t(".due_date")
-          th
-
-      tbody
-        - @loans.each do |_loan|
-          - _record = @records_by_id[_loan.record_id]
-
-          tr
-            td: ul
-              li
-                - if _record.present? && current_scope
-                  = link_to value_or_default(title(_record)), record_path(_record.id, scope: current_scope)
-                - else
-                  = value_or_default(title(_record))
-
-              li = value_or_default(signature(_record, link: true))
-
-            td.text-center = l(_loan.loan_date)
-            td.text-center = l(_loan.due_date)
-            td.no-stretch
-              - if _loan.renewable?
-                = link_to renew_user_loan_path(_loan.id), method: :post, class: "btn btn-default btn-sm pull-right" do
+  .panel-body
+    - if @loans.blank?
+      .alert.alert-info = t(".no_loans")
+    - else
+      .table-responsive
+        table.table.table-striped(data-setup="jquery-tablesorter" data-sortlist="[[1,1]]")
+          thead
+            tr
+              th = t(".loan_date")
+              th = t(".due_date")
+              th = t(".item.title")
+              th
+                = link_to renew_all_user_loans_path, method: :post, class: "btn btn-primary btn-sm btn-block" do
                   i.fa.fa-retweet>
-                  = t(".renew")
+                  = t(".renew_all")
+
+          tbody
+            - @loans.each do |_loan|
+              - _record = @records_by_id[_loan.record_id]
+
+              tr
+                td = l(_loan.loan_date)
+                td = l(_loan.due_date)
+                td
+                  .title
+                    strong = value_or_default(title(_record))
+                  .additional_record_info
+                    = additional_record_info(_record)
+                  - if (signature = signature(_record, link: true)).present?
+                  .signature = "Signatur: #{signature}".html_safe
+                td
+                  - if _loan.renewable?
+                    = link_to renew_user_loan_path(_loan.id), method: :post, class: "btn btn-default btn-sm btn-block" do
+                      i.fa.fa-retweet>
+                      = t(".renew")
+
+

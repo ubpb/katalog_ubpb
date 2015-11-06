@@ -1,21 +1,22 @@
-- content_for(:panel_heading) do
-  span = t(".my_account")
+.panel.panel-default
+  .panel-heading.panel-cutoffcorner
+    h3.panel-title = t(".my_account")
+  .panel-body
+    .table-responsive
+      table.table.table-striped
+        tbody
+          tr
+            th(style="width: 25%") = t(".name")
+            td = @user.name
 
-.table-responsive
-  table.table.table-striped
-    tbody
-      tr
-        th(style="width: 25%") = t(".name")
-        td = @user.name
+          tr
+            th = t(".email_address")
+            td = @user.email_address
 
-      tr
-        th = t(".email_address")
-        td = @user.email_address
+          tr
+            th = t(".ilsuserid")
+            td = @user.ilsuserid
 
-      tr
-        th = t(".ilsuserid")
-        td = @user.ilsuserid
-
-      tr
-        th = t(".expiry_date")
-        td = l(@user.expiry_date)
+          tr
+            th = t(".expiry_date")
+            td = l(@user.expiry_date)
