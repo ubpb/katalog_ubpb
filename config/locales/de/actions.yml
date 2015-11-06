@@ -14,7 +14,7 @@ de:
 
     users:
       fees#index: Gebühren
-      email_addresses#edit: Emailadresse ändern
+      email_addresses#edit: "E-Mail Adresse ändern"
       former_loans#index: Ausleihhistorie
       hold_requests#index: Vormerkungen
       inter_library_loans#index: Fernleihen

@@ -1,73 +1,76 @@
 - content_for("content-area") do
   .row
-    / the col order has to be "reverse" because bootstrap is mobile first
-    / http://stackoverflow.com/questions/18057270/column-order-manipulation-using-col-lg-push-and-col-lg-pull-in-twitter-bootstrap
     .col-md-3.col-md-push-9
-      nav.navbar.navbar-sidebar(role="navigation")
-        .navbar-header
-          button.btn.btn-default.navbar-toggle(type="button" data-toggle="collapse" data-target="#sidebar-actions")
-            i.fa.fa-bars
+      .sidebar
+        button.sidebar-toggle.collapsed(data-target="#sidebar-collapse" role="button" data-toggle="collapse")
+          => fa_icon("bars")
+          | Menü
 
-        .collapse.navbar-collapse#sidebar-actions
+        #sidebar-collapse.collapse.sidebar-collapse
           - if can?(:call, UpdateUserEmailAddressService) || can?(:call, UpdateUserPasswordService)
-            .cat-nav-header
-              span = t(".actions")
+            .panel.panel-primary
+              .panel-heading.panel-cutoffcorner
+                h3.panel-title = t(".actions")
+              .panel-body
+                ul.nav.nav-pills.nav-stacked
+                  - if can?(:call, UpdateUserEmailAddressService)
+                    li = link_to edit_user_email_address_path do
+                      i.fa.fa-envelope>
+                      span = t(".change_email_address")
 
-            ul.nav.nav-pills.nav-stacked
-              - if can?(:call, UpdateUserEmailAddressService)
-                li = link_to edit_user_email_address_path do
-                  i.fa.fa-envelope>
-                  span = t(".change_email_address")
+                  - if can?(:call, UpdateUserPasswordService)
+                    li = link_to edit_user_password_path do
+                      i.fa.fa-lock>
+                      span = t(".change_password")
 
-              - if can?(:call, UpdateUserPasswordService)
-                li = link_to edit_user_password_path do
-                  i.fa.fa-lock>
-                  span = t(".change_password")
+          .panel.panel-primary
+            .panel-heading.panel-cutoffcorner
+              h3.panel-title = t(".functions")
 
-          .cat-nav-header
-            span = t(".functions")
+            .panel-body
+              ul.nav.nav-pills.nav-stacked
+                li = link_to user_fees_path do
+                  i.fa.fa-money>
+                  span => t(".fees")
+                  - if current_user.cash_balance < 0
+                    .label.label-danger = number_to_currency(current_user.cash_balance)
+                  - elsif current_user.cash_balance > 0
+                    .label.label-success = number_to_currency(current_user.cash_balance)
 
-          ul.nav.nav-pills.nav-stacked
-            li = link_to user_fees_path do
-              i.fa.fa-money>
-              span => t(".fees")
-              - if current_user.cash_balance < 0
-                .label.label-info = number_to_currency(current_user.cash_balance)
+                li = link_to user_loans_path do
+                  i.fa.fa-book>
+                  span => t(".loans")
+                  - if current_user.number_of_loans > 0
+                    .label.label-info = current_user.number_of_loans
 
-            li = link_to user_loans_path do
-              i.fa.fa-book>
-              span => t(".loans")
-              - if current_user.number_of_loans > 0
-                .label.label-info = current_user.number_of_loans
+                li = link_to user_hold_requests_path do
+                  i.fa.fa-heart>
+                  span => t(".hold_requests")
+                  - if current_user.number_of_hold_requests > 0
+                    .label.label-info = current_user.number_of_hold_requests
 
-            li = link_to user_hold_requests_path do
-              i.fa.fa-heart>
-              span => t(".hold_requests")
-              - if current_user.number_of_hold_requests > 0
-                .label.label-info = current_user.number_of_hold_requests
+                li = link_to user_former_loans_path do
+                  i.fa.fa-clock-o>
+                  span = t(".former_loans")
 
-            li = link_to user_former_loans_path do
-              i.fa.fa-clock-o>
-              span = t(".former_loans")
+                li = link_to user_inter_library_loans_path do
+                  i.fa.fa-shopping-cart>
+                  span = t(".inter_library_loans")
 
-            li = link_to user_inter_library_loans_path do
-              i.fa.fa-shopping-cart>
-              span = t(".inter_library_loans")
+                li: a(href="#")
+                  i.fa.fa-calendar>
+                  span = t(".calender")
 
-            li: a(href="#")
-              i.fa.fa-calendar>
-              span = t(".calender")
-
-            li = link_to user_watch_lists_path do
-              i.fa.fa-list-alt>
-              span = t(".watch_lists")
+                li = link_to user_watch_lists_path do
+                  i.fa.fa-list-alt>
+                  span = t(".watch_lists")
 
     .col-md-9.col-md-pull-3
       - if content_for(:body)
         = yield(:body)
       - else
         .panel.panel-default.panel-user
-          .panel-heading
+          .panel-heading.panel-cutoffcorner
             = yield(:panel_heading)
           .panel-body
             = yield

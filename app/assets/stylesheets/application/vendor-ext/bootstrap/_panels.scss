@@ -13,6 +13,14 @@
     border-bottom-width: 4px;
     border-bottom-style: solid;
     border-bottom-color: $brand-primary;
+
+    .panel-heading {
+      background-color: $upb-blue;
+      .panel-title {
+        font-size: $font-size-base;
+        font-weight: bold;
+      }
+    }
   }
 
   .panel-cutoffcorner {
@@ -34,6 +42,20 @@
       top: 0px;
       width: 17px;
       z-index: 3;
+    }
+  }
+
+  .nav.nav-stacked {
+    margin-left: -$panel-body-padding;
+    margin-right: -$panel-body-padding;
+
+    > li > a {
+      padding: 2px $panel-body-padding;
+
+      &:hover,
+      &:focus {
+        background: none;
+      }
     }
   }
 }
