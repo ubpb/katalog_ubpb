@@ -66,15 +66,6 @@
                   span = t(".watch_lists")
 
     .col-md-9.col-md-pull-3
-      - if content_for(:body)
-        = yield(:body)
-      - else
-        .panel.panel-default.panel-user
-          .panel-heading.panel-cutoffcorner
-            = yield(:panel_heading)
-          .panel-body
-            = yield
-          - if content_for(:panel_footer)
-            = yield(:panel_footer)
+      = yield
 
 = render template: "layouts/application"
