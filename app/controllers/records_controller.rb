@@ -67,20 +67,45 @@ class RecordsController < ApplicationController
 
     record_id = @record.fields["id"]
 
-    @items = record_items(record_id)
-    @user_hold_requests = user_hold_requests(from_cache: true)
-    @record_holdable_items = record_holdable_items(record_id)
-    @number_of_record_hold_requests = @items.try(:map, &:number_of_hold_requests).try(:max)
+    #
+    # Items, hold requests, ...
+    #
+    # TODO: merge items() and holdable_items()
+    #
 
+    # Load all items for the current record
+    @items = items(record_id)
+
+    # Load all holdable items for the current record
+    holdable_items = holdable_items(record_id)
+
+    # How many hold requests waiting in queue for the current record
+    # TODO: We are checking this on the items here. This works because our
+    # Aleph is expanding the hold requestes from the record to the items. However,
+    # the Skala API should abstract this on record level.
+    @number_of_hold_requests = @items.try(:map, &:number_of_hold_requests).try(:max)
+
+    # Load all hold requests for the current user
+    hold_requests = hold_requests(from_cache: false)
+
+    # Check if the current user has a hold request for the current record
+    @hold_request = hold_requests.find{|hr| hr.record_id == record_id}
+
+    # Check if the current user can create a hold request for the current record
+    @can_create_hold_request = holdable_items.present? && @hold_request.blank?
+
+    #
+    # Render
+    #
     respond_to do |format|
       format.html
       format.json { render json: JSON.pretty_generate(@record.as_json) }
     end
   end
 
-  private
+private
 
-  def user_hold_requests(user: current_user, **options)
+  def hold_requests(user: current_user, **options)
     options[:adapter] ||= current_scope.ils_adapter.try(:instance)
     options[:from_cache] == !!options[:from_cache]
     options[:max_cache_age] ||= 12.hours
@@ -89,7 +114,7 @@ class RecordsController < ApplicationController
     GetUserHoldRequestsService.call(options)
   end
 
-  def record_holdable_items(record_id, user: current_user, **options)
+  def holdable_items(record_id, user: current_user, **options)
     options[:adapter] ||= current_scope.ils_adapter.try(:instance)
     options[:id] ||= record_id
     options[:user] ||= user
@@ -97,7 +122,7 @@ class RecordsController < ApplicationController
     GetRecordHoldableItemsService.call(options)
   end
 
-  def record_items(record_id, **options)
+  def items(record_id, **options)
     options[:adapter] ||= current_scope.ils_adapter.try(:instance)
     options[:id] ||= record_id
 
