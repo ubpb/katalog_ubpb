@@ -36,12 +36,10 @@
           - if @items.present?
             h4 Exemplare
             = render "items",
-              user_hold_requests: @user_hold_requests,
-              record_holdable_items: @record_holdable_items,
               items: @items,
-              number_of_record_hold_requests: @number_of_record_hold_requests
-
-/= render_relative "./show/details", notes: @notes, record: @record, scope: @scope, watch_lists: @watch_lists
+              number_of_hold_requests: @number_of_hold_requests,
+              hold_request: @hold_request,
+              can_create_hold_request: @can_create_hold_request
 
 
 / = ractive_component "app.components.RecordActions",

@@ -8,7 +8,12 @@ de:
       loan_status: Status
       note: Notiz
       cso: Magazinbestellung
-      login_first: Bitte zuerst anmelden
+      login_cso: Bitte zuerst anmelden
+      login_button: Für Kontofunktionen bitte anmelden
+      no_of_hold_requests:
+        zero: "Aktuell <strong>keine</strong> Vormerkungen"
+        one: "Aktuell <strong>eine</strong> Vormerkung"
+        other: "Aktuell <strong>%{count}</strong> Vormerkungen"
 
       status:
         claimed_returned: Angeblich zurück
