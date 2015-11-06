@@ -22,6 +22,7 @@ class Ability
       end
 
       can :call, CreateUserHoldRequestService, ilsuserid: current_user.ilsuserid
+      can :call, DeleteUserHoldRequestService, ilsuserid: current_user.ilsuserid
     end
   end
 

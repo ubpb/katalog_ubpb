@@ -18,8 +18,9 @@
       thead
         tr
           th = t(".title")
-          th.text-center = t(".request_date")
+          th.text-center = t(".creation_date")
           th.text-center = t(".status")
+          th.text-center = t(".actions")
 
       tbody
         - @hold_requests.each do |_hold_request|
@@ -35,16 +36,19 @@
 
               li.signature = value_or_default(signature(_record, link: true))
 
-            td.text-center = l(_hold_request.request_date)
+            td.text-center = l(_hold_request.creation_date)
             td.text-center
-              - if _hold_request.place_in_queue
+              - if _hold_request.status == :requested
                 ul
                   li = t(".queued")
                   li = "(" + t(".place_in_queue", place_in_queue: _hold_request.place_in_queue) + ")"
-              - elsif _hold_request.due_date
-                = t(".on_hold_until", due_date: l(_hold_request.due_date))
-              - elsif _hold_request.request_status  == :in_process
+              - elsif _hold_request.status == :on_hold
+                = t(".on_hold_until", end_hold_date: l(_hold_request.end_hold_date))
+              - elsif _hold_request.status  == :in_process
                 = t(".in_process")
+            td
+              - if _hold_request.deleteable?
+                =< link_to t(".delete"), user_hold_request_path(_hold_request.id), method: :delete, class: "btn btn-danger btn-sm"
 
 - else
   .alert.alert-info.cat-no-bottom-margin = t(".no_hold_requests_present")
