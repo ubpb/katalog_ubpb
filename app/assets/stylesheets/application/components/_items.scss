@@ -1,4 +1,10 @@
 #items {
+  .tools {
+    text-align: right;
+    background-color: $gray-lightest;
+    padding: 5px 10px;
+  }
+
   td.state {
     width: 10px;
 
