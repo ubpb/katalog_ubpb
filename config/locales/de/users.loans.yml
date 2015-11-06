@@ -2,6 +2,7 @@ de:
   users:
     loans:
       index:
+        no_loans: "Aktuell haben Sie keine Medien ausgeliehen"
         due_date: Rückgabe bis
         loan_date: Ausgeliehen am
         renew: Verlängern
