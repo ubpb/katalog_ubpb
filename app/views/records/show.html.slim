@@ -36,6 +36,7 @@
           - if @items.present?
             h4 Exemplare
             = render "items",
+              record: @record,
               items: @items,
               number_of_hold_requests: @number_of_hold_requests,
               hold_request: @hold_request,
