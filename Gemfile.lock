@@ -1,10 +1,10 @@
 GIT
   remote: git://github.com/ubpb/skala.git
-  revision: cdcbb3cc773672373dae928e8957cf8d3bebaa6d
+  revision: ef0591a965f0b951d96b228ea1b7a5790b4a85c6
   branch: master
   specs:
     skala (1.0.0)
-      aleph_api (~> 0.1)
+      aleph_api (~> 0.2)
       bcrypt (>= 3.1)
       bibtex-ruby (~> 4.0)
       elasticsearch (~> 1.0)
@@ -56,7 +56,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.8)
-    aleph_api (0.1.0)
+    aleph_api (0.2.0)
       activesupport
       faraday
     arel (6.0.3)

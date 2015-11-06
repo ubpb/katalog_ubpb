@@ -36,6 +36,24 @@ class Users::HoldRequestsController < UsersController
   end
 
   def create
+    if record_id = create_params[:ils_record_id]
+      create_user_hold_request = CreateUserHoldRequestService.new(
+        adapter: current_scope.ils_adapter.try(:instance),
+        record_id: record_id,
+        user: current_user
+      )
+
+      if can?(:call, create_user_hold_request)
+        if create_user_hold_request.call!.failed?
+          if create_user_hold_request.errors[:call].include?(:already_requested)
+            flash[:notice] = t(".already_requested")
+          else
+            flash[:error] = t(".failed")
+          end
+        end
+      end
+    end
+
     redirect_back_or_to(user_hold_requests_path)
   end
 
@@ -55,9 +73,14 @@ class Users::HoldRequestsController < UsersController
   #
   private
   #
+  def create_params
+    params.permit(:ils_record_id)
+  end
+
   def destroy_params
     params.tap do |_params|
       _params[:ids] = _params[:ids].keys if _params[:ids].is_a?(Hash)
     end
   end
+
 end

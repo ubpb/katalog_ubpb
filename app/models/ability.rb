@@ -20,6 +20,8 @@ class Ability
       can :call, UpdateUserPasswordService do |_instance|
         current_user.ilsuserid == _instance.ilsuserid
       end
+
+      can :call, CreateUserHoldRequestService, ilsuserid: current_user.ilsuserid
     end
   end
 

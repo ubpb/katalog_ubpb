@@ -1,6 +1,10 @@
 de:
   users:
     hold_requests:
+      create:
+        already_requested: Sie haben diesen Titel bereits vorgemerkt.
+        failed: Beim Versuch die Vormerkung anzulegen ist ein Fehler aufgetreten.
+
       index:
         cancel: ~> application.form.cancel
         delete: Vormerkung löschen
