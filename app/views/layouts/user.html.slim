@@ -33,7 +33,9 @@
                   i.fa.fa-money>
                   span => t(".fees")
                   - if current_user.cash_balance < 0
-                    .label.label-info = number_to_currency(current_user.cash_balance)
+                    .label.label-danger = number_to_currency(current_user.cash_balance)
+                  - elsif current_user.cash_balance > 0
+                    .label.label-success = number_to_currency(current_user.cash_balance)
 
                 li = link_to user_loans_path do
                   i.fa.fa-book>
