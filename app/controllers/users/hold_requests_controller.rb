@@ -36,10 +36,10 @@ class Users::HoldRequestsController < UsersController
   end
 
   def create
-    if record_id = create_params[:ils_record_id]
+    if ils_record_id = create_params[:ils_record_id]
       create_user_hold_request = CreateUserHoldRequestService.new(
         adapter: current_scope.ils_adapter.try(:instance),
-        record_id: record_id,
+        record_id: ils_record_id,
         user: current_user
       )
 
@@ -58,12 +58,24 @@ class Users::HoldRequestsController < UsersController
   end
 
   def destroy
-    (destroy_params[:ids] || [destroy_params[:id].compact]).each do |_id|
-      Skala::DeleteUserHoldRequestService.call({
-        hold_id: _id,
-        ils_adapter: KatalogUbpb.config.ils_adapter.instance,
-        user_id: current_user.username
-      })
+    if (hold_request_id = destroy_params[:id])
+      delete_user_hold_request = DeleteUserHoldRequestService.new(
+        adapter: current_scope.ils_adapter.try(:instance),
+        id: hold_request_id,
+        user: current_user
+      )
+
+      if can?(:call, delete_user_hold_request)
+        if delete_user_hold_request.call!.succeeded?
+          flash[:notice] = t(".succeeded")
+        else
+          if delete_user_hold_request.errors[:call].include?(:hold_request_missing)
+            flash[:notice] = t(".hold_request_missing")
+          else
+            flash[:error] = t(".failed")
+          end
+        end
+      end
     end
 
     redirect_to action: :index
@@ -78,9 +90,7 @@ class Users::HoldRequestsController < UsersController
   end
 
   def destroy_params
-    params.tap do |_params|
-      _params[:ids] = _params[:ids].keys if _params[:ids].is_a?(Hash)
-    end
+    params.permit(:id)
   end
 
 end
