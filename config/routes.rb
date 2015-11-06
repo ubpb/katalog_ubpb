@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :closed_stack_orders, only: [:new, :create], path: 'cso'
   resource  :homepage, only: [:show]
-  resources :records, only: [:show], constraints: { id: /.*/ }, format: false # pseudo-constraint id: /.*/ to allow weird ids
+  resources :records, only: [:show]
   resources :searches, only: [:index]
 
   resource :session, only: [:create, :destroy, :new] do
