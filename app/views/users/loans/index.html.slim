@@ -19,23 +19,23 @@
                   = t(".renew_all")
 
           tbody
-            - @loans.each do |_loan|
-              - _record = @records_by_id[_loan.record_id]
-
-              tr
-                td = l(_loan.loan_date)
-                td = l(_loan.due_date)
-                td
-                  .title
-                    strong = value_or_default(title(_record))
-                  .additional_record_info
-                    = additional_record_info(_record)
-                  - if (signature = signature(_record, link: true)).present?
-                  .signature = "Signatur: #{signature}".html_safe
-                td
-                  - if _loan.renewable?
-                    = link_to renew_user_loan_path(_loan.id), method: :post, class: "btn btn-default btn-sm btn-block" do
-                      i.fa.fa-retweet>
-                      = t(".renew")
+            - @loans.each do |loan|
+              - record = @records_by_id[loan.record_id]
+              - if record
+                tr
+                  td = l(loan.loan_date)
+                  td = l(loan.due_date)
+                  td
+                    .title
+                      strong = value_or_default(title(record))
+                    .additional_record_info
+                      = additional_record_info(record)
+                    - if (signature = signature(record, link: true)).present?
+                    .signature = "Signatur: #{signature}".html_safe
+                  td
+                    - if loan.renewable?
+                      = link_to renew_user_loan_path(loan.id), method: :post, class: "btn btn-default btn-sm btn-block" do
+                        i.fa.fa-retweet>
+                        = t(".renew")
 
 
