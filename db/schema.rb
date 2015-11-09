@@ -11,17 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151030085042) do
-
-  create_table "api_keys", force: :cascade do |t|
-    t.integer  "user_id",      limit: 4
-    t.string   "access_token", limit: 255
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-  end
-
-  add_index "api_keys", ["access_token"], name: "index_api_keys_on_access_token", unique: true, using: :btree
-  add_index "api_keys", ["user_id"], name: "index_api_keys_on_user_id", using: :btree
+ActiveRecord::Schema.define(version: 20151106151755) do
 
   create_table "cache_entries", force: :cascade do |t|
     t.string   "key",        limit: 255
@@ -55,8 +45,10 @@ ActiveRecord::Schema.define(version: 20151030085042) do
     t.string   "pseudonym",               limit: 255
     t.integer  "number_of_hold_requests", limit: 4
     t.integer  "number_of_loans",         limit: 4
+    t.string   "api_key",                 limit: 255
   end
 
+  add_index "users", ["api_key"], name: "index_users_on_api_key", unique: true, using: :btree
   add_index "users", ["ilsuserid"], name: "index_users_on_ilsuserid", unique: true, using: :btree
   add_index "users", ["pseudonym"], name: "index_users_on_pseudonym", unique: true, using: :btree
 
