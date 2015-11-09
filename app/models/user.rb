@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   # Validations
   validates_presence_of   :ilsuserid
   validates_uniqueness_of :ilsuserid
+  validates_uniqueness_of :api_key
   validates :pseudonym, uniqueness: true, allow_nil: true, format: { with: /\A[a-z0-9\-_]+\Z/}
 
   def cash_balance
@@ -27,6 +28,16 @@ class User < ActiveRecord::Base
 
   def number_of_loans
     super || 0
+  end
+
+  def api_key
+    read_attribute(:api_key) || recreate_api_key!
+  end
+
+  def recreate_api_key!
+    key = SecureRandom.hex(16)
+    update_attribute(:api_key, key)
+    key
   end
 
 end
