@@ -29,6 +29,8 @@ Rails.application.routes.draw do
         collection { post "renew_all" }
       end
 
+      resources :calendars, only: [:index]
+
       resource :password, only: [:edit, :update]
       resources :watch_lists do
         delete :index, on: :collection, action: :destroy
