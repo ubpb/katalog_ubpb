@@ -6,22 +6,41 @@ class Api::V1::CalendarController < Api::ApplicationController
   before_filter :authenticate!
 
   def show
-    loans      = Median::Aleph.get_loans(current_user.ilsid)
-    holds      = Median::Aleph.get_holds(current_user.ilsid)
-    provisions = holds.select{|hold| hold.end_hold_date.present? && hold.end_hold_date >= Time.zone.today}
+    loans         = get_loans
+    hold_requests = get_hold_requests
+    provisions    = hold_requests.select{|hold_request| hold_request.end_hold_date.present? && hold_request.end_hold_date >= Time.zone.today}
 
-    response.headers["X-Robots-Tag"] = 'all'
+    loans_records      = get_records(loans.map(&:record_id))
+    provisions_records = get_records(provisions.map(&:record_id))
+
+    response.headers["X-Robots-Tag"] = "all"
 
     respond_to do |format|
-      format.json { head :not_implemented }
-      format.text { render text: to_raw_ics(group_loans_by_due_date(loans), group_provisions_by_due_date(provisions)) }
-      format.ics  { render text: to_raw_ics(group_loans_by_due_date(loans), group_provisions_by_due_date(provisions)) }
+      format.json do
+        head :not_implemented
+      end
+
+      format.text do
+        render text: to_raw_ics(
+          group_loans_by_due_date(loans),
+          group_provisions_by_due_date(provisions),
+          loans_records,
+          provisions_records)
+      end
+
+      format.ics do
+        render text: to_raw_ics(
+          group_loans_by_due_date(loans),
+          group_provisions_by_due_date(provisions),
+          loans_records,
+          provisions_records)
+      end
     end
   end
 
   private
 
-  def to_raw_ics(loans_by_due_date, provisions_by_due_date)
+  def to_raw_ics(loans_by_due_date, provisions_by_due_date, loans_records, provisions_records)
     loans_url         = File.join(root_url, "/user/loans")
     holds_url         = File.join(root_url, "/user/holds")
     info_url          = "http://goo.gl/Evx6Ls"
@@ -30,7 +49,7 @@ class Api::V1::CalendarController < Api::ApplicationController
 
     Calendar.build do
       item "VERSION", "2.0"
-      item "PRODID", "-//Universitätsbibliothek Paderborn//skala//DE"
+      item "PRODID", "-//Universitätsbibliothek Paderborn//Katalog//DE"
       item "METHOD", "PUBLISH"
       item "CALSCALE", "GREGORIAN"
       item "X-WR-CALNAME", "UB Paderborn - Leihfristen"
@@ -41,9 +60,14 @@ class Api::V1::CalendarController < Api::ApplicationController
       #
       loans_by_due_date.each_key do |due_date|
         loans  = loans_by_due_date.fetch(due_date)
-        titles = loans.each_with_index.map { |loan, i|
-          "#{i+1}. #{[loan.title, loan.year, "Signatur: #{loan.signature}"].map(&:presence).join(', ')}"
-        }.join('\n')
+        titles = loans.each_with_index.map do |loan, i|
+          record    = loans_records[loan.record_id]
+          title     = cached_view_context.title(record)
+          year      = cached_view_context.date_of_publication(record)
+          signature = cached_view_context.signature(record)
+
+          "#{i+1}. #{[title, year, "Signatur: #{signature}"].map(&:presence).join(', ')}"
+        end.join('\n')
 
         description = <<-EOS
 Die Leihfrist für die folgenden Medien endet heute. Ab morgen fallen Gebühren an.
@@ -144,7 +168,7 @@ EOS
 
   def group_loans_by_due_date(loans)
     group = {}
-    loans.each { |loan| (group[loan.due] ||= []) << loan }
+    loans.each { |loan| (group[loan.due_date] ||= []) << loan }
     group
   end
 
@@ -152,6 +176,46 @@ EOS
     group = {}
     provisions.each { |provision| (group[provision.end_hold_date] ||= []) << provision }
     group
+  end
+
+  def get_loans
+    GetUserLoansService.call(
+      adapter: KatalogUbpb.config.ils_adapter.instance,
+      user: current_user
+    )
+  end
+
+  def get_hold_requests
+    GetUserHoldRequestsService.call(
+      adapter: KatalogUbpb.config.ils_adapter.instance,
+      user: current_user
+    )
+  end
+
+  def get_records(ils_ids)
+    search_result = SearchRecordsService.call(
+      adapter: KatalogUbpb.config.ils_adapter.scope.search_engine_adapter.instance,
+      search_request: @search_request = Skala::SearchRequest.new(
+        queries: [
+          {
+            type: "ordered_terms",
+            field: "id",
+            terms: ils_ids
+          }
+        ],
+        size: ils_ids.length
+      )
+    )
+
+    search_result.hits.each_with_object({}) do |_hit, _hash|
+      _hash[_hit.fields["id"]] = _hit
+    end
+  end
+
+  def cached_view_context
+    # view_context instantiates a new view instance per call,
+    # so we cache it
+    @_cashed_view_context ||= view_context
   end
 
 end
