@@ -20,10 +20,6 @@ class Api::V1::ApplicationController < ActionController::Base
     head :unauthorized unless current_user
   end
 
-  def current_ability
-    @current_ability ||= Skala::Ability.new(current_user)
-  end
-
   def current_user
     @current_user ||=
     if api_key = (request.headers["api-key"] || params[:api_key]) # request.headers[] always uses '-' notation
