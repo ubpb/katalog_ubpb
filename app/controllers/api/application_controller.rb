@@ -11,9 +11,9 @@ class Api::ApplicationController < ApplicationController
       #
       # Token auth (via URL)
       #
-      api_key = ApiKey.where(access_token: params[:access_token]).includes(:user).first
-      if api_key
-        session[:api_user_id] = api_key.user.id
+      user = User.find_by(api_key: params[:access_token])
+      if user
+        session[:api_user_id] = user.id
       else
         head :unauthorized
       end
@@ -22,7 +22,7 @@ class Api::ApplicationController < ApplicationController
       # Basic auth
       #
       if user_options = authenticate_with_http_basic { |u, p| Median::Aleph.authenticate(u, p) }
-        user = User.find_or_create_by_ilsid(user_options[:ilsid]) { |u| u.update_attributes!(user_options) }
+        user = User.find_or_create_by_ilsid(user_options[:ilsuserid]) { |u| u.update_attributes!(user_options) }
         session[:api_user_id] = user.id
       else
         request_http_basic_authentication
