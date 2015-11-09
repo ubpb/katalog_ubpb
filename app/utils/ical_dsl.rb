@@ -7,10 +7,12 @@ module IcalDsl
 
     private
 
+    # http://www.dan-manges.com/blog/ruby-dsls-instance-eval-with-delegation
     class Block
       def initialize(key, &block)
         @key        = key
         @components = []
+        @self_before_instance_eval = eval("self", block.binding)
         instance_eval(&block)
       end
 
@@ -26,6 +28,10 @@ module IcalDsl
         "BEGIN:#{@key}\r\n" +
         @components.map(&:to_s).join +
         "END:#{@key}\r\n"
+      end
+
+      def method_missing(method, *args, &block)
+        @self_before_instance_eval.send method, *args, &block
       end
     end
 
