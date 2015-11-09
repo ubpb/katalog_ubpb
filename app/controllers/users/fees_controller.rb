@@ -5,10 +5,13 @@ class Users::FeesController < UsersController
   end, only: :index
 
   def index
-    @fees = Skala::User::FeesDecorator.decorate Skala::GetUserFeesService.call({
-      ils_adapter: KatalogUbpb.config.ils_adapter.instance,
-      locale: current_locale,
-      user_id: current_user.username
-    })
+    ils_adapter = KatalogUbpb.config.ils_adapter.instance
+    search_engine_adapter = KatalogUbpb.config.ils_adapter.scope.search_engine_adapter.instance
+
+    @credits, @debits = GetUserCreditsAndDebitsService.call(
+      ils_adapter: ils_adapter,
+      search_engine_adapter: search_engine_adapter,
+      user: current_user,
+    )
   end
 end

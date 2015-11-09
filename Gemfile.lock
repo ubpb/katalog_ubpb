@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ubpb/skala.git
-  revision: 066d11561365641284a6e4ba1fa77d1ca6ebaa07
+  revision: 11b546af7f0a89bb24eeba2c7cfa952f81f4865e
   branch: master
   specs:
     skala (1.0.0)
@@ -336,7 +336,7 @@ GEM
       descendants_tracker (~> 0.0, >= 0.0.3)
       equalizer (~> 0.0, >= 0.0.9)
     weak_xml (0.3.1)
-    websocket-driver (0.6.2)
+    websocket-driver (0.6.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     xpath (2.0.0)
