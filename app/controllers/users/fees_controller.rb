@@ -7,6 +7,7 @@ class Users::FeesController < UsersController
   def index
     ils_adapter = KatalogUbpb.config.ils_adapter.instance
     search_engine_adapter = KatalogUbpb.config.ils_adapter.scope.search_engine_adapter.instance
+    @scope = KatalogUbpb.config.ils_adapter.scope
 
     @credits, @debits = GetUserCreditsAndDebitsService.call(
       ils_adapter: ils_adapter,
