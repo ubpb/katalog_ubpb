@@ -10,31 +10,29 @@
         table.table.table-striped(data-setup="jquery-tablesorter" data-sortlist="[[1,0]]")
           thead
             tr
+              th = t(".creation_date")
               th = t(".title")
-              th.text-center = t(".creation_date")
-              th.text-center = t(".status")
-              th.text-center = t(".actions")
+              th = t(".status")
+              th = t(".actions")
 
           tbody
+            / TODO: records können nil sein, wenn im Suchindex nicht mehr vorhanden
             - @hold_requests.each do |_hold_request|
               - _record = @records_by_id[_hold_request.record_id]
 
               tr
-                td: ul
-                  li
-                    - if _record.present? && current_scope
-                      = link_to value_or_default(title(_record)), record_path(_record.id, scope: current_scope)
-                    - else
-                      = value_or_default(title(_record))
+                td = l(_hold_request.creation_date)
+                td
+                  = link_to value_or_default(title(_record)), record_path(_record.id, scope: @scope)
+                  - if (signature = signature(_record, link: true)).present?
+                    br/
+                    = "Signatur: #{signature}".html_safe
 
-                  li.signature = value_or_default(signature(_record, link: true))
-
-                td.text-center = l(_hold_request.creation_date)
-                td.text-center
+                td
                   - if _hold_request.status == :requested
-                    ul
-                      li = t(".queued")
-                      li = "(" + t(".place_in_queue", place_in_queue: _hold_request.place_in_queue) + ")"
+                    = t(".queued")
+                    br/
+                    em = t(".place_in_queue", place_in_queue: _hold_request.place_in_queue)
                   - elsif _hold_request.status == :on_hold
                     = t(".on_hold_until", end_hold_date: l(_hold_request.end_hold_date))
                   - elsif _hold_request.status  == :in_process

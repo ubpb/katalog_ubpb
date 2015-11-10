@@ -20,7 +20,8 @@ de:
         in_process: In Bearbeitung
         no_hold_requests_present: Sie haben momentan keine Titel vorgemerkt.
         on_hold_until: Bereitgestellt bis %{end_hold_date}
-        place_in_queue: Position %{place_in_queue} in Warteschlange
+        place_in_queue: Position %{place_in_queue} in der Warteschlange
         queued: Vorgemerkt
         status: Status
         title: Titel
+        actions: Aktion

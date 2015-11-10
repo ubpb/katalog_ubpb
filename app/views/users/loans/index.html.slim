@@ -20,18 +20,17 @@
 
           tbody
             - @loans.each do |loan|
+              / TODO: records können nil sein, wenn im Suchindex nicht mehr vorhanden
               - record = @records_by_id[loan.record_id]
               - if record
                 tr
                   td = l(loan.loan_date)
                   td = l(loan.due_date)
                   td
-                    .title
-                      strong = value_or_default(title(record))
-                    .additional_record_info
-                      = additional_record_info(record)
+                    = link_to value_or_default(title(record)), record_path(record.id, scope: @scope)
                     - if (signature = signature(record, link: true)).present?
-                    .signature = "Signatur: #{signature}".html_safe
+                      br/
+                      = "Signatur: #{signature}".html_safe
                   td
                     - if loan.renewable?
                       = link_to renew_user_loan_path(loan.id), method: :post, class: "btn btn-default btn-sm btn-block" do
