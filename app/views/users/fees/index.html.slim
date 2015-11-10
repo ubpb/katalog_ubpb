@@ -2,7 +2,7 @@
 - sum_of_debits = @debits.try(:sum, &:value) || 0
 
 .panel.panel-default
-  .panel-heading
+  .panel-heading.panel-cutoffcorner
     h3.panel-title = t("actions.users.fees#index")
     - if sum_of_debits > 0
       span.label.label-info.hidden-lg.hidden-md.hidden-sm.pull-right
