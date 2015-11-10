@@ -21,8 +21,9 @@
                 tr
                   td
                     = link_to value_or_default(title(_record)), record_path(_record.id, scope: @scope)
-                    br/
-                    == "Signatur: #{value_or_default(signature(_record, link: true))}"
+                    - if (signature = signature(_record, link: true)).present?
+                      br/
+                      = "Signatur: #{signature}".html_safe
 
                   td.text-right = l(_former_loan.returned_date)
 
