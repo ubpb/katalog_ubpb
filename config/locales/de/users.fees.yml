@@ -12,6 +12,6 @@ de:
         credit: "Gutschrift"
         debit: "Gebühr"
         type: "Art"
-        message_debit: "Sie haben Gebühren in höhe von %{sum_total} auf Ihrem Gebührenkonto."
+        message_debit: "Sie haben Gebühren in Höhe von %{sum_total} auf Ihrem Gebührenkonto."
         message_credit: "Sie haben ein Guthaben in Höhe von %{sum_total} auf Ihrem Gebührenkonto."
         open: "schwebend"
