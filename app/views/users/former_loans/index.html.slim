@@ -1,26 +1,30 @@
-- content_for(:panel_heading) do
-  span = t("actions.users.former_loans#index")
+.panel.panel-default
+  .panel-heading
+    h3.panel-title = t("actions.users.former_loans#index")
 
-- if @former_loans.present?
-  = responsive_table do
-    table.table.table-striped(data-setup="jquery-tablesorter" data-sortlist="[[1,1]]")
-      thead
-        tr
-          th = t(".title")
-          th.text-right = t(".returned_date")
+  .panel-body
+    - if @former_loans.blank?
+      .alert.alert-info = t(".no_former_loans")
+    - else
+      .table-responsive
+        table.table.table-striped(data-setup="jquery-tablesorter" data-sortlist="[[1,1]]")
+          thead
+            tr
+              th = t(".title")
+              th.text-right = t(".returned_date")
 
-      tbody
-        - @former_loans.each do |_former_loan|
-          - _record = @records_by_id[_former_loan.record_id]
+          tbody
+            - @former_loans.each do |_former_loan|
+              - _record = @records_by_id[_former_loan.record_id]
 
-          tr
-            td: ul
-              li
-                - if _record.present? && current_scope
-                  = link_to value_or_default(title(_record)), record_path(_record.id, scope: current_scope)
-                - else
-                  = value_or_default(title(_record))
+              tr
+                td: ul
+                  li
+                    - if _record.present? && current_scope
+                      = link_to value_or_default(title(_record)), record_path(_record.id, scope: current_scope)
+                    - else
+                      = value_or_default(title(_record))
 
-              li.signature = value_or_default(signature(_record, link: true))
+                  li.signature = value_or_default(signature(_record, link: true))
 
-            td.text-right = l(_former_loan.returned_date)
+                td.text-right = l(_former_loan.returned_date)
