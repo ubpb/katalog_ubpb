@@ -11,9 +11,9 @@
       .alert.alert-info = t(".no_credits_or_debits")
     - else
       - if sum_total < 0
-        .alert.alert-danger = t(".message_debit", sum_total: number_to_currency(sum_total.abs))
+        .alert.alert-danger == t(".message_debit", sum_total: number_to_currency(sum_total.abs))
       - if sum_total > 0
-        .alert.alert-success = t(".message_credit", sum_total: number_to_currency(sum_total))
+        .alert.alert-success == t(".message_credit", sum_total: number_to_currency(sum_total))
 
       .table-responsive
         table.table.table-striped
