@@ -70,7 +70,7 @@ common_settings: &common_settings
         - "publisher"
         - "toc"
         - "creationdate_search"
-        - "isbn"
+        - "isbn_search"
         - "issn"
         - "signature_search"
         - "notation"
