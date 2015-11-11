@@ -1,54 +1,57 @@
 - sum_of_credits = @credits.try(:sum, &:value) || 0
-- sum_of_debits = @debits.try(:sum, &:value) || 0
+- sum_of_debits  = @debits.try(:sum, &:value) || 0
+- sum_total      = sum_of_credits - sum_of_debits
 
 .panel.panel-default
-  .panel-heading
+  .panel-heading.panel-cutoffcorner
     h3.panel-title = t("actions.users.fees#index")
-    - if sum_of_debits > 0
-      span.label.label-info.hidden-lg.hidden-md.hidden-sm.pull-right
-        = number_to_currency(sum_of_debits)
 
   .panel-body
     - if @credits.blank? && @debits.blank?
       .alert.alert-info = t(".no_credits_or_debits")
     - else
+      - if sum_total < 0
+        .alert.alert-danger == t(".message_debit", sum_total: number_to_currency(sum_total.abs))
+      - if sum_total > 0
+        .alert.alert-success == t(".message_credit", sum_total: number_to_currency(sum_total))
+
       .table-responsive
-        table.table.table-striped(data-setup="jquery-tablesorter" data-sortlist="[[1,1]]")
+        table.table.table-striped
           thead
             tr
               th = t(".creation_time")
+              th = t(".type")
+              th = t(".value")
               th = t(".title")
-              th.text-right = t(".value")
 
           tbody
-            - @debits.each do |_debit|
+            - [@debits, @credits].flatten(1).each do |transaction|
               tr
                 td
-                  - if _debit.creation_date.present?
-                    = l(_debit.creation_date)
+                  - if transaction.creation_date.present?
+                    = l(transaction.creation_date)
                   - else
-                    = t(".unentered")
+                    = t(".open")
 
-                td: ul
-                  li
-                    - if _debit.search_engine_record_id.present? && current_scope
-                      = link_to _debit.title, record_path(_debit.search_engine_record_id, scope: current_scope)
-                    - else
-                      = _debit.title
-                  li = _debit.signature
-                  li = _debit.reason
+                td
+                  - if transaction.is_a?(Skala::Credit)
+                    = t(".credit")
+                  - else
+                    = t(".debit")
 
-                td.text-right = number_to_currency(_debit.value)
+                td(style="white-space: nowrap;")
+                  = number_to_currency(transaction.value)
 
-          tfoot
-            tr
-              td
-              td
-                - if @credits.present?
-                  ul
-                    li = t(".credit")
+                td
+                  - if transaction.title.present? && transaction.search_engine_record_id.present?
+                    .title = link_to transaction.title, record_path(transaction.search_engine_record_id, scope: @scope)
+                  - elsif transaction.title.present?
+                    .title = transaction.title
 
-              td.text-right: ul
-                - if @credits.present?
-                  li = number_to_currency(sum_of_credits)
-                li = number_to_currency(sum_of_credits - sum_of_debits)
+                  - if (signature = transaction.signature).present?
+                    .signature == "Signatur: #{link_to(signature, go_signature_path, target: "_blank")}"
+
+                  / TODO: Fix ALLE in adapter override
+                  - desc = transaction.description
+                  - if desc.present? && desc.downcase != "alle"
+                    .description = desc

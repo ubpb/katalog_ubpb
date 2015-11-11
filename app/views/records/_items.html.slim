@@ -22,7 +22,7 @@
         - if hold_request.place_in_queue > 0
           = "Ein Exemplar wurde für Sie vorgemerkt. Sie sind an Position #{hold_request.place_in_queue} in der Warteschlange."
         - elsif hold_request.place_in_queue == 0 && hold_request.status == :in_process
-          = "Ein Exemplar wurde für Sie vorgemerkt und wird in Kürze für Sie bereitgestellt."
+          = "Ein Exemplar wurde für Sie vorgemerkt."
         - elsif hold_request.place_in_queue == 0 && hold_request.status == :on_hold
           = "Ein Exemplar wurde für Sie bereitgestellt und liegt bis zum #{l(hold_request.end_hold_date)} zur Abholung bereit."
           =< link_to "Details", user_hold_requests_path
