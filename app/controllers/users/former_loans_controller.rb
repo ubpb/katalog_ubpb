@@ -1,5 +1,5 @@
 class Users::FormerLoansController < UsersController
-  MAX_FORMER_LOANS ||= 100
+  MAX_FORMER_LOANS ||= 250
 
   before_action -> do
     add_breadcrumb name: "users#show", url: user_path
@@ -23,7 +23,7 @@ class Users::FormerLoansController < UsersController
           {
             type: "ordered_terms",
             field: "id",
-            terms: @former_loans.map(&:record_id)
+            terms: @former_loans.map(&:ils_record_id)
           }
         ],
         size: @former_loans.length
