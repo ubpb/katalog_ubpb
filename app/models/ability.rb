@@ -15,14 +15,21 @@ class Ability
       end
 
       #
-      # UpdateUserPasswordService
+      # user
       #
-      can :call, UpdateUserPasswordService do |_instance|
-        current_user.ilsuserid == _instance.ilsuserid
-      end
+      can :call, UpdateUserPasswordService, ilsuserid: current_user.ilsuserid
 
+      #
+      # user/hold_requests
+      #
       can :call, CreateUserHoldRequestService, ilsuserid: current_user.ilsuserid
       can :call, DeleteUserHoldRequestService, ilsuserid: current_user.ilsuserid
+
+      #
+      # user/loans
+      #
+      can :call, RenewAllUserLoansService, ilsuserid: current_user.ilsuserid
+      can :call, RenewUserLoanService, ilsuserid: current_user.ilsuserid
     end
   end
 

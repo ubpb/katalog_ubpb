@@ -8,8 +8,6 @@ Rails.application.routes.draw do
     resource :local, only: [:update]
   end
 
-
-
   resources :tickets, :only => [:new, :create]
   resources :thumbnails, :only => :show
 
@@ -18,15 +16,12 @@ Rails.application.routes.draw do
       resource  :email_address, only: [:edit, :update]
       resources :fees, only: [:index]
       resources :former_loans, only: [:index]
-      resources :hold_requests, only: [:index, :create, :destroy] do
-        #delete :index, on: :collection, action: :destroy
-      end
-
+      resources :hold_requests, only: [:index, :create, :destroy]
       resources :inter_library_loans, only: [:index]
 
       resources :loans, only: [:index] do
-        member     { post "renew" }
-        collection { post "renew_all" }
+        put :update, on: :member, action: :renew, as: :renew
+        put :update, on: :collection, action: :renew_all, as: :renew_all
       end
 
       resources :calendars, only: [:index]
