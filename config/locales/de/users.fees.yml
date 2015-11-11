@@ -5,5 +5,17 @@ de:
         balance: Gebühr / Gutschrift
         creation_time: Datum
         title: Titel / Beschreibung
-        no_fees_present: Im Augenblick liegen keine Gebühren vor.
-        unentered: unverbucht
+        no_credits_or_debits: Im Augenblick liegen keine Gebühren vor.
+        credits: "Guthaben:"
+        total: "Summe:"
+        value: "Wert"
+        credit: "Gutschrift"
+        debit: "Gebühr"
+        type: "Art"
+        message_debit: >
+          Sie haben Gebühren in Höhe von %{sum_total} auf Ihrem Gebührenkonto.
+          Gebühren können am Kassenautomat der Bibliothek während der gesamten
+          <a href="http://www.ub.uni-paderborn.de/oeffnungszeiten.shtml">Öffnungszeiten</a>
+          beglichen werden.
+        message_credit: "Sie haben ein Guthaben in Höhe von %{sum_total} auf Ihrem Gebührenkonto."
+        open: "schwebend"

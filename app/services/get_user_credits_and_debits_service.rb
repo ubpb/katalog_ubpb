@@ -24,7 +24,7 @@ class GetUserCreditsAndDebitsService < Servizio::Service
             {
               type: "ordered_terms", # TODO: no need for ordered_terms here, use unscored_terms
               field: "id", # TODO: should be ils_record_id
-              terms: [credits.map(&:ils_record_id), debits.map(&:ils_record_id)].flatten(1)
+              terms: [credits.map(&:ils_record_id), debits.map(&:ils_record_id)].flatten(1).compact
             }
           ],
           size: credits.try(:length).to_i + debits.try(:length).to_i

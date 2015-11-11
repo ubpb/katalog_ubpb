@@ -1,9 +1,9 @@
 .panel.panel-default
-  .panel-heading
+  .panel-heading.panel-cutoffcorner
     h3.panel-title = t("actions.users.former_loans#index")
 
   .panel-body
-    - if @former_loans.blank?
+    - if @former_loans.blank? || @records_by_id.blank?
       .alert.alert-info = t(".no_former_loans")
     - else
       .table-responsive
@@ -14,17 +14,17 @@
               th.text-right = t(".returned_date")
 
           tbody
+            / TODO: records können nil sein, wenn im Suchindex nicht mehr vorhanden
             - @former_loans.each do |_former_loan|
               - _record = @records_by_id[_former_loan.record_id]
+              - if _record.present?
+                tr
+                  td
+                    = link_to value_or_default(title(_record)), record_path(_record.id, scope: @scope)
+                    - if (signature = signature(_record, link: true)).present?
+                      br/
+                      = "Signatur: #{signature}".html_safe
 
-              tr
-                td: ul
-                  li
-                    - if _record.present? && current_scope
-                      = link_to value_or_default(title(_record)), record_path(_record.id, scope: current_scope)
-                    - else
-                      = value_or_default(title(_record))
+                  td.text-right = l(_former_loan.returned_date)
 
-                  li.signature = value_or_default(signature(_record, link: true))
-
-                td.text-right = l(_former_loan.returned_date)
+      em Es werden max. die letzten 250 Ausleihvorgänge angezeigt
