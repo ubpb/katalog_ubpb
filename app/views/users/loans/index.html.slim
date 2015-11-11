@@ -3,38 +3,4 @@
     h3.panel-title = t("actions.users.loans#index")
 
   .panel-body
-    - if @loans.blank?
-      .alert.alert-info = t(".no_loans")
-    - else
-      .table-responsive
-        table.table.table-striped(data-setup="jquery-tablesorter" data-sortlist="[[1,1]]")
-          thead
-            tr
-              th = t(".loan_date")
-              th = t(".due_date")
-              th = t(".item.title")
-              th
-                = link_to renew_all_user_loans_path, method: :post, class: "btn btn-primary btn-sm btn-block" do
-                  i.fa.fa-retweet>
-                  = t(".renew_all")
-
-          tbody
-            - @loans.each do |loan|
-              / TODO: records können nil sein, wenn im Suchindex nicht mehr vorhanden
-              - record = @records_by_id[loan.record_id]
-              - if record
-                tr
-                  td = l(loan.loan_date)
-                  td = l(loan.due_date)
-                  td
-                    = link_to value_or_default(title(record)), record_path(record.id, scope: @scope)
-                    - if (signature = signature(record, link: true)).present?
-                      br/
-                      = "Signatur: #{signature}".html_safe
-                  td
-                    - if loan.renewable?
-                      = link_to renew_user_loan_path(loan.id), method: :post, class: "btn btn-default btn-sm btn-block" do
-                        i.fa.fa-retweet>
-                        = t(".renew")
-
-
+    = async_content :loans
