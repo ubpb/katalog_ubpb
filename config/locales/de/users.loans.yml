@@ -2,10 +2,11 @@ de:
   users:
     loans:
       index:
-        no_loans: "Aktuell haben Sie keine Medien ausgeliehen"
-        due_date: Rückgabe bis
-        loan_date: Ausgeliehen am
-        renew: Verlängern
-        renew_all: Alle verlängern
-        signature: Signatur
-        title: Titel
+        loans:
+          no_loans: "Aktuell haben Sie keine Medien ausgeliehen"
+          due_date: Rückgabe bis
+          loan_date: Ausgeliehen am
+          renew: Verlängern
+          renew_all: Alle verlängern
+          signature: Signatur
+          title: Titel
