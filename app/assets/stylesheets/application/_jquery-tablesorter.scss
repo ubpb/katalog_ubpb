@@ -1,0 +1,4 @@
+// disable those nasty blue boxes around selected header cells
+table.tablesorter th {
+  outline-style: none;
+}

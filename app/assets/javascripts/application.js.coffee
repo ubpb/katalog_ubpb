@@ -23,7 +23,7 @@
 #
 #= require bootstrap-sprockets
 #= require jquery.jsonp
-#= require jquery-tablesorter/jquery.metadata
+#= require jquery-tablesorter/extras/jquery.metadata
 #= require jquery-tablesorter/jquery.tablesorter
 #= require jquery-ui/slider
 #= require jquery.ui.touch-punch
