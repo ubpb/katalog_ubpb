@@ -5,6 +5,9 @@ class GetUserLoansService < Servizio::Service
   attr_accessor :ils_adapter
   attr_accessor :search_engine_adapter
 
+  alias_method :adapter,  :ils_adapter
+  alias_method :adapter=, :ils_adapter=
+
   validates_presence_of :ils_adapter
   validates_presence_of :ils_user_id
 
