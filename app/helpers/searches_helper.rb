@@ -201,18 +201,18 @@ module SearchesHelper
     ensure_array(record.fields["ht_number"]).first
   end
 
-  def title(record, scope:nil, search_request:nil)
-    title = ensure_array(record.fields["title"]).join("; ")
+  def title(record, record_id: record.id, scope:nil, search_request:nil)
+    title = ensure_array(record.try(:title) || record.try(:fields).try(:[], "title")).join("; ")
 
-    if scope && search_request
-      link_to(title, record_path(record.id, scope: scope, search_request: search_request)).html_safe
+    if scope # && search_request
+      link_to(title, record_path(record_id, scope: scope, search_request: search_request)).html_safe
     else
       title
     end
   end
 
   def creators(record, link:false, scope:nil)
-    ensure_array(record.fields["creator_contributor_display"]).map do |creator|
+    ensure_array(record.try(:creator) || record.try(:fields).try(:[], "creator_contributor_display")).map do |creator|
       if link && scope
         link_to_creator(creator, scope: scope)
       else
@@ -222,11 +222,11 @@ module SearchesHelper
   end
 
   def edition(record)
-    ensure_array(record.fields["edition"]).first
+    ensure_array(record.try(:edition) || record.try(:fields).try(:[], "edition")).first
   end
 
   def date_of_publication(record)
-    ensure_array(record.fields["creationdate"]).first
+    ensure_array(record.try(:created) || record.try(:fields).try(:[], "creationdate")).first
   end
 
   def place_of_publication(record)
@@ -238,7 +238,7 @@ module SearchesHelper
   end
 
   def signature(record, link: false)
-    signature = ensure_array(record.fields["signature"]).first
+    signature = ensure_array(record.try(:signature) || record.try(:fields).try(:[], "signature")).first
 
     if signature
       if link
@@ -369,7 +369,7 @@ module SearchesHelper
     ensure_array(record.fields["secondary_form_physical_description"]).first
   end
 
-  def snd_is_part_of(record, prefix_label:nil, scope: scope)
+  def snd_is_part_of(record, prefix_label:nil, scope:nil)
     if (superorders = ensure_array(record.fields["secondary_form_superorder"])).present?
       content_tag(:ul) do
         superorders.map do |superorder|
