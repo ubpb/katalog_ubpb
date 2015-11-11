@@ -2,6 +2,13 @@
 module ApplicationHelper
   include FontAwesome::Rails::IconHelper
 
+  def async_content(identifier)
+    content_tag(:div, class: "async-content-placeholder", "data-async-content" => identifier, style: "text-align: center") do
+      concat content_tag(:i, "", class: "fa fa-spinner fa-spin", style: "font-size: 44px;")
+      concat form_tag({controller: controller_path, action: action_name, async_content: identifier}, method: request.method.downcase.to_sym, remote: true)
+    end
+  end
+
   def flash_message_class(type)
     case type.to_sym
       when :alert

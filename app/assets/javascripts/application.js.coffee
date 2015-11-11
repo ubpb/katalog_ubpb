@@ -43,6 +43,9 @@
 Turbolinks?.enableProgressBar()
 
 $(document).ready ->
+  $("div[data-async-content] form").submit()
+
+$(document).ready ->
   $("[data-decorator]").each (index, el) ->
     unless $(el).data("decorator-processed")
       decorator_class = $(el)

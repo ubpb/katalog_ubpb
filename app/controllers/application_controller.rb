@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   before_filter :capture_return_path
 
   # helper methods
+  helper_method :async_content_request?
   helper_method :current_action
   helper_method :current_locale
   helper_method :current_scope
@@ -23,6 +24,10 @@ class ApplicationController < ActionController::Base
 
   rescue_from (MalformedSearchRequestError = Class.new(StandardError)) do
     redirect_to searches_path
+  end
+
+  def async_content_request?(identifier = nil)
+    !!(request.xhr? && params.keys.include?("async_content") && (!identifier || params["async_content"] == identifier.to_s))
   end
 
   def capture_return_path
