@@ -22,22 +22,51 @@ class Users::LoansController < UsersController
     end
   end
 
-
-=begin
   def renew
-    call_operation Skala::RenewUserLoanService.new(user: current_user, loan_id: params[:id]),
-    on_error: -> (op)   { flash[:error] = t(".error") },
-    on_success: -> (op) { flash[:success] = t(".success") }
+    if (loan_id = renew_params[:id])
+      renew_user_loan = RenewUserLoanService.new(
+        adapter: current_scope.ils_adapter.try(:instance),
+        loan_id: loan_id,
+        user: current_user
+      )
+
+      if can?(:call, renew_user_loan)
+        if renew_user_loan.call!.succeeded?
+          flash[:notice] = t(".succeeded")
+        else
+          flash[:error] = t(".failed")
+        end
+      end
+    end
 
     redirect_to action: :index
   end
 
   def renew_all
-    call_operation Skala::RenewUserLoansService.new(user: current_user),
-    on_error: -> (op)   { flash[:error] = t(".error") },
-    on_success: -> (op) { flash[:success] = t(".success") }
+    renew_all_user_loans = RenewAllUserLoansService.new(
+      adapter: current_scope.ils_adapter.try(:instance),
+      user: current_user
+    )
+
+    if can?(:call, renew_all_user_loans)
+      if renew_all_user_loans.call!.succeeded?
+        flash[:notice] = t(".succeeded")
+      else
+        if renew_all_user_loans.errors[:call].include?(:not_all_loans_could_be_renewed)
+          flash[:error] = t(".not_all_loans_could_be_renewed") # .result contains the ones that could be renewed
+        else
+          flash[:error] = t(".failed")
+        end
+      end
+    end
 
     redirect_to action: :index
   end
-=end
+
+  private
+
+  def renew_params
+    params.permit(:id)
+  end
+
 end

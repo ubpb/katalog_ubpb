@@ -9,6 +9,10 @@ module UserRelatedService
       @ils_user_id || ilsuserid
     end
 
+    def ils_user_id=(value)
+      self.ilsuserid = value
+    end
+
     def ilsuserid
       @ilsuserid || user.try(:ilsuserid)
     end

@@ -10,3 +10,9 @@ de:
           renew_all: Alle verlängern
           signature: Signatur
           title: Titel
+
+      renew:
+        failed: Die ausgewählte Ausleihe konnte nicht verlängert werden.
+
+      renew_all:
+        not_all_loans_could_be_renewed: Leider konnten nicht alle Ausleihen verlängert werden.
