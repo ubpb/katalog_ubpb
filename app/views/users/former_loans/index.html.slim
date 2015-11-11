@@ -16,7 +16,7 @@
           tbody
             / TODO: records können nil sein, wenn im Suchindex nicht mehr vorhanden
             - @former_loans.each do |_former_loan|
-              - _record = @records_by_id[_former_loan.record_id]
+              - _record = @records_by_id[_former_loan.ils_record_id]
               - if _record.present?
                 tr
                   td
