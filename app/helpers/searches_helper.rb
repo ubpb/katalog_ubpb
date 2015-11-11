@@ -204,7 +204,7 @@ module SearchesHelper
   def title(record, record_id: record.id, scope:nil, search_request:nil)
     title = ensure_array(record.try(:title) || record.try(:fields).try(:[], "title")).join("; ")
 
-    if scope # && search_request
+    if scope && record_id
       link_to(title, record_path(record_id, scope: scope, search_request: search_request)).html_safe
     else
       title
