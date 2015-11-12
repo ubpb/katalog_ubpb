@@ -22,7 +22,7 @@
 # all other javascript
 #
 #= require bootstrap-sprockets
-#= require jquery.jsonp
+#= require jquery-jsonp/src/jquery.jsonp
 #= require jquery-tablesorter/extras/jquery.metadata
 #= require jquery-tablesorter/jquery.tablesorter
 #= require jquery-ui/slider

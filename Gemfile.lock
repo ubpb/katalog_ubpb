@@ -239,6 +239,7 @@ GEM
     rails-assets-imagesloaded (3.2.0)
       rails-assets-eventEmitter (>= 4.2, < 5.0)
       rails-assets-eventie (~> 1.0.4)
+    rails-assets-jaubourg--jquery-jsonp (2.4.0)
     rails-assets-lodash (3.10.1)
     rails-assets-matchHeight (0.6.0)
     rails-deprecated_sanitizer (1.0.3)
@@ -382,6 +383,7 @@ DEPENDENCIES
   quiet_assets (~> 1.0.3)
   rails (= 4.2.4)
   rails-assets-imagesloaded (~> 3.1)!
+  rails-assets-jaubourg--jquery-jsonp (~> 2.4.0)!
   rails-assets-lodash (~> 3.0)!
   rails-assets-matchHeight (~> 0.5)!
   rails-html-sanitizer (~> 1.0.1)

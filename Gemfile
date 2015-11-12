@@ -35,10 +35,14 @@ gem "skala", github: "ubpb/skala", branch: :master
 #
 # rails-assets.org
 #
+# Better use three component version numbers (~> x.y.z) because js assets often
+# change structure/behaviour within minor version updates.
+#
 source "https://rails-assets.org" do
-  gem "rails-assets-imagesloaded",  "~> 3.1"
-  gem "rails-assets-lodash",        "~> 3.0"
-  gem "rails-assets-matchHeight",   "~> 0.5"
+  gem "rails-assets-imagesloaded",           "~> 3.1"
+  gem "rails-assets-jaubourg--jquery-jsonp", "~> 2.4.0"
+  gem "rails-assets-lodash",                 "~> 3.0"
+  gem "rails-assets-matchHeight",            "~> 0.5"
 end
 
 group :production do
