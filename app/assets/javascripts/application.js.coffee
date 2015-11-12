@@ -35,7 +35,6 @@
 #= require_tree ./components
 #= require_tree ./decorators
 #= require_tree ./utils
-#= require_tree ./views
 
 #= require ./polyfills/Array_reduce
 
