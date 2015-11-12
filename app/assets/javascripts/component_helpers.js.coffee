@@ -1,4 +1,4 @@
-#= require URIjs/src/URI
+#= require urijs/URI
 
 (window.app ?= {}).ComponentHelpers = class
   @path_helper_factory: (path) ->
