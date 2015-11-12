@@ -39,6 +39,7 @@ gem "skala", github: "ubpb/skala", branch: :master
 # change structure/behaviour within minor version updates.
 #
 source "https://rails-assets.org" do
+  gem "rails-assets-animate.css",                 "~> 3.4.0"
   gem "rails-assets-imagesloaded",                "~> 3.2.0"
   gem "rails-assets-jaubourg--jquery-jsonp",      "~> 2.4.0"
   gem "rails-assets-lodash",                      "~> 3.0"
