@@ -7,28 +7,16 @@
           | Menü
 
         #sidebar-collapse.collapse.sidebar-collapse
-          - if can?(:call, UpdateUserEmailAddressService) || can?(:call, UpdateUserPasswordService)
-            .panel.panel-primary
-              .panel-heading.panel-cutoffcorner
-                h3.panel-title = t(".actions")
-              .panel-body
-                ul.nav.nav-pills.nav-stacked
-                  - if can?(:call, UpdateUserEmailAddressService)
-                    li = link_to edit_user_email_address_path do
-                      i.fa.fa-envelope>
-                      span = t(".change_email_address")
-
-                  - if can?(:call, UpdateUserPasswordService)
-                    li = link_to edit_user_password_path do
-                      i.fa.fa-lock>
-                      span = t(".change_password")
-
           .panel.panel-primary
             .panel-heading.panel-cutoffcorner
-              h3.panel-title = t(".functions")
+              h3.panel-title = t(".menu")
 
             .panel-body
               ul.nav.nav-pills.nav-stacked
+                li = link_to user_path do
+                  => fa_icon("user")
+                  = t(".home")
+
                 li = link_to user_fees_path do
                   i.fa.fa-money>
                   span => t(".fees")

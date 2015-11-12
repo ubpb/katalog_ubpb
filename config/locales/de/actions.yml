@@ -4,7 +4,7 @@ de:
     records#show: Details
     searches#index: Suche
     users#edit: Benutzerdaten ändern
-    users#show: Mein Bibliothekskonto
+    users#show: Bibliothekskonto
 
     closed_stack_orders#new: Magazinbstellung aufgeben
     closed_stack_orders#create: Magazinbestellung aufgeben

@@ -1,6 +1,8 @@
 de:
   users:
     show:
+      change_email_address: ~> actions.users.email_addresses#edit
+      change_password: ~> actions.users.passwords#edit
       my_account: ~> actions.users#show
       name: Name
       email_address: E-Mail Adresse

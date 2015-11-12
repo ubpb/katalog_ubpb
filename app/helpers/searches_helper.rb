@@ -258,7 +258,7 @@ module SearchesHelper
   end
 
   def description(record)
-    ensure_array(record.fields["description"]).join("<br/>").html_safe
+    ensure_array(record.fields["description"]).join("<br/>")#.html_safe
   end
 
   def identifier(record)
