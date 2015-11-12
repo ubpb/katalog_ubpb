@@ -28,7 +28,6 @@
 #= require jquery-ui/slider
 #= require jquery.ui.touch-punch
 #= require bootstrap-simple-select
-#= require bootstrap-switch
 #= require ractive/ractive
 #= require ractive/ractive-events-keys
 #= require trunker
