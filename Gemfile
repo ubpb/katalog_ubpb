@@ -44,6 +44,7 @@ source "https://rails-assets.org" do
   gem "rails-assets-lodash",                 "~> 3.0"
   gem "rails-assets-matchHeight",            "~> 0.5"
   gem "rails-assets-ractive",                "~> 0.7.3"
+  gem "rails-assets-ractive-events-keys",    "~> 0.2.1"
 end
 
 group :production do
