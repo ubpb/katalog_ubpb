@@ -244,6 +244,7 @@ GEM
     rails-assets-matchHeight (0.6.0)
     rails-assets-ractive (0.7.3)
     rails-assets-ractive-events-keys (0.2.1)
+    rails-assets-relayfoods-jquery.sparkline (2.1.4)
     rails-assets-urijs (1.16.1)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
@@ -391,6 +392,7 @@ DEPENDENCIES
   rails-assets-matchHeight (~> 0.5)!
   rails-assets-ractive (~> 0.7.3)!
   rails-assets-ractive-events-keys (~> 0.2.1)!
+  rails-assets-relayfoods-jquery.sparkline (~> 2.1.4)!
   rails-assets-urijs (~> 1.16.1)!
   rails-html-sanitizer (~> 1.0.1)
   rails-i18n
