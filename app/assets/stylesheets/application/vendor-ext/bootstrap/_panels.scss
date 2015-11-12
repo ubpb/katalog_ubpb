@@ -14,12 +14,8 @@
     border-bottom-style: solid;
     border-bottom-color: $brand-primary;
 
-    .panel-heading {
-      background-color: $upb-blue;
-      .panel-title {
-        font-size: $font-size-base;
-        font-weight: bold;
-      }
+    > .panel-heading {
+      color: $text-color;
     }
   }
 

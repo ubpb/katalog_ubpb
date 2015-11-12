@@ -1,6 +1,13 @@
 #facets {
   .facet {
     .panel {
+      > .panel-heading {
+        .panel-title {
+          font-size: $font-size-base;
+          font-weight: bold;
+        }
+      }
+
       .panel-footer {
         padding: 5px 15px;
       }

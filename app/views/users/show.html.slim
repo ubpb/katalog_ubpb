@@ -1,6 +1,26 @@
 .panel.panel-default
   .panel-heading.panel-cutoffcorner
-    h3.panel-title = t(".my_account")
+    .row
+      .col-xs-6
+        h3.panel-title(style="line-height: 34px") = t(".my_account")
+
+      .col-xs-6.text-right
+        - if can?(:call, UpdateUserEmailAddressService) || can?(:call, UpdateUserPasswordService)
+          .dropdown
+            button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
+              => fa_icon("cogs")
+              => "Aktionen"
+              span.caret
+            ul.dropdown-menu.dropdown-menu-right
+              - if can?(:call, UpdateUserEmailAddressService)
+                li = link_to edit_user_email_address_path do
+                  = t(".change_email_address")
+
+              - if can?(:call, UpdateUserPasswordService)
+                li = link_to edit_user_password_path do
+                  = t(".change_password")
+
+
   .panel-body
     .table-responsive
       table.table.table-striped

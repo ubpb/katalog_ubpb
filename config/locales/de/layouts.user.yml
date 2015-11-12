@@ -1,10 +1,9 @@
 de:
   layouts:
     user:
-      actions: Aktionen
+      menu: Menü
+      home: Bibliothekskonto
       calender: Kalender
-      change_email_address: ~> actions.users.email_addresses#edit
-      change_password: ~> actions.users.passwords#edit
       fees: ~> actions.users.fees#index
       former_loans: ~> actions.users.former_loans#index
       functions: Funktionen
