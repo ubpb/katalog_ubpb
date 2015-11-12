@@ -43,6 +43,7 @@ source "https://rails-assets.org" do
   gem "rails-assets-jaubourg--jquery-jsonp", "~> 2.4.0"
   gem "rails-assets-lodash",                 "~> 3.0"
   gem "rails-assets-matchHeight",            "~> 0.5"
+  gem "rails-assets-ractive",                "~> 0.7.3"
 end
 
 group :production do

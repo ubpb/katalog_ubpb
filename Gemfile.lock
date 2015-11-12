@@ -242,6 +242,7 @@ GEM
     rails-assets-jaubourg--jquery-jsonp (2.4.0)
     rails-assets-lodash (3.10.1)
     rails-assets-matchHeight (0.6.0)
+    rails-assets-ractive (0.7.3)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -386,6 +387,7 @@ DEPENDENCIES
   rails-assets-jaubourg--jquery-jsonp (~> 2.4.0)!
   rails-assets-lodash (~> 3.0)!
   rails-assets-matchHeight (~> 0.5)!
+  rails-assets-ractive (~> 0.7.3)!
   rails-html-sanitizer (~> 1.0.1)
   rails-i18n
   roadie-rails (~> 1.0.2)

@@ -29,7 +29,7 @@
 #= require jquery.ui.touch-punch
 #= require bootstrap-simple-select
 #= require ractive/ractive
-#= require ractive/ractive-events-keys
+#= require ractive-events-keys
 #= require trunker
 
 #= require_tree ./components
