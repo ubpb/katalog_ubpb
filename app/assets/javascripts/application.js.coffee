@@ -34,7 +34,6 @@
 
 #= require_tree ./components
 #= require_tree ./decorators
-#= require_tree ./utils
 
 #= require ./polyfills/Array_reduce
 

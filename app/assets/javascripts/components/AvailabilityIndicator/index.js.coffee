@@ -1,25 +1,9 @@
 #= require component_helpers
-#= require utils/CssHelper
 #= require polyfills/Array_some
 #= require polyfills/Object_keys
 
 do(app = (window.app ?= {})) ->
   (app.components ?= {}).AvailabilityIndicator = Ractive.extend
-#    _css: (key) ->
-#      debugger
-#      app.Utils.CssHelper.normalize """
-#        border-radius: 10px;
-#        color: white;
-#        padding-left: 5px;
-#        padding-right: 5px;
-#      """ + (
-#        switch key
-#          when "available" then "background-color: rgba(70, 165, 70, 0.8);"
-#          when "not_available" then "background-color: rgba(204, 21, 0, 0.8);"
-#          when "restricted_available" then "background-color: rgba(255, 196, 13, 0.8);"
-#      ) +
-#      if @get("style")? then @get("style") else ""
-
     onconfig: ->
       @set "pending", true
       @["api_v1_record_items_path"] = app.ComponentHelpers.path_helper_factory(@get("api_v1_record_items_path"))
