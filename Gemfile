@@ -45,6 +45,7 @@ source "https://rails-assets.org" do
   gem "rails-assets-matchHeight",            "~> 0.5"
   gem "rails-assets-ractive",                "~> 0.7.3"
   gem "rails-assets-ractive-events-keys",    "~> 0.2.1"
+  gem "rails-assets-urijs",                  "~> 1.16.1" # "~> 1.14.1"
 end
 
 group :production do
