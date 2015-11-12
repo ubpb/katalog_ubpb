@@ -1,4 +1,4 @@
-#= require imagesloaded.pkgd
+#= require imagesloaded/imagesloaded.pkgd
 
 ((window.app ?= {}).components ?= {}).Image = Ractive.extend
   oninit: ->
