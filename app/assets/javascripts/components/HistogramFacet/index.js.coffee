@@ -1,5 +1,4 @@
 #= require component_helpers
-#= require jquery.sparkline
 #= require polyfills/Array_map
 #= require polyfills/Array_reduce
 #= require polyfills/Object_keys

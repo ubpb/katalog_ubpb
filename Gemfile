@@ -39,13 +39,14 @@ gem "skala", github: "ubpb/skala", branch: :master
 # change structure/behaviour within minor version updates.
 #
 source "https://rails-assets.org" do
-  gem "rails-assets-imagesloaded",           "~> 3.2.0"
-  gem "rails-assets-jaubourg--jquery-jsonp", "~> 2.4.0"
-  gem "rails-assets-lodash",                 "~> 3.0"
-  gem "rails-assets-matchHeight",            "~> 0.5"
-  gem "rails-assets-ractive",                "~> 0.7.3"
-  gem "rails-assets-ractive-events-keys",    "~> 0.2.1"
-  gem "rails-assets-urijs",                  "~> 1.16.1" # "~> 1.14.1"
+  gem "rails-assets-imagesloaded",                "~> 3.2.0"
+  gem "rails-assets-jaubourg--jquery-jsonp",      "~> 2.4.0"
+  gem "rails-assets-lodash",                      "~> 3.0"
+  gem "rails-assets-matchHeight",                 "~> 0.5"
+  gem "rails-assets-ractive",                     "~> 0.7.3"
+  gem "rails-assets-ractive-events-keys",         "~> 0.2.1"
+  gem "rails-assets-relayfoods-jquery.sparkline", "~> 2.1.4"
+  gem "rails-assets-urijs",                       "~> 1.16.1" # "~> 1.14.1"
 end
 
 group :production do

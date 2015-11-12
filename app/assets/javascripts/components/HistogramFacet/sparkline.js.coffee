@@ -1,4 +1,4 @@
-#= require jquery.sparkline
+#= require relayfoods-jquery.sparkline/jquery.sparkline
 
 (((window.app ?= {}).components ?= {}).HistogramFacet ?= class).Sparkline = Ractive.extend
   onconstruct: ->
