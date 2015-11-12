@@ -234,6 +234,7 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.4)
       sprockets-rails
+    rails-assets-animate.css (3.4.0)
     rails-assets-eventEmitter (4.3.0)
     rails-assets-eventie (1.0.6)
     rails-assets-imagesloaded (3.2.0)
@@ -386,6 +387,7 @@ DEPENDENCIES
   puma (~> 2.9.0)
   quiet_assets (~> 1.0.3)
   rails (= 4.2.4)
+  rails-assets-animate.css (~> 3.4.0)!
   rails-assets-imagesloaded (~> 3.2.0)!
   rails-assets-jaubourg--jquery-jsonp (~> 2.4.0)!
   rails-assets-lodash (~> 3.0)!
