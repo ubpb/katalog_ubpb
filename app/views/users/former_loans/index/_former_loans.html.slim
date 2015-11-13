@@ -1,0 +1,22 @@
+- if former_loans.blank?
+  .alert.alert-info = t(".no_former_loans")
+- else
+  .table-responsive
+    table.table.table-striped(data-setup="jquery-tablesorter")
+      thead
+        tr
+          th = t(".title")
+          th.text-right(data-sorter="shortDate" data-date-format="ddmmyyyy")
+            = t(".returned_date")
+
+      tbody
+        - former_loans.each do |_former_loan|
+          tr
+            td
+              div: strong = value_or_default(title(_former_loan, record_id: _former_loan.search_engine_record_id, scope: scope))
+              - if (signature = signature(_former_loan, link: true)).present?
+                div = "Signatur: #{signature}".html_safe
+
+            td.text-right = l(_former_loan.returned_date)
+
+  em = "Es werden max. die letzten #{limit} Ausleihvorgänge angezeigt."
