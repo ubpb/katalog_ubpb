@@ -16,10 +16,10 @@
         .alert.alert-success == t(".message_credit", sum_total: number_to_currency(sum_total))
 
       .table-responsive
-        table.table.table-striped
+        table.table.table-striped(data-setup="jquery-tablesorter")
           thead
             tr
-              th = t(".creation_time")
+              th(data-sorter="shortDate" data-date-format="ddmmyyyy") = t(".creation_time")
               th = t(".type")
               th = t(".value")
               th = t(".title")
