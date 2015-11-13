@@ -11,7 +11,7 @@
         .title = title(hit, scope: scope, search_request: search_request)
 
         / Superorder
-        - if (is_part_of = is_part_of(hit, scope: scope, prefix_label: "Teil von: ")).present?
+        - if (is_part_of = is_part_of(hit, scope: scope)).present?
          .is-part-of = is_part_of.html_safe
 
         / Additional record info
