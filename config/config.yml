@@ -78,7 +78,7 @@ common_settings: &common_settings
 
       sortable_fields:
         - "_score"
-        - "short_title_display"
+        - "title_sort"
 
 development: &development
   <<: *common_settings
