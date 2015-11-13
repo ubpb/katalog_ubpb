@@ -6,50 +6,86 @@
 ((window.app ?= {}).components ?= {}).SearchBar = Ractive.extend
   template: """
     <div class="search-bar">
-      {{#each search_request.queries}}
-        <div class="row">
-          <div class="{{#if search_request.queries.length == 1}}col-sm-9{{else}}col-sm-12{{/if}}">
-            <div class="input-group">
-              <input class="form-control query" autocomplete="off" autofocus="" placeholder="Suchbegriff" value="{{query}}" on-keypress="KeypressInSearchInput" />
-              <div class="input-group-btn">
-                <select class="field" decorator="bootstrap_simple_select" value="{{default_field}}">
-                  {{#searchable_fields}}
-                    <option value="{{this[0]}}">{{this[1]}}</option>
-                  {{/searchable_fields}}
-                </select>
+      <div class="visible-sm-block visible-md-block visible-lg-block">
+        {{#each search_request.queries}}
+          <div class="row">
+            <div class="{{#if search_request.queries.length == 1}}col-sm-9{{else}}col-sm-12{{/if}}">
+              <div class="input-group">
+                <input class="form-control query" autocomplete="off" autofocus="" placeholder="Suchbegriff" value="{{query}}" on-keypress="KeypressInSearchInput" />
+                <div class="input-group-btn">
+                  <select class="field" decorator="bootstrap_simple_select" value="{{default_field}}">
+                    {{#searchable_fields}}
+                      <option value="{{this[0]}}">{{this[1]}}</option>
+                    {{/searchable_fields}}
+                  </select>
 
-                <button class="btn btn-default" type="button" on-click="AddQuery">
-                  <i class="fa fa-plus-circle"></i>
-                </button>
+                  <button class="btn btn-default" type="button" on-click="AddQuery">
+                    <i class="fa fa-plus-circle"></i>
+                  </button>
 
-                <button class="btn btn-default {{search_request.queries.length == 1 ? 'disabled' : ''}}" type="button" on-click="RemoveQuery">
-                  <i class="fa fa-minus-circle"></i>
-                </button>
+                  <button class="btn btn-default {{search_request.queries.length == 1 ? 'disabled' : ''}}" type="button" on-click="RemoveQuery">
+                    <i class="fa fa-minus-circle"></i>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
 
-          {{#if search_request.queries.length == 1}}
+            {{#if search_request.queries.length == 1}}
+              <div class="col-sm-3">
+                <button class="btn btn-primary form-control search-button" on-click="SubmitSearchRequest">
+                  <i class="fa fa-search"></i>
+                  {{ t("components.SearchBar.search") }}
+                </button>
+              </div>
+            {{/if}}
+          </div>
+        {{/each}}
+
+        {{#if search_request.queries.length > 1}}
+          <div class="row">
             <div class="col-sm-3">
               <button class="btn btn-primary form-control search-button" on-click="SubmitSearchRequest">
                 <i class="fa fa-search"></i>
                 {{ t("components.SearchBar.search") }}
               </button>
             </div>
-          {{/if}}
-        </div>
-      {{/each}}
-
-      {{#if search_request.queries.length > 1}}
+          </div>
+        {{/if}}
+      </div>
+      <div class="visible-xs">
+        {{#each search_request.queries}}
+          <div class="row">
+            <div class="col-xs-12 searchable-fields">
+              <select class="field" decorator="bootstrap_simple_select" value="{{default_field}}">
+                {{#searchable_fields}}
+                  <option value="{{this[0]}}">{{this[1]}}</option>
+                {{/searchable_fields}}
+              </select>
+            </div>
+            <div class="col-xs-12 query">
+              <input class="form-control" autocomplete="off" autofocus="" placeholder="Suchbegriff" value="{{query}}" on-keypress="KeypressInSearchInput" />
+            </div>
+            <div class="col-xs-12 add-remove-query">
+              <div class="btn-group">
+                <button class="btn btn-default" type="button" on-click="AddQuery">
+                  <i class="fa fa-plus-circle"></i>
+                </button>
+                <button class="btn btn-default {{search_request.queries.length == 1 ? 'disabled' : ''}}" type="button" on-click="RemoveQuery">
+                  <i class="fa fa-minus-circle"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        {{/each}}
         <div class="row">
-          <div class="col-sm-3">
+          <div class="col-xs-12">
             <button class="btn btn-primary form-control search-button" on-click="SubmitSearchRequest">
               <i class="fa fa-search"></i>
               {{ t("components.SearchBar.search") }}
             </button>
           </div>
         </div>
-      {{/if}}
+      </div>
     </div>
   """
   

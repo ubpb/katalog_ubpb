@@ -38,4 +38,46 @@
       text-decoration: none;
     }
   }
+
+  .search-bar {
+    .visible-xs {
+      .btn-group {
+        width: 100%;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .query {
+        input {
+          border-top-style: none;
+        }
+      }
+
+      .add-remove-query {
+        button {
+          border-top-style: none;
+          width: 50%;
+
+          &:first-child {
+            left: 0px;
+          }
+
+          &:last-child {
+            border-left-style: none;
+            right: -1px;
+          }
+        }
+      }
+
+      .search-button {
+        margin-bottom: 0;
+      }
+
+      .row {
+        margin-bottom: $row-gap;
+      }
+    }
+  }
 }
