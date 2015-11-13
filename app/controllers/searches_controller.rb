@@ -1,4 +1,11 @@
 class SearchesController < ApplicationController
+  before_action do
+    if KatalogUbpb::PermalinkTranslator.recognizes?(params)
+      new_params = KatalogUbpb::PermalinkTranslator.translate(params)
+      redirect_to searches_path(new_params)
+    end
+  end
+
   def index
     if (@search_request = search_request_from_params).present?
       @search_result = SearchRecordsService.call(
