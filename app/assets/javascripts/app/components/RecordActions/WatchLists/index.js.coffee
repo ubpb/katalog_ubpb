@@ -1,6 +1,5 @@
-#= require component_helpers
-#= require components/ComboInput
-#= require polyfills/Array_find
+#= require app/components/ComboInput
+#= require app/path_helpers
 
 do(app = (window.app ?= {}), ComboInput = app.components.ComboInput) ->
   ((app.components ?= {}).RecordActions ?= {}).WatchLists = Ractive.extend
@@ -21,9 +20,9 @@ do(app = (window.app ?= {}), ComboInput = app.components.ComboInput) ->
     onconfig: ->
       @_sort_watch_lists()
 
-      @["_api_v1_user_watch_list_entries_path"] = app.ComponentHelpers.path_helper_factory(@get("api_v1_user_watch_list_entries_path"))
-      @["_api_v1_user_watch_list_entry_path"] = app.ComponentHelpers.path_helper_factory(@get("api_v1_user_watch_list_entry_path"))
-      @["_api_v1_user_watch_lists_path"] = app.ComponentHelpers.path_helper_factory(@get("api_v1_user_watch_lists_path"))
+      @["_api_v1_user_watch_list_entries_path"] = app.PathHelpers.path_helper_factory(@get("api_v1_user_watch_list_entries_path"))
+      @["_api_v1_user_watch_list_entry_path"] = app.PathHelpers.path_helper_factory(@get("api_v1_user_watch_list_entry_path"))
+      @["_api_v1_user_watch_lists_path"] = app.PathHelpers.path_helper_factory(@get("api_v1_user_watch_lists_path"))
 
     oninit: ->
       $(window).on "app:user:watch_list:create.#{@_guid}", (event, watch_list) =>

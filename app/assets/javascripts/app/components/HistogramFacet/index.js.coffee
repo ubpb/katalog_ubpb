@@ -1,4 +1,4 @@
-#= require component_helpers
+#= require app/path_helpers
 #= require polyfills/Array_map
 #= require polyfills/Array_reduce
 #= require polyfills/Object_keys
@@ -156,7 +156,7 @@
     search_request.from = undefined # remove from to let server default it
 
   searches_path: (options = {}) ->
-    app.ComponentHelpers.path_helper_factory(@get("searches_path"))(options)
+    app.PathHelpers.path_helper_factory(@get("searches_path"))(options)
 
   submit_search_request: ->
     if @get("current_lower_key") != @get("min_key") || @get("current_upper_key") != @get("max_key")
