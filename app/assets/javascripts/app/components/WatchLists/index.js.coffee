@@ -1,10 +1,10 @@
-#= require component_helpers
+#= require app/path_helpers
 #= require polyfills/Array_find
 
 ((window.App ?= {}).components ?= {}).WatchLists = Ractive.extend
   onconfig: ->
     @set "watch_lists", [] unless @get("watch_lists")
-    @set "user_watch_list_path", app.ComponentHelpers.path_helper_factory(@get("user_watch_list_path"))
+    @set "user_watch_list_path", app.PathHelpers.path_helper_factory(@get("user_watch_list_path"))
     @_sort_watch_lists()
 
   oninit: ->

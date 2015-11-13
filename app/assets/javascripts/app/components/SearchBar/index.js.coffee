@@ -1,4 +1,4 @@
-#= require component_helpers
+#= require app/path_helpers
 #= require polyfills/Array_filter
 #= require polyfills/Array_indexOf
 #= require polyfills/Array_map
@@ -100,7 +100,7 @@
       type: "simple_query_string"
 
   searches_path: (options = {}) ->
-    app.ComponentHelpers.path_helper_factory(@get("searches_path"))(options)
+    app.PathHelpers.path_helper_factory(@get("searches_path"))(options)
 
   remove_query: (query) ->
     queries = @get("search_request.queries")

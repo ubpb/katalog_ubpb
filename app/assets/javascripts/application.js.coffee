@@ -5,6 +5,7 @@
 #= require jquery.turbolinks
 #= require jquery_ujs
 #= require lodash
+#= require polyfills
 
 #
 # turbolinks
@@ -32,10 +33,8 @@
 #= require ractive-events-keys/ractive-events-keys
 #= require trunker
 
-#= require_tree ./components
-#= require_tree ./decorators
-
-#= require ./polyfills/Array_reduce
+#= require ./app/helpers/application_helper
+#= require_tree ./app
 
 Turbolinks?.enableProgressBar()
 

@@ -1,4 +1,4 @@
-#= require component_helpers
+#= require app/path_helpers
 #= require ./term
 
 ((window.app ?= {}).components ?= {}).TermsFacet = Ractive.extend
@@ -79,4 +79,4 @@
   # custom
   #
   searches_path: (options = {}) ->
-    app.ComponentHelpers.path_helper_factory(@get("searches_path"))(options)
+    app.PathHelpers.path_helper_factory(@get("searches_path"))(options)

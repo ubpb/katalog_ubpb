@@ -1,6 +1,6 @@
 #= require urijs/URI
 
-(window.app ?= {}).ComponentHelpers = class
+(window.app ?= {}).PathHelpers = class
   @path_helper_factory: (path) ->
     (path_arguments..., options = {}) ->
       unless typeof(options) == "object"
@@ -32,9 +32,3 @@
         [non_query_part, query_part].join("?")
       else
         non_query_part
-
-
-# Register some Ractive helpers
-helpers = Ractive.defaults.data
-helpers.t = (path, options = {})->
-  I18n.t(path, options)

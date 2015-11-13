@@ -1,4 +1,4 @@
-#= require component_helpers
+#= require app/path_helpers
 #= require ./Note
 #= require ./WatchLists
 
@@ -13,7 +13,7 @@ do(
       WatchLists: WatchLists
 
     onconfig: ->
-      @["_api_v1_record_path"] = app.ComponentHelpers.path_helper_factory(@get("api_v1_record_path"))
+      @["_api_v1_record_path"] = app.PathHelpers.path_helper_factory(@get("api_v1_record_path"))
 
     computed:
       bibtex_path: -> @_api_v1_record_path(@get("record.id"), download: true, format: "bibtex", scope: @get("scope.id"))

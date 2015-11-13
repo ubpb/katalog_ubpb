@@ -1,4 +1,4 @@
-#= require component_helpers
+#= require app/path_helpers
 
 ((window.app ?= {}).components ?= {}).SortFieldSelect = Ractive.extend
   template: """
@@ -34,4 +34,4 @@
   # custom
   #
   searches_path: (options = {}) ->
-    app.ComponentHelpers.path_helper_factory(@get("searches_path"))(options)
+    app.PathHelpers.path_helper_factory(@get("searches_path"))(options)
