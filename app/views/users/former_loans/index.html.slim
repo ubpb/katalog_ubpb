@@ -3,28 +3,4 @@
     h3.panel-title = t("actions.users.former_loans#index")
 
   .panel-body
-    - if @former_loans.blank? || @records_by_id.blank?
-      .alert.alert-info = t(".no_former_loans")
-    - else
-      .table-responsive
-        table.table.table-striped(data-setup="jquery-tablesorter" data-sortlist="[[1,1]]")
-          thead
-            tr
-              th = t(".title")
-              th.text-right = t(".returned_date")
-
-          tbody
-            / TODO: records können nil sein, wenn im Suchindex nicht mehr vorhanden
-            - @former_loans.each do |_former_loan|
-              - _record = @records_by_id[_former_loan.ils_record_id]
-              - if _record.present?
-                tr
-                  td
-                    = link_to value_or_default(title(_record)), record_path(_record.id, scope: @scope)
-                    - if (signature = signature(_record, link: true)).present?
-                      br/
-                      = "Signatur: #{signature}".html_safe
-
-                  td.text-right = l(_former_loan.returned_date)
-
-      em Es werden max. die letzten 250 Ausleihvorgänge angezeigt
+    = async_content :former_loans
