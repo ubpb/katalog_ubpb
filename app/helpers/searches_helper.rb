@@ -258,7 +258,7 @@ module SearchesHelper
   end
 
   def description(record)
-    ensure_array(record.fields["description"]).join("<br/>")#.html_safe
+    ensure_array(record.fields["description"]).map{|d| HTMLEntities.new.encode(d)}.join("<br/>").html_safe
   end
 
   def identifier(record)
@@ -328,7 +328,7 @@ module SearchesHelper
   def local_comments(record)
     add_data = ensure_array(record.fields["additional_data"]).first
     comments = ensure_array(add_data.try(:[], "local_comment"))
-    comments.join("<br/>").html_safe
+    comments.map{|d| HTMLEntities.new.encode(d)}.join("<br/>").html_safe
   end
 
   def source(record)
