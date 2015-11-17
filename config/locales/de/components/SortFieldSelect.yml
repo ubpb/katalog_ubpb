@@ -1,0 +1,6 @@
+de:
+  app:
+    components:
+      SortFieldSelect:
+        asc: absteigend
+        desc: aufsteigend

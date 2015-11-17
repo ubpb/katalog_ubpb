@@ -77,8 +77,13 @@ common_settings: &common_settings
         - "ht_number"
 
       sortable_fields:
-        - "_score"
-        - "title_sort"
+        - creator_contributor_facet
+        - creationdate_facet
+        - _score
+        - notation_sort
+        - title_sort
+        #- volume_count_sort: asc
+        #- volume_count_sort: desc
 
 development: &development
   <<: *common_settings

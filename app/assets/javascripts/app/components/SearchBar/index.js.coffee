@@ -150,5 +150,5 @@
       element["query"].match(/\S/)?
 
     if queries.length > 0
-      path = @searches_path(search_request: { queries: queries })
+      path = @searches_path(search_request: { queries: queries, sort: [{field: "_score"}] })
       if Turbolinks? then Turbolinks.visit(path) else window.location.href = path
