@@ -1,4 +1,5 @@
 class DeleteUserHoldRequestService < Servizio::Service
+  include InstrumentedService
   include UserRelatedService
 
   attr_accessor :adapter

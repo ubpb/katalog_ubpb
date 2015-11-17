@@ -1,4 +1,5 @@
 class UpdateUserEmailAddressService < Servizio::Service
+  include InstrumentedService
   include UserRelatedService # @provides #ilsuserid, #user
 
   attr_accessor :adapter

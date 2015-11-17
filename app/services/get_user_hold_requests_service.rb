@@ -1,5 +1,6 @@
 class GetUserHoldRequestsService < Servizio::Service
   include CachingService
+  include InstrumentedService
   include UserRelatedService
 
   attr_accessor :adapter

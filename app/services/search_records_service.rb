@@ -1,4 +1,6 @@
 class SearchRecordsService < Servizio::Service
+  include InstrumentedService
+
   attr_accessor :adapter
   attr_accessor :facets
   attr_accessor :search_request

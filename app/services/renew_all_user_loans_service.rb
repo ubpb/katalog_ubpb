@@ -1,4 +1,5 @@
 class RenewAllUserLoansService < Servizio::Service
+  include InstrumentedService
   include UserRelatedService
 
   attr_accessor :adapter
@@ -9,7 +10,8 @@ class RenewAllUserLoansService < Servizio::Service
   def call
     user_loans = GetUserLoansService.call(
       adapter: adapter,
-      ils_user_id: ils_user_id
+      ils_user_id: ils_user_id,
+      parents: parents << self.class
     )
 
     if user_loans.blank?

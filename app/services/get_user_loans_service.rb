@@ -1,5 +1,6 @@
 class GetUserLoansService < Servizio::Service
   include CachingService
+  include InstrumentedService
   include UserRelatedService
 
   attr_accessor :ils_adapter
@@ -16,6 +17,7 @@ class GetUserLoansService < Servizio::Service
       if _loans.present? && search_engine_adapter
         search_result = SearchRecordsService.call(
           adapter: search_engine_adapter,
+          parents: parents << self.class,
           search_request: Skala::SearchRequest.new(
             queries: [
               {

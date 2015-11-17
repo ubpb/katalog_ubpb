@@ -1,4 +1,6 @@
 class AuthenticateUserService < Servizio::Service
+  include InstrumentedService
+
   attr_accessor :adapter
   attr_accessor :username
   attr_accessor :password
