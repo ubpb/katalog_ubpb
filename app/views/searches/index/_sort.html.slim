@@ -1,4 +1,6 @@
-.sort
+- html ||= {}
+
+.sort(class="#{html[:class]}")
   =< ractive_component "app.components.SortFieldSelect",
     search_request: search_request,
     searches_path: searches_path(scope: scope),

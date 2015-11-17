@@ -1,10 +1,9 @@
 #hits {
   .pagination {
-    display: block;
-    text-align: right;
-
     @media (max-width: $screen-sm-min) {
       text-align: left;
+      width: 100%;
+
       .btn-group {
         display: table;
         width: 100%;
@@ -21,7 +20,7 @@
 
   .sort {
     @media (max-width: $screen-sm-min) {
-      margin-bottom: $line-height-computed / 2;
+      width: 100%;
 
       .btn-group {
         width: 100%;
