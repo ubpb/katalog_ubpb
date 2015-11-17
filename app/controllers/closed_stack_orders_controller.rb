@@ -100,7 +100,7 @@ class ClosedStackOrdersController < ApplicationController
 
   def create
     if @m1 == "BYH1141" && @k1.blank?
-      flash.now[:error] = "ACHTUNG!!! Sie bestellen gerade ein Mikrofiche. In diesem Fall tragen Sie bitte unbedingt den geünschten Titel des Werkes ein."
+      flash.now[:error] = "ACHTUNG!!! Sie bestellen gerade einen Mikrofiche. In diesem Fall tragen Sie bitte unbedingt den gewünschten Titel des Werkes ein."
       return render action: :new
     end
 
