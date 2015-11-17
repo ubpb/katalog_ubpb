@@ -1,8 +1,7 @@
 class SearchesController < ApplicationController
   before_action do
-    if KatalogUbpb::PermalinkTranslator.recognizes?(params)
-      new_params = KatalogUbpb::PermalinkTranslator.translate(params)
-      redirect_to searches_path(new_params)
+    if former_catalog_search?
+      redirect_to_translated_searches_path
     end
   end
 
@@ -28,5 +27,26 @@ class SearchesController < ApplicationController
   rescue Skala::Adapter::BadRequestError
     flash.now[:error] = t(".bad_request_error")
     render
+  end
+
+  # only for compatibility with former implementation
+  def show
+    if (search = Search.find_by_hashed_id(params[:id])) && former_catalog_search?(query = search.query)
+      redirect_to_translated_searches_path(query)
+    else
+      redirect_to searches_path
+    end
+  end
+
+  private
+
+  def former_catalog_search?(params = self.params)
+    KatalogUbpb::PermalinkTranslator.recognizes?(params)
+  end
+
+  def redirect_to_translated_searches_path(params = self.params)
+    new_params = KatalogUbpb::PermalinkTranslator.translate(params)
+    flash[:notice] = t(".redirected_from_old_permalink")
+    redirect_to searches_path(new_params)
   end
 end

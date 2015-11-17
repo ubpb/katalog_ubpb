@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :closed_stack_orders, only: [:new, :create], path: 'cso'
   resource  :homepage, only: [:show]
   resources :records, only: [:show]
-  resources :searches, only: [:index]
+  resources :searches, only: [:index, :show] # :show only for compatibility with former catalog
 
   resource :session, only: [:create, :destroy, :new] do
     resource :local, only: [:update]

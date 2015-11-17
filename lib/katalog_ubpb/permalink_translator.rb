@@ -7,9 +7,7 @@ class KatalogUbpb::PermalinkTranslator
     {
       scope: scope(params),
       search_request: search_request(params).to_json
-    }.tap do |_r|
-      binding.pry
-    end
+    }
   end
 
   def self.scope(params)
@@ -23,9 +21,8 @@ class KatalogUbpb::PermalinkTranslator
     {
       # facet_queries: facet_queries(params),
       queries: queries(params),
-    }.compact.tap do |_r|
-      binding.pry
-    end
+    }
+    .compact
   end
 
 =begin
@@ -58,7 +55,7 @@ class KatalogUbpb::PermalinkTranslator
     when "lsr15"   then "notation"
     when "lsr05"   then "ht_number"
     when "tlevel"  then "materialtyp_facet"
-    else binding.pry
+    else index_field
     end
   end
 
@@ -78,7 +75,8 @@ class KatalogUbpb::PermalinkTranslator
           end,
           query: _query_term["q"]
         }
-      end.compact
+      end
+      .compact
     end
   end
 end
