@@ -3,14 +3,15 @@
     .panel-heading.panel-cutoffcorner
       .row
         .col-sm-6
-          = render "searches/index/sort",
-            scope: scope,
-            search_request: search_request
-        .col-sm-6
           = render "searches/index/pagination",
             scope: scope,
             search_request: search_request,
             search_result: search_result
+        .col-sm-6
+          = render "searches/index/sort",
+            html: { class: "pull-right" },
+            scope: scope,
+            search_request: search_request
 
     .panel-body
       = render partial: "searches/index/hit",\
@@ -26,9 +27,8 @@
     .panel-footer
       .row
         .col-sm-12
-          .pull-right
-            = render "searches/index/pagination",
-              scope: scope,
-              search_request: search_request,
-              search_result: search_result
+          = render "searches/index/pagination",
+            scope: scope,
+            search_request: search_request,
+            search_result: search_result
 
