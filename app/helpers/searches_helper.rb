@@ -311,8 +311,6 @@ module SearchesHelper
         end.join.html_safe
       end
     end
-  rescue
-    binding.pry
   end
 
   def subject(record, link:false, scope:nil)
