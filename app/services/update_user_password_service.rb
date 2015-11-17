@@ -1,5 +1,6 @@
 class UpdateUserPasswordService < Servizio::Service
   include DistinctnessValidator # @provides .validates_distinctness_of
+  include InstrumentedService
   include UserRelatedService    # @provides #ilsuserid
 
   attr_accessor :adapter
@@ -26,7 +27,7 @@ class UpdateUserPasswordService < Servizio::Service
   private
   #
   def current_password_is_correct
-    unless AuthenticateUserService.call(adapter: adapter, username: ilsuserid, password: current_password)
+    unless AuthenticateUserService.call(adapter: adapter, username: ilsuserid, password: current_password, parents: parents << self.class)
       errors.add(:current_password, :must_be_correct)
     end
   end

@@ -1,4 +1,6 @@
 class GetRecordItemsService < Servizio::Service
+  include InstrumentedService
+
   attr_accessor :adapter
   attr_accessor :id
 

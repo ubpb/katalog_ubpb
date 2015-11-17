@@ -1,5 +1,6 @@
 class GetUserCreditsAndDebitsService < Servizio::Service
   include CachingService
+  include InstrumentedService
   include UserRelatedService
 
   attr_accessor :ils_adapter
@@ -19,6 +20,7 @@ class GetUserCreditsAndDebitsService < Servizio::Service
     if (credits.present? || debits.present?) && search_engine_adapter
       search_result = SearchRecordsService.call(
         adapter: search_engine_adapter,
+        parents: parents << self.class,
         search_request: Skala::SearchRequest.new(
           queries: [
             {

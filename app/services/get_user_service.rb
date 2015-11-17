@@ -1,4 +1,6 @@
 class GetUserService < Servizio::Service
+  include InstrumentedService
+
   attr_accessor :adapter
   attr_accessor :id
   attr_accessor :username
