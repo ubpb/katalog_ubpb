@@ -1,21 +1,26 @@
 module ResourceLinksHelper
 
   def resource_links(record, default_link_only: false)
-    links = ensure_array(record.fields["resource_link"])
-    links = LinksFilter.new(links).links
+    is_online_resource = record.fields["materialtyp_facet"] == "online_resource"
+    is_data_storage    = record.fields["materialtyp_facet"] == "data_storage"
 
-    if links.present?
-      if default_link_only || links.size == 1
-        link_to links.first, target: "_blank" do
-          "#{fa_icon "external-link"} Direkt zur Online-Resource".html_safe
-        end
-      else
-        content_tag(:ul) do
-          links.map do |link|
-            content_tag(:li) do
-              link_to link, target: "_blank"
-            end
-          end.join.html_safe
+    if is_online_resource || is_data_storage
+      links = ensure_array(record.fields["resource_link"])
+      links = LinksFilter.new(links).links
+
+      if links.present?
+        if default_link_only || links.size == 1
+          link_to links.first, target: "_blank" do
+            "#{fa_icon "external-link"} Direkt zur Online-Resource".html_safe
+          end
+        else
+          content_tag(:ul) do
+            links.map do |link|
+              content_tag(:li) do
+                link_to link, target: "_blank"
+              end
+            end.join.html_safe
+          end
         end
       end
     end
