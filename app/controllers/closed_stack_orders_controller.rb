@@ -100,7 +100,7 @@ class ClosedStackOrdersController < ApplicationController
 
   def create
     if @m1 == "BYH1141" && @k1.blank?
-      flash.now[:error] = "ACHTUNG!!! Sie bestellen gerade ein Mikrofiche. In diesem Fall tragen Sie bitte unbedingt den geünschten Titel des Werkes ein."
+      flash.now[:error] = "ACHTUNG!!! Sie bestellen gerade einen Mikrofiche. In diesem Fall tragen Sie bitte unbedingt den gewünschten Titel des Werkes ein."
       return render action: :new
     end
 
@@ -126,8 +126,8 @@ class ClosedStackOrdersController < ApplicationController
         when "fehler_nicht_schonwieder" then "Fehler: Diese Bestellung wurde bereits aufgegeben! Bitte erkundigen Sie sich ggf. an der Ortsleihtheke, wann die von Ihnen gewünschte Literatur abholbereit ist."
         when "fehler_bestellangaben"    then "Fehler: Bitte geben Sie die Signatur des gewünschten Exemplares an."
         when "fehler_jahrgang_band"     then "Fehler: Bitte geben Sie den Jahrgang und/oder Nummer des Bandes an."
-        when "fehler_jahr_in_ebene"     then @volume_error = true ; "Fehler: Sie haben einen Jahrgang ab 1987 eingegeben! Diese Zeitschriftenbände finden Sie in der Regel in den Fachbibliotheken. Wenn Sie sicher sind, dass sich der von Ihnen benötigte Band im Magazin befindet, schalten Sie bitte im Eingabeformular die Jahrgangsprüfung aus."
-        when "fehler_jahrgang_falsch"   then "Fehler: Sie haben den Zeitschriftenjahrgang nicht richtig eingegeben! Bitte geben Sie das Jahr vierstellig ein. Bitte beachten Sie dabei: Im Magazin sind nur Jahrgänge bis 1986 untergebracht. Neuere Zeitschriftenbände finden Sie in den Fachbibliotheken."
+        when "fehler_jahr_in_ebene"     then @volume_error = true ; "Fehler: Sie haben einen Jahrgang ab 1986 eingegeben! Diese Zeitschriftenbände finden Sie in der Regel in den Fachbibliotheken. Wenn Sie sicher sind, dass sich der von Ihnen benötigte Band im Magazin befindet, schalten Sie bitte im Eingabeformular die Jahrgangsprüfung aus."
+        when "fehler_jahrgang_falsch"   then "Fehler: Sie haben den Zeitschriftenjahrgang nicht richtig eingegeben! Bitte geben Sie das Jahr vierstellig ein. Bitte beachten Sie dabei: Im Magazin sind nur Jahrgänge bis 1985 untergebracht. Neuere Zeitschriftenbände finden Sie in den Fachbibliotheken."
         else UNDEFINED_ERROR_MESSAGE
       end
 
