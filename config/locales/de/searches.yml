@@ -1,7 +1,10 @@
 de:
   searches:
+    redirected_from_old_permalink: "Das Format der Permalinks hat sich geändert. Bitte aktualisieren Sie Ihren Link auf die aktuelle URL."
+
     index:
       no_records_found: "Es wurden leider keine Ergebnisse gefunden. Bitte versuchen Sie es mit einer anderen Suchanfrage."
+      redirected_from_old_permalink: ~> searches.redirected_from_old_permalink
 
       facets:
         histogram_facet:
@@ -23,3 +26,6 @@ de:
         total_hits:
           one: "%{count} Ergebnis"
           other: "%{count} Ergebnisse"
+
+    show:
+      redirected_from_old_permalink: ~> searches.redirected_from_old_permalink
