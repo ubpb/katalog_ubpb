@@ -134,8 +134,11 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
   end
 
   def set_cso_status!(item, doc)
-    collection = xpath(doc, "./z30/z30-collection")
-    item.must_be_ordered_from_closed_stack = collection.try(:downcase).try(:include?, "magazin")
+    collection         = xpath(doc, "./z30/z30-collection")
+    is_on_closed_stack = collection.try(:downcase).try(:include?, "magazin")
+    is_available       = item.status == :on_shelf || item.status == :reshelving
+
+    item.must_be_ordered_from_closed_stack = is_on_closed_stack && is_available
   end
 
   def add_location!(item, doc)
