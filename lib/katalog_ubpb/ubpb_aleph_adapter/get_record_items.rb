@@ -122,20 +122,23 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
 
   def set_ubpb_specific_status!(item, doc)
     item.status = case xpath(doc, "./status")
-      when /Storniert/      then "cancelled"
-      when /Reklamiert/     then "complained"
-      when /Erwartet/       then "expected"
-      when /In Bearbeitung/ then "in_process"
-      when /Verlust/        then "lost"
-      when /Vermisst/       then "missing"
-      when /Bestellt/       then "on_order"
+      when /Storniert/      then :cancelled
+      when /Reklamiert/     then :complained
+      when /Erwartet/       then :expected
+      when /In Bearbeitung/ then :in_process
+      when /Verlust/        then :lost
+      when /Vermisst/       then :missing
+      when /Bestellt/       then :on_order
       else item.status
     end
   end
 
   def set_cso_status!(item, doc)
-    collection = xpath(doc, "./z30/z30-collection")
-    item.must_be_ordered_from_closed_stack = collection.try(:downcase).try(:include?, "magazin")
+    collection         = xpath(doc, "./z30/z30-collection")
+    is_on_closed_stack = collection.try(:downcase).try(:include?, "magazin")
+    is_available       = item.status == :on_shelf || item.status == :reshelving
+
+    item.must_be_ordered_from_closed_stack = is_on_closed_stack && is_available
   end
 
   def add_location!(item, doc)
