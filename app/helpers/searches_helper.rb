@@ -74,14 +74,15 @@ module SearchesHelper
     link_to_new_search(subject, scope: scope, default_field: "subject_search")
   end
 
-  def link_to_new_search(query_string, scope:, default_field:, label:nil)
+  def link_to_new_search(query_string, scope:, sort: {field: "_score"}, default_field:, label:nil)
     link_to (label || query_string), searches_path(
       search_request: Skala::SearchRequest.new(
         queries: {
           type: "query_string",
           query: query_string,
           default_field: default_field
-        }
+        },
+        sort: sort
       ),
       scope: scope.id
     )
