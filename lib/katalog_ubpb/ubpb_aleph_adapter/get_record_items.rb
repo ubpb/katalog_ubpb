@@ -134,8 +134,8 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
   end
 
   def set_cso_status!(item, doc)
-    collection_code = xpath(doc, "./z30/z30-collection")
-    item.must_be_ordered_from_closed_stack = collection_code.try(:downcase).try(:include?, "magazin")
+    collection = xpath(doc, "./z30/z30-collection")
+    item.must_be_ordered_from_closed_stack = collection.try(:downcase).try(:include?, "magazin")
   end
 
   def add_location!(item, doc)
