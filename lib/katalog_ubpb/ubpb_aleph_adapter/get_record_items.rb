@@ -157,7 +157,7 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
         item.location = "Handapparat"
       else
         collection_code = xpath(doc, "./z30-collection-code")
-        notation = xpath(doc, "./z30/z30-call-no").try(:[], /\A[A-Z]{2,3}/)
+        notation = xpath(doc, "./z30/z30-call-no").try(:[], /\A[A-Z]{1,3}/)
 
         if collection_code && notation
           KatalogUbpb::UbpbAlephAdapter::LOCATION_LOOKUP_TABLE.find do |_row|
