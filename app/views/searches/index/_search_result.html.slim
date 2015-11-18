@@ -10,10 +10,13 @@
 
   / if there are no facets, make the search result full width
   div(class="#{search_result.facets.present? ? 'col-md-9 col-md-pull-3' : 'col-md-12'}")
-    = render_relative "./hit_list",
-      search_request: search_request,
-      search_result: search_result,
-      scope: scope
+    - if search_result.hits.present?
+      = render_relative "./hit_list",
+        search_request: search_request,
+        search_result: search_result,
+        scope: scope
+    - else
+      .alert.alert-info = t(".no_hits")
 
 / insert DBS counter pixel
 img(src="//dbspixel.hbz-nrw.de/count?id=AH466&page=2" width="1" height="1" style="display:none;")
