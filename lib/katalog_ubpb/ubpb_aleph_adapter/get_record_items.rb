@@ -122,13 +122,13 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
 
   def set_ubpb_specific_status!(item, doc)
     item.status = case xpath(doc, "./status")
-      when /Storniert/      then "cancelled"
-      when /Reklamiert/     then "complained"
-      when /Erwartet/       then "expected"
-      when /In Bearbeitung/ then "in_process"
-      when /Verlust/        then "lost"
-      when /Vermisst/       then "missing"
-      when /Bestellt/       then "on_order"
+      when /Storniert/      then :cancelled
+      when /Reklamiert/     then :complained
+      when /Erwartet/       then :expected
+      when /In Bearbeitung/ then :in_process
+      when /Verlust/        then :lost
+      when /Vermisst/       then :missing
+      when /Bestellt/       then :on_order
       else item.status
     end
   end
