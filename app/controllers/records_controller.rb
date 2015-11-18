@@ -9,7 +9,6 @@ class RecordsController < ApplicationController
       flash[:search_request] = @search_request.to_h
       return redirect_to(record_path(request.query_parameters.except(:search_request)))
     elsif serialized_search_request = flash[:search_request]
-      flash.keep(:search_request)
       @search_request = Skala::SearchRequest.new(serialized_search_request)
     end
 
