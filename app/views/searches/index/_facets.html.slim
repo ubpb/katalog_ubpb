@@ -6,7 +6,9 @@
 
     #facets-collapse.collapse.sidebar-collapse
       - facets.each do |facet|
-        - if facet.is_a?(Skala::SearchResult::TermsFacet) && facet.terms.count > 0
+        - included_in_facet_queries = search_request.facet_queries.try(:any?) { |_facet_query| _facet_query.field == facet.field }
+
+        - if facet.is_a?(Skala::SearchResult::TermsFacet) && (facet.terms.count > 0 || included_in_facet_queries)
           = ractive_component "app.components.TermsFacet",
             facet: facet,
             search_request: search_request,

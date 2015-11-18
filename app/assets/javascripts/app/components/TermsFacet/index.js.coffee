@@ -4,7 +4,7 @@
 ((window.app ?= {}).components ?= {}).TermsFacet = Ractive.extend
   template: """
     {{#facet}}
-      <div class="facet term-facet {{name}}">
+      <div class="facet facet-terms {{name}}">
         <div class="panel panel-primary">
           <div class="panel-heading panel-cutoffcorner">
             <h3 class="panel-title">
@@ -14,27 +14,12 @@
 
           <div class="panel-body">
             <ul class="nav nav-pills nav-stacked">
+              {{#excluded_terms}}
+                <Term></Term>
+              {{/excluded_terms}}
               {{#terms:index}}
                 {{#if !is_collapsed || index < collapse_threshold}}
-                  <Term>
-                    <li class="term">
-                      {{#if selected_by_search_request}}
-                        <a href="{{remove_term_path}}">
-                          <i class="fa fa-check-square-o"></i>
-                          <div class="label label-info">
-                            {{translated_term}}
-                            {{#if count}}({{count}}){{/if}}
-                          </div>
-                        </a>
-                      {{else}}
-                        <a href="{{include_term_path}}">
-                          <i class="fa fa-square-o"></i>
-                          {{translated_term}}
-                          {{#if count}}({{count}}){{/if}}
-                        </a>
-                      {{/if}}
-                    </li>
-                  </Term>
+                  <Term></Term>
                 {{/if}}
               {{/terms}}
             </ul>
@@ -66,6 +51,10 @@
   computed:
     can_be_collapsed: ->
       @get("facet.terms").length > @get("collapse_threshold")
+
+    excluded_terms: ->
+      selected_facet_queries = _.select(@get("search_request.facet_queries") || [], {field: @get("facet.field"), exclude: true})
+      _.map(selected_facet_queries, (facet_query) -> { term: facet_query["query"] })
 
   data:
     collapse_threshold: 5

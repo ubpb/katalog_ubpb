@@ -5,7 +5,7 @@
 
 .row: .col-sm-12: .search-results
   - if @search_result
-    - if @search_result.hits.present?
+    - if @search_result.hits.present? || @search_request.facet_queries.present?
       = render_relative "./index/search_result",
         search_request: @search_request,
         search_result: @search_result,
