@@ -4,7 +4,10 @@
 #items
   - unless current_user.present?
     .tools
-      = link_to new_session_path(return_to: request.fullpath), class: "btn btn-sm btn-primary" do
+      - if current_action == "records#show" && @record && flash[:search_request]
+        - return_to_path = record_path(@record.id, search_request: Skala::SearchRequest.new(flash[:search_request]))
+
+      = link_to new_session_path(return_to: return_to_path || request.fullpath), class: "btn btn-sm btn-primary" do
         => fa_icon("user")
         = t(".login_button")
   - else

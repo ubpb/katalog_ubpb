@@ -4,8 +4,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   # before filters
-  before_action -> { flash.keep(:search_request) }
-
   before_filter :set_title_addition
   before_filter :set_robots_tag
   before_filter :capture_return_path
