@@ -8,7 +8,7 @@ nav.navbar.navbar-default(role="navigation")
 
   .collapse.navbar-collapse#navbar-collapse
     .myaccount.navbar-right
-      = link_to user_path, class: "btn btn-primary navbar-btn" do
+      = link_to user_path(return_to: request.fullpath), class: "btn btn-primary navbar-btn" do
         => fa_icon("user lg")
         - if current_user
           = current_user.name
