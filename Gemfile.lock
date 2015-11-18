@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ubpb/skala.git
-  revision: 4d39432b43c2d73d25c18780dfb78e70ccae8d29
+  revision: 1638fafbb4f784d91e5752115f9e7584a95f69b8
   branch: master
   specs:
     skala (1.0.0)
@@ -183,7 +183,7 @@ GEM
     mighty_tap (0.5.0)
     mime-types (2.6.2)
     mini_portile (0.6.2)
-    minitest (5.8.2)
+    minitest (5.8.3)
     multi_json (1.11.2)
     multipart-post (2.0.0)
     mysql2 (0.3.20)
@@ -265,9 +265,9 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
-    roadie (3.0.5)
+    roadie (3.1.0)
       css_parser (~> 1.3.4)
-      nokogiri (~> 1.6.0)
+      nokogiri (>= 1.5.0, < 1.7.0)
     roadie-rails (1.0.6)
       railties (>= 3.0, < 4.3)
       roadie (~> 3.0)
