@@ -16,7 +16,7 @@ class Users::FormerLoansController < UsersController
         user: current_user,
       )
 
-      @former_loans = @former_loans.sort_by(&:due_date)
+      @former_loans = @former_loans.sort_by(&:returned_date).reverse
       @scope = current_scope
     end
   end
