@@ -64,12 +64,12 @@ group :development do
 end
 
 group :development, :test do
-  gem "pry",                "~> 0.9.12.6"
-  gem "pry-byebug",         "<= 1.3.2"
-  gem "pry-rails",          "~> 0.3.2"
-  gem "pry-rescue",         "~> 1.4.1"
-  gem "pry-stack_explorer", "~> 0.4.9.1"
-  gem "pry-syntax-hacks",   "~> 0.0.6"
+  gem "pry",                "~> 0.10.3"
+  gem "pry-byebug",         "~> 3.3.0"
+  gem "pry-rails",          "~> 0.3.4"
+  gem "pry-rescue",         "~> 1.4.2"
+  gem "pry-state",          "~> 0.1.7"
+
   gem "puma",               "~> 2.9.0"
   gem "quiet_assets",       "~> 1.0.3"
   gem "rspec-rails",        "~> 3.1.0"
