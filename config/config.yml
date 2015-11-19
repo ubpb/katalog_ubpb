@@ -78,7 +78,8 @@ common_settings: &common_settings
 
       sortable_fields:
         - creator_contributor_facet
-        - creationdate_facet
+        - creationdate_facet: asc
+        - creationdate_facet: desc
         - _score
         - notation_sort
         - title_sort
