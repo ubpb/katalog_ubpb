@@ -10,7 +10,11 @@ module ItemHelper
     when /imt.+medien/i
       link_to location, "http://imt.uni-paderborn.de/servicecenter-medien/", target: "_blank"
     when /handapparat/i
-      link_to location, "#", rel: "popover", "data-content" => "Dieses Medium steht in einem Handapparat. Besitzt die Universitätsbibliothek kein weiteres Exemplar dieses Titels, können Sie sich im Bedarfsfall an das Informationszentrum wenden.", "data-original-title" => "Handapparat", "data-placement" => "top"
+      info = content_tag :span, "class" => "question-circle", "data-toggle" => "tooltip", "title" => "Dieses Medium steht in einem Handapparat. Besitzt die Universitätsbibliothek kein weiteres Exemplar dieses Titels, können Sie sich im Bedarfsfall an das Informationszentrum wenden.", "data-original-title" => "Handapparat", "data-placement" => "top" do
+        fa_icon("question-circle")
+      end
+
+      "#{location} #{info}".html_safe
     else
       location
     end
