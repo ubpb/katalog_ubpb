@@ -42,6 +42,10 @@ $(document).ready ->
   $("div[data-async-content] form").submit()
 
 $(document).ready ->
+  $('[data-toggle="popover"]').popover()
+  $('[data-toggle="tooltip"]').tooltip()
+
+$(document).ready ->
   $("[data-decorator]").each (index, el) ->
     unless $(el).data("decorator-processed")
       decorator_class = $(el)
