@@ -3,7 +3,7 @@ de:
     hold_requests:
       create:
         already_requested: Sie haben diesen Titel bereits vorgemerkt.
-        failed: Beim Versuch die Vormerkung anzulegen ist ein Fehler aufgetreten.
+        failed: "Die Vormerkung konnte nicht durchgeführt werden. Möglicherweise haben Sie bereits eine Vormerkung auf diesen Titel oder Sie haben den Titel entliehen. Sie können den Status Ihrer Vormerkungen unter 'Mein Bibliothekskonto' einsehen."
         succeeded: Die Vormerkung wurde gelöscht.
 
       destroy:
