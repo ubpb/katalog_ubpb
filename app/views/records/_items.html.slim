@@ -72,7 +72,7 @@
                   = item.due_date ? l(item.due_date) : "–"
 
                 - if has_note
-                  td = ensure_array(item.note).join("<br/>")
+                  td == ensure_array(item.note).join("<br/>")
 
                 - if has_cso
                   td
