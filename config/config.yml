@@ -10,6 +10,14 @@ common_settings: &common_settings
       scope: "local"
 
   search_engine_adapter:
+    primo_central_adapter:
+      class_name: "Skala::PrimoAdapter"
+      options:
+        institution: "PAD"
+        languages: ["ger", "eng"]
+        locations: [{ type: "adaptor", value: "primo_central_multiple_fe" }]
+        soap_api_url: "http://primo.kobv.de/primo_library/libweb/webservices/services/searcher"
+
     ubpb_elasticsearch_adapter:
       class_name: "KatalogUbpb::UbpbElasticsearchAdapter"
       options:
@@ -87,6 +95,20 @@ common_settings: &common_settings
         - volume_count_sort: asc
         - volume_count_sort: desc
         - cataloging_date: desc
+
+    primo_central:
+      search_engine_adapter: "primo_central_adapter"
+      facets:
+        - name: "tlevel"
+          type: "terms"
+          field: "facet_tlevel"
+          i18n_key: "facet_tlevel"
+
+      searchable_fields:
+        - "any"
+
+      sortable_fields:
+        - "relevance"
 
 development: &development
   <<: *common_settings
