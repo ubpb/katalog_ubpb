@@ -8,6 +8,7 @@
   .panel.panel-default
     .panel-body.panel-cutoffcorner
       = ractive_component "app.components.SearchBar",
+        default_sort: [{field: scope.sortable_fields.first }],
         search_request: search_request,
         searchable_fields: scope.searchable_fields.map { |_fieldname| [_fieldname, t("searchable_fields.#{scope.id}.#{_fieldname}", default: _fieldname)]},
         searches_path: searches_path(scope: current_scope)
