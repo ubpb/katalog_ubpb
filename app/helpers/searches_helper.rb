@@ -170,11 +170,11 @@ module SearchesHelper
 
 
   def is_journal?(record)
-    record.fields["erscheinungsform"] == "journal"
+    record.fields["erscheinungsform_facet"] == "journal"
   end
 
   def is_online_resource?(record)
-    record.fields["materialtyp"] == "online_resource"
+    record.fields["materialtyp_facet"] == "online_resource"
   end
 
   def show_availability?(record)
