@@ -2,7 +2,7 @@
 
 .sort(class="#{html[:class]}")
   =< ractive_component "app.components.SortFieldSelect",
-    i18n_key: scope.search_engine_adapter.i18n_key,
+    i18n_key: "sortable_fields.#{scope.id}",
     search_request: search_request,
     searches_path: searches_path(scope: scope),
     sortable_fields: scope.sortable_fields

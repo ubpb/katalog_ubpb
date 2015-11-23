@@ -1,0 +1,10 @@
+de:
+  sortable_fields:
+    local:
+      creator_contributor_facet: Autor/Herausgeber
+      creationdate_facet: Erscheinungsjahr
+      _score: Relevanz
+      notation_sort: Systemstelle
+      title_sort: Titel
+      volume_count_sort: Bandzählung
+      cataloging_date: Neuerwerbung
