@@ -75,6 +75,7 @@ common_settings: &common_settings
         - "signature_search"
         - "notation"
         - "ht_number"
+        - "superorder"
 
       sortable_fields:
         - creator_contributor_facet
