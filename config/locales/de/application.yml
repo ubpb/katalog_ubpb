@@ -1,3 +1,11 @@
+#
+# Change this comment to allow i18n.js to see new translations files on deploy.
+#
+# @see: https://github.com/fnando/i18n-js/issues/213
+# @see: https://github.com/fnando/i18n-js#missing-translations-in-precompiled-files-after-adding-any-new-locale-file
+#
+# ....
+#
 de:
   application:
     navbar:
