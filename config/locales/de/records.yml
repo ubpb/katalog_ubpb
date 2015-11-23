@@ -23,4 +23,5 @@ de:
         on_shelf: Nicht entliehen
         reshelving: Wird zurückgestellt
         expected: Erwartet zum %{expected_date}
+        unknown: –
 
