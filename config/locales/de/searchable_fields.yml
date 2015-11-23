@@ -1,15 +1,16 @@
 de:
   searchable_fields:
-    _all: Alle Felder
-    creator_contributor_search: Autor/Herausgeber
-    title_search: Titel
-    subject_search: Schlagwort
-    publisher: Verlag
-    toc: Inhaltsverzeichnis
-    creationdate_search: Erscheinungsjahr
-    isbn_search: ISBN
-    issn: ISSN
-    signature_search: Signatur
-    notation: Systemstelle
-    ht_number: HT-Nummer des Bandes
-    superorder: HT-Nummer der Überordnung
+    local:
+      _all: Alle Felder
+      creator_contributor_search: Autor/Herausgeber
+      title_search: Titel
+      subject_search: Schlagwort
+      publisher: Verlag
+      toc: Inhaltsverzeichnis
+      creationdate_search: Erscheinungsjahr
+      isbn_search: ISBN
+      issn: ISSN
+      signature_search: Signatur
+      notation: Systemstelle
+      ht_number: HT-Nummer des Bandes
+      superorder: HT-Nummer der Überordnung
