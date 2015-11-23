@@ -36,7 +36,8 @@
         table.table.table-striped
           thead
             tr
-              th
+              - if show_availability?(record)
+                th
               th = t(".signature")
               th = t(".item_status")
               th = t(".location")
@@ -50,14 +51,15 @@
           tbody
             - items.each do |item|
               tr
-                - if item.availability == :available
-                  td.state.available
-                - elsif item.availability == :restricted_available
-                  td.state.restricted-available
-                - elsif item.availability == :not_available
-                  td.state.not-available
-                - else # maybe there are no availability informations at all
-                  td.state.unknown
+                - if show_availability?(record)
+                  - if item.availability == :available
+                    td.state.available
+                  - elsif item.availability == :restricted_available
+                    td.state.restricted-available
+                  - elsif item.availability == :not_available
+                    td.state.not-available
+                  - else # maybe there are no availability informations at all
+                    td.state.unknown
 
                 td
                   / FIXME: Build an OpenStruct to fake fields API with so we can reuse the signature helper
