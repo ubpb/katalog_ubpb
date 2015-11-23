@@ -18,7 +18,8 @@
 /tmp
 
 # dotenv
-.env*
+/.env*
 
-public/assets/**/*
-public/javascripts/translations.js
+# Assets
+/public/assets/**/*
+/public/javascripts/translations.js
