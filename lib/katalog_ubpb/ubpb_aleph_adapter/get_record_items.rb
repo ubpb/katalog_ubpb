@@ -101,9 +101,9 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
 
   def add_signature!(item, doc)
     item.signature ||= begin
-      if z30_call_no = xpath(doc, "./z30/z30-call-no").try(:sub, /\A\//, "").try(:[], /\A\d+\w\d+\Z/)
+      if z30_call_no = xpath(doc, "./z30/z30-call-no").try(:sub, /\A\//, "").try(:[], /\A\d+\w[\d\w-]+\Z/)
         collection_code = xpath(doc, "./z30-collection-code")
-        item.signature = [collection_code ? "P#{collection_code}" : nil, z30_call_no.downcase].compact.join("/")
+        item.signature = [collection_code ? "P#{collection_code}" : nil, z30_call_no].compact.join("/")
       else
         xpath(doc, "./z30/z30-call-no")
       end
