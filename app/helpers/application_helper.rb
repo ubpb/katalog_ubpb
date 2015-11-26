@@ -1,6 +1,4 @@
-
 module ApplicationHelper
-  include FontAwesome::Rails::IconHelper
 
   def async_content(identifier)
     content_tag(:div, class: "async-content-placeholder", "data-async-content" => identifier, style: "text-align: center") do
@@ -22,10 +20,6 @@ module ApplicationHelper
       else
         "alert #{type.to_s}"
     end
-  end
-
-  def ensure_array(value)
-    [value].flatten(1).compact
   end
 
   def javascript_event_handler(event_name)
