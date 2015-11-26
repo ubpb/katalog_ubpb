@@ -11,6 +11,9 @@ module JournalHelper
       # check if the holdings statement includes a year < 1986
       has_holdings_statement_before_1986 = (cleaned_journal_holdings.map { |journal_holding| journal_holding.scan(/\d\d\d\d/) }.flatten.min.try(:<, '1986').try(:==, true))
 
+      # extend infos to open intervals
+      cleaned_journal_holdings.map!{|h| h.strip! ; (h =~ /\-\Z/) ? "#{h} heute" : h}
+
       # location number
       journal_location_code = journal_location_code(record)
 
