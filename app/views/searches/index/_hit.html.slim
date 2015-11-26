@@ -29,7 +29,7 @@
               record_id: hit.record.id,
               scope_id: scope.id
 
-          - if (signature = signature(hit.record.signature, link: true)).present?
+          - if (signature = signature(hit.record, link: true)).present?
             span.signature = "Signatur: #{signature}".html_safe
 
         / Link to online resource
