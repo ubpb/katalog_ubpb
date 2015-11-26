@@ -1,5 +1,6 @@
 .pagination
   .btn-group(role="group")
     = link_to_previous_page(scope, search_request)
-    = page_stats(scope, search_request, search_result.total_hits)
+    = link_to_page(scope, search_request, 0) do
+      = page_stats(scope, search_request, search_result.total_hits)
     = link_to_next_page(scope, search_request, search_result.total_hits)

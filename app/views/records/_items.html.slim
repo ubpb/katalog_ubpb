@@ -62,8 +62,7 @@
                     td.state.unknown
 
                 td
-                  / FIXME: Build an OpenStruct to fake fields API with so we can reuse the signature helper
-                  = value_or_default(signature(item.signature, link: true))
+                  = value_or_default(signature(item))
                 td
                   = value_or_default(item.item_status)
                 td
@@ -74,7 +73,7 @@
                   = item.due_date ? l(item.due_date) : "–"
 
                 - if has_note
-                  td == ensure_array(item.note).join("<br/>")
+                  td == note(item)
 
                 - if has_cso
                   td

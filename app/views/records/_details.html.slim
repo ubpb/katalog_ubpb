@@ -46,9 +46,9 @@
         dt = "Quelle"
         dd.source = source
 
-      - if (local_comments = local_comments(record)).present?
+      - if (note = note(record)).present?
         dt = "Kommentare"
-        dd.local_comments = local_comments
+        dd.note = note
 
 .row
   .col-sm-6
@@ -81,7 +81,7 @@
       dd.toc = value_or_default(notations(record, link: true, scope: scope))
 
       dt = "Signatur"
-      dd.toc = value_or_default(signature(record.signature, link: true))
+      dd.toc = value_or_default(signature(record, link: true))
 
       / TODO
       dt = "Externer Link"
