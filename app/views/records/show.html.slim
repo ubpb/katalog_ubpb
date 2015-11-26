@@ -9,10 +9,10 @@
         li.active
           a(href="#record-details-tab" data-toggle="tab")
             | Details
-            - if show_availability?(@record)
+            - if show_availability?(@document.id, @record)
               =< ractive_component "app.components.AvailabilityIndicator",
                 api_v1_record_items_path: api_v1_record_items_path(":record_id"),
-                record_id: @record.fields["id"],
+                record_id: @record.id,
                 scope_id: @scope.id
 
       .tab-content

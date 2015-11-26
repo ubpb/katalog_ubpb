@@ -16,12 +16,8 @@
         dt = "Auflage"
         dd.edition = edition
 
-      - if (place_of_publication = place_of_publication(record)).present?
-        dt = "Erscheinungsort"
-        dd.place = place_of_publication
-
       - if (publisher = publisher(record)).present?
-        dt = "Verlag"
+        dt = "Ort / Verlag"
         dd.publisher = publisher
 
       - if (date_of_publication = date_of_publication(record)).present?
@@ -85,7 +81,7 @@
       dd.toc = value_or_default(notations(record, link: true, scope: scope))
 
       dt = "Signatur"
-      dd.toc = value_or_default(signature(record, link: true))
+      dd.toc = value_or_default(signature(record.signature, link: true))
 
       / TODO
       dt = "Externer Link"

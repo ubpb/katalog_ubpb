@@ -13,10 +13,12 @@ class RecordsController < ApplicationController
       @search_request = Skala::SearchRequest.new(serialized_search_request)
     end
 
-    @record = GetRecordService.call(
+    @document = GetDocumentsService.call(
       adapter: @scope.search_engine_adapter.instance,
-      id: params[:id]
-    )
+      ids: [params[:id]]
+    ).first
+
+    @record = @document.record
 
     unless @record
       flash[:error] = t(".record_unavailable")
@@ -44,7 +46,7 @@ class RecordsController < ApplicationController
       @total_hits = search_result.total_hits
       hits = on_first_page ? [nil].concat(search_result.hits) : search_result.hits
 
-      if index = hits[1..search_result.hits.length].find_index { |_hit| _hit.id == @record.id }
+      if index = hits[1..search_result.hits.length].find_index { |_hit| _hit.id == @document.id }
         @position_within_search_result = index + @search_request.from
 
         @predecessor = hits[index + offset - 1]
@@ -66,8 +68,6 @@ class RecordsController < ApplicationController
       end
     end
 
-    record_id = @record.fields["id"]
-
     #
     # Items, hold requests, ...
     #
@@ -75,6 +75,7 @@ class RecordsController < ApplicationController
     #
 
     # Load all items for the current record
+    record_id = @record.id
     @items = items(record_id)
 
     if current_user

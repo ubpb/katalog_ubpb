@@ -1,39 +1,39 @@
-.hit
+.hit.record
   .row
     .col-sm-12
       .image
         = ractive_component "app.components.Image",
           placeholder: image_tag("record-print-lg.png"),
-          src: amazon_image_url(hit)
+          src: amazon_image_url(hit.record)
 
       .metadata
         / Title
-        .title = title(hit, scope: scope, search_request: search_request)
+        .title = title(hit.record, hit_id: hit.id, scope: scope, search_request: search_request)
 
         / Superorder
-        - if (is_part_of = is_part_of(hit, scope: scope)).present?
+        - if (is_part_of = is_part_of(hit.record, scope: scope)).present?
          .is-part-of = is_part_of.html_safe
 
         / Additional record info
-        - if (info = additional_record_info(hit)).present?
+        - if (info = additional_record_info(hit.record)).present?
           .additional-info = info
 
-        - if journal_holdings = journal_holdings(hit)
+        - if journal_holdings = journal_holdings(hit.record)
           .journal-holdings = "Bestand UB: #{journal_holdings}"
 
         / Status
         .status
-          - if show_availability?(hit)
+          - if show_availability?(hit.id, hit.record)
             => ractive_component "app.components.AvailabilityIndicator",
               api_v1_record_items_path: api_v1_record_items_path(":record_id"),
-              record_id: hit.fields["id"],
+              record_id: hit.record.id,
               scope_id: scope.id
 
-          - if (signature = signature(hit, link: true)).present?
+          - if (signature = signature(hit.record.signature, link: true)).present?
             span.signature = "Signatur: #{signature}".html_safe
 
         / Link to online resource
-        - if (links = resource_links(hit, default_link_only: true))
+        - if (links = resource_links(hit.record, default_link_only: true))
           .link_to_resource
             = links
             = vpn_info
@@ -41,13 +41,13 @@
 
 /     /= ractive_component "app.components.Note",
 /       note: @notes.try(:find) { |_note| \
-/         _note.record_id == hit.id\
+/         _note.record_id == hit.record.id\
 /       },\
-/       record: { id: hit.id },
+/       record: { id: hit.record.id },
 /       translations: I18n.config.backend.send(:translations)[current_locale][:components][:Note]
 
 /     /= ractive_component "app.components.WatchLists",
-/       record: { id: hit.id },
+/       record: { id: hit.record.id },
 /       user_watch_list_path: user_watch_list_path(":id"),
 /       watch_lists: @watch_lists.try(:as_json, \
 /         only: [:id, :name], \
@@ -68,10 +68,10 @@
 /       api_v1_user_watch_list_entry_path: api_v1_user_watch_list_entry_path(":user_id", ":watch_list_id", ":id"),
 /       class: "pull-right",
 /       note: @notes.try(:find) { |_note| \
-/         _note.record_id == hit.id\
+/         _note.record_id == hit.record.id\
 /       },\
-/       record: { id: hit.id },
-/       scope: { id: hit.scope.id },
+/       record: { id: hit.record.id },
+/       scope: { id: hit.record.scope.id },
 /       translations: I18n.config.backend.send(:translations)[current_locale][:components][:RecordActions],
 /       user: current_user.try(:slice, :id),
 /       watch_lists: @watch_lists.try(:as_json, \

@@ -1,23 +1,23 @@
 module ResourceLinksHelper
 
   def resource_links(record, default_link_only: false)
-    is_online_resource = record.fields["materialtyp_facet"] == "online_resource"
-    is_data_storage    = record.fields["materialtyp_facet"] == "data_storage"
+    is_online_resource = record.carrier_type == "online_resource"
+    is_data_storage    = record.carrier_type == "data_storage"
 
     if is_online_resource || is_data_storage
-      links = ensure_array(record.fields["resource_link"])
+      links = record.resource_link
       links = LinksFilter.new(links).links
 
       if links.present?
         if default_link_only || links.size == 1
-          link_to links.first, target: "_blank" do
+          link_to links.first.url, target: "_blank" do
             "#{fa_icon "external-link"} Direkt zur Online-Resource".html_safe
           end
         else
           content_tag(:ul) do
             links.map do |link|
               content_tag(:li) do
-                link_to link, target: "_blank"
+                link_to link.url, target: "_blank"
               end
             end.join.html_safe
           end
@@ -73,14 +73,14 @@ private
 
     def apply_blacklist(links)
       links.reject do |link|
-        BLACKLIST.any?{|i| i.match(link)}
+        BLACKLIST.any?{|i| i.match(link.url)}
       end
     end
 
     def sort_by_priority(links)
       links.sort do |a, b|
-        ia = PRIORITY_LIST.find_index{|regexp| regexp.match(a)} || 1000
-        ib = PRIORITY_LIST.find_index{|regexp| regexp.match(b)} || 1000
+        ia = PRIORITY_LIST.find_index{|regexp| regexp.match(a.url)} || 1000
+        ib = PRIORITY_LIST.find_index{|regexp| regexp.match(b.url)} || 1000
         ia <=> ib
       end
     end

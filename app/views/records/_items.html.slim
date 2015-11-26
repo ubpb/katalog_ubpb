@@ -14,7 +14,7 @@
     - if can_create_hold_request
       .tools
         == t(".no_of_hold_requests", count: number_of_hold_requests)
-        =< link_to "Jetzt vormerken", user_hold_requests_path(ils_record_id: record.fields["id"], return_to: request.fullpath), method: :post, class: "btn btn-primary btn-sm"
+        =< link_to "Jetzt vormerken", user_hold_requests_path(ils_record_id: record.id, return_to: request.fullpath), method: :post, class: "btn btn-primary btn-sm"
 
   - if hold_request.present?
     - if hold_request.end_hold_date.present? && hold_request.end_hold_date < Time.zone.today
@@ -36,7 +36,7 @@
         table.table.table-striped
           thead
             tr
-              - if show_availability?(record)
+              - if show_availability?(@document.id, record)
                 th
               th = t(".signature")
               th = t(".item_status")
@@ -51,7 +51,7 @@
           tbody
             - items.each do |item|
               tr
-                - if show_availability?(record)
+                - if show_availability?(@document.id, record)
                   - if item.availability == :available
                     td.state.available
                   - elsif item.availability == :restricted_available
@@ -63,7 +63,7 @@
 
                 td
                   / FIXME: Build an OpenStruct to fake fields API with so we can reuse the signature helper
-                  = value_or_default(signature(OpenStruct.new(fields: {"signature" => item.signature}), link: true))
+                  = value_or_default(signature(item.signature, link: true))
                 td
                   = value_or_default(item.item_status)
                 td
