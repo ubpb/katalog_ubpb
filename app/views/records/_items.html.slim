@@ -1,5 +1,5 @@
 - has_cso  = items.any? { |_item| _item.must_be_ordered_from_closed_stack? }
-- has_note = items.any? { |_item| _item.note }
+- has_note = items.any? { |_item| _item.note.present? }
 
 #items
   - unless current_user.present?
@@ -7,11 +7,12 @@
       - if current_action == "records#show" && @record && flash[:search_request]
         - return_to_path = record_path(@record.id, search_request: Skala::SearchRequest.new(flash[:search_request]))
 
-      = link_to new_session_path(return_to: return_to_path || request.fullpath), class: "btn btn-sm btn-primary" do
+      == t(".no_of_hold_requests", count: number_of_hold_requests)
+      =< link_to new_session_path(return_to: return_to_path || request.fullpath), class: "btn btn-sm btn-primary" do
         => fa_icon("user")
         = t(".login_button")
   - else
-    - if can_create_hold_request
+    - if !is_journal?(record) && can_create_hold_request
       .tools
         == t(".no_of_hold_requests", count: number_of_hold_requests)
         =< link_to "Jetzt vormerken", user_hold_requests_path(ils_record_id: record.id, return_to: request.fullpath), method: :post, class: "btn btn-primary btn-sm"
