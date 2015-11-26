@@ -77,16 +77,15 @@ class RecordsController < ApplicationController
     # Load all items for the current record
     record_id = @record.id
     @items = items(record_id)
+    # How many hold requests waiting in queue for the current record
+    # TODO: We are checking this on the items here. This works because our
+    # Aleph is expanding the hold requestes from the record to the items. However,
+    # the Skala API should abstract this on record level.
+    @number_of_hold_requests = @items.try(:map, &:number_of_hold_requests).try(:max)
 
     if current_user
       # Load all holdable items for the current record
       holdable_items = holdable_items(record_id)
-
-      # How many hold requests waiting in queue for the current record
-      # TODO: We are checking this on the items here. This works because our
-      # Aleph is expanding the hold requestes from the record to the items. However,
-      # the Skala API should abstract this on record level.
-      @number_of_hold_requests = @items.try(:map, &:number_of_hold_requests).try(:max)
 
       # Load all hold requests for the current user
       hold_requests = hold_requests(from_cache: false)
