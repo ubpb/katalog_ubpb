@@ -19,10 +19,10 @@
             td = l(_loan.loan_date)
             td = l(_loan.due_date)
             td
-              div: strong = value_or_default(title(_loan, record_id: _loan.search_engine_record_id, scope: scope))
-              div = additional_record_info(_loan)
+              div: strong = value_or_default(title(_loan.record, scope: scope))
+              div = additional_record_info(_loan.record)
 
-              - if (signature = signature(_loan, link: true)).present?
+              - if (signature = signature(_loan.record, link: true)).present?
                 div = "Signatur: #{signature}".html_safe
 
             td

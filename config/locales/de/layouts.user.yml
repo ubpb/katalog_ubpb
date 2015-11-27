@@ -4,11 +4,11 @@ de:
       menu: Menü
       home: Bibliothekskonto
       calender: Kalender
-      fees: ~> actions.users.fees#index
       former_loans: ~> actions.users.former_loans#index
       functions: Funktionen
       hold_requests: ~> actions.users.hold_requests#index
       inter_library_loans: ~> actions.users.inter_library_loans#index
       loans: ~> actions.users.loans#index
+      transactions: ~> actions.users.transactions#index
       my_library_account: ~> actions.users#show
       watch_lists: ~> actions.users.watch_lists#index

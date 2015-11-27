@@ -65,11 +65,12 @@
         " term-default"
 
     translated_term: ->
-      i18n_key = @parent.get("facet.i18n_key")
-      term     = @get("term")
+      i18n_key = @parent.get("i18n_key")
+      facet_name = @parent.get("facet.name")
+      term = @get("term")
 
       if i18n_key
-        I18n.t("#{i18n_key}.#{term}", {defaultValue: term})
+        I18n.t("#{i18n_key}.facets.#{facet_name}.values.#{term}", {defaultValue: term})
       else
         term
 

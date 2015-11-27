@@ -8,15 +8,17 @@
       - facets.each do |facet|
         - included_in_facet_queries = search_request.facet_queries.try(:any?) { |_facet_query| _facet_query.field == facet.field }
 
-        - if facet.is_a?(Skala::SearchResult::TermsFacet) && (facet.terms.count > 0 || included_in_facet_queries)
+        - if facet.type.to_sym == :terms && (facet.terms.count > 0 || included_in_facet_queries)
           = ractive_component "app.components.TermsFacet",
             facet: facet,
+            i18n_key: scope.search_engine_adapter.i18n_key,
             search_request: search_request,
             searches_path: searches_path(scope: scope)
 
-        - elsif facet.is_a?(Skala::SearchResult::HistogramFacet) && facet.entries.try(:length) > 1 # graph with only one date makes no sense
+        - elsif facet.type.to_sym == :histogram && facet.entries.try(:length) > 1 # graph with only one date makes no sense
           = ractive_component "app.components.HistogramFacet",
             facet: facet,
+            i18n_key: scope.search_engine_adapter.i18n_key,
             search_request: search_request,
             searches_path: searches_path(scope: scope)
 

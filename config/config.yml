@@ -20,6 +20,7 @@ common_settings: &common_settings
 
     ubpb_elasticsearch_adapter:
       class_name: "KatalogUbpb::UbpbElasticsearchAdapter"
+      i18n_key: "ubpb_elasticsearch_adapter"
       options:
         hosts:
           - host: "ubstage1"
@@ -33,14 +34,12 @@ common_settings: &common_settings
         - name: "materialtypen"
           type: "terms"
           field: "materialtyp_facet"
-          i18n_key: "materialtypen"
         - name: "creators"
           type: "terms"
           field: "creator_contributor_facet"
         - name: "erscheinungsformen"
           type: "terms"
           field: "erscheinungsform_facet"
-          i18n_key: "erscheinungsformen"
         - name: "subjects"
           type: "terms"
           field: "subject_facet"
@@ -50,14 +49,12 @@ common_settings: &common_settings
         - name: "languages"
           type: "terms"
           field: "language_facet"
-          i18n_key: "languages"
         - name: "notations"
           type: "terms"
           field: "notation_facet"
         - name: "inhaltstypen"
           type: "terms"
           field: "inhaltstyp_facet"
-          i18n_key: "inhaltstypen"
         # - name: "neuerwerbungen"
         #   type: "range"
         #   field: "cataloging_date"
@@ -101,7 +98,6 @@ common_settings: &common_settings
         - name: "tlevel"
           type: "terms"
           field: "facet_tlevel"
-          i18n_key: "facet_tlevel"
 
       searchable_fields:
         - "any"

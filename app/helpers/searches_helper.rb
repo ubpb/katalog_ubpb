@@ -1,8 +1,7 @@
 module SearchesHelper
 
-  def show_availability?(search_engine_id, record)
-    signature(record).present? &&
-    search_engine_id.start_with?("PAD_ALEPH") &&
+  def show_availability?(record, scope)
+    scope.try(:ils_adapter).present? &&
     !is_online_resource?(record) &&
     !is_journal?(record)
   end

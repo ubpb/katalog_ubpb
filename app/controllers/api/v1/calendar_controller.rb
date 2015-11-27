@@ -195,7 +195,7 @@ EOS
   def get_records(ils_ids)
     search_result = SearchRecordsService.call(
       adapter: KatalogUbpb.config.ils_adapter.scope.search_engine_adapter.instance,
-      search_request: @search_request = Skala::SearchRequest.new(
+      search_request: @search_request = Skala::Adapter::Search::Request.new(
         queries: [
           {
             type: "ordered_terms",

@@ -1,15 +1,13 @@
 de:
   users:
-    fees:
+    transactions:
       index:
         balance: Gebühr / Gutschrift
         creation_time: Datum
         title: Titel / Beschreibung
-        no_credits_or_debits: Im Augenblick liegen keine Gebühren vor.
-        credits: "Guthaben:"
-        total: "Summe:"
+        no_transactions: Im Augenblick liegen keine Gebühren vor.
         value: "Wert"
-        credit: "Gutschrift"
+        credit: "Guthaben"
         debit: "Gebühr"
         type: "Art"
         message_debit: >

@@ -13,11 +13,9 @@ class SearchesController < ApplicationController
         search_request: @search_request
       )
     else
-      @search_request = Skala::SearchRequest.new({
-        queries: Skala::SearchRequest::QueryStringQuery.new({
-          default_field: current_scope.searchable_fields.first
-        })
-      })
+      @search_request = Skala::Adapter::Search::Request.new(
+        queries: [{ type: "query_string", default_field: current_scope.searchable_fields.first }]
+      )
     end
 
     # if current_user

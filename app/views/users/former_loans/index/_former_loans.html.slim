@@ -13,8 +13,8 @@
         - former_loans.each do |_former_loan|
           tr
             td
-              div: strong = value_or_default(title(_former_loan, record_id: _former_loan.search_engine_record_id, scope: scope))
-              - if (signature = signature(_former_loan, link: true)).present?
+              div: strong = value_or_default(title(_former_loan.record, scope: scope))
+              - if (signature = signature(_former_loan.record, link: true)).present?
                 div = "Signatur: #{signature}".html_safe
 
             td.text-right = l(_former_loan.returned_date)

@@ -4,13 +4,11 @@ module RecordFieldsHelper
     record.hbz_id
   end
 
-  def title(record, hit_id:nil, scope:nil, search_request:nil)
-    title = record.title
-
-    if scope && hit_id
-      link_to(title, record_path(hit_id, scope: scope, search_request: search_request)).html_safe
+  def title(record, scope:nil, search_request:nil)
+    if record.id && scope
+      link_to(record.title, record_path(record.id, scope: scope, search_request: search_request)).html_safe
     else
-      title
+      record.title
     end
   end
 

@@ -1,6 +1,6 @@
 require "skala/elasticsearch_adapter/get_documents"
 require_relative "../ubpb_elasticsearch_adapter"
-require_relative "../record_mapper"
+require_relative "./record_factory"
 
 class KatalogUbpb::UbpbElasticsearchAdapter::GetDocuments < Skala::ElasticsearchAdapter::GetDocuments
 
@@ -13,16 +13,12 @@ class KatalogUbpb::UbpbElasticsearchAdapter::GetDocuments < Skala::Elasticsearch
 private
 
   def map_records!(result)
-    mapper = KatalogUbpb::RecordMapper.new
-
-    result.documents.map! do |_doc|
-      doc = result.source["docs"].find{|d| d["_id"] == _doc.id}
-
-      if doc
-        _doc.record = mapper.map_record(doc["_source"])
+    result.documents.map! do |_result_document|
+      _result_doc.tap do |_result_doc|
+        if source_doc = result.source["docs"].find{ |_source_doc| _source_doc["_id"] == _result_doc.id }
+          _result_doc.record = self.class.parent::RecordFactory.call(source_doc["_source"])
+        end
       end
-
-      _doc
     end
   end
 

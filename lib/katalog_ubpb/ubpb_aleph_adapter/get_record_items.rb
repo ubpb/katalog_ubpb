@@ -1,22 +1,19 @@
 require "skala/aleph_adapter/get_record_items"
 require_relative "../ubpb_aleph_adapter"
-require_relative "./item"
 
 class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRecordItems
   def call(document_number, options = {})
     aleph_adapter_result = super
 
-    aleph_adapter_result.items.map! do |_aleph_adapter_item|
-      self.class.parent::Item.new(_aleph_adapter_item).tap do |_ubpb_aleph_adapter_item|
-        doc = Nokogiri::XML(aleph_adapter_result.source).xpath("//item[contains(@href, '#{_ubpb_aleph_adapter_item.id}')]")
+    aleph_adapter_result.items.each do |_aleph_adapter_item|
+      doc = Nokogiri::XML(aleph_adapter_result.source).xpath("//item[contains(@href, '#{_aleph_adapter_item.id}')]")
 
-        set_availability!(_ubpb_aleph_adapter_item, doc)
-        set_hold_request_can_be_created!(_ubpb_aleph_adapter_item, doc)
-        add_signature!(_ubpb_aleph_adapter_item, doc)
-        set_ubpb_specific_status!(_ubpb_aleph_adapter_item, doc)
-        add_location!(_ubpb_aleph_adapter_item, doc)
-        set_cso_status!(_ubpb_aleph_adapter_item, doc)
-      end
+      set_availability!(_aleph_adapter_item, doc)
+      set_hold_request_can_be_created!(_aleph_adapter_item, doc)
+      add_signature!(_aleph_adapter_item, doc)
+      set_ubpb_specific_status!(_aleph_adapter_item, doc)
+      add_location!(_aleph_adapter_item, doc)
+      set_closed_stack!(_aleph_adapter_item, doc)
     end
 
     aleph_adapter_result.tap do |_aleph_adapter_result|
@@ -133,12 +130,10 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
     end
   end
 
-  def set_cso_status!(item, doc)
-    collection         = xpath(doc, "./z30/z30-collection")
-    is_on_closed_stack = collection.try(:downcase).try(:include?, "magazin")
-    is_available       = item.status == :on_shelf || item.status == :reshelving
-
-    item.must_be_ordered_from_closed_stack = is_on_closed_stack && is_available
+  def set_closed_stack!(item, doc)
+    z30_collection = xpath(doc, "./z30/z30-collection")
+    # is_available       = item.status == :on_shelf || item.status == :reshelving
+    item.closed_stack = !!z30_collection.try(:downcase).try(:include?, "magazin")
   end
 
   def add_location!(item, doc)

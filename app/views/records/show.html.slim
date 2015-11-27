@@ -9,7 +9,7 @@
         li.active
           a(href="#record-details-tab" data-toggle="tab")
             | Details
-            - if show_availability?(@document.id, @record)
+            - if show_availability?(@record, @scope)
               =< ractive_component "app.components.AvailabilityIndicator",
                 api_v1_record_items_path: api_v1_record_items_path(":record_id"),
                 record_id: @record.id,
@@ -36,12 +36,12 @@
           - if @items.present?
             h4 Exemplare
             = render "items",
-              record: @record,
+              can_create_hold_request: @can_create_hold_request,
+              hold_request: @hold_request,
               items: @items,
               number_of_hold_requests: @number_of_hold_requests,
-              hold_request: @hold_request,
-              can_create_hold_request: @can_create_hold_request
-
+              record: @record,
+              search_request: @search_request
 
 / = ractive_component "app.components.RecordActions",
 /   api_v1_record_path: api_v1_record_path(":id"),

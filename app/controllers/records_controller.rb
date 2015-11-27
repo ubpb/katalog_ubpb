@@ -10,15 +10,15 @@ class RecordsController < ApplicationController
       return redirect_to(record_path(request.query_parameters.except(:search_request)))
     elsif serialized_search_request = flash[:search_request]
       flash.keep(:search_request)
-      @search_request = Skala::SearchRequest.new(serialized_search_request)
+      @search_request = Skala::Adapter::Search::Request.new(serialized_search_request)
     end
 
-    @document = GetDocumentsService.call(
+    @record = SearchRecordsService.call(
       adapter: @scope.search_engine_adapter.instance,
-      ids: [params[:id]]
-    ).first
-
-    @record = @document.record
+      search_request: {
+        queries: [{ type: "match", field: "id", query: params[:id] }]
+      }
+    ).first.try(:record)
 
     unless @record
       flash[:error] = t(".record_unavailable")
@@ -46,7 +46,7 @@ class RecordsController < ApplicationController
       @total_hits = search_result.total_hits
       hits = on_first_page ? [nil].concat(search_result.hits) : search_result.hits
 
-      if index = hits[1..search_result.hits.length].find_index { |_hit| _hit.id == @document.id }
+      if index = hits[1..search_result.hits.length].find_index { |_hit| _hit.record.id == @record.id }
         @position_within_search_result = index + @search_request.from
 
         @predecessor = hits[index + offset - 1]
@@ -75,8 +75,7 @@ class RecordsController < ApplicationController
     #
 
     # Load all items for the current record
-    record_id = @record.id
-    @items = items(record_id)
+    @items = items(@record.id)
     # How many hold requests waiting in queue for the current record
     # TODO: We are checking this on the items here. This works because our
     # Aleph is expanding the hold requestes from the record to the items. However,
@@ -85,16 +84,16 @@ class RecordsController < ApplicationController
 
     if current_user
       # Load all holdable items for the current record
-      holdable_items = holdable_items(record_id)
+      holdable_items = holdable_items(@record.id)
 
       # Load all hold requests for the current user
       hold_requests = hold_requests(from_cache: false)
 
       # Check if the current user has a hold request for the current record
-      @hold_request = hold_requests.find{|hr| hr.record_id == record_id}
+      @hold_request = hold_requests.find { |_hold_request| _hold_request.record.id == @record.id }
 
       # Check if the current user can create a hold request for the current record
-      @can_create_hold_request = holdable_items.present? && @hold_request.blank?
+      @can_create_hold_request = holdable_items.try(:count) > 0 && @hold_request.blank?
     end
 
     #

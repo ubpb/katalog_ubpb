@@ -1,4 +1,4 @@
-class Users::FeesController < UsersController
+class Users::TransactionsController < UsersController
   before_action -> do
     add_breadcrumb name: "users#show", url: user_path
     add_breadcrumb
@@ -9,7 +9,7 @@ class Users::FeesController < UsersController
     search_engine_adapter = KatalogUbpb.config.ils_adapter.scope.search_engine_adapter.instance
     @scope = KatalogUbpb.config.ils_adapter.scope
 
-    @credits, @debits = GetUserCreditsAndDebitsService.call(
+    @transactions = GetUserTransactionsService.call(
       ils_adapter: ils_adapter,
       search_engine_adapter: search_engine_adapter,
       user: current_user,

@@ -1,0 +1,57 @@
+de:
+  ubpb_elasticsearch_adapter:
+    facets:
+      creation_dates:
+        label: "Erscheinungsjahr"
+
+      creators:
+        label: "Autor / Autorin"
+
+      erscheinungsformen:
+        label: "Erscheinungsform"
+        values:
+          article: Artikel
+          journal: Zeitschrift
+          monograph: Buch
+          newspaper: Zeitung
+          other: Sonstiges
+          series: Serie
+
+      languages:
+        label: "Sprache"
+
+      inhaltstypen:
+        label: "Inhaltstyp"
+        values:
+          bibliography: Bibliographie
+          biography: Biografie
+          catalog: Katalog
+          congress: Kongressbericht
+          dictionary: Wörterbuch
+          dissertation: Dissertation
+          encyclopedia: Enzyklopädie
+          festschrift: Festschrift
+          music: Musik
+          other: Sonstiges
+          standard: Standard / Norm
+          textbook: Textbuch
+          university_text: Universitätstext
+
+      materialtypen:
+        label: "Materialtyp"
+        values:
+          audio: Audio
+          data_storage: Datenspeicher
+          game: Spiel
+          image: Bild
+          map: Karte
+          microform: Mikrofiche
+          online_resource: Online-Ressource
+          other: Sonstiges
+          print: Gedrucktes Werk
+          video: Video
+
+      notations: "Systemstelle"
+
+      subjects:
+        label: "Schlagwort"

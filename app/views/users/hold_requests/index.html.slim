@@ -16,17 +16,13 @@
               th = t(".actions")
 
           tbody
-            / TODO: records können nil sein, wenn im Suchindex nicht mehr vorhanden
             - @hold_requests.each do |_hold_request|
-              - _record = @records_by_id[_hold_request.record_id]
-
               tr
                 td = l(_hold_request.creation_date)
                 td
-                  = link_to value_or_default(title(_record)), record_path(_record.id, scope: @scope)
-                  - if (signature = signature(_record, link: true)).present?
-                    br/
-                    = "Signatur: #{signature}".html_safe
+                  .title = value_or_default(title(_hold_request.record, scope: @scope))
+                  - if (signature = signature(_hold_request.record, link: true)).present?
+                    .signature = "Signatur: #{signature}".html_safe
 
                 td
                   - if _hold_request.status == :requested

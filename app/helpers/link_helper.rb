@@ -1,14 +1,14 @@
 module LinkHelper
 
-  def link_to_new_search(query_string, scope:, sort: {field: "_score"}, default_field:, label:nil)
+  def link_to_new_search(query_string, scope:, sort: [{field: "_score"}], default_field:, label:nil)
     link_to (label || query_string), searches_path(
-      search_request: Skala::SearchRequest.new(
-        queries: {
+      search_request: Skala::Adapter::Search::Request.new(
+        queries: [{
           type: "query_string",
           query: query_string,
           default_field: default_field
-        },
-        sort: sort
+        }],
+        sort: [sort].flatten(1).compact.presence
       ),
       scope: scope.id
     )
