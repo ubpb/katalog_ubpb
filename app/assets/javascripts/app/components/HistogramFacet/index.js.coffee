@@ -15,7 +15,7 @@
           <div class="panel panel-primary">
             <div class="panel-heading panel-cutoffcorner">
               <h3 class="panel-title">
-                {{ t("facets." + name, {defaultValue: name}) }}
+                {{ t(i18n_key + ".facets." + name + ".label", {defaultValue: name}) }}
               </h3>
             </div>
 

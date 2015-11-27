@@ -8,10 +8,10 @@ Rails.application.routes.draw do
     scope module: :users do
       resource  :password, only: [:edit, :update]
       resource  :email_address, only: [:edit, :update]
-      resources :fees, only: [:index]
       resources :former_loans, only: [:index]
       resources :hold_requests, only: [:index, :create, :destroy]
       resources :inter_library_loans, only: [:index]
+      resources :transactions, only: [:index]
 
       resources :loans, only: [:index] do
         put :update, on: :member, action: :renew, as: :renew

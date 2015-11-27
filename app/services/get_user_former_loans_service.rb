@@ -1,6 +1,8 @@
 class GetUserFormerLoansService < Servizio::Service
+  include AdapterRelatedService
   include CachingService
   include InstrumentedService
+  include RecordRelatedService
   include UserRelatedService
 
   attr_accessor :ils_adapter
@@ -14,32 +16,14 @@ class GetUserFormerLoansService < Servizio::Service
   validates_presence_of :ils_user_id
 
   def call
-    ils_adapter.get_user_former_loans(ilsuserid).try(:former_loans).try(:[], 0..(limit || -1)).tap do |_former_loans|
-      if _former_loans.present? && search_engine_adapter
-        search_result = SearchRecordsService.call(
-          adapter: search_engine_adapter,
-          parents: parents << self.class,
-          search_request: Skala::SearchRequest.new(
-            queries: [
-              {
-                type: "ordered_terms", # TODO: no need for ordered_terms here, use unscored_terms
-                field: "ils_record_id",
-                terms: _former_loans.map(&:ils_record_id)
-              }
-            ],
-            size: _former_loans.length.to_i
-          )
-        )
+    ils_adapter_result = ils_adapter.get_user_former_loans(ils_user_id)
 
-        _former_loans.each do |_former_loan|
-          if hit = search_result.hits.find { |_hit| _hit.fields["ils_record_id"] == _former_loan.ils_record_id }
-            _former_loan.search_engine_record_id = hit.id
-            _former_loan.signature = hit.fields["signature"]
-            _former_loan.title = hit.fields["title"]
-          end
-        end
-      end
+    if limit
+      ils_adapter_result = ils_adapter_result.class.new(former_loans: ils_adapter_result.take(limit))
     end
+
+    update_records!(ils_adapter_result, search_engine_adapter)
+    strip_source!(ils_adapter_result)
   rescue Skala::Adapter::Error
     errors[:call] = :failed and return nil
   end

@@ -8,15 +8,26 @@ class SearchRecordsService < Servizio::Service
   validates_presence_of :adapter
   validates_presence_of :search_request
 
-  def call
-    result = search_request.deep_dup.try do |_search_request|
-      _search_request.facets = facets
-      adapter.search_records(_search_request)
+  def faceted_search_request
+    if facets
+      if search_request.is_a?(Hash)
+        search_request.deep_dup.merge(facets)
+      elsif search_request.respond_to?(:facets=)
+        search_request.deep_dup.tap do |_dupped_search_request|
+          _dupped_search_request.facets = facets
+        end
+      end
+    else
+      search_request
     end
+  end
+
+  def call
+    result = adapter.search(faceted_search_request)
 
     # Order facets the way they have been configured/requested
     # Also filter facets that are not configured
-    if result.facets
+    if result.facets.present?
       result.facets = @facets.each.inject([]) do |_ordered_facets, _requested_facet|
         _ordered_facets.push(
           result.facets.find{|_facet| _requested_facet["name"] == _facet.name}
@@ -25,13 +36,13 @@ class SearchRecordsService < Servizio::Service
     end
 
     # Inject i18n_key in term facets as defined in config
-    if result.facets
-      result.facets.each do |_facet|
-        if _facet.is_a?(Skala::SearchResult::TermsFacet)
-          _facet.i18n_key = @facets.find{|_requested_facet| _requested_facet["name"] == _facet.name}.try(:[], "i18n_key")
-        end
-      end
-    end
+    #if result.facets.present?
+    #  result.facets.each do |_facet|
+    #    if _facet.is_a?(Skala::SearchResult::TermsFacet)
+    #      _facet.i18n_key = @facets.find{|_requested_facet| _requested_facet["name"] == _facet.name}.try(:[], "i18n_key")
+    #    end
+    #  end
+    #end
 
     result
   end

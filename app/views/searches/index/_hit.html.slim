@@ -8,7 +8,7 @@
 
       .metadata
         / Title
-        .title = title(hit.record, hit_id: hit.id, scope: scope, search_request: search_request)
+        .title = title(hit.record, scope: scope, search_request: search_request)
 
         / Superorder
         - if (is_part_of = is_part_of(hit.record, scope: scope)).present?
@@ -23,7 +23,7 @@
 
         / Status
         .status
-          - if show_availability?(hit.id, hit.record)
+          - if show_availability?(hit.record, scope)
             => ractive_component "app.components.AvailabilityIndicator",
               api_v1_record_items_path: api_v1_record_items_path(":record_id"),
               record_id: hit.record.id,

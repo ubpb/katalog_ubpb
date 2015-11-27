@@ -1,17 +1,23 @@
 class GetUserHoldRequestsService < Servizio::Service
+  include AdapterRelatedService
   include CachingService
   include InstrumentedService
+  include RecordRelatedService
   include UserRelatedService
 
-  attr_accessor :adapter
+  attr_accessor :ils_adapter
+  attr_accessor :search_engine_adapter
 
-  validates_presence_of :adapter
-  validates_presence_of :ilsuserid
+  alias_method :adapter,  :ils_adapter
+  alias_method :adapter=, :ils_adapter=
+
+  validates_presence_of :ils_adapter
+  validates_presence_of :ils_user_id
 
   def call
-    cache(key: [self.class, ilsuserid]) do
-      adapter.get_user_hold_requests(ilsuserid).try(:hold_requests)
-    end
+    ils_adapter_result = ils_adapter.get_user_hold_requests(ils_user_id)
+    update_records!(ils_adapter_result, search_engine_adapter)
+    strip_source!(ils_adapter_result)
   rescue Skala::Adapter::Error
     errors[:call] = :failed and return nil
   end

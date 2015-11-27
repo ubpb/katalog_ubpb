@@ -17,9 +17,9 @@
                   => fa_icon("user")
                   = t(".home")
 
-                li = link_to user_fees_path do
+                li = link_to user_transactions_path do
                   i.fa.fa-money>
-                  span => t(".fees")
+                  span => t(".transactions")
                   - if current_user.cash_balance < 0
                     .label.label-danger = number_to_currency(current_user.cash_balance)
                   - elsif current_user.cash_balance > 0

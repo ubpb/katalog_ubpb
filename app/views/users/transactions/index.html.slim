@@ -1,14 +1,14 @@
-- sum_of_credits = @credits.try(:sum, &:value) || 0
-- sum_of_debits  = @debits.try(:sum, &:value) || 0
+- sum_of_credits = @transactions.select { |_transaction| _transaction.type == :credit }.sum(&:value) || 0
+- sum_of_debits  = @transactions.select { |_transaction| _transaction.type == :debit }.sum(&:value) || 0
 - sum_total      = sum_of_credits - sum_of_debits
 
 .panel.panel-default
   .panel-heading.panel-cutoffcorner
-    h3.panel-title = t("actions.users.fees#index")
+    h3.panel-title = t("actions.users.transactions#index")
 
   .panel-body
-    - if @credits.blank? && @debits.blank?
-      .alert.alert-info = t(".no_credits_or_debits")
+    - if @transactions.blank?
+      .alert.alert-info = t(".no_transactions")
     - else
       - if sum_total < 0
         .alert.alert-danger == t(".message_debit", sum_total: number_to_currency(sum_total.abs))
@@ -25,33 +25,34 @@
               th = t(".title")
 
           tbody
-            - [@debits, @credits].flatten(1).each do |transaction|
+            - @transactions.each do |_transaction|
               tr
                 td
-                  - if transaction.creation_date.present?
-                    = l(transaction.creation_date)
+                  - if _transaction.creation_date.present?
+                    = l(_transaction.creation_date)
                   - else
                     = t(".open")
 
                 td
-                  - if transaction.is_a?(Skala::Credit)
+                  - if _transaction.type == :credit
                     = t(".credit")
                   - else
                     = t(".debit")
 
                 td(style="white-space: nowrap;")
-                  = number_to_currency(transaction.value)
+                  = number_to_currency(_transaction.value)
 
                 td
-                  - if transaction.title.present? && transaction.search_engine_record_id.present?
-                    .title = link_to transaction.title, record_path(transaction.search_engine_record_id, scope: @scope)
-                  - elsif transaction.title.present?
-                    .title = transaction.title
+                  - if _transaction.record.title
+                    - if _transaction.record.id
+                      .title = link_to _transaction.record.title, record_path(_transaction.record.id, scope: @scope)
+                    - else
+                      .title = _transaction.record.title
 
-                  - if (signature = transaction.signature).present?
+                  - if (signature = _transaction.record.signature).present?
                     .signature == "Signatur: #{link_to(signature, go_signature_path, target: "_blank")}"
 
                   / TODO: Fix ALLE in adapter override
-                  - desc = transaction.description
+                  - desc = _transaction.description
                   - if desc.present? && desc.downcase != "alle"
                     .description = desc

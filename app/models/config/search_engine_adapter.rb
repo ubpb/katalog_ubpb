@@ -9,7 +9,7 @@ class Config
     attr_accessor :options
 
     def i18n_key
-      instance.i18n_key
+      @i18n_key || instance.class.to_s.underscore.gsub("/", ".")
     end
 
     def instance

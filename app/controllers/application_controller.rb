@@ -92,7 +92,7 @@ class ApplicationController < ActionController::Base
   def search_request_from_params
     if params[:search_request]
       JSON.parse(params[:search_request]).try do |_deserialized_search_request|
-        Skala::SearchRequest.new(_deserialized_search_request)
+        Skala::Adapter::Search::Request.new(_deserialized_search_request)
       end
     end
   rescue

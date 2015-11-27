@@ -9,37 +9,22 @@ class Users::HoldRequestsController < UsersController
   def index
     ils_adapter = KatalogUbpb.config.ils_adapter.instance
     search_engine_adapter = KatalogUbpb.config.ils_adapter.scope.search_engine_adapter.instance
-    @scope = KatalogUbpb.config.ils_adapter.scope
 
     @hold_requests = GetUserHoldRequestsService.call(
-      adapter: ils_adapter,
-      user: current_user
+      ils_adapter: ils_adapter,
+      search_engine_adapter: search_engine_adapter,
+      user: current_user,
     )
 
-    @search_result = SearchRecordsService.call(
-      adapter: search_engine_adapter,
-      search_request: @search_request = Skala::SearchRequest.new(
-        queries: [
-          {
-            type: "ordered_terms",
-            field: "id",
-            terms: @hold_requests.map(&:record_id)
-          }
-        ],
-        size: @hold_requests.length
-      )
-    )
-
-    @records_by_id = @search_result.hits.each_with_object({}) do |_hit, _hash|
-      _hash[_hit.fields["id"]] = _hit
-    end
+    @hold_requests = @hold_requests.sort_by(&:creation_date)
+    @scope = current_scope
   end
 
   def create
-    if ils_record_id = create_params[:ils_record_id]
+    if record_id = create_params[:record_id]
       create_user_hold_request = CreateUserHoldRequestService.new(
         adapter: current_scope.ils_adapter.try(:instance),
-        record_id: ils_record_id,
+        record_id: record_id,
         user: current_user
       )
 
@@ -86,7 +71,7 @@ class Users::HoldRequestsController < UsersController
   private
   #
   def create_params
-    params.permit(:ils_record_id)
+    params.permit(:record_id)
   end
 
   def destroy_params
