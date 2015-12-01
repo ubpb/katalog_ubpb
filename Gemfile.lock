@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ubpb/skala.git
-  revision: a7fc8ba6aa2f6c3f9d9f136fae8464a0dfaa3ced
+  revision: 595645f5ad373debfbed1104c0474d1278d0fcd2
   branch: master
   specs:
     skala (1.0.0)
@@ -10,6 +10,7 @@ GIT
       elasticsearch (~> 1.0)
       hashie (~> 3.4)
       mighty_tap (~> 0.5)
+      ox (~> 2.2)
       rails (~> 4.2)
       servizio (~> 0.4)
       transformator (~> 1.0)
@@ -70,12 +71,12 @@ GEM
     bcrypt (3.1.10)
     bibtex-ruby (4.0.16)
       latex-decode (~> 0.0)
-    bootstrap-sass (3.3.5.1)
-      autoprefixer-rails (>= 5.0.0.1)
-      sass (>= 3.3.0)
+    bootstrap-sass (3.3.6)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     browser (0.8.0)
     builder (3.2.2)
-    byebug (8.2.0)
+    byebug (8.2.1)
     cancancan (1.12.0)
     capistrano (3.4.0)
       i18n
@@ -153,7 +154,7 @@ GEM
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    jquery-tablesorter (1.19.3)
+    jquery-tablesorter (1.19.4)
       railties (>= 3.2, < 5)
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
@@ -175,7 +176,7 @@ GEM
     method_source (0.8.2)
     mighty_tap (0.5.0)
     mime-types (2.99)
-    mini_portile (0.6.2)
+    mini_portile2 (2.0.0)
     minitest (5.8.3)
     multi_json (1.11.2)
     multipart-post (2.0.0)
@@ -184,8 +185,8 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (3.0.1)
     newrelic_rpm (3.14.0.305)
-    nokogiri (1.6.6.4)
-      mini_portile (~> 0.6.0)
+    nokogiri (1.6.7)
+      mini_portile2 (~> 2.0.0.rc2)
     oauth (0.4.7)
     ox (2.2.2)
     poltergeist (1.5.1)
@@ -298,7 +299,7 @@ GEM
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
-    sprockets (3.4.0)
+    sprockets (3.4.1)
       rack (> 1, < 3)
     sprockets-rails (2.3.3)
       actionpack (>= 3.0)
