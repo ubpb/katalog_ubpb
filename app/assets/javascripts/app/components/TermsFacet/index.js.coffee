@@ -61,8 +61,13 @@
     is_collapsed: true # initially the facet is collapsed
 
   onrender: ->
-    @on "Collapse", -> @set("is_collapsed", true)
-    @on "Decollapse", -> @set("is_collapsed", false)
+    @on "Collapse", (event) ->
+      event.original.preventDefault()
+      @set("is_collapsed", true)
+
+    @on "Decollapse", (event) ->
+      event.original.preventDefault() 
+      @set("is_collapsed", false)
 
   #
   # custom
