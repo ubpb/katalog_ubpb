@@ -34,27 +34,34 @@ common_settings: &common_settings
         - name: "materialtypen"
           type: "terms"
           field: "materialtyp_facet"
+          size: 25
         - name: "creators"
           type: "terms"
           field: "creator_contributor_facet"
+          size: 25
         - name: "erscheinungsformen"
           type: "terms"
           field: "erscheinungsform_facet"
+          size: 25
         - name: "subjects"
           type: "terms"
           field: "subject_facet"
+          size: 25
         - name: "creation_dates"
           type: "histogram"
           field: "creationdate_facet"
         - name: "languages"
           type: "terms"
           field: "language_facet"
+          size: 25
         - name: "notations"
           type: "terms"
           field: "notation_facet"
+          size: 25
         - name: "inhaltstypen"
           type: "terms"
           field: "inhaltstyp_facet"
+          size: 25
         # - name: "neuerwerbungen"
         #   type: "range"
         #   field: "cataloging_date"
