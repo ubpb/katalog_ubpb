@@ -82,10 +82,10 @@ common_settings: &common_settings
         - "superorder"
 
       sortable_fields:
+        - _score
         - creator_contributor_facet
         - creationdate_facet: asc
         - creationdate_facet: desc
-        - _score
         - notation_sort
         - title_sort
         - volume_count_sort: asc
