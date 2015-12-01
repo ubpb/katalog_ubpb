@@ -52,7 +52,8 @@ de:
           print: Gedrucktes Werk
           video: Video
 
-      notations: "Systemstelle"
+      notations:
+        label: "Systemstelle"
 
       subjects:
         label: "Schlagwort"
