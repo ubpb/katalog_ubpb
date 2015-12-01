@@ -35,15 +35,6 @@ class SearchRecordsService < Servizio::Service
       end.tap(&:compact!)
     end
 
-    # Inject i18n_key in term facets as defined in config
-    #if result.facets.present?
-    #  result.facets.each do |_facet|
-    #    if _facet.is_a?(Skala::SearchResult::TermsFacet)
-    #      _facet.i18n_key = @facets.find{|_requested_facet| _requested_facet["name"] == _facet.name}.try(:[], "i18n_key")
-    #    end
-    #  end
-    #end
-
     result
   end
 end
