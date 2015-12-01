@@ -8,3 +8,6 @@ de:
       title_sort: Titel
       volume_count_sort: Bandzählung
       cataloging_date: Neuerwerbung
+
+    primo_central:
+      relevance: Relevanz

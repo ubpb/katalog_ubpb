@@ -14,3 +14,6 @@ de:
       notation: Systemstelle
       ht_number: HT-Nummer des Bandes
       superorder: HT-Nummer der Überordnung
+
+    primo_central:
+      any: Alle Felder
