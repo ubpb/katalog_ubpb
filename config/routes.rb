@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resource  :session, only: [:create, :destroy, :new]
   resources :searches, only: [:index, :show] # :show only for compatibility with former catalog
-  resources :records, only: [:show]
+  resources :records, only: [:show], constraints: { id: /.+/ }
   resources :closed_stack_orders, only: [:new, :create], path: "cso"
 
   resource :user, only: [:show] do

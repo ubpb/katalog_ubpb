@@ -76,24 +76,26 @@ class RecordsController < ApplicationController
 
     # Load all items for the current record
     @items = items(@record.id)
-    # How many hold requests waiting in queue for the current record
-    # TODO: We are checking this on the items here. This works because our
-    # Aleph is expanding the hold requestes from the record to the items. However,
-    # the Skala API should abstract this on record level.
-    @number_of_hold_requests = @items.try(:map, &:number_of_hold_requests).try(:max)
+    if @items.try(:any?)
+      # How many hold requests waiting in queue for the current record
+      # TODO: We are checking this on the items here. This works because our
+      # Aleph is expanding the hold requestes from the record to the items. However,
+      # the Skala API should abstract this on record level.
+      @number_of_hold_requests = @items.try(:map, &:number_of_hold_requests).try(:max)
 
-    if current_user
-      # Load all holdable items for the current record
-      holdable_items = holdable_items(@record.id)
+      if current_user
+        # Load all holdable items for the current record
+        holdable_items = holdable_items(@record.id)
 
-      # Load all hold requests for the current user
-      hold_requests = hold_requests(from_cache: false)
+        # Load all hold requests for the current user
+        hold_requests = hold_requests(from_cache: false)
 
-      # Check if the current user has a hold request for the current record
-      @hold_request = hold_requests.find { |_hold_request| _hold_request.record.id == @record.id }
+        # Check if the current user has a hold request for the current record
+        @hold_request = hold_requests.find { |_hold_request| _hold_request.record.id == @record.id }
 
-      # Check if the current user can create a hold request for the current record
-      @can_create_hold_request = holdable_items.try(:count) > 0 && @hold_request.blank?
+        # Check if the current user can create a hold request for the current record
+        @can_create_hold_request = holdable_items.try(:count) > 0 && @hold_request.blank?
+      end
     end
 
     #
