@@ -19,6 +19,7 @@ de:
 
       languages:
         label: "Sprache"
+        values: ~> languages
 
       inhaltstypen:
         label: "Inhaltstyp"
