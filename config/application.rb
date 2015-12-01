@@ -23,6 +23,7 @@ module KatalogUbpb
     config.time_zone = "Berlin"
 
     # Locale setup
+    I18n.backend = I18n::Backend::Advanced.new
     config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}").to_s]
     config.i18n.default_locale = :de
     config.i18n.available_locales = [:de]
