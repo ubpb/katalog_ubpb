@@ -69,7 +69,8 @@ module RecordFieldsHelper
     identifiers += record.isbn.map{|isbn| "ISBN: #{isbn}"}
     # ISSNS
     identifiers += record.issn.map{|issn| "ISSN: #{issn}"}
-    # TODO: DOIs, HT Number, ...
+    # other identifiers
+    identifiers += record.identifier.map{|i| "#{i.type.upcase}: #{i.value}"}
 
     if identifiers.present?
       identifiers.join("<br/>").html_safe
