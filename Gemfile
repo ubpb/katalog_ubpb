@@ -18,7 +18,7 @@ gem "jquery-ui-rails",       "~> 5.0.3"
 gem "libxml-ruby",           "~> 2.8", require: "libxml" # for ActiveSupport::XmlMini.backend = "LibXML"
 gem "mysql2",                "~> 0.3.20" # ActiveRecord requires ~0.3.0 currently
 gem "ox",                    "~> 2.2.2"
-gem "rails",                 "= 4.2.4"
+gem "rails",                 "= 4.2.5"
 gem "rails-html-sanitizer",  "~> 1.0.1"
 gem "rails-i18n",            "~> 4.0.6"
 gem "roadie-rails",          "~> 1.0.2"
