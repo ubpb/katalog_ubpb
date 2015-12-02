@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  get "/:scope/searches",    to: "searches#index", as: :searches
+  get "/searches/:id",       to: "searches#show", as: :search # only for compatibility with former catalog
+  get "/:scope/records/:id", to: "records#show", as: :record, constraints: { id: /.+/ }
+
   resource  :session, only: [:create, :destroy, :new]
-  resources :searches, only: [:index, :show] # :show only for compatibility with former catalog
-  resources :records, only: [:show], constraints: { id: /.+/ }
   resources :closed_stack_orders, only: [:new, :create], path: "cso"
 
   resource :user, only: [:show] do
