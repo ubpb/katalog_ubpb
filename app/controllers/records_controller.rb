@@ -13,12 +13,12 @@ class RecordsController < ApplicationController
       @search_request = Skala::Adapter::Search::Request.new(serialized_search_request)
     end
 
-    @record = SearchRecordsService.call(
+    get_records_result = GetRecordsService.call(
       adapter: @scope.search_engine_adapter.instance,
-      search_request: {
-        queries: [{ type: "match", field: "id", query: params[:id] }]
-      }
-    ).first.try(:record)
+      ids: [params[:id]]
+    )
+
+    @record = get_records_result.first.try(:record)
 
     unless @record
       flash[:error] = t(".record_unavailable")
