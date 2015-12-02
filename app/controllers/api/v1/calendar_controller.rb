@@ -10,8 +10,8 @@ class Api::V1::CalendarController < Api::V1::ApplicationController
     hold_requests = get_hold_requests
     provisions    = hold_requests.select{|hold_request| hold_request.end_hold_date.present? && hold_request.end_hold_date >= Time.zone.today}
 
-    loans_records      = get_records(loans.map(&:record_id))
-    provisions_records = get_records(provisions.map(&:record_id))
+    loans_records      = get_records(loans.map{|l| l.record.id})
+    provisions_records = get_records(provisions.map{|l| l.record.id})
 
     response.headers["X-Robots-Tag"] = "all"
 
@@ -61,7 +61,7 @@ class Api::V1::CalendarController < Api::V1::ApplicationController
       loans_by_due_date.each_key do |due_date|
         loans  = loans_by_due_date.fetch(due_date)
         titles = loans.each_with_index.map do |loan, i|
-          record    = loans_records[loan.record_id]
+          record    = loans_records[loan.record.id]
           title     = cached_view_context.title(record)
           year      = cached_view_context.date_of_publication(record)
           signature = cached_view_context.signature(record)
@@ -195,7 +195,7 @@ EOS
   def get_records(ils_ids)
     search_result = SearchRecordsService.call(
       adapter: KatalogUbpb.config.ils_adapter.scope.search_engine_adapter.instance,
-      search_request: @search_request = Skala::Adapter::Search::Request.new(
+      search_request: Skala::Adapter::Search::Request.new(
         queries: [
           {
             type: "ordered_terms",
@@ -208,7 +208,7 @@ EOS
     )
 
     search_result.hits.each_with_object({}) do |_hit, _hash|
-      _hash[_hit.fields["id"]] = _hit
+      _hash[_hit.record.id] = _hit.record
     end
   end
 
