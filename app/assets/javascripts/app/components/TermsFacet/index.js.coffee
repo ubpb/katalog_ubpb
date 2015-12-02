@@ -66,7 +66,7 @@
       @set("is_collapsed", true)
 
     @on "Decollapse", (event) ->
-      event.original.preventDefault() 
+      event.original.preventDefault()
       @set("is_collapsed", false)
 
   #
