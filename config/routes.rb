@@ -51,7 +51,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get "user/calendar" => "calendar#show"
 
-      resources :records, only: [:index, :show] do
+      resources :records, only: [:index, :show], path: ":scope/records" do
         scope module: "records" do
           resources :items, only: [:index]
         end
