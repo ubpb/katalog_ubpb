@@ -10,10 +10,7 @@
           a(href="#record-details-tab" data-toggle="tab")
             | Details
             - if show_availability?(@record, @scope)
-              =< ractive_component "app.components.AvailabilityIndicator",
-                api_v1_record_items_path: api_v1_record_items_path(":record_id"),
-                record_id: @record.id,
-                scope_id: @scope.id
+              =< ractive_component "app.components.AvailabilityIndicator", url: api_v1_record_items_path(record_id: @record.id, scope: @scope.id)
 
       .tab-content
         #record-details-tab.tab-pane.active
