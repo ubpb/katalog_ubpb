@@ -1,18 +1,7 @@
 class Api::V1::RecordsController < Api::V1::ApplicationController
   def index
-    @scope = Scope.find(params[:scope])
-    @search_request = Search::Request.new(params[:search_request])
-
-    @facets, @hits, @total_number_of_hits =
-    SearchRecords.call(
-      search_engine_adapter: @scope.search_engine_adapter,
-      search_request: @search_request
-    )
-
-    # for debugging
-    #json_string = render_to_string formats: :json
-    #json_object = JSON.parse(json_string)
-    #render :json => JSON.pretty_generate(json_object)
+    scope = current_scope
+    binding.pry
   end
 
   def show
