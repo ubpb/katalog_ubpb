@@ -1,4 +1,3 @@
-#= require app/path_helpers
 #= require polyfills/Array_some
 #= require polyfills/Object_keys
 
@@ -6,11 +5,10 @@ do(app = (window.app ?= {})) ->
   (app.components ?= {}).AvailabilityIndicator = Ractive.extend
     onconfig: ->
       @set "pending", true
-      @["api_v1_record_items_path"] = app.PathHelpers.path_helper_factory(@get("api_v1_record_items_path"))
 
     oninit: ->
       $.ajax
-        url: @api_v1_record_items_path(@get("record_id"), scope: @get("scope_id"))
+        url: @get("url")
         type: "GET"
         success: (items) =>
           @set "pending", false
