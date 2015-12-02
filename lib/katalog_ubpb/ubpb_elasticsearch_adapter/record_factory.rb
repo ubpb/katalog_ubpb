@@ -27,7 +27,7 @@ class KatalogUbpb::UbpbElasticsearchAdapter::RecordFactory
       resource_link: map_urls(source["resource_link"]),
       toc_link: map_urls(source["link_to_toc"]),
       is_part_of: map_is_part_of(source["is_part_of"]),
-      relations: map_relation(source["relation"]),
+      relation: map_relation(source["relation"]),
       subject: source["subject"],
       journal_holdings: source["ldsX"],
       notation: source["notation"],
