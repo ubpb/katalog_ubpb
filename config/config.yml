@@ -12,6 +12,7 @@ common_settings: &common_settings
   search_engine_adapter:
     primo_central_adapter:
       class_name: "Skala::PrimoAdapter"
+      i18n_key: "primo_central_adapter"
       options:
         institution: "PAD"
         languages: ["ger", "eng"]
@@ -102,9 +103,31 @@ common_settings: &common_settings
     primo_central:
       search_engine_adapter: "primo_central_adapter"
       facets:
+        - name: "creators"
+          type: "terms"
+          field: "facet_creator"
+        - name: "lcc"
+          type: "terms"
+          field: "facet_lcc"
+        - name: "languages"
+          type: "terms"
+          field: "facet_lang"
+        - name: "resource_type"
+          type: "terms"
+          field: "facet_rtype"
+        - name: "topics"
+          type: "terms"
+          field: "facet_topic"
         - name: "tlevel"
           type: "terms"
           field: "facet_tlevel"
+        - name: "domains"
+          type: "terms"
+          field: "facet_domain"
+        - name: "jtitle"
+          type: "terms"
+          field: "facet_jtitle"
+
 
       searchable_fields:
         - "any"
