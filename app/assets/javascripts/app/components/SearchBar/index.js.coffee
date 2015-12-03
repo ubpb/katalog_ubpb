@@ -16,7 +16,7 @@
                   {{#if type === "simple_query_string"}}
                     <select class="field" decorator="bootstrap_simple_select" value="{{fields[0]}}">
                       {{#searchable_fields}}
-                        <option value="{{this[0]}}">{{this[1]}}</option>
+                        <option value="{{this}}">{{t(i18n_key + ".fields." + this, { defaultValue: this })}}</option>
                       {{/searchable_fields}}
                     </select>
                   {{/if}}
@@ -61,7 +61,7 @@
               {{#if type === "simple_query_string"}}
                 <select class="field" decorator="bootstrap_simple_select" value="{{fields[0]}}">
                   {{#searchable_fields}}
-                    <option value="{{this[0]}}">{{this[1]}}</option>
+                    <option value="{{this}}">{{t(i18n_key + ".fields." + this, { defaultValue: this })}}</option>
                   {{/searchable_fields}}
                 </select>
               {{/if}}
