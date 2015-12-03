@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ubpb/skala.git
-  revision: 2690053a465b53addd6ab3e822145b72b06954df
+  revision: 9121d1932e58f459157564827fffb1ebbbdf7763
   branch: master
   specs:
     skala (1.0.0)
@@ -314,7 +314,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.1)
-    transformator (1.0.0)
+    transformator (1.0.1)
       activesupport
     turbolinks (2.5.3)
       coffee-rails
