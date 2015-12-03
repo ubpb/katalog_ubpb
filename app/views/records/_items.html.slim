@@ -5,7 +5,7 @@
   - unless current_user.present?
     .tools
       - if search_request
-        - return_to_path = record_path(@record.id, search_request: search_request)
+        - return_to_path = record_path(@record.id, scope: @scope.id, search_request: search_request)
 
       == t(".no_of_hold_requests", count: number_of_hold_requests)
       =< link_to new_session_path(return_to: return_to_path || request.fullpath), class: "btn btn-sm btn-primary" do
