@@ -13,11 +13,13 @@
               <div class="input-group">
                 <input class="form-control query" autocomplete="off" autofocus="" placeholder="Suchbegriff" value="{{query}}" on-keypress="KeypressInSearchInput" />
                 <div class="input-group-btn">
-                  <select class="field" decorator="bootstrap_simple_select" value="{{default_field}}">
-                    {{#searchable_fields}}
-                      <option value="{{this[0]}}">{{this[1]}}</option>
-                    {{/searchable_fields}}
-                  </select>
+                  {{#if type === "simple_query_string"}}
+                    <select class="field" decorator="bootstrap_simple_select" value="{{fields[0]}}">
+                      {{#searchable_fields}}
+                        <option value="{{this[0]}}">{{this[1]}}</option>
+                      {{/searchable_fields}}
+                    </select>
+                  {{/if}}
 
                   <button class="btn btn-default" type="button" on-click="AddQuery">
                     <i class="fa fa-plus-circle"></i>
@@ -56,11 +58,13 @@
         {{#each search_request.queries}}
           <div class="row">
             <div class="col-xs-12 searchable-fields">
-              <select class="field" decorator="bootstrap_simple_select" value="{{default_field}}">
-                {{#searchable_fields}}
-                  <option value="{{this[0]}}">{{this[1]}}</option>
-                {{/searchable_fields}}
-              </select>
+              {{#if type === "simple_query_string"}}
+                <select class="field" decorator="bootstrap_simple_select" value="{{fields[0]}}">
+                  {{#searchable_fields}}
+                    <option value="{{this[0]}}">{{this[1]}}</option>
+                  {{/searchable_fields}}
+                </select>
+              {{/if}}
             </div>
             <div class="col-xs-12 query">
               <input class="form-control" autocomplete="off" autofocus="" placeholder="Suchbegriff" value="{{query}}" on-keypress="KeypressInSearchInput" />
@@ -123,7 +127,7 @@
   #
   add_query: (preceding_query) ->
     new_query_index = @get("search_request.queries").indexOf(preceding_query) + 1
-    @get("search_request.queries").splice(new_query_index, 0, @query_factory(type: "query_string"))
+    @get("search_request.queries").splice(new_query_index, 0, @query_factory(type: "simple_query_string"))
 
   query_factory: (options = {}) ->
     if options["type"] == "query_string"
