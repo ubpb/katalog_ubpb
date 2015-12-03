@@ -4,7 +4,7 @@
   template: """
     <div class="btn-group">
       <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{{label(sort_request)}}}&nbsp;<i class="fa fa-caret-down"></i></button>
-      <ul class="dropdown-menu">
+      <ul class="dropdown-menu dropdown-menu-right">
         {{#sortable_fields}}
           <li>
             <a href="#" on-click="SelectSortOption">{{{label(this)}}}</a>
