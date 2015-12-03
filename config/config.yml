@@ -88,6 +88,7 @@ common_settings: &common_settings
         - "notation"
         - "ht_number"
         - "superorder"
+        - "selection_code"
 
       sortable_fields:
         - _score
