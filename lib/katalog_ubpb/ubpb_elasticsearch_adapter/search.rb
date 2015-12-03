@@ -6,6 +6,7 @@ class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapte
   def call(search_request, options = {})
     dupped_search_request = search_request.deep_dup
     add_query_to_ignore_deleted_records!(dupped_search_request)
+    boost_creators_and_title!(dupped_search_request)
 
     search_result = super(dupped_search_request)
     set_hits!(search_result)
@@ -26,6 +27,19 @@ class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapte
       (search_request[:queries] || search_request["queries"]).push(ignore_deleted_records_query)
     elsif search_request.respond_to?(:queries)
       search_request.queries = [search_request.queries, ignore_deleted_records_query].flatten(1)
+    end
+  end
+
+  def boost_creators_and_title!(search_request)
+    search_request.queries
+    .select do |_query|
+      _query.type == "simple_query_string"
+    end
+    .each do |_simple_query_string_query|
+      if _simple_query_string_query.fields == ["_all"]
+        _simple_query_string_query.fields.push("creator_contributor_search^2")
+        _simple_query_string_query.fields.push("title_search^2")
+      end
     end
   end
 
