@@ -35,6 +35,10 @@ class Api::V1::ApplicationController < ActionController::Base
     @current_api_user ||= User.find_by_id(session[:api_user_id]) if session[:api_user_id]
   end
 
+  def current_scope
+    KatalogUbpb.config.find_scope(params[:scope]) || KatalogUbpb.config.find_scope(session[:scope_id]) || KatalogUbpb.config.scopes.first
+  end
+
   # def current_user_requested?
   #   current_user && params[:user_id].try(:to_i) == current_user.id
   # end
