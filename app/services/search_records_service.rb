@@ -3,7 +3,9 @@ class SearchRecordsService < Servizio::Service
 
   attr_accessor :adapter
   attr_accessor :facets
+  attr_accessor :options
   attr_accessor :search_request
+  attr_accessor :request
 
   validates_presence_of :adapter
   validates_presence_of :search_request
@@ -23,7 +25,7 @@ class SearchRecordsService < Servizio::Service
   end
 
   def call
-    result = adapter.search(faceted_search_request)
+    result = adapter.search(faceted_search_request, options)
 
     # Order facets the way they have been configured/requested
     # Also filter facets that are not configured

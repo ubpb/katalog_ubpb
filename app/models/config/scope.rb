@@ -6,6 +6,7 @@ class Config
     attr_accessor :facets
     attr_accessor :id
     attr_accessor :ils_adapter
+    attr_accessor :options
     attr_accessor :search_engine_adapter
     attr_accessor :searchable_fields
     attr_accessor :sortable_fields
