@@ -1,5 +1,5 @@
 ($ = jQuery).fn.extend
-  bootstrapSimpleSelect: (options) ->
+  bootstrapSimpleSelect: (options = {}) ->
 
     dropdownHtml = (selectElement) ->
       optionElements = selectElement.find("option")
@@ -20,7 +20,7 @@
       """<span>#{buttonText}</span><span>&nbsp;</span><span class="caret"></span>"""
 
     dropdownMenuHtml = (optionElements) ->
-      """<ul class="dropdown-menu" role="menu">#{($.map(optionElements, dropdownMenuElementHtml)).join('')}</ul>"""
+      """<ul class="dropdown-menu #{if options['dropdown_menu_right'] then 'dropdown-menu-right'}" role="menu">#{($.map(optionElements, dropdownMenuElementHtml)).join('')}</ul>"""
 
     dropdownMenuElementHtml = (element) ->
       """<li><a tabindex="-1" href="#" data-value="#{$(element).val()}">#{$(element).text()}</a></li>"""
