@@ -20,8 +20,7 @@ module RecordRelatedService
           search_request: {
             queries: [
               {
-                # TODO: no need for ordered_terms here, use something like 'unscored_terms'
-                type: "ordered_terms",
+                type: "unscored_terms",
                 field: "id",
                 terms: record_ids
               }
