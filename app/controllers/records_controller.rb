@@ -40,7 +40,10 @@ class RecordsController < ApplicationController
 
       search_result = SearchRecordsService.call(
         adapter: @scope.search_engine_adapter.instance,
-        search_request: extended_search_request
+        search_request: extended_search_request,
+        options: {
+          on_campus: on_campus?(request.remote_ip)
+        }
       )
 
       @total_hits = search_result.total_hits
