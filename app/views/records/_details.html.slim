@@ -25,7 +25,7 @@
         dd.date-of-publication = date_of_publication
 
       - if is_superorder?(record) && (ht_number = ht_number(record)).present?
-        dt = "Bände (neu)"
+        dt = "Bände"
         dd.volumes = ractive_component "app.components.ShowVolumes",
           searches_url: searches_path(scope: scope.id),
           api_searches_url: api_v1_searches_path(scope: scope.id),
