@@ -4,9 +4,9 @@ module LinkHelper
     link_to (label || query_string), searches_path(
       search_request: Skala::Adapter::Search::Request.new(
         queries: [{
-          type: "query_string",
+          type: "simple_query_string",
           query: query_string,
-          default_field: default_field
+          fields: [default_field]
         }],
         sort: [sort].flatten(1).compact.presence
       ),
