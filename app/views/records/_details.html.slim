@@ -38,9 +38,13 @@
         dt = "Bestand UB"
         dd.journal-holdings = journal_holdings
 
-      - if (relations = relations(record, link: true, scope: scope)).present?
+      - if record.relation.present?
         dt = "Verknüpfte Titel"
-        dd.relations = relations
+        dd.relations = ractive_component "app.components.Relations",
+          searches_url: searches_path(scope: scope.id),
+          api_searches_url: api_v1_searches_path(scope: scope.id),
+          relations: record.relation,
+          field: "ht_number"
 
       - if (source = source(record)).present?
         dt = "Quelle"
