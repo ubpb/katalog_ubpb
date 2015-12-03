@@ -10,6 +10,9 @@ class SearchesController < ApplicationController
       @search_result = SearchRecordsService.call(
         adapter: current_scope.search_engine_adapter.instance,
         facets: current_scope.facets,
+        options: {
+          on_campus: on_campus?(request.remote_ip)
+        },
         search_request: @search_request
       )
     else
@@ -47,4 +50,14 @@ class SearchesController < ApplicationController
     flash[:notice] = t(".redirected_from_old_permalink")
     redirect_to searches_path(new_params)
   end
+
+  private
+
+  def on_campus?(ip_address, allowed_ip_addresses_or_networks = current_scope.options.try(:[], "on_campus"))
+    # http://stackoverflow.com/questions/3518365/rails-find-out-if-an-ip-is-within-a-range-of-ips
+    [allowed_ip_addresses_or_networks].flatten.compact.any? do |_network_or_ip_address|
+      IPAddr.new(_network_or_ip_address) === ip_address
+    end
+  end
+
 end

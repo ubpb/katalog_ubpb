@@ -135,6 +135,11 @@ common_settings: &common_settings
       sortable_fields:
         - "relevance"
 
+      options:
+        on_campus:
+          - "10.0.2.0/24"
+          - "131.234.0.0/16"
+
 development: &development
   <<: *common_settings
 

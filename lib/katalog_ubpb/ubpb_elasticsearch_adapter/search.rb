@@ -3,7 +3,7 @@ require_relative "../ubpb_elasticsearch_adapter"
 require_relative "./record_factory"
 
 class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapter::Search
-  def call(search_request)
+  def call(search_request, options = {})
     dupped_search_request = search_request.deep_dup
     add_query_to_ignore_deleted_records!(dupped_search_request)
 
