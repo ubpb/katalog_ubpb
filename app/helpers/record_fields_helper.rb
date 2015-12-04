@@ -5,10 +5,12 @@ module RecordFieldsHelper
   end
 
   def title(record, scope:nil, search_request:nil)
+    sanitized_title = HTMLEntities.new.decode(record.title)
+
     if record.id && scope
-      link_to(record.title, record_path(record.id, scope: scope, search_request: search_request)).html_safe
+      link_to(sanitized_title, record_path(record.id, scope: scope, search_request: search_request)).html_safe
     else
-      record.title
+      sanitized_title
     end
   end
 
