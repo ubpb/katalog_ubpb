@@ -67,7 +67,7 @@
     translated_term: ->
       i18n_key = @parent.get("i18n_key")
       facet_name = @parent.get("facet.name")
-      term = @get("term")
+      term = @decode_term(@get("term"))
 
       if i18n_key
         I18n.t("#{i18n_key}.facets.#{facet_name}.values.#{term}", {defaultValue: term})
@@ -94,6 +94,17 @@
       facet_query["exclude"] = true
 
     (search_request.facet_queries ?= []).push(facet_query)
+
+  # http://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+  decode_html_entities: (string) ->
+    new DOMParser().parseFromString(string, "text/html").documentElement.textContent
+
+  decode_term: (term) ->
+    phase_one = @decode_html_entities(term)
+    phase_two = phase_one
+      .replace "&Apos;", "&apos;"
+
+    @decode_html_entities(phase_two)
 
   exclude_term: ->
     path = @computed.exclude_term_path.call(@)
