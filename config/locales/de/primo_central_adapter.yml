@@ -1,6 +1,9 @@
 de:
   primo_central_adapter:
     facets:
+      creation_dates:
+        label: "Erscheinungsjahr"
+
       creators:
         label: "Autor / Autorin"
 
