@@ -26,8 +26,6 @@ private
         Skala::Adapter::Search::Request.new(_deserialized_search_request)
       end
     end
-  rescue
-    raise MalformedSearchRequestError
   end
 
 end
