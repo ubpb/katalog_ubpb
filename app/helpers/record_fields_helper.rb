@@ -53,7 +53,7 @@ module RecordFieldsHelper
   end
 
   def language(record)
-    record.language.map{|l| t("languages.#{l}")}.join(", ")
+    record.language.map { |_language| t("languages.#{_language}", default: _language) }.join(", ")
   end
 
   def description(record)
