@@ -60,16 +60,23 @@ de:
 
     fields:
       _all: Alle Felder
-      creator_contributor_search: Autor/Herausgeber
-      title_search: Titel
-      subject_search: Schlagwort
-      publisher: Verlag
-      toc: Inhaltsverzeichnis
+      _score: Relevanz
+      cataloging_date: Neuerwerbung
+      creationdate_facet: Erscheinungsjahr
       creationdate_search: Erscheinungsjahr
+      creator_contributor_facet: Autor/Herausgeber
+      creator_contributor_search: Autor/Herausgeber
+      ht_number: HT-Nummer des Bandes
       isbn_search: ISBN
       issn: ISSN
-      signature_search: Signatur
       notation: Systemstelle
-      ht_number: HT-Nummer des Bandes
+      notation_sort: Systemstelle
+      publisher: Verlag
+      signature_search: Signatur
       selection_code: Selektionskennzeichen
+      subject_search: Schlagwort
       superorder: HT-Nummer der Überordnung
+      title_search: Titel
+      title_sort: Titel
+      toc: Inhaltsverzeichnis
+      volume_count_sort: Bandzählung

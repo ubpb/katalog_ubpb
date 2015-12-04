@@ -47,4 +47,7 @@ de:
         label: "Thema"
 
     fields:
-      any: Alle Felder
+      any: "Alle Felder"
+      rank: "Relevanz"
+      scdate: "Erscheinungsjahr"
+      stitle: "Titel"
