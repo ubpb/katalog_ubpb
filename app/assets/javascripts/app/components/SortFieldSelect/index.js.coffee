@@ -62,7 +62,7 @@
     app.PathHelpers.path_helper_factory(@get("searches_path"))(options)
 
   translated_field: (sort_request_or_field) ->
-    I18n.t("#{@get("i18n_key")}.#{@field(sort_request_or_field)}")
+    I18n.t("#{@get("i18n_key")}.fields.#{@field(sort_request_or_field)}")
 
   translated_order: (obj) ->
     I18n.t("app.components.SortFieldSelect." + @order(obj)) if @order(obj)
