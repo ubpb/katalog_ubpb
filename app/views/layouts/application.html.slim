@@ -20,8 +20,7 @@ html
 
     script(type="text/javascript" src="//www.google.com/jsapi")
 
-    = favicon_link_tag "/favicon.ico"
-    = favicon_link_tag "touch-icon.png", rel: "apple-touch-icon", type: "image/png"
+    = render "favicons"
     = render "piwik_tracking"
 
   body#top
