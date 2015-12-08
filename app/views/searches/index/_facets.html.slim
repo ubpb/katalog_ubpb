@@ -15,7 +15,7 @@
             search_request: search_request,
             searches_path: searches_path(scope: scope)
 
-        - elsif facet.type.to_sym == :histogram && facet.entries.try(:length) > 1 # graph with only one date makes no sense
+        - elsif facet.type.to_sym == :histogram
           = ractive_component "app.components.HistogramFacet",
             facet: facet,
             i18n_key: scope.search_engine_adapter.i18n_key,
