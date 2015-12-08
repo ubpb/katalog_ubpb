@@ -1,7 +1,4 @@
 #= require app/path_helpers
-#= require polyfills/Array_map
-#= require polyfills/Array_reduce
-#= require polyfills/Object_keys
 #= require ./lower_key_input
 #= require ./slider
 #= require ./sparkline
@@ -9,7 +6,7 @@
 
 ((window.app ?= {}).components ?= {}).HistogramFacet = Ractive.extend
   template: """
-    {{#if can_be_rendered}}
+    {{#if should_be_rendered}}
       {{#facet}}
         <div class="facet histogram-facet {{name}}">
           <div class="panel panel-primary">
@@ -33,30 +30,34 @@
                 </ul>
               {{/if}}
 
-              <sparkline class="visible-md-block visible-lg-block" style="height: 30px; width: 100%"/>
+              {{#if entries.length > 1}}
+                <sparkline class="visible-md-block visible-lg-block" style="height: 30px; width: 100%"/>
 
-              <div class="row">
-                <div class="col-xs-5 col-md-5 col-lg-4">
-                  <lowerkeyinput style="height: 28px" />
+                <div class="row">
+                  <div class="col-xs-5 col-md-5 col-lg-4">
+                    <lowerkeyinput style="height: 28px" />
+                  </div>
+
+                  <div class="col-xs-5 col-xs-offset-2 col-md-5 col-md-offset-2 col-lg-4 col-lg-offset-4">
+                    <upperkeyinput style="height: 28px;" />
+                  </div>
                 </div>
 
-                <div class="col-xs-5 col-xs-offset-2 col-md-5 col-md-offset-2 col-lg-4 col-lg-offset-4">
-                  <upperkeyinput style="height: 28px;" />
+                <div class="row" style="margin-top: 10px">
+                  <div class="col-sm-12">
+                    <slider style="margin-left: 0.6em; margin-right: 0.6em" />
+                  </div>
                 </div>
-              </div>
-
-              <div class="row" style="margin-top: 10px">
-                <div class="col-sm-12">
-                  <slider style="margin-left: 0.6em; margin-right: 0.6em" />
-                </div>
-              </div>
+              {{/if}}
             </div>
 
-            <div class="panel-footer">
-              <button class="btn btn-default btn-sm btn-block" on-click="update_search_result">
-                {{ t("components.HistogramFacet.update_search_result") }}
-              </button>
-            </div>
+            {{#if entries.length > 1}}
+              <div class="panel-footer">
+                <button class="btn btn-default btn-sm btn-block" on-click="update_search_result">
+                  {{ t("components.HistogramFacet.update_search_result") }}
+                </button>
+              </div>
+            {{/if}}
           </div>
         </div>
       {{/facet}}
@@ -70,8 +71,8 @@
     upperkeyinput: app.components.HistogramFacet.UpperKeyInput
 
   computed:
-    can_be_rendered: ->
-      @get("selected_by_search_request") || (@get("min_key")? && @get("max_key")?)
+    should_be_rendered: ->
+      @get("selected_by_search_request") || @get("entries").length > 1
 
     deselect_path: ->
       new_search_request = _.cloneDeep(@get("search_request"))
@@ -79,8 +80,11 @@
       @reset_from(new_search_request)
       @searches_path(search_request: new_search_request)
 
+    corresponding_facet_query: ->
+      @get("search_request.facet_queries")?.find (element) => element.field == @get("facet.field")
+
     selected_by_search_request: ->
-      !!(@get("search_request.facet_queries")?.find (element) => element.field == @get("facet.field"))
+      !!@get("corresponding_facet_query")
 
   onconfig: ->
     [entries, min_key, max_key] = @process_facet(@get("facet")) || []
