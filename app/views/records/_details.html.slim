@@ -28,7 +28,7 @@
         dt = "Bände"
         dd.volumes = ractive_component "app.components.ShowVolumes",
           searches_url: searches_path(scope: scope.id),
-          api_searches_url: api_v1_searches_path(scope: scope.id),
+          api_searches_url: api_v1_searches_path(scope_id: scope.id),
           superorder_id: ht_number,
           label: "Zeige Bände"
 
@@ -46,7 +46,7 @@
         dt = "Verknüpfte Titel"
         dd.relations = ractive_component "app.components.Relations",
           searches_url: searches_path(scope: scope.id),
-          api_searches_url: api_v1_searches_path(scope: scope.id),
+          api_searches_url: api_v1_searches_path(scope_id: scope.id),
           relations: record.relation
 
       - if (source = source(record)).present?
