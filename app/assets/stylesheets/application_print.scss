@@ -1,91 +1,72 @@
-#main-menu, #breadcrumbs-container, #searchbar, .facets,
-#header, #footer, #nav,
-.search-result-actions, .visible-phone, .btn, .btn-group, .accordion, .nav,
-.nav-list, .pagination, .show-all-volumes, .record-thumbnail
-{
+// Fonts
+@font-face {
+  font-family: "Signika";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Signika"), local("Signika-Regular"), font-url("Signika.woff") format("woff"); }
+@font-face {
+  font-family: "Signika";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Signika-Bold"), font-url("Signika-Bold.woff") format("woff"); }
+
+body {
+  font-family: "Signika", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+@import "./application/variables";
+@import "bootstrap-sprockets";
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "bootstrap/utilities";
+@import "bootstrap/responsive-utilities";
+@import "bootstrap/scaffolding";
+@import "bootstrap/buttons";
+@import "bootstrap/tables";
+@import "font-awesome";
+@import "application/components/*";
+
+#navbar-wrapper .navbar-collapse,
+#navbar-wrapper .navbar-toggle,
+#alerts-wrapper,
+#breadcrumb,
+#claim-wrapper,
+#footer-image,
+.to_top,
+.search-panel,
+#facets,
+#hits .panel .panel-heading,
+#hits .panel .panel-footer {
   display: none;
 }
 
-a {
-  text-decoration:none;
-  color: black;
+#navbar-wrapper {
+  margin-bottom: $line-height-computed;
+  .logo {
+    max-width: 200px;
+  }
 }
 
-a:visited {
-  color: black;
+dl dd {
+  -webkit-margin-start: 0;
+}
+
+footer {
+  margin-top: $line-height-computed;
+  padding-top: $line-height-computed / 2;
+  border-top: 1px solid $gray-light;
 }
 
 table {
-  page-break-inside: auto;
+  border: 1px solid $gray-light;
   border-collapse: collapse;
 }
 
-tr {
-  border: 1px solid black;
-}
-
-td.search-result-bibdata {
-  border: 1px solid black;
-}
-
-td {
-  page-break-inside: avoid;
-  page-break-after: auto;
-}
-
-#search-results tr.search-result td.search-result-thumbnail .versions-tag {
-  position: absolute;
-}
-
-/*
-.panel {
-  @include border-radius(0);
-}
-*/
-
-.record-details {
-  .action {
+#record {
+  .image,
+  .tools,
+  ul.nav-tabs,
+  .panel .panel-heading {
     display: none;
-  }
-
-  table {
-    width: 100%;
-    thead th {
-      border-style: solid;
-      border-width: 1px;
-    }
-
-    tbody td {
-      border-style: solid;
-      border-width: 1px;
-    }
-
-    ul {
-      padding: 0px;
-      margin: 0px;
-      list-style: none;
-    }
-
-  }
-
-  .hold-requests, table.items-list {
-    margin-top: 12px;
-  }
-
-  #tab1-1 {
-    display: none;
-  }
-}
-
-// make superorder informations look nice on printers (some styling as on the desktop)
-tr.record td.record-bibdata .is_part_of ul {
-  margin: 0;
-  padding: 0;
-
-  li {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    font-style: italic;
   }
 }
