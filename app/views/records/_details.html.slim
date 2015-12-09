@@ -32,11 +32,12 @@
           superorder_id: ht_number,
           label: "Zeige Bände"
 
-      - if (links = resource_links(record)).present?
+      - if (links = resource_links(record)).present? && (print_links = resource_links(record, print_mode: true)).present?
         dt = "Links"
         dd.resource-links
-          = links
-          = vpn_info
+          .hidden-print = links
+          .visible-print-block = print_links
+          .hidden-print = vpn_info
 
       - if (journal_holdings = journal_holdings(record, fullview: true)).present?
         dt = "Bestand UB"
@@ -80,7 +81,9 @@
   .col-sm-6
     dl
       dt = "Inhaltsverzeichnisse"
-      dd.toc = value_or_default(links_to_toc(record))
+      dd.toc
+        .hidden-print = value_or_default(links_to_toc(record))
+        .visible-print-block = value_or_default(links_to_toc(record, print_mode: true))
 
       dt = "Schlagwörter"
       dd.toc = value_or_default(subject(record, link: true, scope: scope))
@@ -92,5 +95,5 @@
       dd.toc = value_or_default(signature(record, link: true))
 
       / TODO
-      dt = "Externer Link"
-      dd.toc = "–"
+      / dt = "Externer Link"
+      / dd.toc = "–"
