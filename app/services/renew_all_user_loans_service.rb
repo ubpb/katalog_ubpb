@@ -18,9 +18,11 @@ class RenewAllUserLoansService < Servizio::Service
       errors[:call] = :no_loans_present and return nil
     else
       renew_loans_result = adapter.renew_user_loans(ils_user_id)
-      renewed_loans = renew_loans_result.renewed_loans
+      renewed_loans      = renew_loans_result.renewed_loans
 
-      if user_loans.length != renewed_loans.length
+      if renewed_loans.count == 0
+        errors[:call] = :no_loans_could_be_renewed
+      elsif user_loans.count != renewed_loans.count
         errors[:call] = :not_all_loans_could_be_renewed
       end
 

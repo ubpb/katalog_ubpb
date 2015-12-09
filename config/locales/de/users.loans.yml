@@ -7,12 +7,22 @@ de:
           due_date: Rückgabe bis
           loan_date: Ausgeliehen am
           renew: Verlängern
+          no_renew: Verlängern nicht möglich
           renew_all: Alle verlängern
           signature: Signatur
           title: Titel
 
       renew:
-        failed: Die ausgewählte Ausleihe konnte nicht verlängert werden.
+        succeeded: >
+          Exemplar erfolgreich verlängert. Bitte überprüfen Sie die Rückgabefrist.
+        failed: >
+          Das Exemplar konnte nicht verlängert werden. Bitte beachten Sie, dass eine Verlängerung frühstens 30 Tage vor dem Rückgabedatum möglich ist und Sie ein Medium insgesamt nicht länger als ein Jahr ausleihen können.
 
       renew_all:
-        not_all_loans_could_be_renewed: Leider konnten nicht alle Ausleihen verlängert werden.
+        succeeded: >
+          Alle Medien wurden verlängert. Bitte überprüfen Sie die Rückgabefristen.
+        not_all_loans_could_be_renewed: >
+          Alle möglichen Medien wurden erfolgreich verlängert. Mindestens ein Medium konnte nicht mehr verlängert werden. Bitte überprüfen Sie die Rückgabefristen. Bitte beachten Sie, dass eine Verlängerung frühstens 30 Tage vor dem Rückgabedatum möglich ist.
+        failed: >
+          Kein Exemplar konnte verlängert werden. Bitte beachten Sie, dass eine Verlängerung frühstens 30 Tage vor dem Rückgabedatum möglich ist.
+
