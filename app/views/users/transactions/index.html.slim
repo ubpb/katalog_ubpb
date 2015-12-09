@@ -1,19 +1,24 @@
-- sum_of_credits = @transactions.select { |_transaction| _transaction.type == :credit }.sum(&:value) || 0
-- sum_of_debits  = @transactions.select { |_transaction| _transaction.type == :debit }.sum(&:value) || 0
-- sum_total      = sum_of_credits - sum_of_debits
+- sum_of_credits  = @transactions.select { |_transaction| _transaction.type == :credit }.sum(&:value) || 0
+- sum_of_debits   = @transactions.select { |_transaction| _transaction.type == :debit }.sum(&:value) || 0
+- sum_total       = sum_of_credits - sum_of_debits
+- has_open_debits = @transactions.any? {|_transaction| _transaction.creation_date.blank? }
 
 .panel.panel-default
   .panel-heading.panel-cutoffcorner
     h3.panel-title = t("actions.users.transactions#index")
 
   .panel-body
-    - if @transactions.blank?
+    - if @transactions.none?
       .alert.alert-info = t(".no_transactions")
     - else
       - if sum_total < 0
-        .alert.alert-danger == t(".message_debit", sum_total: number_to_currency(sum_total.abs))
+        .alert.alert-danger
+          == t(".message_debit", sum_total: number_to_currency(sum_total.abs))
+          - if has_open_debits
+            == t(".message_debit_open")
       - if sum_total > 0
         .alert.alert-success == t(".message_credit", sum_total: number_to_currency(sum_total))
+
 
       .table-responsive
         table.table.table-striped(data-setup="jquery-tablesorter")
