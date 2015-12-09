@@ -19,7 +19,7 @@
       result = [@translated_field(sort_request_or_field)]
 
       if @order(sort_request_or_field)
-        result.push "(#{@translated_order(sort_request_or_field)})"
+        result.push "#{@translated_order(sort_request_or_field)}"
 
       result.join("&nbsp;")
 
