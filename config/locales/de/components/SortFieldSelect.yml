@@ -2,5 +2,5 @@ de:
   app:
     components:
       SortFieldSelect:
-        asc: aufsteigend
-        desc: absteigend
+        asc: <i class="fa fa-arrow-up"></i>
+        desc: <i class="fa fa-arrow-down"></i>
