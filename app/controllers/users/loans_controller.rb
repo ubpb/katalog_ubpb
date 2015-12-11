@@ -32,7 +32,7 @@ class Users::LoansController < UsersController
 
       if can?(:call, renew_user_loan)
         if renew_user_loan.call!.succeeded?
-          flash[:notice] = t(".succeeded")
+          flash[:success] = t(".succeeded")
         else
           flash[:error] = t(".failed")
         end
@@ -50,10 +50,10 @@ class Users::LoansController < UsersController
 
     if can?(:call, renew_all_user_loans)
       if renew_all_user_loans.call!.succeeded?
-        flash[:notice] = t(".succeeded")
+        flash[:success] = t(".succeeded")
       else
         if renew_all_user_loans.errors[:call].include?(:not_all_loans_could_be_renewed)
-          flash[:error] = t(".not_all_loans_could_be_renewed") # .result contains the ones that could be renewed
+          flash[:warning] = t(".not_all_loans_could_be_renewed") # .result contains the ones that could be renewed
         else
           flash[:error] = t(".failed")
         end

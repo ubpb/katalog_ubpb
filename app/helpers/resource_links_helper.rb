@@ -1,16 +1,20 @@
 module ResourceLinksHelper
 
-  def resource_links(record, default_link_only: false)
+  def resource_links(record, default_link_only: false, print_mode: false)
     openurl            = record.openurl
     is_online_resource = record.carrier_type == "online_resource"
     is_data_storage    = record.carrier_type == "data_storage"
 
     if openurl.present?
-      link_to(openurl, target: "_blank") do
-        if record.fulltext_available
-          "#{fa_icon "external-link"} Direkt zur Online-Resource".html_safe
-        else
-          "#{fa_icon "external-link"} Direkt zur Online-Resource (möglicherweise kein Volltext verfügbar)".html_safe
+      if print_mode
+        link_to(openurl)
+      else
+        link_to(openurl, target: "_blank") do
+          if record.fulltext_available
+            "#{fa_icon "external-link"} Direkt zur Online-Resource".html_safe
+          else
+            "#{fa_icon "external-link"} Direkt zur Online-Resource (möglicherweise kein Volltext verfügbar)".html_safe
+          end
         end
       end
     elsif is_online_resource || is_data_storage
@@ -18,17 +22,23 @@ module ResourceLinksHelper
       links = LinksFilter.new(links).links
 
       if links.present?
-        if default_link_only || links.size == 1
-          link_to(links.first.url, target: "_blank") do
-            "#{fa_icon "external-link"} Direkt zur Online-Resource".html_safe
-          end
+        if print_mode
+          links.map do |link|
+            link_to(link.url)
+          end.join("<br/>").html_safe
         else
-          content_tag(:ul) do
-            links.map do |link|
-              content_tag(:li) do
-                link_to(link.url, target: "_blank")
-              end
-            end.join.html_safe
+          if default_link_only || links.size == 1
+            link_to(links.first.url, target: "_blank") do
+              "#{fa_icon "external-link"} Direkt zur Online-Resource".html_safe
+            end
+          else
+            content_tag(:ul) do
+              links.map do |link|
+                content_tag(:li) do
+                  link_to(link.url, target: "_blank")
+                end
+              end.join.html_safe
+            end
           end
         end
       end

@@ -11,9 +11,15 @@ de:
         debit: "Gebühr"
         type: "Art"
         message_debit: >
-          Sie haben Gebühren in Höhe von %{sum_total} auf Ihrem Gebührenkonto.
+          Sie haben Gebühren in Höhe von <strong>%{sum_total}</strong> auf Ihrem Gebührenkonto.
           Gebühren können am Kassenautomat der Bibliothek während der gesamten
           <a href="http://www.ub.uni-paderborn.de/oeffnungszeiten.shtml">Öffnungszeiten</a>
           beglichen werden.
-        message_credit: "Sie haben ein Guthaben in Höhe von %{sum_total} auf Ihrem Gebührenkonto."
+        message_debit_open: >
+          Bitte beachten Sie, dass Sie <strong>schwebenden Gebühren</strong>
+          erst begleichen können, wenn diese verbucht wurden. Dazu müssen Sie die entsprechenden Medien
+          zunächst zurückgeben oder verlängern.
+        message_credit: >
+          Sie haben ein Guthaben in Höhe von %{sum_total} auf Ihrem Gebührenkonto. Bitte
+          wenden Sie sich an die Ortsleihe.
         open: "schwebend"
