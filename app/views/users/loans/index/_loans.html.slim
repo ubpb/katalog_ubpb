@@ -1,4 +1,6 @@
-- if loans.blank?
+- can_renew_all = loans.any?{|_loan| _loan.renewable?}
+
+- if loans.none?
   .alert.alert-info = t(".no_loans")
 - else
   .table-responsive
@@ -9,9 +11,10 @@
           th(data-sorter="shortDate" data-date-format="ddmmyyyy" style="min-width: 115px;") = t(".due_date")
           th = t(".title")
           th.tablesorter-noSort
-            = link_to renew_all_user_loans_path, method: :put, class: "btn btn-primary btn-sm btn-block" do
-              i.fa.fa-retweet>
-              = t(".renew_all")
+            - if can_renew_all
+              = link_to renew_all_user_loans_path, method: :put, class: "btn btn-primary btn-sm btn-block" do
+                i.fa.fa-retweet>
+                = t(".renew_all")
 
       tbody
         - loans.each do |_loan|
@@ -30,3 +33,5 @@
                 = link_to renew_user_loan_path(_loan.id), method: :put, class: "btn btn-default btn-sm btn-block" do
                   i.fa.fa-retweet>
                   = t(".renew")
+              - else
+                = t(".no_renew")
