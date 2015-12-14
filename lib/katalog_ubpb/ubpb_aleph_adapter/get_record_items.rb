@@ -22,7 +22,8 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
     end
 
     aleph_adapter_result.tap do |_aleph_adapter_result|
-      sort_items!(_aleph_adapter_result)
+      filter_items!(_aleph_adapter_result.items)
+      sort_items!(_aleph_adapter_result.items)
     end
   end
 
@@ -174,8 +175,21 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
     end
   end
 
-  def sort_items!(get_record_items_result)
-    get_record_items_result.items.sort_by!(&:id)
+  def filter_items!(items)
+    # reject all items which end with "-..."
+    items.reject! { |item| item.signature.present? && item.signature[/-\.\.\.\Z/] }
+  end
+
+  def sort_items!(items)
+    items.sort! do |x, y|
+      if x.signature.blank?
+        0 <=> -1
+      elsif y.signature.blank?
+        -1 <=> 0
+      else
+        (x.signature.split("+")[1] || 0).to_i <=> (y.signature.split("+")[1] || 0).to_i
+      end
+    end
   end
 
   def xpath(doc, xpath)
