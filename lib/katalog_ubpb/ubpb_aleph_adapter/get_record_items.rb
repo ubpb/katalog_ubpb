@@ -12,7 +12,7 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
       doc = Nokogiri::XML(aleph_adapter_result.source).xpath("//item[contains(@href, '#{_item.id}')]")
 
       set_ubpb_specific_status!(_item, doc)
-      set_availability!(_item, doc)
+      set_availability!(_item, doc, aleph_adapter_result.items)
       set_hold_request_can_be_created!(_item, doc)
       add_signature!(_item, doc)
       add_location!(_item, doc)
@@ -28,7 +28,7 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
 
   private
 
-  def set_availability!(item, doc)
+  def set_availability!(item, doc, items)
     suppress_availability_for = ["Überordnung", "Zeitschriftenheft"]
 
     if suppress_availability_for.include?(xpath(doc, "./z30/z30-material"))
@@ -48,7 +48,7 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
         when "38" then :restricted_available # Nicht ausleihbar
         when "41" then :restricted_available # Nicht ausleihbar
         when "42" then :restricted_available # Nicht ausleihbar
-        when "43" then :restricted_available # Handapparat
+        when "43" then (items.count == 1) ? :restricted_available : :not_available # Handapparat
         when "44" then :restricted_available # Nicht ausleihbar
         when "48" then :restricted_available # Nicht ausleihbar
         when "49" then :restricted_available # Nicht ausleihbar
