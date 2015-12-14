@@ -1,6 +1,6 @@
 require "skala/aleph_adapter/get_record_items"
 require_relative "../ubpb_aleph_adapter"
-require_relative "../ubpb_item"
+require_relative "../item"
 
 class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRecordItems
   def call(document_number, options = {})
