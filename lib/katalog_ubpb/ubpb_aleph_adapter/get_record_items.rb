@@ -136,9 +136,6 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
   end
 
   def set_closed_stack!(item, doc)
-    #z30_collection = xpath(doc, "./z30/z30-collection")
-    #binding.pry
-    #item.must_be_ordered_from_closed_stack = !!z30_collection.try(:downcase).try(:include?, "magazin") &&
     item.must_be_ordered_from_closed_stack = item.item_status.try(:downcase).try(:include?, "magazin") &&
       (item.availability == :available || item.availability == :restricted_available)
   end
