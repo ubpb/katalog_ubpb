@@ -11,10 +11,10 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
 
       doc = Nokogiri::XML(aleph_adapter_result.source).xpath("//item[contains(@href, '#{_item.id}')]")
 
+      set_ubpb_specific_status!(_item, doc)
       set_availability!(_item, doc)
       set_hold_request_can_be_created!(_item, doc)
       add_signature!(_item, doc)
-      set_ubpb_specific_status!(_item, doc)
       add_location!(_item, doc)
       set_closed_stack!(_item, doc)
 
@@ -33,6 +33,8 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
 
     if suppress_availability_for.include?(xpath(doc, "./z30/z30-material"))
       :unknown
+    elsif [:cancelled, :complained, :expected, :in_process, :lost, :missing, :on_order].include?(item.status)
+      :not_available
     else
       xpath(doc, "./z30-item-status-code").try do |_z30_item_status_code|
         case _z30_item_status_code
@@ -95,8 +97,7 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
           end
         end
       end
-    end
-    .try do |_item_availability|
+    end.try do |_item_availability|
       item.availability = _item_availability
     end
   end
