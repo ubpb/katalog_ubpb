@@ -1,4 +1,4 @@
-- has_cso  = items.any? { |_item| _item.closed_stack? && _item.availability == :available || _item.availability == :restricted_available }
+- has_cso  = items.any? { |_item| _item.must_be_ordered_from_closed_stack? }
 - has_note = items.any? { |_item| _item.note.present? }
 
 #items
@@ -80,7 +80,7 @@
 
                 - if has_cso
                   td
-                    - if item.closed_stack? && (item.availability == :available || item.availability == :restricted_available)
+                    - if item.must_be_ordered_from_closed_stack?
                       - if current_user.present?
                         = link_to t(".cso"), new_closed_stack_order_path(m1: item.signature), class: 'btn btn-primary btn-xs'
                       - else

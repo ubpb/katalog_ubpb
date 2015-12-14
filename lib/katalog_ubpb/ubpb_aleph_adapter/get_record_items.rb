@@ -1,19 +1,24 @@
 require "skala/aleph_adapter/get_record_items"
 require_relative "../ubpb_aleph_adapter"
+require_relative "../ubpb_item"
 
 class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRecordItems
   def call(document_number, options = {})
     aleph_adapter_result = super
 
-    aleph_adapter_result.items.each do |_aleph_adapter_item|
-      doc = Nokogiri::XML(aleph_adapter_result.source).xpath("//item[contains(@href, '#{_aleph_adapter_item.id}')]")
+    aleph_adapter_result.items.map! do |_item|
+      _item = KatalogUbpb::Item.new(_item)
 
-      set_availability!(_aleph_adapter_item, doc)
-      set_hold_request_can_be_created!(_aleph_adapter_item, doc)
-      add_signature!(_aleph_adapter_item, doc)
-      set_ubpb_specific_status!(_aleph_adapter_item, doc)
-      add_location!(_aleph_adapter_item, doc)
-      set_closed_stack!(_aleph_adapter_item, doc)
+      doc = Nokogiri::XML(aleph_adapter_result.source).xpath("//item[contains(@href, '#{_item.id}')]")
+
+      set_availability!(_item, doc)
+      set_hold_request_can_be_created!(_item, doc)
+      add_signature!(_item, doc)
+      set_ubpb_specific_status!(_item, doc)
+      add_location!(_item, doc)
+      set_closed_stack!(_item, doc)
+
+      _item
     end
 
     aleph_adapter_result.tap do |_aleph_adapter_result|
@@ -132,8 +137,8 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
 
   def set_closed_stack!(item, doc)
     z30_collection = xpath(doc, "./z30/z30-collection")
-    # is_available       = item.status == :on_shelf || item.status == :reshelving
-    item.closed_stack = !!z30_collection.try(:downcase).try(:include?, "magazin")
+    item.must_be_ordered_from_closed_stack = !!z30_collection.try(:downcase).try(:include?, "magazin") &&
+      (item.availability == :available || item.availability == :restricted_available)
   end
 
   def add_location!(item, doc)
