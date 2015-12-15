@@ -1,6 +1,4 @@
-# In order to keep the API seperated from the frontend controllers and because authentication
-# is handled slightly differently it does not inherit from ApplicationController.
-class Api::V1::ApplicationController < ActionController::Base
+class Api::V1::ApplicationController < BaseController
   protect_from_forgery
 
   # This approach is chooses above using defaults: { format: "json" } in routing
@@ -12,31 +10,55 @@ class Api::V1::ApplicationController < ActionController::Base
     end
   end
 
-  # CSRF protection is only enforced for session based authentication
-  skip_before_action :verify_authenticity_token, if: -> { params[:access_token].present? }
+  # CSRF protection is only enforced for session based authentication (bypassed if api_key is given)
+  skip_before_action :verify_authenticity_token, if: -> { params[:api_key].present? }
 
-  def authenticate!
-    if params[:access_token].present?
-      #
-      # Token auth (via URL)
-      #
-      user = User.find_by(api_key: params[:access_token])
-      if user
-        session[:api_user_id] = user.id
-      else
-        head :unauthorized
-      end
-    else
-      head :unauthorized
+  # http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api#pretty-print-gzip
+  after_action do
+    if request.format.to_sym == :json && response.body.present?
+      response.body = JSON.pretty_generate(JSON.parse(response.body))
     end
   end
 
-  def current_user
-    @current_api_user ||= User.find_by_id(session[:api_user_id]) if session[:api_user_id]
+  def authenticate!
+    head :unauthorized unless current_user
   end
 
-  def current_scope
-    KatalogUbpb.config.find_scope(params[:scope]) || KatalogUbpb.config.find_scope(session[:scope_id]) || KatalogUbpb.config.scopes.first
+  def call_service(service, options = {})
+    none_service_option_keys = [:on_failed, :on_invalid, :on_succeeded, :on_success, :on_unauthorized]
+    service_options = options.reject do |_key, _|
+      none_service_option_keys.include?(_key)
+    end
+
+    if can?(:call, operation = service.new(service_options))
+      if operation.valid?
+        if operation.call!.succeeded?
+          if callback = options[:on_succeeded] || options[:on_success]
+            callback.call(operation)
+          else
+            head :ok
+          end
+        else
+          if callback = options[:on_failed]
+            callback.call(operation)
+          else
+            head operation.errors[:http_status].first || :internal_server_error
+          end
+        end
+      else
+        if callback = options[:on_invalid]
+          callback.call(operation)
+        else
+          head :bad_request
+        end
+      end
+    else
+      if callback = options[:on_unauthorized]
+        callback.call(operation)
+      else
+        head :unauthorized
+      end
+    end
   end
 
   # def current_user_requested?

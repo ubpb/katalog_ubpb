@@ -30,7 +30,29 @@ class Ability
       #
       can :call, RenewAllUserLoansService, ilsuserid: current_user.ilsuserid
       can :call, RenewUserLoanService, ilsuserid: current_user.ilsuserid
+
+      #
+      # watch lists
+      #
+      can :call, CreateWatchListService, user: current_user
+
+      #
+      # watch list entries
+      #
+      can :call, CreateWatchListEntryService do |_operation|
+        _operation.watch_list.user == current_user
+      end
+
+      can :call, DeleteWatchListEntryService do |_operation|
+        _operation.watch_list_entry.watch_list.user == current_user
+      end
     end
+
+    #
+    # records
+    #
+    can :call, GetRecordsService
+    can :call, SearchRecordsService
   end
 
   private

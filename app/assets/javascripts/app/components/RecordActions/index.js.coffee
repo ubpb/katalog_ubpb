@@ -1,23 +1,18 @@
-#= require app/path_helpers
+#= require app/components/Component
 #= require ./Note
 #= require ./WatchLists
 
-do(
-  app = (window.app ?= {}),
-  Note = app.components.RecordActions.Note,
-  WatchLists = app.components.RecordActions.WatchLists
-) ->
-  ((app ?= {}).components ?= {}).RecordActions = Ractive.extend
+do(app = window.app, Component = app.components.Component, Note = app.components.RecordActions.Note, WatchLists = app.components.RecordActions.WatchLists) ->
+  app.components.RecordActions = Component.extend
     components:
       Note: Note
       WatchLists: WatchLists
 
-    onconfig: ->
-      @["_api_v1_record_path"] = app.PathHelpers.path_helper_factory(@get("api_v1_record_path"))
-
     computed:
-      bibtex_path: -> @_api_v1_record_path(@get("record.id"), download: true, format: "bibtex", scope: @get("scope.id"))
-      json_path: -> @_api_v1_record_path(@get("record.id"), download: true, format: "json", scope: @get("scope.id"), pretty: true)
+      api_v1_scope_record_path: -> @_path_helper_factory("/api/v1/scopes/:scope_id/records/:id")
+      bibtex_path: -> @get("api_v1_scope_record_path")(@get("scope.id"), @get("record.id"), download: true, format: "bibtex")
+      i18n_key: -> "RecordActions"
+      json_path: -> @get("api_v1_scope_record_path")(@get("scope.id"), @get("record.id"), download: true, format: "json")
 
     template: """
       <div class="dropdown {{class ? class : ''}}">
@@ -27,26 +22,11 @@ do(
 
         <ul class="dropdown-menu dropdown-menu-right">
           {{#if user}}
-            <WatchLists
-              api_v1_user_watch_list_entries_path={{api_v1_user_watch_list_entries_path}}
-              api_v1_user_watch_list_entry_path={{api_v1_user_watch_list_entry_path}}
-              api_v1_user_watch_lists_path={{api_v1_user_watch_lists_path}}
-              record={{record}}
-              scope={{scope}}
-              translations={{translations}}
-              user={{user}}
-              watch_lists={{watch_lists}}
-            />
+            <WatchLists record={{record}} scope={{scope}} user={{user}} watch_lists={{watch_lists}} />
+            <!--
             <li class="divider"></li>
-            <Note
-              api_v1_user_note_path={{api_v1_user_note_path}}
-              api_v1_user_notes_path={{api_v1_user_notes_path}}
-              note={{note}}
-              record={{record}}
-              scope={{scope}}
-              translations={{translations}}
-              user={{user}}
-            />
+            <Note note={{note}} record={{record}} scope={{scope}} user={{user}} />
+            -->
             <li class="divider"></li>
           {{/if}}
           <li class="dropdown-header">{{translations.export}}</li>
@@ -54,13 +34,13 @@ do(
           <li>
             <a data-no-turbolink href="{{bibtex_path}}">
               <i class="fa fa-download" />
-              <span>{{translations.export_to_bibtex}}</span>
+              <span>&nbsp;{{t(".export_to_bibtex")}}</span>
             </a>
           </li>
           <li>
             <a data-no-turbolink href="{{json_path}}">
               <i class="fa fa-download" />
-              <span>{{translations.export_to_json}}</span>
+              <span>&nbsp;{{t(".export_to_json")}}</span>
             </a>
           </li>
         </ul>

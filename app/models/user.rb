@@ -1,4 +1,10 @@
 class User < ActiveRecord::Base
+  include WhitelistSerialization
+
+  serialization_whitelist [
+    :id, :first_name, :email_address, :cash_balance, :expiry_date, :ilsuserid,
+    :pseudonym, :number_of_hold_requests, :number_of_loans
+  ]
 
   # Relations
   has_many :notes, dependent: :destroy
@@ -39,5 +45,4 @@ class User < ActiveRecord::Base
     update_attribute(:api_key, key)
     key
   end
-
 end

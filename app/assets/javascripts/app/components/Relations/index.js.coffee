@@ -1,70 +1,70 @@
-#= require app/path_helpers
-#= require polyfills/Array_some
-#= require polyfills/Object_keys
-#= require polyfills/Array_map
+#= require app/components/Component
 
-do(app = (window.app ?= {})) ->
-  (app.components ?= {}).Relations = Ractive.extend
-    template: """
-      {{#if pending}}
-        <span class="state loading">
-          <i class="fa fa-spinner fa-spin" />
-        </span>
-      {{else}}
-        {{#if relations.length > 0}}
-          <ul>
-            {{#relations}}
-              <li>{{{label}}}</li>
-            {{/relations}}
-          </ul>
-        {{else}}
-          –
-        {{/if}}
-      {{/if}}
-    """
+app.components.Relations = app.components.Component.extend
+  computed:
+    api_v1_scope_searches_path: -> @_path_helper_factory("/api/v1/scopes/:scope_id/searches")
+    scope_searches_path: -> @_path_helper_factory("/:scope_id/searches")
 
-    onconfig: ->
-      @set "pending", true
+  data:
+    relation_path: (relation) ->
+      @_searches_path(search_request: @_relation_search_request(relation.target_id))
 
-    oninit: ->
-      relations  = @get("relations") || []
-      target_ids = []
+  onconfig: ->
+    @set "pending", true
 
-      for relation in relations
-        target_ids.push(relation.target_id)
-
-      @link_labels(relations)
-
-      url = @api_searches_path(search_request: {queries: [{
-        type: "unscored_terms",
-        field: "ht_number",
-        terms: target_ids
-      }]})
-
+  oninit: ->
+    if @get("relations")?.length > 0
       $.ajax
-        url: url,
+        url: @_api_searches_path(facets: false, search_request: @_relations_search_request())
         type: "GET"
-        success: (hits) =>
-          @set "relations", relations.filter (relation) ->
-            hits.find (element, index, array) ->
+        success: (search_result) =>
+          filtered_relations = @get("relations").filter (relation) ->
+            relation.target_id? &&
+            search_result.hits.find (element, index, array) ->
               element.record.hbz_id == relation.target_id
 
-          @set "pending", false
+          @set("filtered_relations", (if filtered_relations.length > 0 then filtered_relations else null)).then =>
+            @set "pending", false
 
+    else
+      @set "pending", false
 
-    api_searches_path: (options = {}) ->
-      app.PathHelpers.path_helper_factory(@get("api_searches_url"))(options)
+  template: """
+    {{#if pending}}
+      <span class="state loading">
+        <i class="fa fa-spinner fa-spin" />
+      </span>
+    {{else}}
+      {{#if filtered_relations}}
+        <ul>
+          {{#filtered_relations}}
+            <li><a href="{{relation_path(.)}}">{{label}}</a></li>
+          {{/filtered_relations}}
+        </ul>
+      {{else}}
+        –
+      {{/if}}
+    {{/if}}
+  """
 
-    searches_path: (options = {}) ->
-      app.PathHelpers.path_helper_factory(@get("searches_url"))(options)
+  _api_searches_path: (options = {}) ->
+    @get("api_v1_scope_searches_path")(@get("scope.id"), options)
 
-    link_labels: (relations) ->
-      relations.map (element) =>
-        url = @searches_path(search_request:{queries: [{
-          type: "query_string",
-          query: element.target_id,
-          default_field: "ht_number"
-        }]})
+  _relation_search_request: (hbz_id) ->
+    queries: [
+      type: "query_string"
+      query: hbz_id
+      default_field: "ht_number"
+    ]
 
-        element.label = "<a href=\"#{url}\">#{element.label}</a>" if element.target_id
-        element
+  _relations_search_request: ->
+    from: 0
+    size: @get("relations").length
+    queries: [
+      type: "unscored_terms"
+      field: "ht_number"
+      terms: @get("relations").map (element) -> element["target_id"]
+    ]
+
+  _searches_path: (options = {}) ->
+    @get("scope_searches_path")(@get("scope.id"), options)

@@ -1,4 +1,4 @@
-do(app = (window.App ?= {})) ->
+do(app = (window.app ?= {})) ->
   (app.components ?= {}).ComboInput = Ractive.extend
     onconfig: ->
       @_reset_input()

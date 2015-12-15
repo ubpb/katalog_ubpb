@@ -1,6 +1,6 @@
 .hit.record
   .row
-    .col-sm-12
+    .col-sm-11
       .image
         = ractive_component "app.components.Image",
           placeholder: image_tag("record-print-lg.png"),
@@ -24,7 +24,7 @@
         / Status
         .status
           - if show_availability?(hit.record, scope)
-            => ractive_component "app.components.AvailabilityIndicator", url: api_v1_record_items_path(record_id: hit.record.id, scope_id: scope.id)
+            => ractive_component "app.components.AvailabilityIndicator", record: hit.record, scope: scope
 
           - if (signature = signature(hit.record, link: true)).present?
             span.signature = "Signatur: #{signature}".html_safe
@@ -35,6 +35,16 @@
             = links
             = vpn_info
 
+        = ractive_component "app.components.WatchLists",
+          record: hit.record,
+          watch_lists: client_memory_store("watch_lists", @watch_lists, include: :watch_list_entries)
+
+    .col-sm-1
+      = ractive_component "app.components.RecordActions",
+        record: hit.record,
+        scope: scope,
+        user: client_memory_store("user", current_user),
+        watch_lists: client_memory_store("watch_lists", @watch_lists, include: :watch_list_entries)
 
 /     /= ractive_component "app.components.Note",
 /       note: @notes.try(:find) { |_note| \
@@ -43,17 +53,11 @@
 /       record: { id: hit.record.id },
 /       translations: I18n.config.backend.send(:translations)[current_locale][:components][:Note]
 
-/     /= ractive_component "app.components.WatchLists",
-/       record: { id: hit.record.id },
-/       user_watch_list_path: user_watch_list_path(":id"),
-/       watch_lists: @watch_lists.try(:as_json, \
-/         only: [:id, :name], \
-/         include: { \
-/           entries: { \
-/             only: [:id, :record_id, :watch_list_id] \
-/           } \
-/         } \
-/       )
+  /td
+  /  = ractive_component "app.components.RecordActions",
+  /    api_v1_record_path: api_v1_record_path(":id"),
+  /    record: record
+
 
 /   /td
 /     = ractive_component "app.components.RecordActions",

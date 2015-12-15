@@ -1,5 +1,6 @@
-class ApplicationController < ActionController::Base
+class ApplicationController < BaseController
   include Breadcrumbs
+  include JavascriptVariables
 
   protect_from_forgery
 
@@ -68,18 +69,6 @@ class ApplicationController < ActionController::Base
     session[:locale] || I18n.default_locale
   end
 
-  def current_scope
-    KatalogUbpb.config.find_scope(params[:scope]) || KatalogUbpb.config.find_scope(session[:scope_id]) || KatalogUbpb.config.scopes.first
-  end
-
-  def current_user
-    @current_user ||= begin
-      if user_id = session["user_id"]
-        GetUserService.call(id: user_id)
-      end
-    end
-  end
-
   def set_robots_tag
     response.headers["X-Robots-Tag"] = 'noindex,nofollow,noarchive,nosnippet,notranslate,noimageindex'
   end
@@ -87,16 +76,6 @@ class ApplicationController < ActionController::Base
   def global_message
     fn = File.join(Rails.root, 'config', 'GLOBAL_MESSAGE')
     @global_message ||= File.open(fn, 'r').read.html_safe if File.exists?(fn)
-  end
-
-  def search_request_from_params
-    if params[:search_request]
-      JSON.parse(params[:search_request]).try do |_deserialized_search_request|
-        Skala::Adapter::Search::Request.new(_deserialized_search_request)
-      end
-    end
-  rescue
-    raise MalformedSearchRequestError
   end
 
   def ip_addr_in_range?(low, high, addr)
@@ -114,12 +93,4 @@ class ApplicationController < ActionController::Base
 
     redirect_to searches_url
   end
-
-  def on_campus?(ip_address, allowed_ip_addresses_or_networks = current_scope.options.try(:[], "on_campus"))
-    # http://stackoverflow.com/questions/3518365/rails-find-out-if-an-ip-is-within-a-range-of-ips
-    [allowed_ip_addresses_or_networks].flatten.compact.any? do |_network_or_ip_address|
-      IPAddr.new(_network_or_ip_address) === ip_address
-    end
-  end
-
 end
