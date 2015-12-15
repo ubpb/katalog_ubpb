@@ -9,7 +9,7 @@
     border: 1px solid $gray-light;
     padding: 4px;
 
-    @media (max-width: $screen-sm-min) {
+    @media screen and (max-width: $screen-sm-min) {
       display: none;
     }
 
@@ -35,7 +35,7 @@
       width: $dt-width;
       text-align: right;
 
-      @media (max-width: $screen-sm-min) {
+      @media screen and (max-width: $screen-sm-min) {
         float: none;
         text-align: left;
         margin-right: 0;
@@ -57,7 +57,7 @@
         background-color: $gray-lightest;
       }
 
-      @media (max-width: $screen-sm-min) {
+      @media screen and (max-width: $screen-sm-min) {
         padding: 0;
         border: none;
 
