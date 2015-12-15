@@ -1,0 +1,35 @@
+.scope-info {
+  $image-width: 120px;
+  $image-margin: 5px;
+
+  @include clearfix;
+
+  .image {
+    float: left;
+    width: $image-width;
+    margin-right: $image-margin;
+    margin-top: 7px;
+  }
+
+  .heading {
+    font-size: 110%;
+    font-weight: bold;
+    color: $brand-primary;
+  }
+
+  .info,
+  .heading {
+    margin-left: $image-width + $image-margin;
+  }
+
+  @media (max-width: $screen-sm-min) {
+    .image {
+      display: none;
+    }
+
+    .info,
+    .heading {
+      margin-left: 0;
+    }
+  }
+}

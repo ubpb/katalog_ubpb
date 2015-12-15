@@ -4,17 +4,12 @@
     search_request: @search_request
 
 .row: .col-sm-12: .search-results
-  - if @search_result
-    - if @search_result.hits.present? || @search_request.facet_queries.present?
-      = render_relative "./index/search_result",
-        search_request: @search_request,
-        search_result: @search_result,
-        scope: current_scope
-
-    - else
-      .alert.alert-info.alert-no-records-found
-        = t(".no_records_found")
+  - if @search_result.hits.present? || @search_request.facet_queries.present?
+    = render_relative "./index/search_result",
+      search_request: @search_request,
+      search_result: @search_result,
+      scope: current_scope
   - else
     .panel.panel-primary
       .panel-body.panel-cutoffcorner
-        h3(style="text-align: center; margin:0") Place your search hints content here...
+        = t(".no_records_found")

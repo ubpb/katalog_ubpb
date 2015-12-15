@@ -3,5 +3,49 @@
     scope: current_scope,
     search_request: @search_request
 
-.row: .col-sm-12: .panel.panel-default: .panel-body
-  h3(style="text-align: center; margin:0") Place your homepage content here...
+.row
+  .col-md-9
+    .panel.panel-primary
+      .panel-heading.panel-cutoffcorner
+        .panel-title Sucheinstiege
+      .panel-body
+        .row
+          .col-md-6
+            .scope-info
+              .image = image_tag "x-catalog.png", class: "img-responsive"
+              .heading Katalog
+              .info
+                p ca. 1,6 Millionen Titel im Angebot der UB, z.B. Bücher, Zeitschriften, eBooks, eJournals, CDs und DVDs
+
+          .col-md-6
+            .scope-info
+              .image = image_tag "x-primo-central.png", class: "img-responsive"
+              .heading Primo Central
+              .info
+                p
+                  ' ca. 30 Millionen Titel aus
+                  => link_to "bibliographischen Datenbanken und Volltextdatenbanken", "http://www.ub.uni-paderborn.de/recherchieren/primo/datenquellen-primocentral.shtml", target: "_blank"
+                  ' die i.d.R. nicht im Katalog nachgewiesen sind, z.B. Zeitschriftenaufsätze, eBooks und weitere wissenschaftliche Materialien
+
+        em
+          ' Sie können bei der Recherche zwischen zwei Sucheinstiegen wählen. Die Auswahl treffen Sie ganz einfach
+          ' über den jeweiligen Tab der Suchleiste.
+
+  .col-md-3
+    .panel.panel-primary
+      .panel-heading.panel-cutoffcorner
+        .panel-title Neuigkeiten zum Katalog
+      .panel-body
+        - if @news.present?
+          - @news.each do |item|
+            div.feed-item
+              div.feed-item-date
+                = l(item[:date].to_date)
+              div.feed-item-title
+                a(href=item[:link] title=item[:description].html_safe)
+                  = "#{item[:title].html_safe}"
+        - else
+          ' Aktuell keine Neuigkeiten
+      - if @news.present?
+        .panel-footer
+          = link_to "&raquo; Alle Neuigkeiten".html_safe, "http://blogs.uni-paderborn.de/ub-katalog"
