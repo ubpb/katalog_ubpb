@@ -16,9 +16,9 @@ class SearchesController < ApplicationController
         search_request: @search_request
       )
     else
-      @search_request = Skala::Adapter::Search::Request.new(
-        queries: [{ type: "simple_query_string", fields: [current_scope.searchable_fields.first] }]
-      )
+      # In case of an empty search request, redirect back
+      # to homepage.
+      redirect_to(root_path(scope: params[:scope]))
     end
 
     # if current_user
