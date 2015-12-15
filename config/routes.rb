@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   get "/:scope/searches",    to: "searches#index", as: :searches
-  get "/searches/:id",       to: "searches#show", as: :search # only for compatibility with former catalog
   get "/:scope/records/:id", to: "records#show", as: :record, constraints: { id: /.+/ }
 
   resource  :session, only: [:create, :destroy, :new]
@@ -33,6 +32,15 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  #
+  # Compatibility with catalog 1.x
+  #
+  get "/searches/:id", to: "searches#show"
+  get "/searches",     to: redirect("/")
+  get "/records",      to: redirect("/")
+  # TODO
+  #get "/records/:id",  to: "records#show"
 
   #
   # Some kickers
