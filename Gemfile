@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 gem "autoprefixer-rails",    "~> 6.0.3"
+gem "bibtex-ruby",           "~> 4.0", require: "bibtex"
 gem "bootstrap-sass",        "~> 3.3.5"
 gem "browser",               "~> 0.8.0"
 gem "cancancan",             "~> 1.12.0"
@@ -17,6 +18,7 @@ gem "jquery-turbolinks",     "~> 2.1.0"
 gem "jquery-ui-rails",       "~> 5.0.3"
 gem "libxml-ruby",           "~> 2.8", require: "libxml" # for ActiveSupport::XmlMini.backend = "LibXML"
 gem "mysql2",                "~> 0.3.20" # ActiveRecord requires ~0.3.0 currently
+#gem "opal-rails",            "~> 0.8"
 gem "ox",                    "~> 2.2.2"
 gem "rails",                 "= 4.2.5"
 gem "rails-html-sanitizer",  "~> 1.0.1"
@@ -26,7 +28,6 @@ gem "sass-rails",            "~> 5.0.1"
 gem "servizio",              "~> 0.6"
 gem "simple_form",           "~> 3.1.0"
 gem "slim",                  "~> 3.0.1"
-gem "sqlite3",               "~> 1.3"
 gem "turbolinks",            "~> 2.5.2"
 gem "uglifier",              "~> 2.5.3"
 gem "uservoice-ruby",        "~> 0.0.11"
@@ -71,16 +72,17 @@ group :development, :test do
   gem "pry-rescue",         "~> 1.4.2"
   gem "pry-state",          "~> 0.1.7"
 
-  gem "puma",               "~> 2.9.0"
-  gem "quiet_assets",       "~> 1.0.3"
-  gem "rspec-rails",        "~> 3.1.0"
+  gem "puma",               "~> 2.9"
+  gem "quiet_assets",       "~> 1.0"
+  gem "rspec-rails",        "~> 3.0"
 end
 
 group :test do
-  gem "capybara",                  "~> 2.4.4"
-  gem "codeclimate-test-reporter", "~> 0.4.5", require: nil
-  gem "database_cleaner",          "~> 1.3.0"
-  gem "poltergeist",               "~> 1.5.1"
-  gem "simplecov",                 "~> 0.9.1"
+  gem "capybara",                  "~> 2.4"
+  gem "codeclimate-test-reporter", require: nil
+  gem "database_cleaner",          "~> 1.3"
+  gem "poltergeist",               "~> 1.5"
+  gem "simplecov",                 "~> 0.9"
+  gem "sqlite3",                   "~> 1.3"
 end
 

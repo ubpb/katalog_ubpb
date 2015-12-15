@@ -26,11 +26,7 @@
 
       - if is_superorder?(record) && (ht_number = ht_number(record)).present?
         dt = "Bände"
-        dd.volumes = ractive_component "app.components.ShowVolumes",
-          searches_url: searches_path(scope: scope.id),
-          api_searches_url: api_v1_searches_path(scope_id: scope.id),
-          superorder_id: ht_number,
-          label: "Zeige Bände"
+        dd.volumes = ractive_component "app.components.ShowVolumes", scope: scope, superorder_id: ht_number
 
       - if (links = resource_links(record)).present? && (print_links = resource_links(record, print_mode: true)).present?
         dt = "Links"
@@ -45,10 +41,7 @@
 
       - if record.relation.present?
         dt = "Verknüpfte Titel"
-        dd.relations = ractive_component "app.components.Relations",
-          searches_url: searches_path(scope: scope.id),
-          api_searches_url: api_v1_searches_path(scope_id: scope.id),
-          relations: record.relation
+        dd.relations = ractive_component "app.components.Relations", relations: record.relation, scope: scope
 
       - if (source = source(record)).present?
         dt = "Quelle"

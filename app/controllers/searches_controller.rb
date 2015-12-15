@@ -21,10 +21,10 @@ class SearchesController < ApplicationController
       redirect_to(root_path(scope: params[:scope]))
     end
 
-    # if current_user
-    #   @notes       = current_user.try(:notes)
-    #   @watch_lists = current_user.watch_lists.includes(:entries)
-    # end
+     if current_user
+       # @notes       = current_user.try(:notes)
+       @watch_lists = GetUserWatchListsService.call(include: :watch_list_entries, user: current_user)
+     end
   rescue Skala::Adapter::BadRequestError
     flash.now[:error] = t(".bad_request_error")
     render

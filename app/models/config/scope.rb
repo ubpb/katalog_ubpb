@@ -1,6 +1,9 @@
 class Config
   class Scope
     include ActiveModel::Model
+    #include WhitelistSerialization
+
+    #serialization_whitelist [:id]
 
     attr_accessor :config
     attr_accessor :facets
@@ -23,5 +26,11 @@ class Config
       @config.find_search_engine_adapter(@search_engine_adapter)
     end
 
+    # support as_json by providing to_hash
+    def to_hash
+      {
+        id: id
+      }
+    end
   end
 end

@@ -59,24 +59,43 @@ Rails.application.routes.draw do
     namespace :v1 do
       get "user/calendar" => "calendar#show"
 
-      resources :searches, only: [:index], path: ":scope_id/searches"
-
-      resources :records, only: [:index, :show], path: ":scope_id/records" do
-        scope module: "records" do
-          resources :items, only: [:index]
-        end
-      end
-
-      resources :users, only: [] do
-        scope module: "users" do
-          resources :notes, only: [:create, :update, :destroy]
-          resources :watch_lists do
-            scope module: "watch_lists" do
-              resources :entries, only: [:create, :destroy]
+      resources :scopes, only: [:index] do
+        scope module: "scopes" do
+          resources :records, only: [:show] do
+            scope module: "records" do
+              resources :items, only: [:index]
             end
           end
+          
+          resources :searches, only: [:index]
         end
       end
+
+      #resources :searches, only: [:index], path: ":scope_id/searches"
+
+      #resources :records, only: [:index, :show], path: ":scope_id/records" do
+      #  scope module: "records" do
+      #    resources :items, only: [:index]
+      #  end
+      #end
+
+      resources :users, only: [:show] do
+        scope module: "users" do
+          resources :notes, only: [:create, :index]
+          resources :watch_lists, only: [:create, :index]
+        end
+      end
+
+      # /api/v1/notes/:id
+      resources :notes, controller: "/api/v1/users/notes", only: [:destroy, :update]
+
+      # /api/v1/watch_lists/:id
+      resources :watch_lists, controller: "/api/v1/users/watch_lists", only: [:destroy, :update] do
+        resources :watch_list_entries, controller: "/api/v1/users/watch_lists/watch_list_entries", only: [:create, :index]
+      end
+
+      # /api/v1/watch_list_entries/:id
+      resources :watch_list_entries, controller: "/api/v1/users/watch_lists/watch_list_entries", only: [:destroy]
     end
   end
 end

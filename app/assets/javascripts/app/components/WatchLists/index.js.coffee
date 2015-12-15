@@ -1,38 +1,30 @@
-#= require app/path_helpers
-#= require polyfills/Array_find
+#= require app/components/Component
 
-((window.App ?= {}).components ?= {}).WatchLists = Ractive.extend
-  onconfig: ->
-    @set "watch_lists", [] unless @get("watch_lists")
-    @set "user_watch_list_path", app.PathHelpers.path_helper_factory(@get("user_watch_list_path"))
-    @_sort_watch_lists()
-
-  oninit: ->
-    $(window).on "app:user:watch_list:create.#{@_guid}", (event, watch_list) =>
-      @get("watch_lists").push(watch_list)
-      @_sort_watch_lists()
-
-    $(window).on "app:user:watch_list:entry:create.#{@_guid}", (event, entry) =>
-      for _watch_list in (_watch_lists = @get("watch_lists"))
-        if _watch_list.id == entry.watch_list_id
-          _watch_list.entries.push(entry)
-
-      @set("watch_lists", _watch_lists)
-
-    $(window).on "app:user:watch_list:entry:destroy.#{@_guid}", (event, entry) =>
-      for _watch_list in (_watch_lists = @get("watch_lists"))
-        if _watch_list.id == entry.watch_list_id
-          _watch_list.entries = _watch_list.entries.filter (_entry) => _entry.id != entry.id
-
-      @set("watch_lists", _watch_lists)
-
-  onteardown: ->
-    $(window).off ".#{@_guid}"
-
+app.components.WatchLists = app.components.Component.extend
   computed:
+    user_watch_list_path: ->
+      @_path_helper_factory("/user/watch_lists/:id")
+
     watch_lists_the_record_is_on: ->
-      @get("watch_lists").filter (watch_list) =>
-        !!watch_list.entries.find((element) => element.record_id == @get("record")?.id)
+      @get("watch_lists")?.filter (_watch_list) =>
+        if (record_id = @get("record.id"))?
+          !!_watch_list?.watch_list_entries?.find (element) =>
+            (element.recordid || element.record_id) == record_id
+
+  onconfig: ->
+    #@observe "watch_lists.*.watch_list_entries", (oldValue, newValue, keypath) =>
+    #  w = 1
+    #  #debugger
+    #  #@update("watch_lists")
+    #  #@update("watch_lists_the_record_is_on")
+
+    # this fixes an issue, when other components add a watch_list, the pattern oberver above is not triggered
+    #@observe "watch_lists", (oldValue, newValue, keypath) =>
+    #  debugger
+    #  @update()
+
+  onrender: ->
+    @observe "watch_lists.*.watch_list_entries", => @update("watch_lists_the_record_is_on")
 
   template: """
     <div style="{{#if watch_lists_the_record_is_on}}{{style}}{{/if}}">

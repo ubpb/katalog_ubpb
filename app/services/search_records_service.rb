@@ -13,7 +13,7 @@ class SearchRecordsService < Servizio::Service
   def faceted_search_request
     if facets
       if search_request.is_a?(Hash)
-        search_request.deep_dup.merge(facets)
+        search_request.deep_dup.merge(facets: facets)
       elsif search_request.respond_to?(:facets=)
         search_request.deep_dup.tap do |_dupped_search_request|
           _dupped_search_request.facets = facets

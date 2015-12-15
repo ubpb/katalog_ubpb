@@ -10,7 +10,15 @@
           a(href="#record-details-tab" data-toggle="tab")
             | Details
             - if show_availability?(@record, @scope)
-              =< ractive_component "app.components.AvailabilityIndicator", url: api_v1_record_items_path(record_id: @record.id, scope_id: @scope.id)
+              =< ractive_component "app.components.AvailabilityIndicator", record: @record, scope: @scope
+              / url: api_v1_record_items_path(record_id: @record.id, scope_id: @scope.id)
+
+        = ractive_component "app.components.RecordActions",
+          class: "pull-right",
+          record: @record,
+          scope: @scope,
+          user: client_memory_store("user", current_user),
+          watch_lists: client_memory_store("watch_lists", @watch_lists, include: :watch_list_entries)
 
       .tab-content
         #record-details-tab.tab-pane.active
@@ -39,26 +47,3 @@
               number_of_hold_requests: @number_of_hold_requests,
               record: @record,
               search_request: @search_request
-
-/ = ractive_component "app.components.RecordActions",
-/   api_v1_record_path: api_v1_record_path(":id"),
-/   api_v1_user_notes_path: api_v1_user_notes_path(":user_id"),
-/   api_v1_user_note_path: api_v1_user_note_path(":user_id", ":id"),
-/   api_v1_user_watch_lists_path: api_v1_user_watch_lists_path(":user_id"),
-/   api_v1_user_watch_list_entries_path: api_v1_user_watch_list_entries_path(":user_id", ":watch_list_id"),
-/   api_v1_user_watch_list_entry_path: api_v1_user_watch_list_entry_path(":user_id", ":watch_list_id", ":id"),
-/   class: "pull-right",
-/   note: @notes.try(:find) { |_note| \
-/     _note.record_id == @record.id\
-/   },\
-/   record: { id: @record.id },
-/   scope: { id: @scope.id },
-/   translations: I18n.config.backend.send(:translations)[current_locale][:components][:RecordActions],
-/   user: current_user.try(:slice, :id),
-/   watch_lists: @watch_lists.try(:map) { |_watch_list| \
-/     _watch_list.slice(:id, :name).merge( \
-/       "entries" => _watch_list.entries.map { |_entry| \
-/         _entry.slice(:id, :record_id, :watch_list_id) \
-/       } \
-/     ) \
-/   }

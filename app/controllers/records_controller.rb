@@ -30,6 +30,10 @@ class RecordsController < ApplicationController
       end
     end
 
+   if current_user
+     @watch_lists = GetUserWatchListsService.call(include: :watch_list_entries, user: current_user)
+   end
+
     if @search_request
       on_first_page = @search_request.from == 0
       offset = 1
