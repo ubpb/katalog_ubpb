@@ -35,7 +35,7 @@ module ResourceLinksHelper
             content_tag(:ul) do
               links.map do |link|
                 content_tag(:li) do
-                  link_to(link.url, target: "_blank")
+                  link_to(link.url, link.url, target: "_blank")
                 end
               end.join.html_safe
             end
