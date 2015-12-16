@@ -7,53 +7,58 @@
   template: """
     <div class="search-bar">
       <div class="visible-sm-block visible-md-block visible-lg-block">
-        {{#each search_request.queries}}
-          <div class="row">
-            <div class="{{#if search_request.queries.length == 1}}col-sm-9{{else}}col-sm-12{{/if}}">
-              <div class="input-group">
-                <input class="form-control query" autocomplete="off" autofocus="" placeholder="Suchbegriff" value="{{query}}" on-keypress="KeypressInSearchInput" />
-                <div class="input-group-btn">
-                  {{#if type === "simple_query_string"}}
-                    <select class="field" decorator="bootstrap_simple_select" value="{{fields[0]}}">
-                      {{#searchable_fields}}
-                        <option value="{{this}}">{{t(i18n_key + ".fields." + this, { defaultValue: this })}}</option>
-                      {{/searchable_fields}}
-                    </select>
-                  {{/if}}
+        <div class="row">
+          <div class="col-md-9">
+            {{#each search_request.queries}}
+              <div class="row">
+                <div class="{{#if search_request.queries.length == 1}}col-sm-9{{else}}col-sm-12{{/if}}">
+                  <div class="input-group">
+                    <input class="form-control query" autocomplete="off" autofocus="" placeholder="Suchbegriff" value="{{query}}" on-keypress="KeypressInSearchInput" />
+                    <div class="input-group-btn">
+                      {{#if type === "simple_query_string"}}
+                        <select class="field" decorator="bootstrap_simple_select" value="{{fields[0]}}">
+                          {{#searchable_fields}}
+                            <option value="{{this}}">{{t(i18n_key + ".fields." + this, { defaultValue: this })}}</option>
+                          {{/searchable_fields}}
+                        </select>
+                      {{/if}}
 
-                  <button class="btn btn-default" type="button" on-click="AddQuery">
-                    <i class="fa fa-plus-circle"></i>
-                  </button>
+                      <button class="btn btn-default" type="button" on-click="AddQuery">
+                        <i class="fa fa-plus-circle"></i>
+                      </button>
 
-                  <button class="btn btn-default {{search_request.queries.length == 1 ? 'disabled' : ''}}" type="button" on-click="RemoveQuery">
-                    <i class="fa fa-minus-circle"></i>
+                      <button class="btn btn-default {{search_request.queries.length == 1 ? 'disabled' : ''}}" type="button" on-click="RemoveQuery">
+                        <i class="fa fa-minus-circle"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {{#if search_request.queries.length == 1}}
+                  <div class="col-sm-3">
+                    <button class="btn btn-primary form-control search-button" on-click="SubmitSearchRequest">
+                      <i class="fa fa-search"></i>
+                      {{ t("components.SearchBar.search") }}
+                    </button>
+                  </div>
+                {{/if}}
+              </div>
+            {{/each}}
+
+            {{#if search_request.queries.length > 1}}
+              <div class="row">
+                <div class="col-sm-3">
+                  <button class="btn btn-primary form-control search-button" on-click="SubmitSearchRequest">
+                    <i class="fa fa-search"></i>
+                    {{ t("components.SearchBar.search") }}
                   </button>
                 </div>
               </div>
-            </div>
-
-            {{#if search_request.queries.length == 1}}
-              <div class="col-sm-3">
-                <button class="btn btn-primary form-control search-button" on-click="SubmitSearchRequest">
-                  <i class="fa fa-search"></i>
-                  {{ t("components.SearchBar.search") }}
-                </button>
-              </div>
             {{/if}}
           </div>
-        {{/each}}
-
-        {{#if search_request.queries.length > 1}}
-          <div class="row">
-            <div class="col-sm-3">
-              <button class="btn btn-primary form-control search-button" on-click="SubmitSearchRequest">
-                <i class="fa fa-search"></i>
-                {{ t("components.SearchBar.search") }}
-              </button>
-            </div>
-          </div>
-        {{/if}}
+        </div>
       </div>
+
       <div class="visible-xs">
         {{#each search_request.queries}}
           <div class="row">
@@ -92,7 +97,7 @@
       </div>
     </div>
   """
-  
+
   decorators:
     bootstrap_simple_select: (node) ->
       $(node).bootstrapSimpleSelect()
