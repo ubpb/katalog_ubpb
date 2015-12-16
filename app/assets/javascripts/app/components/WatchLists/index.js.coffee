@@ -11,18 +11,6 @@ app.components.WatchLists = app.components.Component.extend
           !!_watch_list?.watch_list_entries?.find (element) =>
             (element.recordid || element.record_id) == record_id
 
-  onconfig: ->
-    #@observe "watch_lists.*.watch_list_entries", (oldValue, newValue, keypath) =>
-    #  w = 1
-    #  #debugger
-    #  #@update("watch_lists")
-    #  #@update("watch_lists_the_record_is_on")
-
-    # this fixes an issue, when other components add a watch_list, the pattern oberver above is not triggered
-    #@observe "watch_lists", (oldValue, newValue, keypath) =>
-    #  debugger
-    #  @update()
-
   onrender: ->
     @observe "watch_lists.*.watch_list_entries", => @update("watch_lists_the_record_is_on")
 
