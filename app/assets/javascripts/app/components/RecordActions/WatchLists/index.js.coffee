@@ -25,6 +25,8 @@ do(app = (window.app ?= {}), ComboInput = app.components.ComboInput) ->
     isolated: true
 
     oninit: ->
+      @observe "watch_lists.*.watch_list_entries", => @update("record_on_watch_list")
+
       @on "AddRecordToWatchList", @_event_handler_factory (event, record, watch_list) ->
         @_create_watch_list_entry(watch_list.id, record.id, @get("scope.id"))
       , stop_propagation: false
