@@ -18,6 +18,6 @@ module JavascriptVariables
       (@__client_memory_store__ ||= {})[name] = value.as_json(options)
     end
 
-    :memory_store
+    "proxy(app.memory_store)"
   end
 end

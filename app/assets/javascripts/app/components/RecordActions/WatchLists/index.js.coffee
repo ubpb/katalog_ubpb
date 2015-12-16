@@ -1,8 +1,9 @@
 #= require app/components/ComboInput
+#= require app/components/Component
 #= require app/path_helpers
 
-do(app = (window.app ?= {}), ComboInput = app.components.ComboInput) ->
-  ((app.components ?= {}).RecordActions ?= {}).WatchLists = Ractive.extend
+do(app = (window.app ?= {}), ComboInput = app.components.ComboInput, Component = app.components.Component) ->
+  ((app.components ?= {}).RecordActions ?= {}).WatchLists = Component.extend
     components:
       ComboInput: ComboInput
 
@@ -22,11 +23,7 @@ do(app = (window.app ?= {}), ComboInput = app.components.ComboInput) ->
         $(node).focus()
         return teardown: ->
 
-    isolated: true
-
     oninit: ->
-      @observe "watch_lists.*.watch_list_entries", => @update("record_on_watch_list")
-
       @on "AddRecordToWatchList", @_event_handler_factory (event, record, watch_list) ->
         @_create_watch_list_entry(watch_list.id, record.id, @get("scope.id"))
       , stop_propagation: false
@@ -95,8 +92,8 @@ do(app = (window.app ?= {}), ComboInput = app.components.ComboInput) ->
           scope_id: scope_id
         success: (watch_list_entry) =>
           watch_list_index = @get("watch_lists").findIndex (element) => element.id == watch_list_id
-          @set("watch_lists.#{watch_list_index}.watch_list_entries", @get("watch_lists.#{watch_list_index}.watch_list_entries") || [])
-          @get("watch_lists.#{watch_list_index}.watch_list_entries").push(watch_list_entry)
+          watch_list_entries_keypath = "watch_lists.#{watch_list_index}.watch_list_entries"
+          @set(watch_list_entries_keypath, @get(watch_list_entries_keypath).concat(watch_list_entry))
 
     _create_watch_list: (name) ->
       if !name # shortcut for nothing to create
@@ -109,7 +106,8 @@ do(app = (window.app ?= {}), ComboInput = app.components.ComboInput) ->
             name: name
           success: (watch_list) =>
             watch_list["watch_list_entries"] ?= []
-            @get("watch_lists").push(watch_list)
+            new_watch_lists = @get("watch_lists").concat(watch_list)
+            @set("watch_lists", new_watch_lists)
 
     _delete_watch_list_entry: (id) ->
       $.ajax
@@ -125,7 +123,10 @@ do(app = (window.app ?= {}), ComboInput = app.components.ComboInput) ->
             _watch_list_entry.id == id
 
           if watch_list_index >= 0 && watch_list_entry_index >= 0
-            @get("watch_lists.#{watch_list_index}.watch_list_entries").splice(watch_list_entry_index, 1)
+            watch_list_entries_keypath = "watch_lists.#{watch_list_index}.watch_list_entries"
+            (new_watch_list_entries = @get(watch_list_entries_keypath)).splice(watch_list_entry_index, 1)
+            @set(watch_list_entries_keypath, new_watch_list_entries)
+            #@get("watch_lists.#{watch_list_index}.watch_list_entries").splice(watch_list_entry_index, 1)
 
     _event_handler_factory: (fn = (->), options = {}) ->
       options.prevent_default ?= true

@@ -11,9 +11,6 @@ app.components.WatchLists = app.components.Component.extend
           !!_watch_list?.watch_list_entries?.find (element) =>
             (element.recordid || element.record_id) == record_id
 
-  onrender: ->
-    @observe "watch_lists.*.watch_list_entries", => @update("watch_lists_the_record_is_on")
-
   template: """
     <div style="{{#if watch_lists_the_record_is_on}}{{style}}{{/if}}">
       {{#watch_lists_the_record_is_on}}
