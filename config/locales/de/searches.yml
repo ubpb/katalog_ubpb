@@ -7,6 +7,7 @@ de:
       redirected_from_old_permalink: ~> searches.redirected_from_old_permalink
 
       facets:
+        refine_search: Suche verfeinern
         histogram_facet:
           to: bis
           update_search_result: Suchergebnis aktualisieren

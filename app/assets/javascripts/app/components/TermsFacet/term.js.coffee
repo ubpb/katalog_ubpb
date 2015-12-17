@@ -17,8 +17,7 @@
       {{else}}
         <a href="{{include_term_path}}">
           {{translated_term}}
-          {{#if count}}({{count}}){{/if}}
-          <span on-click="ExcludeTerm">&nbsp;<i class="fa fa-remove"></i>&nbsp;</span>
+          {{#if count}}({{count}}){{/if}}<span on-click="ExcludeTerm">&nbsp;<i class="fa fa-remove"></i></span>
         </a>
       {{/if}}
     </li>
