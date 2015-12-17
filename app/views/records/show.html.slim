@@ -38,7 +38,7 @@
                   src: amazon_image_url(@record, format: "LZZZZZZZ")
 
           / Items
-          - if @items.try(:any?)
+          - if @items.try(:any?) && !is_online_resource?(@record)
             h4 Exemplare
             = render "items",
               can_create_hold_request: @can_create_hold_request,
