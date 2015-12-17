@@ -23,6 +23,7 @@ de:
         on_hold: Bereitgestellt
         on_shelf: Nicht entliehen
         on_order: Bestellt
+        in_process: In Bearbeitung
         reshelving: Wird zurückgestellt
         expected: Erwartet zum %{expected_date}
         unknown: –
