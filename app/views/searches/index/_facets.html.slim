@@ -2,7 +2,7 @@
   .sidebar
     button.sidebar-toggle.collapsed(data-target="#facets-collapse" role="button" data-toggle="collapse")
       => fa_icon("bars")
-      | Facetten
+      = t(".refine_search")
 
     #facets-collapse.collapse.sidebar-collapse
       - facets.each do |facet|
