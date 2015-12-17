@@ -34,6 +34,9 @@ gem "uservoice-ruby",        "~> 0.0.11"
 
 gem "skala", github: "ubpb/skala", branch: :master
 
+# TODO: Move me to test after golive
+gem "sqlite3", "~> 1.3"
+
 #
 # rails-assets.org
 #
@@ -83,6 +86,5 @@ group :test do
   gem "database_cleaner",          "~> 1.3"
   gem "poltergeist",               "~> 1.5"
   gem "simplecov",                 "~> 0.9"
-  gem "sqlite3",                   "~> 1.3"
 end
 
