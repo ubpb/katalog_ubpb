@@ -187,7 +187,7 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (3.0.1)
     newrelic_rpm (3.14.1.311)
-    nokogiri (1.6.7)
+    nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
     oauth (0.4.7)
     ox (2.2.2)
