@@ -1,6 +1,12 @@
 de:
   primo_central_adapter:
     facets:
+      tlevel:
+        label: "Nur zeigen"
+        values:
+          online_resources: Online Ressource mit Volltextzugriff
+          peer_reviewed: Geprüft (Peer-Review)
+
       creation_dates:
         label: "Erscheinungsjahr"
 
@@ -8,20 +14,20 @@ de:
         label: "Autor / Autorin"
 
       domains:
-        label: "Domaine"
+        label: "Kollektion"
 
       jtitle:
-        label: "Name des Journals"
+        label: "Zeitschrift / Serie"
 
       languages:
         label: "Sprache"
         values: ~> languages
 
       lcc:
-        label: "Library of Congress Classification"
+        label: "Klassifikation der Library of Congress"
 
       resource_type:
-        label: "Typ der Ressource"
+        label: "Publikationsform"
         values:
           articles: Artikel
           books: Buch
@@ -29,7 +35,7 @@ de:
           databases: Datenbank
           Dissertations: Dissertationen # this is intentionally upcase
           images: Bild
-          journals: Journal
+          journals: Zeitschrift
           media: Multimedia
           newspaper_articles: Zeitungsartikel
           other: Sonstige
@@ -39,9 +45,8 @@ de:
           technical_reports: Technischer Report
           text_resources: Text
           websites: Webseite
-
-      tlevel:
-        label: "Tlevel"
+          maps: Karten
+          legal_documents: Gesetzestexte
 
       topics:
         label: "Thema"
