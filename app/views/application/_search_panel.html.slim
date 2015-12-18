@@ -10,6 +10,7 @@
       = ractive_component "app.components.SearchBar",
         default_sort: [{field: scope.sortable_fields.first }],
         i18n_key: scope.search_engine_adapter.i18n_key,
+        scope: scope,
         search_request: search_request,
         searchable_fields: scope.searchable_fields,
         searches_path: searches_path(scope: current_scope)

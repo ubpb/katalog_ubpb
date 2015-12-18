@@ -6,6 +6,7 @@ class Config
     #serialization_whitelist [:id]
 
     attr_accessor :config
+    attr_accessor :defaults
     attr_accessor :facets
     attr_accessor :id
     attr_accessor :ils_adapter
@@ -29,8 +30,9 @@ class Config
     # support as_json by providing to_hash
     def to_hash
       {
+        defaults: defaults,
         id: id
-      }
+      }.compact
     end
   end
 end
