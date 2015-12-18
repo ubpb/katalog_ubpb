@@ -37,6 +37,9 @@ gem "skala", github: "ubpb/skala", branch: :master
 # TODO: Move me to test after golive
 gem "sqlite3", "~> 1.3"
 
+# i18n_js does not work with sprockets 3
+gem "sprockets-rails", "< 3.0"
+
 #
 # rails-assets.org
 #
