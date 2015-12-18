@@ -46,7 +46,7 @@
             {{/each}}
 
             {{#if search_request.queries.length > 1}}
-              <div class="row">
+              <div class="row search-bar-submit-button-row">
                 <div class="col-sm-3">
                   <button class="btn btn-primary form-control search-button" on-click="SubmitSearchRequest">
                     <i class="fa fa-search"></i>
