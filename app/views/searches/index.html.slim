@@ -1,9 +1,8 @@
-.row: .col-sm-12
-  = render "application/search_panel",
-    scope: current_scope,
-    search_request: @search_request
+= render "application/search_panel",
+  scope: current_scope,
+  search_request: @search_request
 
-.row: .col-sm-12: .search-results
+.search-results
   - if @search_result.hits.present? || @search_request.facet_queries.present?
     = render_relative "./index/search_result",
       search_request: @search_request,
