@@ -6,7 +6,7 @@ module LinkHelper
         queries: [{
           type: "query_string",
           query: query_string,
-          default_field: default_field
+          fields: [default_field]
         }],
         sort: [sort].flatten(1).compact.presence
       ),
