@@ -36,7 +36,7 @@ class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapte
       ["query_string", "simple_query_string"].include?(_query.type)
     end
     .each do |_query|
-      if _query.default_field == ["_all"] || _query.fields == ["_all"]
+      if _query.try(:default_field) == ["_all"] || _query.fields == ["_all"]
         _query.fields ||= []
         _query.fields.push("creator_contributor_search^2")
         _query.fields.push("title_search^4")
