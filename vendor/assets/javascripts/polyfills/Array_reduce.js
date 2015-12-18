@@ -13,7 +13,7 @@ if (!Array.prototype.reduce) {
     if (arguments.length == 2) {
       value = arguments[1];
     } else {
-      while (k < len && ! k in t) {
+      while (k < len && !(k in t)) {
         k++; 
       }
       if (k >= len) {
