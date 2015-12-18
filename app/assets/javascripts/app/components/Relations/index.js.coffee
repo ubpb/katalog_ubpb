@@ -4,6 +4,10 @@ app.components.Relations = app.components.Component.extend
   computed:
     api_v1_scope_searches_path: -> @_path_helper_factory("/api/v1/scopes/:scope_id/searches")
     scope_searches_path: -> @_path_helper_factory("/:scope_id/searches")
+    target_ids: ->
+      if @get("relations")?.length > 0
+        target_ids = _.compact(@get("relations").map (element) -> element["target_id"])
+        if target_ids.length > 0 then target_ids else undefined
 
   data:
     relation_path: (relation) ->
@@ -13,7 +17,7 @@ app.components.Relations = app.components.Component.extend
     @set "pending", true
 
   oninit: ->
-    if @get("relations")?.length > 0
+    if @get("target_ids")?
       $.ajax
         url: @_api_searches_path(facets: false, search_request: @_relations_search_request())
         type: "GET"
@@ -59,11 +63,11 @@ app.components.Relations = app.components.Component.extend
 
   _relations_search_request: ->
     from: 0
-    size: @get("relations").length
+    size: @get("target_ids").length
     queries: [
       type: "unscored_terms"
       field: "ht_number"
-      terms: @get("relations").map (element) -> element["target_id"]
+      terms: @get("target_ids")
     ]
 
   _searches_path: (options = {}) ->
