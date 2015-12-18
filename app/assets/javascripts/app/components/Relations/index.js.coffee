@@ -54,7 +54,7 @@ app.components.Relations = app.components.Component.extend
     queries: [
       type: "query_string"
       query: hbz_id
-      default_field: "ht_number"
+      fields: ["ht_number"]
     ]
 
   _relations_search_request: ->

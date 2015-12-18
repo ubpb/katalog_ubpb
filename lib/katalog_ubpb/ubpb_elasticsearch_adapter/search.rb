@@ -33,12 +33,13 @@ class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapte
   def boost_creators_and_title!(search_request)
     search_request.queries
     .select do |_query|
-      _query.type == "simple_query_string"
+      ["query_string", "simple_query_string"].include?(_query.type)
     end
-    .each do |_simple_query_string_query|
-      if _simple_query_string_query.fields == ["_all"]
-        _simple_query_string_query.fields.push("creator_contributor_search^2")
-        _simple_query_string_query.fields.push("title_search^4")
+    .each do |_query|
+      if _query.default_field == ["_all"] || _query.fields == ["_all"]
+        _query.fields ||= []
+        _query.fields.push("creator_contributor_search^2")
+        _query.fields.push("title_search^4")
       end
     end
   end

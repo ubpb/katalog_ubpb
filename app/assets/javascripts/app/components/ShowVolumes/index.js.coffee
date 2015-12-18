@@ -50,5 +50,5 @@ app.components.ShowVolumes = app.components.Component.extend
     queries: [
       type: "query_string"
       query: superorder_id
-      default_field: "superorder"
+      fields: ["superorder"]
     ]

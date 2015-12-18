@@ -15,17 +15,8 @@
                   <div class="input-group">
                     <input class="form-control query" autocomplete="off" autofocus="" placeholder="Suchbegriff" value="{{query}}" on-keypress="KeypressInSearchInput" />
                     <div class="input-group-btn">
-                      <!-- we cannot simply case swtich value= because two-way databinding does not work if so -->
-                      {{#if type === "simple_query_string"}}
+                      {{#if type === "simple_query_string" || type === "query_string" }}
                         <select class="field" decorator="bootstrap_simple_select" value="{{fields[0]}}">
-                          {{#searchable_fields}}
-                            <option value="{{this}}">{{t(i18n_key + ".fields." + this, { defaultValue: this })}}</option>
-                          {{/searchable_fields}}
-                        </select>
-                      {{/if}}
-
-                      {{#if type === "query_string"}}
-                        <select class="field" decorator="bootstrap_simple_select" value="{{default_field}}">
                           {{#searchable_fields}}
                             <option value="{{this}}">{{t(i18n_key + ".fields." + this, { defaultValue: this })}}</option>
                           {{/searchable_fields}}
@@ -72,17 +63,8 @@
         {{#each search_request.queries}}
           <div class="row">
             <div class="col-xs-12 searchable-fields">
-              <!-- There is no easy way to avoid this duplication, because of two-way databinding value= -->
-              {{#if type === "simple_query_string"}}
+              {{#if type === "simple_query_string" || type === "query_string" }}
                 <select class="field" decorator="bootstrap_simple_select" value="{{fields[0]}}">
-                  {{#searchable_fields}}
-                    <option value="{{this}}">{{t(i18n_key + ".fields." + this, { defaultValue: this })}}</option>
-                  {{/searchable_fields}}
-                </select>
-              {{/if}}
-
-              {{#if type === "query_string"}}
-                <select class="field" decorator="bootstrap_simple_select" value="{{default_field}}">
                   {{#searchable_fields}}
                     <option value="{{this}}">{{t(i18n_key + ".fields." + this, { defaultValue: this })}}</option>
                   {{/searchable_fields}}
@@ -150,18 +132,14 @@
   #
   add_query: (preceding_query) ->
     new_query_index = @get("search_request.queries").indexOf(preceding_query) + 1
-    new_query_type = @("search_request.queries.0.type")
+    new_query_type = @get("search_request.queries.0.type")
     @get("search_request.queries").splice(new_query_index, 0, @query_factory(type: new_query_type))
 
   query_factory: (options = {}) ->
-    if options["type"] == "query_string"
-      default_field: @get("searchable_fields")[0][0]
+    if options["type"] == "simple_query_string" || options["type"] == "query_string"
+      fields: [@get("searchable_fields")[0]]
       query: null
-      type: "query_string"
-    else if options["type"] == "simple_query_string"
-      fields: [@get("searchable_fields")[0][0]]
-      query: null
-      type: "simple_query_string"
+      type: options["type"]
 
   searches_path: (options = {}) ->
     app.PathHelpers.path_helper_factory(@get("searches_path"))(options)
