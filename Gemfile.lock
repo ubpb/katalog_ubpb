@@ -402,6 +402,7 @@ DEPENDENCIES
   simplecov (~> 0.9)
   skala!
   slim (~> 3.0.1)
+  sprockets-rails (< 3.0)
   sqlite3 (~> 1.3)
   turbolinks (~> 2.5.2)
   uglifier (~> 2.5.3)
