@@ -40,6 +40,23 @@
   }
 
   .search-bar {
+    //
+    // Make the search bar elements visually identical to the
+    // search result and facet panels.
+    //
+    @media screen and (min-width: $screen-md-min) {
+      .search-bar-row {
+        margin-left: -$grid-gutter-width;
+        margin-right: -$grid-gutter-width;
+      }
+
+      .search-bar-query-row {
+        margin-left: 0;
+      }
+    }
+    // END
+
+
     .visible-xs {
       .btn-group {
         width: 100%;

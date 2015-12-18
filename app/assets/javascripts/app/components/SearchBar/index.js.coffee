@@ -7,10 +7,10 @@
   template: """
     <div class="search-bar">
       <div class="visible-sm-block visible-md-block visible-lg-block">
-        <div class="row">
+        <div class="row search-bar-row">
           <div class="col-md-9">
             {{#each search_request.queries}}
-              <div class="row">
+              <div class="row search-bar-query-row">
                 <div class="{{#if search_request.queries.length == 1}}col-sm-9{{else}}col-sm-12{{/if}}">
                   <div class="input-group">
                     <input class="form-control query" autocomplete="off" autofocus="" placeholder="Suchbegriff" value="{{query}}" on-keypress="KeypressInSearchInput" />
