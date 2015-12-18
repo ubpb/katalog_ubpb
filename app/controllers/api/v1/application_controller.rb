@@ -5,7 +5,7 @@ class Api::V1::ApplicationController < BaseController
   # file, because defaults: { format: ... } overwrites client content negotiation
   # using http accept requests header AND formats specified with ?format=...
   before_action do
-    if request.format.to_s == "*/*"
+    if ["text/html", "*/*"].include?(request.format.to_s)
       request.format = Mime::Type.lookup("application/json").ref
     end
   end
