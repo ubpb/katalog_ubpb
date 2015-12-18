@@ -22,7 +22,7 @@ de:
         values: ~> languages
 
       inhaltstypen:
-        label: "Inhaltstyp"
+        label: "Art des Inhalts"
         values:
           bibliography: Bibliographie
           biography: Biografie
@@ -39,7 +39,7 @@ de:
           university_text: Universitätstext
 
       materialtypen:
-        label: "Materialtyp"
+        label: "Art des Mediums"
         values:
           audio: Audio
           data_storage: Datenspeicher
