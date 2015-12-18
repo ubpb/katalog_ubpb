@@ -1,6 +1,10 @@
-json.facets @search_result["facets"]
-json.hits @search_result["hits"] do |_hit|
-  _hit["record"] = _hit["record"].select { |_, _value| _value.present? }
-  json.extract! _hit, *_hit.keys
+if @search_result.facets.present?
+  json.facets @search_result.facets
 end
-json.total_hits @search_result["total_hits"]
+
+json.hits @search_result.hits
+json.total_hits @search_result.total_hits
+
+if @search_result.source.present?
+  json.source @search_result.source
+end
