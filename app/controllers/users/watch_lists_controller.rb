@@ -72,6 +72,27 @@ class Users::WatchListsController < UsersController
   end
 
   def show
+    get_watch_list = GetWatchListService.new(id: params[:id])
+
+    if can?(:call, get_watch_list)
+      if (@watch_list = get_watch_list.call!.result).present?
+        get_watch_list_watch_list_entries = GetWatchListWatchListEntriesService.new(
+          scopes: Application.config.scopes,
+          watch_list: @watch_list
+        )
+
+        if can?(:call, get_watch_list_watch_list_entries)
+          @watch_list_entries = get_watch_list_watch_list_entries.call!.result
+        else
+          binding.pry
+        end
+      else
+        binding.pry
+      end
+    else
+      binding.pry
+    end
+=begin
     if watch_list = current_user.watch_lists.find_by_id(params[:id])
       @watch_list = watch_list.decorate
       @records = @watch_list.entries
@@ -129,6 +150,7 @@ class Users::WatchListsController < UsersController
       flash[:error] = t(".watch_list_not_found")
       redirect_to user_watch_lists_path
     end
+=end
   end
 
   #

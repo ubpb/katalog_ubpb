@@ -32,52 +32,6 @@
   }
 
   .hit {
-    @include clearfix();
-
-    padding-bottom: $line-height-computed / 2;
-    margin-bottom: $line-height-computed / 2;
-    border-bottom: 1px solid $gray-light;
-
-    &:last-child {
-      margin-bottom: 0;
-      padding-bottom: 0;
-      border-bottom: none;
-    }
-
-    $hit-image-width: 55px;
-
-    .image {
-      display: none;
-
-      img {
-        @extend .img-responsive;
-      }
-
-      @media (min-width: $screen-sm-min) {
-        display: block;
-      }
-
-      float: left;
-      width: $hit-image-width;
-    }
-
-    .metadata {
-      @media (min-width: $screen-sm-min) {
-        margin-left: $hit-image-width + ($grid-gutter-width / 2);
-      }
-
-      .title {
-        font-weight: bold;
-      }
-
-      .is-part-of {
-        font-style: italic;
-        ul {
-          margin: 0;
-          padding: 0;
-          list-style: none;
-        }
-      }
-    }
+    @include hit-list-item;
   }
 }
