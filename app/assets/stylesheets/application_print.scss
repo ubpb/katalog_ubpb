@@ -24,6 +24,7 @@ body {
 @import "bootstrap/buttons";
 @import "bootstrap/tables";
 @import "font-awesome";
+@import "application/mixins/**/*";
 @import "application/components/*";
 
 #navbar-wrapper .navbar-collapse,

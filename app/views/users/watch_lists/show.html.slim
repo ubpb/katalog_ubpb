@@ -1,61 +1,11 @@
-- content_for(:panel_heading) do
-  div
-    span = @watch_list.name
-    - if @watch_list.description.present?
-      span = " - "
-      span(style="font-style: italic;") = @watch_list.description
+.panel.panel-default
+  .panel-heading.panel-cutoffcorner
+    h3.panel-title = @watch_list.name
 
-    .dropdown
-      button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown")
-        i.fa.fa-cog>
-        span.caret
-
-      ul.dropdown-menu.dropdown-menu-right
-        li = link_to edit_user_watch_list_path do
-          i.fa.fa-pencil>
-          = t(".edit")
-
-        li
-          a(href="#" onclick="$('#watch_list_entries').trigger('enable_select_mode', event)")
-            i.fa.fa-times>
-            = t(".delete_entries")
-
-        li = link_to user_watch_list_path(@watch_list), method: :delete, data: { confirm: t(".delete_watch_list_confirmation") } do
-          i.fa.fa-trash-o>
-          = t(".delete_watch_list")
-
-        li.divider
-
-        li = link_to new_user_watch_list_path do
-          i.fa.fa-cloud-download>
-          = t(".export_to_bibtex")
-
-        li = link_to new_user_watch_list_path do
-          i.fa.fa-cloud-download>
-          = t(".export_to_citavi")
-
-        li = link_to new_user_watch_list_path do
-          i.fa.fa-envelope>
-          = t(".send_as_email")
-
-- if @records.present?
-  /= render_relative "show/entries", entries: @watch_list.entries, watch_list: @watch_list
-  table.table.table-striped#watch_list_entries(data-decorator="skala.decorators.SelectableTable" data-decorator-options={ \
-    action: user_watch_list_entries_path(@watch_list),
-    authenticity_token: form_authenticity_token,
-    method: "delete" \
-  }.to_json)
-    - @records.each do |_record|
-      = render "searches/show/hit", hit: _record
-
-- else
-  .alert.alert-info = t(".no_watch_list_entries_present")
-
-/- if @watch_lists.present?
-  = responsive_table do
-    table.table.table-striped
-      tbody
-        - @watch_lists.each do |watch_list|
-          tr
-            td
-              = link_to watch_list.label, user_watch_list_path(watch_list)
+  .panel-body
+    - if @watch_list_entries.blank?
+      .alert.alert-info = t(".no_watch_list_entries_present")
+    - else
+      .watch-lists
+        - @watch_list_entries.each do |_watch_list_entry|
+          = render "searches/index/hit", hit: _watch_list_entry, scope: current_scope

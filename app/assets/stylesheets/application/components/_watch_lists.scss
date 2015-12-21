@@ -1,0 +1,5 @@
+.watch-lists {
+  .hit {
+    @include hit-list-item;
+   }
+}

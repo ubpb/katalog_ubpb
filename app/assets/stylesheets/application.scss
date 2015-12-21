@@ -32,4 +32,5 @@ $bootstrap-loaded: true;
 //
 // application css
 //
+@import "./application/mixins/**/*";
 @import "./application/**/*";

@@ -35,11 +35,18 @@ class Ability
       # watch lists
       #
       can :call, CreateWatchListService, user: current_user
+      can :call, GetWatchListService do |_operation|
+        WatchList.find_by_id(_operation.id).user == current_user
+      end
 
       #
       # watch list entries
       #
       can :call, CreateWatchListEntryService do |_operation|
+        _operation.watch_list.user == current_user
+      end
+
+      can :call, GetWatchListWatchListEntriesService do |_operation|
         _operation.watch_list.user == current_user
       end
 
