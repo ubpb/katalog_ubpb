@@ -5,31 +5,35 @@ module RecordFieldsHelper
   end
 
   def title(record, scope:nil, search_request:nil)
-    sanitized_title = HTMLEntities.new.decode(record.title)
+    if record.try(:title)
+      sanitized_title = HTMLEntities.new.decode(record.title)
 
-    if record.id && scope
-      link_to(sanitized_title, record_path(record.id, scope: scope, search_request: search_request)).html_safe
-    else
-      sanitized_title
+      if record.id && scope
+        link_to(sanitized_title, record_path(record.id, scope: scope, search_request: search_request)).html_safe
+      else
+        sanitized_title
+      end
     end
   end
 
   def creators(record, link:false, scope:nil)
-    record.creator.map do |creator|
-      if link && scope && creator != "[u.a.]"
-        link_to_creator(creator, scope: scope)
-      else
-        creator
-      end
-    end.join("; ").html_safe
+    if record.try(:creators)
+      record.creator.map do |creator|
+        if link && scope && creator != "[u.a.]"
+          link_to_creator(creator, scope: scope)
+        else
+          creator
+        end
+      end.join("; ").html_safe
+    end
   end
 
   def edition(record)
-    record.edition
+    record.try(:edition)
   end
 
   def date_of_publication(record)
-    record.year_of_publication
+    record.try(:year_of_publication)
   end
 
   def publisher(record)
@@ -37,9 +41,7 @@ module RecordFieldsHelper
   end
 
   def signature(record, link: false)
-    signature = record.signature
-
-    if signature
+    if signature = record.try(:signature)
       if link
         link_to(signature, go_signature_path, target: "_blank").html_safe
       else
@@ -138,7 +140,7 @@ module RecordFieldsHelper
   end
 
   def is_part_of(record, prefix_label:nil, scope:nil)
-    if (superorders = record.is_part_of).present?
+    if (superorders = record.try(:is_part_of)).present?
       content_tag(:ul) do
         superorders.map do |superorder|
           content_tag(:li) do

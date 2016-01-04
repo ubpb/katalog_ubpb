@@ -1,7 +1,7 @@
 #= require app/path_helpers
 
 do(app = (window.app ?= {})) ->
-  (app.components ?= {}).Component = Ractive.extend
+  app.Component = Ractive.extend
     isolated: true
     magic: false
     modifyArrays: false
@@ -15,12 +15,13 @@ do(app = (window.app ?= {})) ->
     #   bar: "proxy(app.another_component:muff)"
     #
     onconstruct: (userOptions) ->
-      for key, value of userOptions?.data || {}
-        if /^proxy\(/.test(value)
-          [origin, property] = value.match(/^proxy\(([^)]+)\)/)[1].split(":")
-          property ?= key # if the origin property is not given, interpolate from key
-          (@["_proxy_properties"] ?= {})[property] = origin
-          delete userOptions.data[key]
+      for data in [userOptions.data, @constructor.defaults.data]
+        for key, value of data || {}
+          if /^proxy\(/.test(value)
+            [origin, property] = value.match(/^proxy\(([^)]+)\)/)[1].split(":")
+            property ?= key # if the origin property is not given, interpolate from key
+            (@["_proxy_properties"] ?= {})[property] = origin
+            delete data[key]
 
     onconfig: ->
       if @["_proxy_properties"]?

@@ -14,7 +14,9 @@
       = render_relative "./hit_list",
         search_request: search_request,
         search_result: search_result,
-        scope: scope
+        scope: scope,
+        watch_lists: watch_lists
+
     - else
       .alert.alert-info = t(".no_hits")
 

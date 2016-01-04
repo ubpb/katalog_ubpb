@@ -1,9 +1,9 @@
 module ResourceLinksHelper
 
   def resource_links(record, default_link_only: false, print_mode: false)
-    openurl            = record.openurl
-    is_online_resource = record.carrier_type == "online_resource"
-    is_data_storage    = record.carrier_type == "data_storage"
+    openurl            = record.try(:openurl)
+    is_online_resource = record.try(:carrier_type) == "online_resource"
+    is_data_storage    = record.try(:carrier_type) == "data_storage"
 
     if openurl.present?
       if print_mode

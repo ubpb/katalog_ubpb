@@ -5,6 +5,11 @@ class SearchesController < ApplicationController
     end
   end
 
+  before_action -> do
+    breadcrumbs.clear
+    add_breadcrumb
+  end, only: [:index]
+
   def index
     if (@search_request = search_request_from_params).present?
       @search_result = SearchRecordsService.call(

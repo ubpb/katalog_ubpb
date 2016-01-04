@@ -20,6 +20,7 @@ de:
       loans#index: Ausgeliehene Medien
       passwords#edit: Passwort ändern
       transactions#index: Gebühren
+      watch_lists#edit: Merkliste bearbeiten
       watch_lists#index: Merklisten
       watch_lists#new: Merkliste anlegen
       watch_lists#show: Merkliste

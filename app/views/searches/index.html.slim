@@ -7,7 +7,9 @@
     = render_relative "./index/search_result",
       search_request: @search_request,
       search_result: @search_result,
-      scope: current_scope
+      scope: current_scope,
+      watch_lists: @watch_lists
+
   - else
     .panel.panel-primary
       .panel-body.panel-cutoffcorner

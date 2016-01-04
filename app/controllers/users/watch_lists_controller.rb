@@ -10,64 +10,76 @@ class Users::WatchListsController < UsersController
     add_breadcrumb
   end, only: [:new]
 
-  def create
-    @create_watch_list = Skala::User::CreateWatchList.new(
-      create_watch_list_params.merge({
-        user: current_user
-      })
-    )
-
-    if @create_watch_list.valid?
-      if can?(:call, @create_watch_list)
-        @create_watch_list.call.try do |_called_operation|
-          unless _called_operation.succeeded?
-            flash[:error] = t(".error")
-          end
-        end
-      end
-
-      redirect_to user_watch_lists_path
-    else
-      render action: :new
-    end
-  end
-
-  def destroy
-    (destroy_params[:ids] || [destroy_params[:id]]).compact.each do |_watch_list_id|
-      delete_watch_list = Skala::User::DeleteWatchListService.new({
-        user: current_user,
-        watch_list: Skala::User::WatchList.find_by_id(_watch_list_id)
-      })
-
-      if can?(:call, delete_watch_list)
-        delete_watch_list.call
-      else
-        flash[:error] = t(".not_authorized_to_destroy")
-      end
-    end
-
-    redirect_to user_watch_lists_path
-  end
-
   def index
-    @watch_lists = current_user.watch_lists.decorate
+    @get_user_watch_lists = GetUserWatchListsService.new(include: :watch_list_entries, user: current_user)
+
+    if cannot?(:call, @get_user_watch_lists)
+      return redirect_to user_path
+    else
+      @watch_lists = @get_user_watch_lists.call!.result
+    end
   end
 
   def new
-    @create_watch_list = Skala::User::CreateWatchList.new
+    create
+  end
+
+  def create
+    @create_watch_list = CreateWatchListService.new(
+      description: params[:create_watch_list].try(:[], :description),
+      name: params[:create_watch_list].try(:[], :name),
+      user: current_user
+    )
+
+    if cannot?(:call, @create_watch_list)
+      flash[:error] = t(".not_allowed_to_create_watch_list")
+      return redirect_to user_watch_lists_path
+    end
+
+    unless params[:commit]
+      render action: :new
+    else
+      if @create_watch_list.invalid?
+        render action: :new
+      else
+        @create_watch_list.call!
+        flash[:error] = t(".watch_list_could_not_be_created") if @create_watch_list.failed?
+        redirect_to user_watch_lists_path
+      end
+    end
+  end
+
+  def edit
+    update
   end
 
   def update
-    call_operation (@watch_list_edit = Skala::WatchLists::Edit.new({
-      new_description: params[:watch_list_edit][:new_description],
-      new_label: params[:watch_list_edit][:new_label],
-      watch_list: @watch_list
-    })),
-    on_success: -> (op) do
-      redirect_to action: :show
-    end,
-    on_invalid: -> (op) do
-      render action: :edit, layout: "user"
+    if @watch_list = GetWatchListService.call(id: params[:id])
+      @update_watch_list = UpdateWatchListService.new(
+        new_description: params[:update_watch_list].try(:[], :new_description),
+        new_name: params[:update_watch_list].try(:[], :new_name),
+        watch_list: @watch_list
+      )
+
+      if cannot?(:call, @update_watch_list)
+        flash[:error] = t(".not_allowed_to_update_watch_list")
+        return redirect_to user_watch_lists_path
+      end
+
+      unless params[:commit]
+        render action: :edit
+      else
+        if @update_watch_list.invalid?
+          render action: :edit
+        else
+          @update_watch_list.call!
+          flash[:error] = t(".watch_list_could_not_be_updated") if @update_watch_list.failed?
+          redirect_to user_watch_list_path(@watch_list)
+        end
+      end
+    else
+      flash[:error] = t(".watch_list_not_found")
+      return redirect_to user_watch_lists_path
     end
   end
 
@@ -84,73 +96,48 @@ class Users::WatchListsController < UsersController
         if can?(:call, get_watch_list_watch_list_entries)
           @watch_list_entries = get_watch_list_watch_list_entries.call!.result
         else
-          binding.pry
+          flash[:error] = t(".not_allowed_to_get_watch_list_entries")
+          return redirect_to user_watch_lists_path
         end
       else
-        binding.pry
+        flash[:error] = t(".watch_list_not_found")
+        return redirect_to user_watch_lists_path
       end
     else
-      binding.pry
+      flash[:error] = t(".not_allowed_to_show_watch_list")
+      return redirect_to user_watch_lists_path
     end
+
+    @watch_lists = GetUserWatchListsService.call(include: :watch_list_entries, user: current_user)
+
+    # we cannot use before_action here because we have to fetch the watch list first
+    add_breadcrumb name: "users#show", url: user_path
+    add_breadcrumb name: "users.watch_lists#index", url: user_watch_lists_path
+    add_breadcrumb name: @watch_list.name
 =begin
-    if watch_list = current_user.watch_lists.find_by_id(params[:id])
-      @watch_list = watch_list.decorate
-      @records = @watch_list.entries
-      .inject({}) do |_memo, _entry|
-        (_memo[_entry.scope_id] ||= []).push(_entry.record_id) and _memo
-      end
-      .inject([]) do |_memo, (_scope_id, _record_ids)|
-        w = {
-          "from" => 0,
-          "size" => _record_ids.length,
-          "query" => {
-            "bool" => {
-              "must" => {
-                "query_string" => {
-                  "default_operator" => "OR",
-                  "fields" => ["identifier"],
-                  "query" => _record_ids.join(" ")
-
-                }
-              }
-            }
-          }
-        }
-
-        scope = Skala::Scope.find(_scope_id)
-        op = Skala::SearchRecords.new({
-          facets: {},
-          request: request,
-          search_engine_adapter: scope.search_engine_adapter,
-          search_request: w
-        })
-
-        _memo.concat(
-          op.call!.result[1].map do |_hit|
-            _hit.scope = scope
-            _hit
-          end
-        )
-      end
-      .map! do |_record|
-        _record.decorate
-      end
-
       @notes = current_user.try(:notes)
       @watch_lists = current_user.watch_lists.includes(:entries).select do |_watch_list|
         # we remove the current watch list, else we had to handle the case of "inline" removing an entry
         _watch_list != @watch_list
       end
-
-      # we cannot use before_action here because we have to fetch the watch list first
-      add_breadcrumb name: "users#show", url: user_path
-      add_breadcrumb name: "users.watch_lists#index", url: user_watch_lists_path
-      add_breadcrumb name: @watch_list.name
     else
       flash[:error] = t(".watch_list_not_found")
       redirect_to user_watch_lists_path
     end
 =end
+  end
+
+  def destroy
+    delete_watch_list = DeleteWatchListService.new(id: params[:id])
+
+    if can?(:call, delete_watch_list)
+      delete_watch_list.call!
+      flash[:error] = t(".watch_list_could_not_be_deleted") if delete_watch_list.failed?
+      redirect_to user_watch_lists_path
+    else
+      flash[:error] = t(".not_allowed_to_delete_watch_list")
+      return redirect_to user_watch_lists_path
+    end
   end
 
   #

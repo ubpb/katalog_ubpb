@@ -17,22 +17,25 @@ class GetWatchListWatchListEntriesService < Servizio::Service
   def call
     watch_list.watch_list_entries.tap do |_tapped_watch_list_entries|
       _tapped_watch_list_entries
-      .group_by(&:scopeid)
+      .group_by(&:scope_id)
       .each do |_scope_id, _watch_list_entries|
 
         records = GetRecordsService.call(
           adapter: scope_by_id(_scope_id).search_engine_adapter.instance,
-          ids: _watch_list_entries.map(&:recordid)
+          ids: _watch_list_entries.map(&:record_id)
         )
 
         _watch_list_entries.each do |_watch_list_entry|
-          corresponding_record = record_by_id(_watch_list_entry.recordid, records).try(:record)
+          corresponding_record = record_by_id(_watch_list_entry.record_id, records).try(:record)
           
           _watch_list_entry.define_singleton_method(:record) do
             corresponding_record
           end
         end
       end
+    end
+    .select do |_watch_list_entry|
+      _watch_list_entry.try(:record).present?
     end
   end
 

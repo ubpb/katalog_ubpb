@@ -40,15 +40,21 @@ module ApplicationHelper
   end
 
   def ractive_component(ractive_class, options = {}, &block)
-    tag_options = {
+    ractive_tag(ractive_class, :script, options.merge(html_options: { type: "text/ractive" }), &block)
+  end
+
+  def ractive_tag(ractive_class, tag, options = {}, &block)
+    (options = tag and tag = nil) if tag.is_a?(Hash)
+    tag ||= :div
+
+    html_options = options.extract!(:html_options)[:html_options]
+    content_tag_options = {
       "data-ractive-class" => ractive_class,
-      "data-ractive-options" => options.to_json,
-      "type" => "text/ractive"
-    }
+      "data-ractive-options" => options.to_json
+    }.merge(html_options || {})
 
-    tag_text = capture(&block) if block_given?
-
-    content_tag(:script, tag_text, tag_options)
+    text = capture(&block) if block_given?
+    content_tag(tag, text, content_tag_options)
   end
 
   def render_relative(relative_partial_path, options = {}, &block)

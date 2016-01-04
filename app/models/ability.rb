@@ -35,9 +35,13 @@ class Ability
       # watch lists
       #
       can :call, CreateWatchListService, user: current_user
+      can :call, DeleteWatchListService, { watch_list: { user: current_user } }
+      can :call, GetUserWatchListsService, user: current_user
       can :call, GetWatchListService do |_operation|
-        WatchList.find_by_id(_operation.id).user == current_user
+        watch_list = WatchList.find_by_id(_operation.id)
+        watch_list.blank? || watch_list.user == current_user
       end
+      can :call, UpdateWatchListService, { watch_list: { user: current_user } }
 
       #
       # watch list entries

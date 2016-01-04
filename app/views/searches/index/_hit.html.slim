@@ -1,7 +1,9 @@
 - scope ||= nil
 - search_request ||= nil
+- watch_lists ||= nil
 
-.hit.record
+/ HACK: data-record-id is needed in WatchLists#show to determine if an entry has to be deleted
+.hit.record(data-record-id=hit.try(:record).try(:id))
   .row
     .col-sm-11
       .image
@@ -40,14 +42,14 @@
 
         = ractive_component "app.components.WatchLists",
           record: hit.record,
-          watch_lists: client_memory_store("watch_lists", @watch_lists, include: :watch_list_entries)
+          watch_lists: client_memory_store("watch_lists", watch_lists, include: :watch_list_entries)
 
     .col-sm-1
       = ractive_component "app.components.RecordActions",
         record: hit.record,
         scope: scope,
         user: client_memory_store("user", current_user),
-        watch_lists: client_memory_store("watch_lists", @watch_lists, include: :watch_list_entries)
+        watch_lists: client_memory_store("watch_lists", watch_lists, include: :watch_list_entries)
 
 /     /= ractive_component "app.components.Note",
 /       note: @notes.try(:find) { |_note| \
