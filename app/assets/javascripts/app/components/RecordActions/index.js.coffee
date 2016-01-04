@@ -1,9 +1,9 @@
-#= require app/components/Component
+#= require app/Component
 #= require ./Note
 #= require ./WatchLists
 
-do(app = window.app, Component = app.components.Component, Note = app.components.RecordActions.Note, WatchLists = app.components.RecordActions.WatchLists) ->
-  app.components.RecordActions = Component.extend
+do(app = window.app, Note = app.components.RecordActions.Note, WatchLists = app.components.RecordActions.WatchLists) ->
+  app.components.RecordActions = app.Component.extend
     components:
       Note: Note
       WatchLists: WatchLists

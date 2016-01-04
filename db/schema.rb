@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160104111207) do
+ActiveRecord::Schema.define(version: 20160105091552) do
 
   create_table "cache_entries", force: :cascade do |t|
     t.string   "key",        limit: 255
@@ -54,14 +54,14 @@ ActiveRecord::Schema.define(version: 20160104111207) do
 
   create_table "watch_list_entries", force: :cascade do |t|
     t.integer  "watch_list_id", limit: 4
-    t.string   "recordid",      limit: 255
+    t.string   "record_id",     limit: 255
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
-    t.string   "scopeid",       limit: 255, null: false
+    t.string   "scope_id",      limit: 255, null: false
   end
 
-  add_index "watch_list_entries", ["recordid"], name: "index_watch_list_entries_on_recordid", using: :btree
-  add_index "watch_list_entries", ["scopeid"], name: "index_watch_list_entries_on_scopeid", using: :btree
+  add_index "watch_list_entries", ["record_id"], name: "index_watch_list_entries_on_record_id", using: :btree
+  add_index "watch_list_entries", ["scope_id"], name: "index_watch_list_entries_on_scope_id", using: :btree
   add_index "watch_list_entries", ["watch_list_id"], name: "index_watch_list_entries_on_watch_list_id", using: :btree
 
   create_table "watch_lists", force: :cascade do |t|

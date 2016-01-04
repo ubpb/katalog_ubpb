@@ -1,6 +1,6 @@
-#= require app/components/Component
+#= require app/Component
 
-app.components.AvailabilityIndicator = app.components.Component.extend
+(app.components ?= {}).AvailabilityIndicator = app.Component.extend
   computed:
     api_v1_scope_record_items_path: -> @_path_helper_factory("/api/v1/scopes/:scope_id/records/:id/items")
 

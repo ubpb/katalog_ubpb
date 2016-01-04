@@ -1,9 +1,13 @@
 class CreateWatchListService < Servizio::Service
+  include Servizio::Service::DefineColumnType
+
   include InstrumentedService
   include UserRelatedService
 
   attr_accessor :description
   attr_accessor :name
+
+  define_column_type :description, :text
 
   validates_presence_of :name
   validates_presence_of :user

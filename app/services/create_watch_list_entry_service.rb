@@ -17,8 +17,8 @@ class CreateWatchListEntryService < Servizio::Service
 
   def call
     watch_list.watch_list_entries.create!(
-      recordid: record_id,
-      scopeid: scope_id
+      record_id: record_id,
+      scope_id: scope_id
     )
   rescue ActiveRecord::RecordInvalid
     errors[:call] = :failed and return nil

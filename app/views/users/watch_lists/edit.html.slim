@@ -1,14 +1,16 @@
-- content_for(:body) do
-  = simple_form_for @watch_list_edit, url: user_watch_list_path(@watch_list_edit.watch_list), method: :patch do |f|
-    .panel.panel-default
-      .panel-heading: span = t(".edit")
-      .panel-body
-        = f.input :new_label, input_html: { value: @watch_list_edit.current_label }
-        = f.input :new_description, input_html: { value: @watch_list_edit.current_description }
+.row
+  .col-sm-12
+    = simple_form_for @update_watch_list, as: :update_watch_list, url: user_watch_list_path(@watch_list), method: :patch do |f|
+      .panel.panel-default
+        .panel-heading.panel-cutoffcorner
+          h3.panel-title = t(".edit")
 
-      .panel-footer
-        .form-group
-          .col-sm-offset-4.col-sm-8
-            button.btn.btn-lg.btn-primary(type="submit") = t(".submit") 
-            = "&nbsp;".html_safe
-            = link_to t(".abort"), user_watch_list_path(@watch_list_edit.watch_list), class: "btn btn-lg btn-default"
+        .panel-body
+          = f.input :new_name, input_html: { value: f.object.current_name }, label: t(".name")
+          = f.input :new_description, input_html: { value: f.object.current_description }, label: t(".description")
+
+        .panel-footer
+          .row
+            .col-sm-offset-4.col-sm-8
+              => f.submit t(".submit"), class: "btn btn-lg btn-primary"
+              = link_to t(".cancel"), user_watch_list_path(@watch_list), class: "btn btn-lg btn-default"

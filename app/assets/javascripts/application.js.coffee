@@ -45,31 +45,6 @@ $(document).ready ->
   $('[data-toggle="popover"]').popover()
   $('[data-toggle="tooltip"]').tooltip()
 
-$(document).ready ->
-  $("[data-decorator]").each (index, el) ->
-    unless $(el).data("decorator-processed")
-      decorator_class = $(el)
-      .data("decorator")
-      .split(".")
-      .reduce(((memo, path_element) -> memo[path_element]), window)
-
-      new decorator_class
-        data: $(el).data("decorator-options")
-        el: el
-
-      $(el).data("deocrator-processed", true)
-
-$(document).ready ->
-  $("[data-same-height-as]").each (index, el) ->
-    unless $(el).data("processed")
-      resize_handler = ->
-        if (reference_el = $($(el).data("same-height-as"))).length > 0
-          $(el).css("height", reference_el.height())
-
-      $(window).on "resize", resize_handler
-      resize_handler()
-      $(el).data("processed", true)
-
 # fire up all components
 $(document).ready ->
   $("[data-ractive-class]").each (index, placeholder) ->

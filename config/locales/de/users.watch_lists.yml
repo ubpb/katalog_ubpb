@@ -1,37 +1,46 @@
 de:
   users:
     watch_lists:
+      actions: Aktionen
+      description: Beschreibung
+      name: Name
+      watch_list_not_found: Die angegebene Merkliste konnt nicht gefunden werden.
+
       create:
         error: Beim Anlegen der Merkliste ist ein Fehler aufgetreten.
 
       destroy:
         not_authorized_to_destroy: Sie sind nicht berechtigt diese Merkliste zu löschen.
 
-      index:
-        create_watch_list: Neue Merkliste anlegen
-        delete_watch_lists: Merklisten löschen
-        no_watch_lists_present: Sie haben im Moment keine Merklisten.
+      edit:
+        cancel: ~> application.form.cancel
+        description: ~> users.watch_lists.description
+        edit: ~> actions.users.watch_lists#edit
+        name: ~> users.watch_lists.name
+        not_allowed_to_update_watch_list: ~> users.watch_lists.watch_list_not_found
+        submit: ~> application.form.submit
 
-        watch_lists:
-          delete_watch_lists: ~> users.watch_lists.index.delete_watch_lists
-          delete_watch_lists_confirmation: Wollen Sie diese Merklisten wirklich löschen?
+      index:
+        actions: ~> users.watch_lists.actions
+        create_watch_list: Neue Merkliste anlegen
+        no_watch_lists_present: Sie haben im Moment keine Merklisten.
 
       new:
         cancel: ~> application.form.cancel
         create_watch_list: ~> actions.users.watch_lists#new
-        description: Beschreibung
-        name: Name
+        description: ~> users.watch_lists.description
+        name: ~> users.watch_lists.name
         submit: ~> application.form.submit
 
       show:
-        delete_entries: Einträge löschen
-        delete_watch_list: Merkliste löschen
-        delete_watch_list_confirmation: Wollen Sie diese Merkliste wirklich löschen?
+        actions: ~> users.watch_lists.actions
+        delete: Löschen
+        delete_confirmation: Wollen Sie diese Merkliste wirklich löschen?
         edit: Bearbeiten
         no_watch_list_entries_present: Diese Merkliste enthält keine Einträge.
-        watch_list_not_found: Die angegebene Merkliste konnt nicht gefunden werden.
+        not_allowed_to_show_watch_list: ~> users.watch_lists.watch_list_not_found
+        watch_list_not_found: ~> users.watch_lists.watch_list_not_found
 
         entries:
           cancel: ~> application.form.cancel
-          delete_entries: ~> users.watch_lists.show.delete_entries
           delete_entries_confirmation: Wollen Sie diese Einträge wirklich löschen?

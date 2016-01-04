@@ -1,23 +1,24 @@
-- content_for(:panel_heading) do
-  div
-    span = t("actions.#{current_action}")
-    .dropdown
-      button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown")
-        i.fa.fa-cog>
-        span.caret
+.panel.panel-default
+  .panel-heading.panel-cutoffcorner
+    .row
+      .col-xs-6
+        h3.panel-title(style="line-height: 34px") = t("actions.#{current_action}")
 
-      ul.dropdown-menu.dropdown-menu-right
-        li = link_to new_user_watch_list_path do
-          i.fa.fa-magic>
-          = t(".create_watch_list")
+      .col-xs-6.text-right
+        .dropdown
+          button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
+            => fa_icon("cogs")
+            => t(".actions")
+            span.caret
 
-        li(class="#{@watch_lists.present? ? '' : 'disabled'}")
-          a(href="#" onclick="#{@watch_lists.present? ? javascript_event_handler(:toggle_select_mode) : javascript_event_handler(:prevent_default)}")
-            i.fa.fa-times>
-            = t(".delete_watch_lists")
+          ul.dropdown-menu.dropdown-menu-right
+            li = link_to new_user_watch_list_path do
+              => fa_icon("magic")
+              = t(".create_watch_list")
 
-- if @watch_lists.present?
-  = render_relative "index/watch_lists", watch_lists: @watch_lists
+  .panel-body
+    - if @watch_lists.present?
+      = render_relative "index/watch_lists", watch_lists: @watch_lists
 
-- else
-  .alert.alert-info = t(".no_watch_lists_present")
+    - else
+      .alert.alert-info = t(".no_watch_lists_present")

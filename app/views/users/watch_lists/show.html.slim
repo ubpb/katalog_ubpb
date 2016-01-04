@@ -1,11 +1,35 @@
 .panel.panel-default
   .panel-heading.panel-cutoffcorner
-    h3.panel-title = @watch_list.name
+    .row
+      .col-xs-6
+        h3.panel-title(style="line-height: 34px")
+          span = @watch_list.name
+          - if @watch_list.description.present?
+            span =< "- #{@watch_list.description}"
+
+      .col-xs-6.text-right
+        .dropdown
+          button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true")
+            => fa_icon("cogs")
+            => t(".actions")
+            span.caret
+
+          ul.dropdown-menu.dropdown-menu-right
+            li = link_to edit_user_watch_list_path(@watch_list) do
+              => fa_icon("pencil-square-o")
+              = t(".edit")
+
+            li = link_to user_watch_list_path(@watch_list), method: :delete, data: { confirm: t(".delete_confirmation") } do
+              => fa_icon("times")
+              = t(".delete")
 
   .panel-body
     - if @watch_list_entries.blank?
       .alert.alert-info = t(".no_watch_list_entries_present")
     - else
-      .watch-lists
+      = ractive_tag "app.components.WatchListsList", html_options: { class: "watch-lists" }, watch_list_id: @watch_list.id do
         - @watch_list_entries.each do |_watch_list_entry|
-          = render "searches/index/hit", hit: _watch_list_entry, scope: current_scope
+          = render "searches/index/hit",
+            hit: _watch_list_entry,
+            scope: _watch_list_entry.scope,
+            watch_lists: @watch_lists

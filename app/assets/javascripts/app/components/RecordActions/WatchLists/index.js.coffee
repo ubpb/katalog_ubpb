@@ -1,11 +1,11 @@
+#= require app/Component
 #= require app/components/ComboInput
-#= require app/components/Component
 #= require app/path_helpers
 
-do(app = (window.app ?= {}), ComboInput = app.components.ComboInput, Component = app.components.Component) ->
-  ((app.components ?= {}).RecordActions ?= {}).WatchLists = Component.extend
+do(app = (window.app ?= {})) ->
+  ((app.components ?= {}).RecordActions ?= {}).WatchLists = app.Component.extend
     components:
-      ComboInput: ComboInput
+      ComboInput: app.components.ComboInput
 
     computed:
       api_v1_user_watch_lists_path: -> app.PathHelpers.path_helper_factory("/api/v1/users/:user_id/watch_lists")
@@ -15,8 +15,7 @@ do(app = (window.app ?= {}), ComboInput = app.components.ComboInput, Component =
 
     data:
       record_on_watch_list: (record, watch_list) ->
-        # TODO fix recordid/record_id inconsistency
-        !!@_watch_list_entry_by_record_id(watch_list, record.id) # watch_list?.watch_list_entries?.find((element) => (element.recordid || element.record_id) == record.id)
+        !!@_watch_list_entry_by_record_id(watch_list, record.id)
 
     decorators:
       focus: (node) ->
@@ -52,11 +51,14 @@ do(app = (window.app ?= {}), ComboInput = app.components.ComboInput, Component =
         <li>
           {{#if record_on_watch_list(~/record, .)}}
             <a decorator="focus" href="#" on-click="RemoveRecordFromWatchList:{{~/record}},{{.}}">
-              <i class="fa fa-times" />
+              <i class="fa fa-check-square-o" />
               <span>{{name}}</span>
             </a>
           {{else}}
-            <a decorator="focus" href="#" on-click="AddRecordToWatchList:{{~/record}},{{.}}">{{name}}</a>
+            <a decorator="focus" href="#" on-click="AddRecordToWatchList:{{~/record}},{{.}}">
+              <i class="fa fa-square-o" />
+              {{name}}
+            </a>
           {{/if}}
         </li>
       {{/watch_lists}}
@@ -140,5 +142,4 @@ do(app = (window.app ?= {}), ComboInput = app.components.ComboInput, Component =
         if options.stop_propagation is true then false else true
 
     _watch_list_entry_by_record_id: (watch_list, record_id) ->
-      # TODO fix recordid/record_id inconsistency
-      watch_list?.watch_list_entries?.find (element) => (element.recordid || element.record_id) == record_id
+      watch_list?.watch_list_entries?.find (element) => element.record_id == record_id

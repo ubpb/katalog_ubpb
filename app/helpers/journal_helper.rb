@@ -1,9 +1,7 @@
 module JournalHelper
 
   def journal_holdings(record, fullview:false)
-    journal_holdings = record.journal_holdings
-
-    if journal_holdings.present?
+    if (journal_holdings = record.try(:journal_holdings)).present?
 
       # remove "<strong>Zeitschriftensignatur<\/strong>..."
       cleaned_journal_holdings = journal_holdings.map { |journal_holding| journal_holding.gsub(/<strong>Zeitschriftensignatur<\/strong>.*/, '').gsub(/&lt;strong&gt;Zeitschriftensignatur&lt;\/strong&gt;.*/, '').strip }

@@ -17,8 +17,7 @@ module SearchesHelper
   end
 
   def amazon_image_url(record, format: "THUMBZZZ")
-    isbn = record.isbn.first
-    if isbn
+    if isbn = record.try(:isbn).try(:first)
       isbn = isbn.gsub("-", "")
       "https://images-na.ssl-images-amazon.com/images/P/#{isbn}.03.#{format}.jpg"
     end
