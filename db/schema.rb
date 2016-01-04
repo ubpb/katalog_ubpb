@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151106151755) do
+ActiveRecord::Schema.define(version: 20160104111207) do
 
   create_table "cache_entries", force: :cascade do |t|
     t.string   "key",        limit: 255
