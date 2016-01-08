@@ -8,10 +8,10 @@ Rails.application.routes.draw do
   resource :user, only: [:show] do
     scope module: :users do
       resource  :password, only: [:edit, :update]
-      resource  :email_address, only: [:edit, :update]
+      resource  :email_address, only: [:edit, :update], path: "email"
       resources :former_loans, only: [:index]
       resources :hold_requests, only: [:index, :create, :destroy]
-      resources :inter_library_loans, only: [:index]
+      resources :inter_library_loans, only: [:index], path: "ills"
       resources :transactions, only: [:index]
 
       resources :loans, only: [:index] do
@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
       resources :calendars, only: [:index]
 
-      resources :watch_lists do
+      resources :watch_lists, path: "lists" do
         delete :index, on: :collection, action: :destroy
 
         scope module: :watch_lists do
@@ -66,7 +66,7 @@ Rails.application.routes.draw do
               resources :items, only: [:index]
             end
           end
-          
+
           resources :searches, only: [:index]
         end
       end
