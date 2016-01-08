@@ -2,16 +2,23 @@ Rails.application.routes.draw do
   get "/:scope/searches",    to: "searches#index", as: :searches
   get "/:scope/records/:id", to: "records#show", as: :record, constraints: { id: /.+/ }
 
-  resource  :session, only: [:create, :destroy, :new]
+  #resource :session, only: [:new], path: "login"
+  #resource :session, only: [:create], path: "login/create"
+  #resource :session, only: [:destroy], path: "logout"
+
+  post "/login",  to: "sessions#create", as: :session
+  get  "/login",  to: "sessions#new", as: :new_session
+  get  "/logout", to: "sessions#destroy", as: :logout
+
   resources :closed_stack_orders, only: [:new, :create], path: "cso"
 
   resource :user, only: [:show] do
     scope module: :users do
       resource  :password, only: [:edit, :update]
       resource  :email_address, only: [:edit, :update], path: "email"
-      resources :former_loans, only: [:index]
-      resources :hold_requests, only: [:index, :create, :destroy]
-      resources :inter_library_loans, only: [:index], path: "ills"
+      resources :former_loans, only: [:index], path: "loans/history"
+      resources :hold_requests, only: [:index, :create, :destroy], path: "hold-requests"
+      resources :inter_library_loans, only: [:index], path: "ill"
       resources :transactions, only: [:index]
 
       resources :loans, only: [:index] do
@@ -21,7 +28,7 @@ Rails.application.routes.draw do
 
       resources :calendars, only: [:index]
 
-      resources :watch_lists, path: "lists" do
+      resources :watch_lists, path: "watch-lists" do
         delete :index, on: :collection, action: :destroy
 
         scope module: :watch_lists do
