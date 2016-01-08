@@ -2,10 +2,6 @@ Rails.application.routes.draw do
   get "/:scope/searches",    to: "searches#index", as: :searches
   get "/:scope/records/:id", to: "records#show", as: :record, constraints: { id: /.+/ }
 
-  #resource :session, only: [:new], path: "login"
-  #resource :session, only: [:create], path: "login/create"
-  #resource :session, only: [:destroy], path: "logout"
-
   post "/login",  to: "sessions#create", as: :session
   get  "/login",  to: "sessions#new", as: :new_session
   get  "/logout", to: "sessions#destroy", as: :logout
