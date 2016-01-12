@@ -4,7 +4,7 @@ do(app = (window.app ?= {})) ->
   (app.components ?= {}).WatchListsList = app.Component.extend
     computed:
       watch_list: ->
-        @get("watch_lists").find (element) => element.id == @get("watch_list_id")
+        @get("watch_lists")?.find (element) => element.id == @get("watch_list_id")
 
     data:
       watch_lists: "proxy(app.memory_store:watch_lists)"

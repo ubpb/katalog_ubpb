@@ -16,7 +16,7 @@ nav.navbar.navbar-default(role="navigation")
           = t(".my_account")
 
       - if current_user
-        = link_to logout_path, class: "btn btn-default navbar-btn", title: t(".logout"), data: {confirm: "Wirklich abmelden?"} do
+        = link_to logout_path, class: "btn btn-default navbar-btn", title: t(".logout"), data: {confirm: "Wirklich abmelden?", "no-turbolink" => true} do
           i.fa.fa-power-off
 
     ul.nav.navbar-nav.navbar-right

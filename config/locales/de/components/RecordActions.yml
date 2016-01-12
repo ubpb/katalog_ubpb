@@ -4,6 +4,8 @@ de:
     export: Exportieren
     export_to_bibtex: Nach BibTeX exportieren
     export_to_json: Nach JSON exportieren
+    please_login: Bitte melden Sie sich an.
+    my_watch_lists: Meine Merklisten
 
     Note:
       add_note: Notiz hinzufügen
@@ -12,4 +14,3 @@ de:
 
     WatchLists:
       create_watch_list: Neue Merkliste erstellen
-      my_watch_lists: Meine Merklisten

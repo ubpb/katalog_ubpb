@@ -46,7 +46,6 @@ do(app = (window.app ?= {})) ->
       $(window).off ".#{@_guid}"
 
     template: """
-      <li class="dropdown-header">{{t(".my_watch_lists")}}</li>
       {{#watch_lists}}
         <li>
           {{#if record_on_watch_list(~/record, .)}}

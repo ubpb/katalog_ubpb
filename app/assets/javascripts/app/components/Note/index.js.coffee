@@ -4,7 +4,7 @@ do(app = (window.app ?= {})) ->
   (app.components ?= {}).Note = app.Component.extend
     computed:
       i18n_key: -> "Note"
-      note: -> @get("notes").find (element) => element?.record_id == @get("record.id")
+      note: -> @get("notes")?.find (element) => element?.record_id == @get("record.id")
 
     onteardown: ->
       $(window).off ".#{@_guid}"
