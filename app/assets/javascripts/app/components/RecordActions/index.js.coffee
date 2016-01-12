@@ -13,7 +13,7 @@ do(app = window.app, Note = app.components.RecordActions.Note, WatchLists = app.
       bibtex_path: -> @get("api_v1_scope_record_path")(@get("scope.id"), @get("record.id"), download: true, format: "bibtex")
       i18n_key: -> "RecordActions"
       json_path: -> @get("api_v1_scope_record_path")(@get("scope.id"), @get("record.id"), download: true, format: "json")
-      user_path: -> @_path_helper_factory("/user")
+      login_path: -> @_path_helper_factory("/login")(return_to: window.location.href)
 
     template: """
       <div class="dropdown {{class ? class : ''}}">
@@ -30,7 +30,7 @@ do(app = window.app, Note = app.components.RecordActions.Note, WatchLists = app.
             <li class="divider"></li>
           {{else}}
             <li>
-              <a style="font-style: italic" href="{{user_path()}}">{{t(".please_login")}}</a>
+              <a style="font-style: italic" href="{{login_path}}">{{t(".please_login")}}</a>
             </li>
           {{/if}}
           <li class="dropdown-header">{{t(".export")}}</li>
