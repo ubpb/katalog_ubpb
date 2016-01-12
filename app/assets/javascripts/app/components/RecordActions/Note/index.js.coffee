@@ -19,13 +19,18 @@ do(app = (window.app ?= {})) ->
 
     oninit: ->
       @on "_create_note", @_event_handler_factory (event, note_value) ->
-        @_create_note(value: note_value).always => @set("create_mode", false)
+        @_create_note(value: note_value).always =>
+          @set("create_mode", false)
+          @parent.fire("_close_dropdown")
 
       @on "_destroy_note", @_event_handler_factory (event) =>
         if window.confirm(@get("t").bind(@)(".destroy_note_confirmation"))
-          @_destroy_note().always => @set("update_mode", false)
+          @_destroy_note().always =>
+            @set("update_mode", false)
+            @parent.fire("_close_dropdown")
         else
           @set("update_mode", false)
+          @parent.fire("_close_dropdown")
 
       @on "_enter_create_mode", @_event_handler_factory (event) -> @set("create_mode", true)
       @on "_enter_update_mode", @_event_handler_factory (event) -> @set("update_mode", true)
@@ -34,7 +39,9 @@ do(app = (window.app ?= {})) ->
       @on "_prevent_default",   @_event_handler_factory (event) ->
 
       @on "_update_note", @_event_handler_factory (event, new_note_value) ->
-        @_update_note(value: new_note_value).always => @set("update_mode", false)
+        @_update_note(value: new_note_value).always =>
+          @set("update_mode", false)
+          @parent.fire("_close_dropdown")
 
     onteardown: ->
       $(window).off ".#{@_guid}"

@@ -12,11 +12,17 @@ do(app = window.app, Note = app.components.RecordActions.Note, WatchLists = app.
       api_v1_scope_record_path: -> @_path_helper_factory("/api/v1/scopes/:scope_id/records/:id")
       bibtex_path: -> @get("api_v1_scope_record_path")(@get("scope.id"), @get("record.id"), download: true, format: "bibtex")
       i18n_key: -> "RecordActions"
+      id: -> @_guid
       json_path: -> @get("api_v1_scope_record_path")(@get("scope.id"), @get("record.id"), download: true, format: "json")
       login_path: -> @_path_helper_factory("/login")(return_to: window.location.href)
 
+    oninit: ->
+      @on "_close_dropdown", (event) ->
+        # some sort of hack, but .dropdown("toggle") does not allow to reopen the dropdown
+        $(@el).find("##{@get('id')}").trigger("click")
+
     template: """
-      <div class="dropdown {{class ? class : ''}}">
+      <div id={{id}} class="dropdown {{class ? class : ''}}">
         <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
           <span class="caret"></span>
         </button>
