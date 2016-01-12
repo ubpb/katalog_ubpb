@@ -5,6 +5,7 @@
 .search-results
   - if @search_result.present? && @search_result.hits.present? || @search_request.facet_queries.present?
     = render_relative "./index/search_result",
+      notes: @notes,
       search_request: @search_request,
       search_result: @search_result,
       scope: current_scope,

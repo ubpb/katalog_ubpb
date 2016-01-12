@@ -23,10 +23,8 @@ do(app = window.app, Note = app.components.RecordActions.Note, WatchLists = app.
         <ul class="dropdown-menu dropdown-menu-right">
           {{#if user}}
             <WatchLists record={{record}} scope={{scope}} user={{user}} watch_lists={{watch_lists}} />
-            <!--
             <li class="divider"></li>
-            <Note note={{note}} record={{record}} scope={{scope}} user={{user}} />
-            -->
+            <Note notes={{notes}} record={{record}} scope={{scope}} user={{user}} />
             <li class="divider"></li>
           {{/if}}
           <li class="dropdown-header">{{translations.export}}</li>

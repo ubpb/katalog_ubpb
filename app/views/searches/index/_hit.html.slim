@@ -1,3 +1,4 @@
+- notes ||= nil
 - scope ||= nil
 - search_request ||= nil
 - watch_lists ||= nil
@@ -44,47 +45,14 @@
           record: hit.record,
           watch_lists: client_memory_store("watch_lists", watch_lists, include: :watch_list_entries)
 
+        = ractive_component "app.components.Note",
+          notes: client_memory_store("notes", notes),
+          record: hit.record
+
     .col-sm-1
       = ractive_component "app.components.RecordActions",
+        notes: client_memory_store("notes", notes),
         record: hit.record,
         scope: scope,
         user: client_memory_store("user", current_user),
         watch_lists: client_memory_store("watch_lists", watch_lists, include: :watch_list_entries)
-
-/     /= ractive_component "app.components.Note",
-/       note: @notes.try(:find) { |_note| \
-/         _note.record_id == hit.record.id\
-/       },\
-/       record: { id: hit.record.id },
-/       translations: I18n.config.backend.send(:translations)[current_locale][:components][:Note]
-
-  /td
-  /  = ractive_component "app.components.RecordActions",
-  /    api_v1_record_path: api_v1_record_path(":id"),
-  /    record: record
-
-
-/   /td
-/     = ractive_component "app.components.RecordActions",
-/       api_v1_record_path: api_v1_record_path(":id"),
-/       api_v1_user_notes_path: api_v1_user_notes_path(":user_id"),
-/       api_v1_user_note_path: api_v1_user_note_path(":user_id", ":id"),
-/       api_v1_user_watch_lists_path: api_v1_user_watch_lists_path(":user_id"),
-/       api_v1_user_watch_list_entries_path: api_v1_user_watch_list_entries_path(":user_id", ":watch_list_id"),
-/       api_v1_user_watch_list_entry_path: api_v1_user_watch_list_entry_path(":user_id", ":watch_list_id", ":id"),
-/       class: "pull-right",
-/       note: @notes.try(:find) { |_note| \
-/         _note.record_id == hit.record.id\
-/       },\
-/       record: { id: hit.record.id },
-/       scope: { id: hit.record.scope.id },
-/       translations: I18n.config.backend.send(:translations)[current_locale][:components][:RecordActions],
-/       user: current_user.try(:slice, :id),
-/       watch_lists: @watch_lists.try(:as_json, \
-/         only: [:id, :name], \
-/         include: { \
-/           entries: { \
-/             only: [:id, :record_id] \
-/           } \
-/         } \
-/       )

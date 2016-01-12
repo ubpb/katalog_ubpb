@@ -1,21 +1,21 @@
+#= require app/Component
 #= require app/components/ComboInput
-#= require app/path_helpers
 
-do(app = (window.app ?= {}), ComboInput = app.components.ComboInput) ->
-  ((app.components ?= {}).RecordActions ?= {}).Note = Ractive.extend
+do(app = (window.app ?= {})) ->
+  ((app.components ?= {}).RecordActions ?= {}).Note = app.Component.extend
     components:
-      ComboInput: ComboInput
+      ComboInput: app.components.ComboInput
+
+    computed:
+      api_v1_note_path: -> app.PathHelpers.path_helper_factory("/api/v1/notes/:id")
+      api_v1_notes_path: -> app.PathHelpers.path_helper_factory("/api/v1/notes")
+      note: -> @get("notes")?.find (element) => element?.record_id == @get("record.id")
+      i18n_key: -> @parent.get("i18n_key") + ".Note"
 
     decorators:
       focus: (node) ->
         $(node).focus()
         return teardown: ->
-
-    isolated: true
-
-    onconfig: ->
-      @["_api_v1_user_note_path"] = app.PathHelpers.path_helper_factory(@get("api_v1_user_note_path"))
-      @["_api_v1_user_notes_path"] = app.PathHelpers.path_helper_factory(@get("api_v1_user_notes_path"))
 
     oninit: ->
       $(window).on "app:user:note:create.#{@_guid}", (event, note) =>
@@ -30,8 +30,8 @@ do(app = (window.app ?= {}), ComboInput = app.components.ComboInput) ->
       @on "_create_note", @_event_handler_factory (event, note_value) ->
         @_create_note(value: note_value).always => @set("create_mode", false)
 
-      @on "_destroy_note", @_event_handler_factory (event) ->
-        if window.confirm(@get("translations.destroy_note_confirmation"))
+      @on "_destroy_note", @_event_handler_factory (event) =>
+        if window.confirm(@get("t").bind(@)(".destroy_note_confirmation"))
           @_destroy_note().always => @set("update_mode", false)
         else
           @set("update_mode", false)
@@ -57,14 +57,14 @@ do(app = (window.app ?= {}), ComboInput = app.components.ComboInput) ->
                 on-cancel="_destroy_note"
                 on-escape="_leave_update_mode"
                 on-submit="_update_note"
-                placeholder={{translations.add_note}}
+                placeholder={{t(".add_note")}}
                 value={{note.value}}
               />
             </a>
           {{else}}
             <a decorator="focus" href="#" on-click="_enter_update_mode">
               <i class="fa fa-pencil" />
-              <span>{{translations.edit_note}}</span>
+              <span>{{t(".edit_note")}}</span>
             </a>
           {{/if}}
         {{else}}
@@ -74,13 +74,13 @@ do(app = (window.app ?= {}), ComboInput = app.components.ComboInput) ->
                 on-cancel="_leave_create_mode"
                 on-escape="_leave_create_mode"
                 on-submit="_create_note"
-                placeholder={{translations.add_note}}
+                placeholder={{t(".add_note")}}
               />
             </a>
           {{else}}
             <a decorator="focus" href="#" on-click="_enter_create_mode">
               <i class="fa fa-pencil" />
-              <span>{{translations.add_note}}</span>
+              <span>{{t(".add_note")}}</span>
             </a>
           {{/if}}
         {{/if}}
@@ -93,23 +93,28 @@ do(app = (window.app ?= {}), ComboInput = app.components.ComboInput) ->
         $.Deferred().reject().promise()
       else
         $.ajax
-          url: @_api_v1_user_notes_path(@get("user.id"))
+          url: @get("api_v1_notes_path")()
           type: "POST"
           dataType: "json"
           data:
             record_id: @get("record.id")
             scope_id: @get("scope.id")
+            user_id: @get("user.id")
             value: properties.value
-          success: (received_note) =>
-            $(window).trigger("app:user:note:create", _.cloneDeep(received_note))
+          success: (note) =>
+            (notes = @get("notes")).push(note)
+            @set("notes", notes)
 
     _destroy_note: ->
       $.ajax
-        url: @_api_v1_user_note_path(@get("user.id"), @get("note.id"))
+        url: @get("api_v1_note_path")(@get("note.id"))
         type: "DELETE"
         dataType : "html" # because head only responses (automatic) "json" does not work
         success: =>
-          $(window).trigger("app:user:note:destroy", _.cloneDeep(@get("note")))
+          notes = @get("notes")
+          index_of_note_to_delete = notes.findIndex (element) => element.id == @get("note.id")
+          notes.splice(index_of_note_to_delete, 1) if index_of_note_to_delete != -1
+          @set("notes", notes)
 
     _event_handler_factory: (fn = (->), options = {}) ->
       (event, args...) ->
@@ -123,9 +128,12 @@ do(app = (window.app ?= {}), ComboInput = app.components.ComboInput) ->
         $.Deferred().reject().promise()
       else
         $.ajax
-          url: @_api_v1_user_note_path(@get("user.id"), @get("note.id"))
+          url: @get("api_v1_note_path")(@get("note.id"))
           type: "PATCH"
           dataType: "json"
           data: properties
           success: (note) =>
-            $(window).trigger("app:user:note:update", _.cloneDeep(note))
+            notes = @get("notes")
+            index_of_note_to_replace = notes.findIndex (element) => element.id == @get("note.id")
+            notes.splice(index_of_note_to_replace, 1, note) if index_of_note_to_replace != -1
+            @set("notes", notes)

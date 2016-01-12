@@ -108,23 +108,13 @@ class Users::WatchListsController < UsersController
       return redirect_to user_watch_lists_path
     end
 
+    @notes = GetUserNotesService.call(user: current_user)
     @watch_lists = GetUserWatchListsService.call(include: :watch_list_entries, user: current_user)
 
     # we cannot use before_action here because we have to fetch the watch list first
     add_breadcrumb name: "users#show", url: user_path
     add_breadcrumb name: "users.watch_lists#index", url: user_watch_lists_path
     add_breadcrumb name: @watch_list.name
-=begin
-      @notes = current_user.try(:notes)
-      @watch_lists = current_user.watch_lists.includes(:entries).select do |_watch_list|
-        # we remove the current watch list, else we had to handle the case of "inline" removing an entry
-        _watch_list != @watch_list
-      end
-    else
-      flash[:error] = t(".watch_list_not_found")
-      redirect_to user_watch_lists_path
-    end
-=end
   end
 
   def destroy

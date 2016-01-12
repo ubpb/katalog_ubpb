@@ -4,6 +4,14 @@ class Ability
   def initialize(current_user = nil)
     if current_user
       #
+      # Notes
+      #
+      can :call, CreateNoteService, user: current_user
+      can :call, DeleteNoteService, note: { user: current_user }
+      can :call, GetUserNotesService, user: current_user
+      can :call, UpdateNoteService, note: { user: current_user }
+
+      #
       # UpdateUserEmailAddressService
       #
       if student?(current_user)
@@ -20,13 +28,13 @@ class Ability
       can :call, UpdateUserPasswordService, ilsuserid: current_user.ilsuserid
 
       #
-      # user/hold_requests
+      # hold_requests
       #
       can :call, CreateUserHoldRequestService, ilsuserid: current_user.ilsuserid
       can :call, DeleteUserHoldRequestService, ilsuserid: current_user.ilsuserid
 
       #
-      # user/loans
+      # loans
       #
       can :call, RenewAllUserLoansService, ilsuserid: current_user.ilsuserid
       can :call, RenewUserLoanService, ilsuserid: current_user.ilsuserid

@@ -1,5 +1,7 @@
 do(app = (window.app ?= {})) ->
   (app.components ?= {}).MemoryStore = Ractive.extend
+    modifyArrays: false
+
     oninit: ->
       $(document).ready =>
         # do not reinitialize on turbolinks page changes

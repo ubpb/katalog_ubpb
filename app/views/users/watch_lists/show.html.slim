@@ -31,5 +31,6 @@
         - @watch_list_entries.each do |_watch_list_entry|
           = render "searches/index/hit",
             hit: _watch_list_entry,
+            notes: @notes,
             scope: _watch_list_entry.scope,
             watch_lists: @watch_lists

@@ -84,13 +84,13 @@ Rails.application.routes.draw do
 
       resources :users, only: [:show] do
         scope module: "users" do
-          resources :notes, only: [:create, :index]
+          resources :notes, only: [:index]
           resources :watch_lists, only: [:create, :index]
         end
       end
 
       # /api/v1/notes/:id
-      resources :notes, controller: "/api/v1/users/notes", only: [:destroy, :update]
+      resources :notes, only: [:create, :destroy, :update]
 
       # /api/v1/watch_lists/:id
       resources :watch_lists, controller: "/api/v1/users/watch_lists", only: [:destroy, :update] do
