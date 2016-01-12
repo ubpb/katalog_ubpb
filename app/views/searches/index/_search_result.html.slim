@@ -12,6 +12,7 @@
   div(class="#{search_result.facets.present? ? 'col-md-9 col-md-pull-3' : 'col-md-12'}")
     - if search_result.hits.present?
       = render_relative "./hit_list",
+        notes: notes,
         search_request: search_request,
         search_result: search_result,
         scope: scope,

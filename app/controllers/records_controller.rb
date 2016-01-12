@@ -31,6 +31,7 @@ class RecordsController < ApplicationController
     end
 
    if current_user
+     @notes = GetUserNotesService.call(user: current_user)
      @watch_lists = GetUserWatchListsService.call(include: :watch_list_entries, user: current_user)
    end
 

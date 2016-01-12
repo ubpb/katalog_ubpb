@@ -15,6 +15,7 @@
 
         = ractive_component "app.components.RecordActions",
           class: "pull-right",
+          notes: client_memory_store("notes", @notes),
           record: @record,
           scope: @scope,
           user: client_memory_store("user", current_user),
@@ -36,6 +37,15 @@
                 = ractive_component "app.components.Image",
                   placeholder: image_tag("record-print-lg.png"),
                   src: amazon_image_url(@record, format: "LZZZZZZZ")
+
+          .row: .col-sm-12
+            = ractive_component "app.components.WatchLists",
+              record: @record,
+              watch_lists: client_memory_store("watch_lists", @watch_lists, include: :watch_list_entries)
+
+            = ractive_component "app.components.Note",
+              notes: client_memory_store("notes", @notes),
+              record: @record
 
           / Items
           - if @items.try(:any?) && !is_online_resource?(@record)

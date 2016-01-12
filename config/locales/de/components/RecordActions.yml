@@ -1,12 +1,14 @@
 de:
   RecordActions:
     actions: Aktionen
-    add_note: Notiz hinzufügen
-    destroy_note_confirmation: Möchten Sie diese Notiz wirklich löschen?
-    edit_note: Notiz bearbeiten
     export: Exportieren
     export_to_bibtex: Nach BibTeX exportieren
     export_to_json: Nach JSON exportieren
+
+    Note:
+      add_note: Notiz hinzufügen
+      edit_note: Notiz bearbeiten
+      destroy_note_confirmation: Möchten Sie diese Notiz wirklich löschen?
 
     WatchLists:
       create_watch_list: Neue Merkliste erstellen

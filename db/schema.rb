@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160105091552) do
+ActiveRecord::Schema.define(version: 20160111105435) do
 
   create_table "cache_entries", force: :cascade do |t|
     t.string   "key",        limit: 255
@@ -24,27 +24,15 @@ ActiveRecord::Schema.define(version: 20160105091552) do
 
   create_table "notes", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
-    t.string   "recordid",   limit: 255
+    t.string   "record_id",  limit: 255
     t.text     "value",      limit: 4294967295
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.string   "scope_id",   limit: 255
   end
 
-  add_index "notes", ["recordid"], name: "index_notes_on_recordid", using: :btree
+  add_index "notes", ["record_id"], name: "index_notes_on_record_id", using: :btree
   add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
-
-  create_table "searches", force: :cascade do |t|
-    t.integer  "user_id",            limit: 4
-    t.text     "request",            limit: 4294967295
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.integer  "server_response_id", limit: 4
-    t.text     "hashed_id",          limit: 4294967295
-    t.text     "query",              limit: 4294967295
-  end
-
-  add_index "searches", ["hashed_id"], name: "index_searches_on_hashed_id", length: {"hashed_id"=>200}, using: :btree
-  add_index "searches", ["server_response_id"], name: "index_searches_on_server_response_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name",              limit: 255

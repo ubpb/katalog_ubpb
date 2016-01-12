@@ -27,11 +27,11 @@ do(app = (window.app ?= {})) ->
       if @["_proxy_properties"]?
         for property, origin_identifier of @["_proxy_properties"]
           if (origin = eval("window.#{origin_identifier}"))? && origin.observe? && origin.get?
-            origin.observe "#{property}.*", (oldValue, newValue, keypath) =>
+            origin.observe "#{property} #{property}.*", (oldValue, newValue, keypath) =>
               @set(keypath, origin.get(keypath), propagate_proxy_properties: false)
 
     set: (keypath, value, options = {}) ->
-      if options["propagate_proxy_properties"] ?= true
+      unless options["propagate_proxy_properties"] is false
         if (property = keypath.match(/^[^\.\[]+/)?[0])?
           object = @; while(object?["_proxy_properties"] || object?.parent)
             if (origin_identifier = object?["_proxy_properties"]?[property])?

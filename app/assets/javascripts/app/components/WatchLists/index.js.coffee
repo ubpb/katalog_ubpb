@@ -4,7 +4,7 @@ do(app = (window.app ?= {})) ->
   (app.components ?= {}).WatchLists = app.Component.extend
     computed:
       user_watch_list_path: ->
-        @_path_helper_factory("/user/watch_lists/:id")
+        @_path_helper_factory("/user/watch-lists/:id")
 
       watch_lists_the_record_is_on: ->
         @get("watch_lists")?.filter (_watch_list) =>
