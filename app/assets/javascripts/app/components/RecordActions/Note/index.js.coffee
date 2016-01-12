@@ -18,15 +18,6 @@ do(app = (window.app ?= {})) ->
         return teardown: ->
 
     oninit: ->
-      $(window).on "app:user:note:create.#{@_guid}", (event, note) =>
-        @set("note", note) if @get("record.id") == note.record_id && @get("scope.id") == note.scope_id
-
-      $(window).on "app:user:note:destroy.#{@_guid}", (event, note) =>
-        @set("note", null) if @get("note.id") == note.id
-
-      $(window).on "app:user:note:update.#{@_guid}", (event, note) =>
-        @set("note", note) if @get("note.id") == note.id
-
       @on "_create_note", @_event_handler_factory (event, note_value) ->
         @_create_note(value: note_value).always => @set("create_mode", false)
 

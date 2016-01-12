@@ -13,6 +13,7 @@ do(app = window.app, Note = app.components.RecordActions.Note, WatchLists = app.
       bibtex_path: -> @get("api_v1_scope_record_path")(@get("scope.id"), @get("record.id"), download: true, format: "bibtex")
       i18n_key: -> "RecordActions"
       json_path: -> @get("api_v1_scope_record_path")(@get("scope.id"), @get("record.id"), download: true, format: "json")
+      user_path: -> @_path_helper_factory("/user")
 
     template: """
       <div class="dropdown {{class ? class : ''}}">
@@ -21,13 +22,18 @@ do(app = window.app, Note = app.components.RecordActions.Note, WatchLists = app.
         </button>
 
         <ul class="dropdown-menu dropdown-menu-right">
+          <li class="dropdown-header">{{t(".my_watch_lists")}}</li>
           {{#if user}}
             <WatchLists record={{record}} scope={{scope}} user={{user}} watch_lists={{watch_lists}} />
             <li class="divider"></li>
             <Note notes={{notes}} record={{record}} scope={{scope}} user={{user}} />
             <li class="divider"></li>
+          {{else}}
+            <li>
+              <a style="font-style: italic" href="{{user_path()}}">{{t(".please_login")}}</a>
+            </li>
           {{/if}}
-          <li class="dropdown-header">{{translations.export}}</li>
+          <li class="dropdown-header">{{t(".export")}}</li>
           <!-- data-no-turbolink is needed to prevent turbolinks progress bar from staling -->
           <li>
             <a data-no-turbolink href="{{bibtex_path}}">
@@ -35,12 +41,14 @@ do(app = window.app, Note = app.components.RecordActions.Note, WatchLists = app.
               <span>&nbsp;{{t(".export_to_bibtex")}}</span>
             </a>
           </li>
+          <!--
           <li>
             <a data-no-turbolink href="{{json_path}}">
               <i class="fa fa-download" />
               <span>&nbsp;{{t(".export_to_json")}}</span>
             </a>
           </li>
+          -->
         </ul>
       </div>
     """
