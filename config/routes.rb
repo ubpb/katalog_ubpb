@@ -37,13 +37,13 @@ Rails.application.routes.draw do
   end
 
   #
-  # Compatibility with catalog 1.x
+  # Compatibility with catalog version 1.x
   #
-  get "/searches/:id", to: "searches#show"
-  get "/searches",     to: redirect("/")
-  get "/records",      to: redirect("/")
-  # TODO
-  #get "/records/:id",  to: "records#show"
+  get "/searches/:id/records/:record_id", to: "v1_searches#record", as: "", constraints: { id: /.+/ }
+  get "/searches/:id",                    to: "v1_searches#search", as: ""
+  get "/records/:id",                     to: "v1_searches#record", as: "", constraints: { id: /.+/ }
+  get "/searches",     to: redirect("/"), as: ""
+  get "/records",      to: redirect("/"), as: ""
 
   #
   # Some kickers
