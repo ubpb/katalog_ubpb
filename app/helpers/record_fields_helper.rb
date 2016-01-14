@@ -17,7 +17,7 @@ module RecordFieldsHelper
   end
 
   def creators(record, link:false, scope:nil)
-    if record.try(:creators)
+    if record.try(:creator)
       record.creator.map do |creator|
         if link && scope && creator != "[u.a.]"
           link_to_creator(creator, scope: scope)
