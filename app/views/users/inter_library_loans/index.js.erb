@@ -1,0 +1,13 @@
+<% if async_content_request?(:inter_library_loans) %>
+  // setTimeout(..., 1) delays this quite enough for images etc. to be loaded (should spawn a browser thread internally)
+  window.setTimeout(function() {
+    $("div[data-async-content='inter_library_loans']")
+    .after("<%= j render_relative "./index/inter_library_loans", inter_library_loans: @inter_library_loans, scope: @scope %>")
+    .remove();
+
+    $("table[data-setup='jquery-tablesorter']").each(function(index, element) {
+      $(element).tablesorter().removeAttr("data-setup");
+    });
+
+  }, 1);
+<% end %>
