@@ -8,10 +8,11 @@ class V1SearchesController < ApplicationController
   end
 
   def search
+    flash[:notice] = t("v1_searches.redirected_from_old_permalink")
+
     if (search = V1Search.find_by_hashed_id(params[:id])) && former_catalog_search?(query = search.query)
       redirect_to_translated_searches_path(query)
     else
-      flash[:notice] = t("v1_searches.redirected_from_old_permalink")
       redirect_to searches_path(scope: KatalogUbpb.config.scopes.first)
     end
   end
