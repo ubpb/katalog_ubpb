@@ -1,0 +1,19 @@
+- if inter_library_loans.none?
+  .alert.alert-info = t(".no_inter_library_loans")
+- else
+  .table-responsive
+    table.table.table-striped(data-setup="jquery-tablesorter")
+      thead
+        tr
+          th(data-sorter="shortDate" data-date-format="ddmmyyyy" style="min-width: 115px;") = t(".due_date")
+          th = t(".title")
+
+      tbody
+        - inter_library_loans.each do |_ill|
+          tr
+            td
+              - if _ill.due_date.present?
+                = l(_ill.due_date)
+            td
+              div: strong = value_or_default(title(_ill.record))
+              div = additional_record_info(_ill.record)

@@ -2,8 +2,7 @@ de:
   users:
     inter_library_loans:
       index:
-        doc_number: Bestellnummer
-        pickup_location: Abholort
-        status: Status
-        title: Titel
-        update_date: Änderungsdatum
+        inter_library_loans:
+          no_inter_library_loans: Aktuell haben Sie keine Medien ausgeliehen.
+          due_date: Rückgabe bis
+          title: Titel
