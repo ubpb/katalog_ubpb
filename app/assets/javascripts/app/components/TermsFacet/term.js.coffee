@@ -2,19 +2,23 @@
 
 (((window.app ?= {}).components ?= {}).TermsFacet ?= {}).Term = Ractive.extend
   template: """
-    <li class={{term_class}}>
-      {{#if included_by_search_request}}
+    {{#if included_by_search_request}}
+      <li class="included">
         <a href="{{remove_term_path}}">
           <div class="label label-info">
             {{translated_term}}
             {{#if count}}({{count}}){{/if}}
           </div>
         </a>
-      {{elseif excluded_by_search_request}}
+      </li>
+    {{elseif excluded_by_search_request}}
+      <li class="excluded">
         <a href="{{remove_term_path}}">
           {{translated_term}}
         </a>
-      {{else}}
+      </li>
+    {{else}}
+      <li class="default">
         <a href="{{include_term_path}}">
           {{translated_term}}
           <span style="white-space: nowrap;">
@@ -22,8 +26,8 @@
             <span on-click="ExcludeTerm"><i class="fa fa-remove"></i></span>
           </span>
         </a>
-      {{/if}}
-    </li>
+      </li>
+    {{/if}}
   """
 
   computed:
@@ -56,15 +60,6 @@
       !!(facet_queries.find (element) =>
         element["field"] == @parent.get("facet.field") && element["query"] == @get("term") && element["exclude"]
       )
-
-    term_class: ->
-      "term" +
-      if @computed.included_by_search_request.call(@)
-        " term-included"
-      else if @computed.excluded_by_search_request.call(@)
-        " term-excluded"
-      else
-        " term-default"
 
     translated_term: ->
       i18n_key = @parent.get("i18n_key")
