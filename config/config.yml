@@ -36,6 +36,16 @@ common_settings: &common_settings
           type: "terms"
           field: "materialtyp_facet"
           size: 25
+        - name: "neuerwerbungen"
+          type: "range"
+          field: "cataloging_date"
+          ranges:
+            - from: "now-1M"
+              key: "last_month"
+            - from: "now-3M"
+              key: "last_three_months"
+            - from: "now-6M"
+              key: "last_six_months"
         - name: "creators"
           type: "terms"
           field: "creator_contributor_facet"
@@ -63,16 +73,6 @@ common_settings: &common_settings
           type: "terms"
           field: "inhaltstyp_facet"
           size: 25
-        # - name: "neuerwerbungen"
-        #   type: "range"
-        #   field: "cataloging_date"
-        #   ranges:
-        #     - from: "now-1M"
-        #       key: "last_month"
-        #     - from: "now-3M"
-        #       key: "last_three_months"
-        #     - from: "now-6M"
-        #       key: "last_six_months"
 
       searchable_fields:
         - "_all"

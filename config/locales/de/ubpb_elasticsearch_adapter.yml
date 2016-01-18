@@ -52,6 +52,13 @@ de:
           print: Gedrucktes Werk
           video: Video
 
+      neuerwerbungen:
+        label: Neuerwerbungen
+        values:
+          last_month: "Letzter Monat"
+          last_three_months: "Letzten 3 Monate"
+          last_six_months: "Letzten 6 Monaten"
+
       notations:
         label: "Systemstelle"
 
