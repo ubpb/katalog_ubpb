@@ -7,6 +7,7 @@ class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapte
     dupped_search_request = search_request.deep_dup
     add_query_to_ignore_deleted_records!(dupped_search_request)
     boost_creators_and_title!(dupped_search_request)
+    replace_umlauts!(dupped_search_request)
 
     search_result = super(dupped_search_request)
     set_hits!(search_result)
@@ -41,6 +42,23 @@ class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapte
         _query.fields.push("creator_contributor_search^2")
         _query.fields.push("title_search^4")
       end
+    end
+  end
+
+  # This is somekind of a hack, in order to be able to use truncation (mütter*)
+  # with words with umlauts. This modification assumes that umlauts are stored
+  # as ae, oe, ue representation in the index.
+  def replace_umlauts!(search_request)
+    search_request.queries
+    .select do |_query|
+      ["query_string", "simple_query_string"].include?(_query.type)
+    end
+    .each do |_query|
+      _query.query = _query.query
+      .gsub("Ä", "Ae").gsub("ä", "ae")
+      .gsub("Ö", "Oe").gsub("ö", "oe")
+      .gsub("Ü", "Ue").gsub("ü", "ue")
+      .gsub("ß", "ss")
     end
   end
 
