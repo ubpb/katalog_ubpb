@@ -22,3 +22,9 @@
             search_request: search_request,
             searches_path: searches_path(scope: scope)
 
+        - elsif facet.type.to_sym == :range
+          = ractive_component "app.components.RangeFacet",
+            facet: facet,
+            i18n_key: scope.search_engine_adapter.i18n_key,
+            search_request: search_request,
+            searches_path: searches_path(scope: scope)
