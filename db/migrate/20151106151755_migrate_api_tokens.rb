@@ -19,7 +19,7 @@ class MigrateApiTokens < ActiveRecord::Migration
       User.find_each.with_index do |user, index|
         puts "Processed #{index} users" if index % 1000 == 0
         key = user.api_keys.first
-        if key
+        if key && key.access_token.present?
           user.update_attribute(:api_key, key.access_token)
         end
       end
