@@ -8,6 +8,7 @@ class AddScopeIdToNotes < ActiveRecord::Migration
 
   def up
     add_column :notes, :scope_id, :string
+    Note.reset_column_information
 
     with_each_note do |_note|
       if _note.record_id.start_with?(LOCAL_RECORDS_PREFIX)
