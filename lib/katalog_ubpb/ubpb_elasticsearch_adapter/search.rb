@@ -9,9 +9,11 @@ class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapte
     boost_creators_and_title!(dupped_search_request)
     replace_umlauts!(dupped_search_request)
 
-    search_result = super(dupped_search_request)
-    set_hits!(search_result)
+    # _primary_first is used to avoid "jumping" (different) search result for the same search request
+    # For other options see https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-preference.html
+    search_result = super(dupped_search_request, preference: "_primary_first")
 
+    set_hits!(search_result)
     search_result
   end
 
