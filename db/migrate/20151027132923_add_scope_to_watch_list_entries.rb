@@ -4,6 +4,7 @@ class AddScopeToWatchListEntries < ActiveRecord::Migration
 
   def up
     add_column :watch_list_entries, :scopeid, :string, null: false
+    WatchListEntry.reset_column_information
 
     WatchListEntry.find_each.with_index do |entry, index|
       puts "Processed #{index} records" if index % 1000 == 0
