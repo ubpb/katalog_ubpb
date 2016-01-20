@@ -1,0 +1,4 @@
+// fixes a bug intruduced in https://github.com/twbs/bootstrap/commit/06cba30e2dc62c71b85c323edfcc2afc49c4c2a3
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group {
+  z-index: auto;
+}
