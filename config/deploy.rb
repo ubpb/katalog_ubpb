@@ -14,7 +14,7 @@ set :linked_dirs, fetch(:linked_dirs, []).push(
 )
 
 set :rvm_type,         :user
-set :rvm_ruby_version, "2.2.3"
+set :rvm_ruby_version, "2.3.0"
 
 set :rails_env, "production"
 
