@@ -56,3 +56,7 @@ de:
       rank: "Relevanz"
       scdate: "Erscheinungsjahr"
       stitle: "Titel"
+      creator: "Autor/Herausgeber"
+      title: "Titel"
+      cdate: "Erscheinungsjahr"
+      sub: "Schlagwort"
