@@ -23,6 +23,7 @@ body {
 @import "bootstrap/scaffolding";
 @import "bootstrap/buttons";
 @import "bootstrap/tables";
+@import "bootstrap/labels";
 @import "font-awesome";
 @import "application/mixins/**/*";
 @import "application/components/*";
@@ -35,10 +36,12 @@ body {
 #footer-image,
 .to_top,
 .search-panel,
+.sidebar,
 #facets,
 #hits .panel .panel-heading,
-#hits .panel .panel-footer,
-#hits .record .dropdown {
+.panel .panel-heading .text-right,
+.panel .panel-footer,
+.record .dropdown {
   display: none;
 }
 
