@@ -37,7 +37,8 @@ body {
 .search-panel,
 #facets,
 #hits .panel .panel-heading,
-#hits .panel .panel-footer {
+#hits .panel .panel-footer,
+#hits .record .dropdown {
   display: none;
 }
 
