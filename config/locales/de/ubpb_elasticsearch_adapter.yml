@@ -57,7 +57,7 @@ de:
         values:
           last_month: "Letzter Monat"
           last_three_months: "Letzten 3 Monate"
-          last_six_months: "Letzten 6 Monaten"
+          last_twelve_months: "Letzten 12 Monate"
 
       notations:
         label: "Systemstelle"
