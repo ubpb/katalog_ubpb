@@ -45,7 +45,7 @@ do(app = (window.app ?= {})) ->
           <a href="{{remove_range_path}}">
             <div class="label label-info">
               {{t(facet_i18n_key + ".values." + key)}}
-              {{#if count}}({{count}}){{/if}}
+              ({{#if count}}{{count}}{{else}}0{{/if}}
             </div>
           </a>
         </li>
@@ -53,7 +53,7 @@ do(app = (window.app ?= {})) ->
         <li class="default">
           <a href="{{include_range_path}}">
             {{t(facet_i18n_key + ".values." + key)}}
-            {{#if count}}({{count}}){{/if}}
+            ({{#if count}}{{count}}{{else}}0{{/if}})
           </a>
         </li>
       {{/if}}
