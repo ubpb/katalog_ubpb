@@ -16,7 +16,7 @@ de:
       email_addresses#edit: "E-Mail Adresse ändern"
       former_loans#index: Ausleihhistorie
       hold_requests#index: Vormerkungen
-      inter_library_loans#index: Fernleihen
+      inter_library_loans#index: Fernleihbestellungen
       loans#index: Ausgeliehene Medien
       passwords#edit: Passwort ändern
       transactions#index: Gebühren
