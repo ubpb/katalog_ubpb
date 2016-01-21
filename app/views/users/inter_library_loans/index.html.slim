@@ -3,5 +3,7 @@
     h3.panel-title = t("actions.users.inter_library_loans#index")
 
   .panel-body
-    = render "alerts"
-    = async_content :inter_library_loans
+    p == t(".message")
+    p.text-center = link_to "http://www.ub.uni-paderborn.de/ausleihen_und_bestellen/fernleihe/fernleihe.shtml", target: "_blank", class: "btn btn-primary" do
+      => fa_icon "shopping-cart"
+      = t(".ill_account")
