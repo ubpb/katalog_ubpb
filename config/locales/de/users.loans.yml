@@ -7,10 +7,13 @@ de:
           due_date: Rückgabe bis
           loan_date: Ausgeliehen am
           renew: Verlängern
-          no_renew: Verlängern nicht möglich
+          no_renew: Verlängern nicht möglich*
           renew_all: Alle verlängern
           signature: Signatur
           title: Titel
+          footnote: >
+            * Eine Verlängerung ist frühstens 30 Tage vor dem Rückgabedatum möglich. Liegen Vormerkungen oder Rückrufe vor oder handelt es sich
+            um eine Fernleihe ist eine Verlängerung nicht möglich. Zudem können Sie ein Medium nicht länger als ein Jahr ausleihen.
 
       renew:
         succeeded: >
@@ -22,7 +25,7 @@ de:
         succeeded: >
           Alle Medien wurden verlängert. Bitte überprüfen Sie die Rückgabefristen.
         not_all_loans_could_be_renewed: >
-          Alle möglichen Medien wurden erfolgreich verlängert. Mindestens ein Medium konnte nicht mehr verlängert werden. Bitte überprüfen Sie die Rückgabefristen. Bitte beachten Sie, dass eine Verlängerung frühstens 30 Tage vor dem Rückgabedatum möglich ist.
+          Alle möglichen Medien wurden erfolgreich verlängert. Mindestens ein Medium konnte nicht mehr verlängert werden.*
         failed: >
-          Kein Exemplar konnte verlängert werden. Bitte beachten Sie, dass eine Verlängerung frühstens 30 Tage vor dem Rückgabedatum möglich ist.
+          Kein Exemplar konnte verlängert werden.*
 
