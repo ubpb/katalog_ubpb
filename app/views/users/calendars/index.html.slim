@@ -6,7 +6,7 @@
 
       .panel-body
         p
-          ' Mit der Kalender-Funktion des Katalogs bieten wir Ihnen die Möglichkeit, relevante Termine
+          ' Mit der Kalender-Funktion des Katalogs bieten wir Ihnen die Möglichkeit, relevante Termine,
           ' die Ihr Bibliothekskonto betreffen, direkt in Ihr gewohntes Kalenderprogramm zu integrieren.
           ' Aktuell stellen wir Ihnen die folgenden Termine zur Verfügung:
         ol
@@ -32,11 +32,11 @@
           = link_to "#{root_url(protocol: 'webcal')}api/v1/user/calendar.ics?access_token=#{current_user.api_key}", class: 'btn btn-primary btn-lg' do
               i.fa.fa-calendar
               '
-              ' In meinem Kalender abonnieren
+              ' Termine jetzt abonnieren
 
         p
           ' Mit einem Klick auf den Knopf sollte sich Ihr Standard-Kalenderprogramm öffnen. Sollte dies
-          ' nicht funktionieren, wählen Sie bitte in dem Kalenderprogramm Ihrer Wahl die Funktion
+          ' nicht funktionieren, wählen Sie bitte in dem Kalenderprogramm Ihrer Wahl die Funktion,
           ' mit der Sie einen neuen Kalender über eine Webadresse anlegen können und geben Sie bitte die
           ' folgende Adresse ein
 
