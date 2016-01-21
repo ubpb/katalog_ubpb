@@ -14,6 +14,8 @@
           tr
             td
               div: strong = value_or_default(title(_former_loan.record, scope: scope))
+              div = additional_record_info(_former_loan.record)
+
               - if (signature = signature(_former_loan.record, link: true)).present?
                 div = "Signatur: #{signature}".html_safe
 
