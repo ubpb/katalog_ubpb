@@ -13,6 +13,17 @@ module RecordFieldsHelper
       else
         sanitized_title
       end
+    else
+      # fallback to display the record id
+      record.try(:id)
+    end
+  end
+
+  def thumbnail(record)
+    if record.try(:title)
+      image_tag("record-print-lg.png")
+    else
+      image_tag("fontawesome/question.png")
     end
   end
 
