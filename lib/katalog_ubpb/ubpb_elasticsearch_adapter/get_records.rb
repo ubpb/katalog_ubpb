@@ -15,6 +15,13 @@ class KatalogUbpb::UbpbElasticsearchAdapter::GetRecords < Skala::ElasticsearchAd
     self.class::Result.new({records: search_result.hits}).tap do |_get_records_result|
       _get_records_result.source = search_result.source
       _get_records_result.each { |_element| _element.found = true }
+
+      # add "pseudo" records if the given record id was not found
+      record_ids.each do |_record_id|
+        if _get_records_result.none? { |_element| _element.record.id == _record_id }
+          _get_records_result.records << _get_records_result.class::Record.new(record: { id: _record_id })
+        end
+      end
     end
   end
 end
