@@ -1,3 +1,0 @@
-<% if @entry.persisted? %>
-  $(window).trigger("skala:user:watch_list:entry:created", <%= @entry.to_json.html_safe %>);
-<% end %>
