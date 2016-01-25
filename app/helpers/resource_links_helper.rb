@@ -13,7 +13,7 @@ module ResourceLinksHelper
           if record.fulltext_available
             "#{fa_icon "external-link"} Direkt zur Online-Resource".html_safe
           else
-            "#{fa_icon "external-link"} Direkt zur Online-Resource (möglicherweise kein Volltext verfügbar)".html_safe
+            "#{fa_icon "external-link"} Direkt zur Online-Resource (kein Volltext verfügbar)".html_safe
           end
         end
       end
