@@ -6,7 +6,7 @@ class SearchesController < ApplicationController
   end, only: [:index]
 
   def index
-    if (@search_request = search_request_from_params).present?
+    if (@search_request = search_request_from_params).try(:queries).try(:any?) { |_query| _query.query.present? }
       @search_result = SearchRecordsService.call(
         adapter: current_scope.search_engine_adapter.instance,
         facets: current_scope.facets,
