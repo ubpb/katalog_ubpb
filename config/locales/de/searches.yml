@@ -2,6 +2,8 @@ de:
   searches:
     index:
       no_records_found: "Es wurden leider keine Ergebnisse gefunden."
+      bad_request_error: >
+        Ihre Suchanfrage enthält ungültige Zeichen bzw. ungültige Zeichenkombinationen.
 
       facets:
         refine_search: Suche verfeinern
