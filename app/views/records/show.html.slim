@@ -35,7 +35,7 @@
             .col-sm-2
               .image
                 = ractive_component "app.components.Image",
-                  placeholder: image_tag("record-print-lg.png"),
+                  placeholder: icon(@record, size: "large"),
                   src: amazon_image_url(@record, format: "LZZZZZZZ")
 
           .row: .col-sm-12

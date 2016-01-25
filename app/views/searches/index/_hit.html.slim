@@ -9,7 +9,7 @@
     .col-sm-11
       .image
         = ractive_component "app.components.Image",
-          placeholder: thumbnail(hit.record),
+          placeholder: icon(hit.record, size: "small"),
           src: amazon_image_url(hit.record)
 
       .metadata
