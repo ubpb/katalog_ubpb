@@ -106,12 +106,13 @@ common_settings: &common_settings
         - cataloging_date: desc
 
     primo_central:
-      defaults:
-        search_request:
-          facet_queries:
-          - field: "facet_tlevel"
-            query: "online_resources"
-            type: "match"
+      # does not work in all situations (e.g. when switching scopes), disabled for now
+      #defaults:
+      #  search_request:
+      #    facet_queries:
+      #    - field: "facet_tlevel"
+      #      query: "online_resources"
+      #      type: "match"
 
       search_engine_adapter: "primo_central_adapter"
       facets:
