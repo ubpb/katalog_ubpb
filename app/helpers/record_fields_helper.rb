@@ -19,12 +19,33 @@ module RecordFieldsHelper
     end
   end
 
-  def thumbnail(record)
-    if record.try(:title)
-      image_tag("record-print-lg.png")
+  def icon(record, size: :small)
+    icon = if record.try(:title)
+      if is_online_resource?(record)
+        "external-link"
+      elsif is_superorder?(record)
+        "files-o"
+      elsif is_journal?(record)
+        "files-o"
+      else
+        case record.carrier_type
+        when "monograph"       then "book"
+        when "microfilm"       then "film"
+        when "audio"           then "music"
+        when "video"           then "facetime-video"
+        when "image"           then "picture-o"
+        when "data_storage"    then "play-circle"
+        when "game"            then "trophy"
+        when "map"             then "map-marker"
+        else
+          "file-o"
+        end
+      end
     else
-      image_tag("fontawesome/question.png")
+      "question"
     end
+
+    content_tag(:div, fa_icon(icon), class: "resource-icon resource-icon-#{size}")
   end
 
   def creators(record, link:false, scope:nil)

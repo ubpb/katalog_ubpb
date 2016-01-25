@@ -1,0 +1,12 @@
+.resource-icon {
+  text-align: center;
+  color: $gray-light;
+
+  &.resource-icon-small {
+    font-size: 50px;
+  }
+
+  &.resource-icon-large {
+    font-size: 100px;
+  }
+}
