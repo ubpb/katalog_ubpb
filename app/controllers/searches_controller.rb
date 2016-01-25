@@ -15,6 +15,13 @@ class SearchesController < ApplicationController
         },
         search_request: @search_request
       )
+
+      # For custom Piwik analytics
+      # @see views/application/_piwik_tracking.html.slim
+      @tracking_vars = {
+        "search-scope" => current_scope.id,
+        "facet-search" => @search_request.facet_queries.present?
+      }
     else
       # In case of an empty search request, redirect back
       # to homepage.

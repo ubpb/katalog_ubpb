@@ -1,4 +1,7 @@
 common_settings: &common_settings
+  #piwik_domain: "piwik.uni-paderborn.de"
+  #piwik_site_id: "141"
+
   ils_adapter:
     ubpb_aleph_adapter:
       class_name: "KatalogUbpb::UbpbAlephAdapter"
