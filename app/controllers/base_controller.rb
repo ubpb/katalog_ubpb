@@ -22,6 +22,19 @@ class BaseController < ActionController::Base
   def search_request_from_params
     if params[:search_request]
       JSON.parse(params[:search_request]).try do |_deserialized_search_request|
+        # try to set missing fields/values with reasonable defaults
+        _deserialized_search_request.try(:[], "queries").each do |_query|
+          if ["query_string"].include?(_query["type"])
+            if _query.try(:[], "fields").blank? && (default_index_field = current_scope.try(:searchable_fields).try(:first))
+              _query["fields"] = [default_index_field]
+            end
+          end
+        end
+
+        if _deserialized_search_request.try(:[], "sort").blank? && (default_sort_field = current_scope.try(:sortable_fields).try(:first))
+          _deserialized_search_request["sort"] = [{field: default_sort_field}]
+        end
+
         Skala::Adapter::Search::Request.new(_deserialized_search_request)
       end
     end
