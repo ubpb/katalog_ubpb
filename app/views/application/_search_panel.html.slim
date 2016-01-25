@@ -3,7 +3,7 @@
     - if KatalogUbpb.config.scopes.count > 1
       - KatalogUbpb.config.scopes.each do |_scope|
         li(class="#{_scope == current_scope ? 'active' : 'inactive'}")
-          = link_to t("scopes.#{_scope.id}"), searches_path(scope: _scope.id)
+          = link_to t("scopes.#{_scope.id}"), searches_path(search_request: {queries: search_request.queries.as_json(except: [:default_field, :fields])}.to_json, scope: _scope.id)
 
   .panel.panel-default
     .panel-body.panel-cutoffcorner
