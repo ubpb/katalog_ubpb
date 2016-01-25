@@ -1,6 +1,8 @@
 class Config
   include ActiveModel::Model
 
+  attr_accessor :piwik_domain
+  attr_accessor :piwik_site_id
   attr_accessor :ils_adapter
   attr_accessor :search_engine_adapter
   attr_accessor :scopes
