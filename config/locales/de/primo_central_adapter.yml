@@ -4,7 +4,7 @@ de:
       tlevel:
         label: "Nur zeigen"
         values:
-          online_resources: Online Ressource mit Volltextzugriff
+          online_resources: Mit Volltextzugriff
           peer_reviewed: Geprüft (Peer-Review)
 
       creation_dates:
