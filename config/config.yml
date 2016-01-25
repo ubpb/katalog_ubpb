@@ -17,10 +17,10 @@ common_settings: &common_settings
       class_name: "Skala::PrimoAdapter"
       i18n_key: "primo_central_adapter"
       options:
-        institution: "PAD"
+        institution: "49PAD"
         languages: ["ger", "eng"]
         locations: [{ type: "adaptor", value: "primo_central_multiple_fe" }]
-        soap_api_url: "http://primo.kobv.de/primo_library/libweb/webservices/services/searcher"
+        soap_api_url: "http://mlplus.hosted.exlibrisgroup.com/primo_library/libweb/webservices/services/searcher"
 
     ubpb_elasticsearch_adapter:
       class_name: "KatalogUbpb::UbpbElasticsearchAdapter"
