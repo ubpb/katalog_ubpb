@@ -19,8 +19,6 @@ module RecordFieldsHelper
     end
   end
 
-require "pry"
-
   def icon(record, size: :small)
     icon = if record.try(:title)
       if is_online_resource?(record)
@@ -30,7 +28,6 @@ require "pry"
       elsif is_journal?(record)
         "files-o"
       else
-        #binding.pry
         case record.carrier_type
         when "print"           then "book"
         when "microform"       then "film"
