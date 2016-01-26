@@ -7,6 +7,9 @@ class V1SearchesController < ApplicationController
     end
   end
 
+  def index
+  end
+
   def search
     flash[:notice] = t("v1_searches.redirected_from_old_permalink")
 
