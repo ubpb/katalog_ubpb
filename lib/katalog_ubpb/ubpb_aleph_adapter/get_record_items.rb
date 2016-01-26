@@ -166,7 +166,8 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
         if collection_code && notation
           KatalogUbpb::UbpbAlephAdapter::LOCATION_LOOKUP_TABLE.find do |_row|
             # Expand systemstellen and notation to 4 chars to make ruby range include? work in this case.
-            _row[:systemstellen] = (_row[:systemstellen].first.ljust(4, "A") .. _row[:systemstellen].last.ljust(4, "A"))
+            _row[:systemstellen] = (_row[:systemstellen].first.try(:ljust, 4, "A") .. _row[:systemstellen].last.try(:ljust, 4, "A"))
+
             notation = notation.ljust(4, "A")
 
             _row[:standortkennziffern].include?(collection_code) && _row[:systemstellen].include?(notation)
