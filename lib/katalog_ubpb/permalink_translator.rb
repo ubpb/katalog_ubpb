@@ -1,6 +1,6 @@
 class KatalogUbpb::PermalinkTranslator
   def self.recognizes?(params)
-    params.keys.include?("query_terms")
+    params.keys.include?("q") || params.keys.include?("query_terms")
   end
 
   def self.translate(params)
@@ -60,7 +60,7 @@ class KatalogUbpb::PermalinkTranslator
   end
 
   def self.queries(params)
-    params["query_terms"].map do |_query_term|
+    (params["query_terms"] || [params]).map do |_query_term|
       if _query_term["po"] == "exact"
         {
           type: "match",

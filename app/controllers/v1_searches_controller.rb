@@ -8,6 +8,7 @@ class V1SearchesController < ApplicationController
   end
 
   def index
+    redirect_to root_path # if not redirected before
   end
 
   def search
