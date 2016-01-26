@@ -7,6 +7,10 @@ class SearchesController < ApplicationController
 
   def index
     if (@search_request = search_request_from_params).try(:queries).try(:any?) { |_query| _query.query.present? }
+      if defined?(::NewRelic)
+        ::NewRelic::Agent.add_custom_attributes(search_request: @search_request.as_json) # needs to be a hash
+      end
+
       @search_result = SearchRecordsService.call(
         adapter: current_scope.search_engine_adapter.instance,
         facets: current_scope.facets,
