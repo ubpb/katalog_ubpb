@@ -13,6 +13,10 @@ class RecordsController < ApplicationController
       @search_request = Skala::Adapter::Search::Request.new(serialized_search_request)
     end
 
+    if defined?(::NewRelic) && @search_request.present?
+      ::NewRelic::Agent.add_custom_attributes(search_request: @search_request.as_json) # needs to be a hash
+    end
+
     get_records_result = GetRecordsService.call(
       adapter: @scope.search_engine_adapter.instance,
       ids: [params[:id]]
