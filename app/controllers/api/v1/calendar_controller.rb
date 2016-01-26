@@ -10,9 +10,6 @@ class Api::V1::CalendarController < Api::V1::ApplicationController
     hold_requests = get_hold_requests
     provisions    = hold_requests.select{|hold_request| hold_request.end_hold_date.present? && hold_request.end_hold_date >= Time.zone.today}
 
-    loans_records      = get_records(loans.map{|l| l.record.id})
-    provisions_records = get_records(provisions.map{|l| l.record.id})
-
     response.headers["X-Robots-Tag"] = "all"
 
     respond_to do |format|
@@ -23,24 +20,22 @@ class Api::V1::CalendarController < Api::V1::ApplicationController
       format.text do
         render text: to_raw_ics(
           group_loans_by_due_date(loans),
-          group_provisions_by_due_date(provisions),
-          loans_records,
-          provisions_records)
+          group_provisions_by_due_date(provisions)
+        )
       end
 
       format.ics do
         render text: to_raw_ics(
           group_loans_by_due_date(loans),
-          group_provisions_by_due_date(provisions),
-          loans_records,
-          provisions_records)
+          group_provisions_by_due_date(provisions)
+        )
       end
     end
   end
 
   private
 
-  def to_raw_ics(loans_by_due_date, provisions_by_due_date, loans_records, provisions_records)
+  def to_raw_ics(loans_by_due_date, provisions_by_due_date)
     loans_url         = File.join(root_url, "/user/loans")
     holds_url         = File.join(root_url, "/user/holds")
     info_url          = "http://goo.gl/Evx6Ls"
@@ -61,7 +56,7 @@ class Api::V1::CalendarController < Api::V1::ApplicationController
       loans_by_due_date.each_key do |due_date|
         loans  = loans_by_due_date.fetch(due_date)
         titles = loans.each_with_index.map do |loan, i|
-          record    = loans_records[loan.record.id]
+          record    = loan.record
           title     = cached_view_context.title(record)
           year      = cached_view_context.date_of_publication(record)
           signature = cached_view_context.signature(record)
@@ -126,9 +121,14 @@ EOS
       #
       provisions_by_due_date.each_key do |due_date|
         provisions = provisions_by_due_date.fetch(due_date)
-        titles = provisions.each_with_index.map { |provision, i|
-          "#{i+1}. #{[provision.title, provision.year, "Signatur: #{provision.signature}"].map(&:presence).join(', ')}"
-        }.join('\n')
+        titles = provisions.each_with_index.map do |provision, i|
+          record    = provision.record
+          title     = cached_view_context.title(record)
+          year      = cached_view_context.date_of_publication(record)
+          signature = cached_view_context.signature(record)
+
+          "#{i+1}. #{[title, year, "Signatur: #{signature}"].map(&:presence).join(', ')}"
+        end.join('\n')
 
         description = <<-EOS
 Die folgenden vorgemerkten Medien stehen für Sie zur Abholung bereit.
@@ -190,26 +190,6 @@ EOS
       adapter: KatalogUbpb.config.ils_adapter.instance,
       user: current_user
     )
-  end
-
-  def get_records(ils_ids)
-    search_result = SearchRecordsService.call(
-      adapter: KatalogUbpb.config.ils_adapter.scope.search_engine_adapter.instance,
-      search_request: Skala::Adapter::Search::Request.new(
-        queries: [
-          {
-            type: "ordered_terms",
-            field: "id",
-            terms: ils_ids
-          }
-        ],
-        size: ils_ids.length
-      )
-    )
-
-    search_result.hits.each_with_object({}) do |_hit, _hash|
-      _hash[_hit.record.id] = _hit.record
-    end
   end
 
   def cached_view_context
