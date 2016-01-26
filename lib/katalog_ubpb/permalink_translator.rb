@@ -70,8 +70,8 @@ class KatalogUbpb::PermalinkTranslator
       else
         {
           type: "query_string",
-          default_field: if (index_field = _query_term["if"]) != "any"
-            index_field_mapping(index_field)
+          fields: if (index_field = _query_term["if"]) != "any" # we should not leave any in place, it should use default per scope
+            [index_field_mapping(index_field)]
           end,
           query: _query_term["q"]
         }
