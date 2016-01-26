@@ -2,12 +2,15 @@ class GetUserService < Servizio::Service
   include InstrumentedService
 
   attr_accessor :adapter
+  attr_accessor :api_key
   attr_accessor :id
   attr_accessor :username
 
   def call
     if id.present?
       User.find_by(id: id)
+    elsif api_key.present?
+      User.find_by(api_key: api_key)
     elsif username.present?
       if adapter.blank?
         User.find_by(ilsuserid: username)
