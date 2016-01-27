@@ -165,13 +165,18 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
 
         if collection_code && notation
           KatalogUbpb::UbpbAlephAdapter::LOCATION_LOOKUP_TABLE.find do |_row|
-            # Expand systemstellen and notation to 4 chars to make ruby range include? work in this case.
-            _row[:systemstellen] = (_row[:systemstellen].first.try(:ljust, 4, "A") .. _row[:systemstellen].last.try(:ljust, 4, "A"))
+            systemstellen_range = _row[:systemstellen]
+            standortkennziffern = _row[:standortkennziffern]
 
-            notation = notation.ljust(4, "A")
+            if systemstellen_range.present? && systemstellen_range.first.present? && systemstellen_range.last.present? && standortkennziffern.present?
+              # Expand systemstellen and notation to 4 chars to make ruby range include? work in this case.
+              justified_systemstellen_range = (systemstellen_range.first.ljust(4, "A") .. systemstellen_range.last.ljust( 4, "A"))
+              justified_notation = notation.ljust(4, "A")
 
-            _row[:standortkennziffern].include?(collection_code) && _row[:systemstellen].include?(notation)
-          end.try do |_row|
+              standortkennziffern.include?(collection_code) && justified_systemstellen_range.include?(justified_notation)
+            end
+          end
+          .try do |_row|
             item.location = _row[:location]
           end
         end
