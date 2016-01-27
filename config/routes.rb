@@ -64,11 +64,8 @@ Rails.application.routes.draw do
 
       resources :scopes, only: [:index] do
         scope module: "scopes" do
-          resources :records, only: [:show] do
-            scope module: "records" do
-              resources :items, only: [:index]
-            end
-          end
+          get "records/*record_id/items", to: "records/items#index" # position this before the records/*id below
+          get "records/*id",              to: "records#show"
 
           resources :searches, only: [:index]
         end
