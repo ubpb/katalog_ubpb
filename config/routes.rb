@@ -64,8 +64,9 @@ Rails.application.routes.draw do
 
       resources :scopes, only: [:index] do
         scope module: "scopes" do
-          get "records/*record_id/items", to: "records/items#index" # position this before the records/*id below
-          get "records/*id",              to: "records#show"
+          # maybe constraints: { id: /.+/ } is needed
+          get "records/*record_id/items", to: "records/items#index", as: "record_items" # position this before the records/*id below
+          get "records/*id",              to: "records#show",        as: "records"
 
           resources :searches, only: [:index]
         end
