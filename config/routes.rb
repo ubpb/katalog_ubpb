@@ -72,14 +72,6 @@ Rails.application.routes.draw do
         end
       end
 
-      #resources :searches, only: [:index], path: ":scope_id/searches"
-
-      #resources :records, only: [:index, :show], path: ":scope_id/records" do
-      #  scope module: "records" do
-      #    resources :items, only: [:index]
-      #  end
-      #end
-
       resources :users, only: [:show] do
         scope module: "users" do
           resources :notes, only: [:index]
