@@ -1,6 +1,9 @@
 # BaseController is the place to put code which should be
 # shared between frontend and API controllers.
 class BaseController < ActionController::Base
+  # custom errors
+  class MalformedSearchRequestError < StandardError; end
+
   def current_scope
     KatalogUbpb.config.find_scope(params[:scope]) ||
     KatalogUbpb.config.find_scope(params[:scope_id]) ||
