@@ -63,7 +63,7 @@
     end: ZZZ
     excl: false
   :fachgebiet: Bibliografischer Apparat
-  :location: Ebene 1
+  :location: Eingangsebene
   :standortkennziffern:
   - 08
   :fachkennziffern: []
@@ -422,7 +422,7 @@
     begin: SF
     end: SF
     excl: false
-  :fachgebiet: Steinhoff-Forschungsbibliothek
+  :fachgebiet: Forschungsbibliothek Steinhoff
   :location: Magazin
   :standortkennziffern:
   - '02'
