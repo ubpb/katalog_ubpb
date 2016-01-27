@@ -23,7 +23,7 @@ class ApplicationController < BaseController
     redirect_to root_path
   end
 
-  rescue_from (MalformedSearchRequestError = Class.new(StandardError)) do
+  rescue_from MalformedSearchRequestError do
     redirect_to searches_path
   end
 
