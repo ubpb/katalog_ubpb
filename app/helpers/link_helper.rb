@@ -20,7 +20,7 @@ module LinkHelper
   alias_method :link_to_ht_number, :link_to_superorder
 
   def link_to_volumes(ht_number, scope:, label:)
-    link_to_new_search(ht_number, scope: scope, sort: [{field: "volume_count_sort", order: "asc"}], default_field: "superorder", label: label)
+    link_to_new_search(ht_number, scope: scope, sort: [{field: "volume_count_sort2", order: "asc"}], default_field: "superorder", label: label)
   end
 
   def link_to_creator(creator, scope:)
