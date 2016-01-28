@@ -53,3 +53,4 @@ do(app = (window.app ?= {})) ->
         query: superorder_id
         fields: ["superorder"]
       ]
+      sort: [{"field":"volume_count_sort2","order":"asc"}]
