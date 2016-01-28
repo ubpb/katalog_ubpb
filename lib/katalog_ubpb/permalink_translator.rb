@@ -66,15 +66,15 @@ class KatalogUbpb::PermalinkTranslator
           type: "match",
           field: _query_term["if"],
           query: _query_term["q"]
-        }
+        }.compact
       else
         {
           type: "query_string",
           fields: if (index_field = _query_term["if"]) != "any" # we should not leave any in place, it should use default per scope
-            [index_field_mapping(index_field)]
+            [index_field_mapping(index_field)].compact.presence
           end,
           query: _query_term["q"]
-        }
+        }.compact
       end
       .compact
     end
