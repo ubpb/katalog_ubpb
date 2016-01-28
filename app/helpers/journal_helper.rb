@@ -34,7 +34,7 @@ module JournalHelper
           elsif has_closed_stack_location
             content_tag(:em, '*Es handelt sich um einen Magazinstandort. Um darauf zuzugreifen müssen Sie eine entsprechende Magazinbestellung aufgeben.')
           end << " " <<
-          content_tag(:span, link_to('&raquo; Magazinbestellung aufgeben'.html_safe, new_closed_stack_order_path(z1: record.signature)))
+          content_tag(:span, link_to('&raquo; Magazinbestellung aufgeben'.html_safe, current_user ? new_closed_stack_order_path(z1: record.signature) : new_session_path(return_to: request.fullpath)))
         end.to_s
       else
         cleaned_journal_holdings.join(', ')
