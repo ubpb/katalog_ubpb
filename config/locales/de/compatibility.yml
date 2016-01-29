@@ -1,0 +1,9 @@
+de:
+  compatibility:
+    records:
+      show:
+        please_update_url: "Die URL dieses Titels hat sich geändert. Bitte aktualisieren Sie Ihren Link bzw. Ihr Lesezeichen mit der jetzt in Ihrem Browser angezeigten URL."
+
+    searches:
+      index:
+        please_update_url: "Die URL dieser Suche hat sich geändert. Bitte aktualisieren Sie Ihren Link bzw. Ihr Lesezeichen mit der jetzt in Ihrem Browser angezeigten URL."

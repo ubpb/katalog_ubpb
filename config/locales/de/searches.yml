@@ -4,6 +4,7 @@ de:
       no_records_found: "Es wurden leider keine Ergebnisse gefunden."
       bad_request_error: >
         Ihre Suchanfrage enthält ungültige Zeichen bzw. ungültige Zeichenkombinationen.
+      please_update_url: "Die URL dieser Suche hat sich geändert. Bitte aktualisieren Sie Ihren Link bzw. Ihr Lesezeichen mit der jetzt in Ihrem Browser angezeigten URL."
 
       facets:
         refine_search: Suche verfeinern
