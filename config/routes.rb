@@ -39,11 +39,10 @@ Rails.application.routes.draw do
   #
   # Compatibility with catalog version 1.x
   #
-  get "/searches/:id/records/:record_id", to: "v1_searches#record", as: "", constraints: { id: /.+/ }
-  get "/searches/:id",                    to: "v1_searches#search", as: ""
-  get "/records/:id",                     to: "v1_searches#record", as: "", constraints: { id: /.+/ }
-  get "/searches",                        to: "v1_searches#index",  as: ""
-  get "/records",      to: redirect("/"), as: ""
+  get "/records/:id",                     to: "compatibility/records#show", constraints: { id: /.+/ }
+  get "/searches",                        to: "compatibility/searches#index"
+  get "/searches/:id",                    to: "compatibility/searches#show"
+  get "/searches/:search_id/records/:id", to: "compatibility/records#show", constraints: { id: /.+/ }
 
   #
   # Some kickers

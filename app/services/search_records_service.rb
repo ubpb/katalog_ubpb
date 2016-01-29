@@ -23,11 +23,9 @@ class SearchRecordsService < Servizio::Service
   end
 
   def call
-    dupped_search_request = search_request.deep_dup
-    add_facets!(dupped_search_request) if facets?
-    sanitize!(dupped_search_request) if sanitize_search_request?
-
-    result = adapter.search(dupped_search_request, options)
+    add_facets!(search_request) if facets?
+    result = adapter.search(search_request, options)
+    remove_facets!(search_request) if facets?
 
     # Order facets the way they have been configured/requested
     # Also filter facets that are not configured
@@ -54,6 +52,18 @@ class SearchRecordsService < Servizio::Service
     end
   end
 
+  def remove_facets!(search_request)
+    search_request.tap do |_search_request|
+      if _search_request.is_a?(Hash)
+        _search_request.delete(:facets)
+        _search_request.delete("facets")
+      elsif _search_request.respond_to?(:facets=)
+        _search_request.facets = nil
+      end
+    end
+  end
+
+=begin
   def escape(string, *characters)
     characters.inject(string) do |_string, _character|
       _string.gsub(_character, "\\#{_character}")
@@ -80,4 +90,5 @@ class SearchRecordsService < Servizio::Service
       end
     end
   end
+=end
 end

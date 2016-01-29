@@ -20,6 +20,11 @@ class SearchesController < ApplicationController
         search_request: @search_request
       )
 
+      if @search_request.try(:changed?)
+        flash[:notice] = t(".please_update_url")
+        return redirect_to(searches_path(scope: current_scope, search_request: @search_request))
+      end
+
       # For custom Piwik analytics
       # @see views/application/_piwik_tracking.html.slim
       @tracking_vars = {
