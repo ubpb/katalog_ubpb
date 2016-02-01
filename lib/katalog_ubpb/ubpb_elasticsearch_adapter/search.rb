@@ -12,6 +12,8 @@ class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapte
     dupped_search_request = search_request.deep_dup
     add_query_to_ignore_deleted_records!(dupped_search_request)
     boost_creators_and_title!(dupped_search_request)
+    escape_special_characters!(dupped_search_request)
+    replace_operators!(dupped_search_request)
     replace_umlauts!(dupped_search_request)
 
     # _primary_first is used to avoid "jumping" (different) search result for the same search request
@@ -48,6 +50,26 @@ class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapte
         _query.fields ||= []
         _query.fields.push("creator_contributor_search^2")
         _query.fields.push("title_search^4")
+      end
+    end
+  end
+
+  def escape_special_characters!(search_request)
+    escape = -> (string, *characters) do
+      characters.inject(string) do |_string, _character|
+        # adapted from http://stackoverflow.com/questions/7074337/why-does-stringgsub-double-content
+        _string.gsub(_character) { |_match| "\\#{_match}" } # avoid regular expression replacement string issues
+      end
+    end
+
+    # \ has to be escaped be itself AND has to be the first, to
+    # avoid double escaping of other escape sequences
+    characters_blacklist = %w(\\ + - = && || > < ! ( ) { } [ ] ^ : /)
+    sanitized_query_types = [:simple_query_string, :query_string]
+
+    search_request.queries.each do |_query|
+      if sanitized_query_types.include?(_query.type.to_sym)
+        _query.query = escape.call(_query.query, *characters_blacklist)
       end
     end
   end
@@ -113,6 +135,19 @@ class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapte
           end
         end
       end
+    end
+  end
+
+  def replace_operators!(search_request)
+    search_request.queries
+    .select do |_query|
+      ["query_string", "simple_query_string"].include?(_query.type)
+    end
+    .each do |_query|
+      _query.query = _query.query
+      .gsub("UND", "AND")
+      .gsub("ODER", "OR")
+      .gsub("NICHT", "NOT")
     end
   end
 
