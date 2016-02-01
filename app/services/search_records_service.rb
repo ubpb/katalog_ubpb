@@ -62,33 +62,4 @@ class SearchRecordsService < Servizio::Service
       end
     end
   end
-
-=begin
-  def escape(string, *characters)
-    characters.inject(string) do |_string, _character|
-      _string.gsub(_character, "\\#{_character}")
-    end
-  end
-
-  def sanitize!(search_request)
-    search_request.tap do |_search_request|
-      characters_blacklist = "[", "]"
-      sanitized_query_types = [:simple_query_string, :query_string]
-
-      if _search_request.is_a?(Hash)
-        _search_request[:queries].each do |_query|
-          if sanitized_query_types.include?(_query[:type].to_sym)
-            _query[:query] = escape(_query[:query], *characters_blacklist)
-          end
-        end
-      elsif _search_request.respond_to?(:queries)
-        _search_request.queries.each do |_query|
-          if sanitized_query_types.include?(_query.type.to_sym)
-            _query.query = escape(_query.query, *characters_blacklist)
-          end
-        end
-      end
-    end
-  end
-=end
 end
