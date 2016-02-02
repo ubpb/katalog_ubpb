@@ -15,4 +15,4 @@
           .row
             .col-sm-offset-4.col-sm-8
               => f.submit t(".submit"), class: "btn btn-lg btn-primary"
-              => link_to t(".cancel"), return_path || root_path, class: "btn btn-lg btn-default"
+              => f.submit t(".cancel"), class: "btn btn-lg btn-default", name: "cancel"

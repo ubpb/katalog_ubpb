@@ -14,7 +14,7 @@ do(app = window.app, Note = app.components.RecordActions.Note, WatchLists = app.
       i18n_key: -> "RecordActions"
       id: -> @_guid
       json_path: -> @get("api_v1_scope_record_path")(@get("scope.id"), @get("record.id"), download: true, format: "json")
-      login_path: -> @_path_helper_factory("/login")(return_to: window.location.href)
+      login_path: -> @_path_helper_factory("/login")(return_to: @get("current_path"), redirect: "true")
 
     oninit: ->
       @on "_close_dropdown", (event) ->
