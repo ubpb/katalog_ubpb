@@ -54,5 +54,6 @@
         notes: client_memory_store("notes", notes),
         record: hit.record,
         scope: scope,
+        current_path: current_path,
         user: client_memory_store("user", current_user),
         watch_lists: client_memory_store("watch_lists", watch_lists, include: :watch_list_entries)

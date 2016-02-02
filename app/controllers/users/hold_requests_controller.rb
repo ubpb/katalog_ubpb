@@ -4,8 +4,6 @@ class Users::HoldRequestsController < UsersController
     add_breadcrumb
   end, only: :index
 
-  before_action -> { flash.keep }, only: :create
-
   def index
     ils_adapter = KatalogUbpb.config.ils_adapter.instance
     search_engine_adapter = KatalogUbpb.config.ils_adapter.scope.search_engine_adapter.instance
@@ -39,7 +37,8 @@ class Users::HoldRequestsController < UsersController
       end
     end
 
-    redirect_back_or_to(user_hold_requests_path)
+    return_path = sanitize_return_path(params[:return_to]) || user_hold_requests_path
+    redirect_to(return_path)
   end
 
   def destroy

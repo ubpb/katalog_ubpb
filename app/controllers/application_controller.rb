@@ -7,7 +7,6 @@ class ApplicationController < BaseController
   # before filters
   before_filter :set_title_addition
   before_filter :set_robots_tag
-  before_filter :capture_return_path
 
   # helper methods
   helper_method :async_content_request?
@@ -16,7 +15,7 @@ class ApplicationController < BaseController
   helper_method :current_scope
   helper_method :current_user
   helper_method :global_message
-  helper_method :return_path
+  helper_method :current_path
 
   # rescues
   rescue_from ActionController::RedirectBackError do
@@ -29,18 +28,6 @@ class ApplicationController < BaseController
 
   def async_content_request?(identifier = nil)
     !!(request.xhr? && params.keys.include?("async_content") && (!identifier || params["async_content"] == identifier.to_s))
-  end
-
-  def capture_return_path
-    session[:return_to] = params[:return_to] if params[:return_to].present?
-  end
-
-  def return_path
-    session[:return_to]
-  end
-
-  def redirect_back_or_to(default_path)
-    redirect_to(session.delete(:return_to) || default_path)
   end
 
   def set_title_addition(title_addition = nil)
@@ -63,6 +50,27 @@ class ApplicationController < BaseController
     .gsub("/", ".")
 
     "#{sanitized_controller_name}##{view_context.controller.action_name}"
+  end
+
+  def current_path
+    query_params = request.query_parameters.dup
+
+    if query_params[:search_request].blank? && @search_request.present? && @search_request.queries.any?{|q| q.query.present? }
+      query_params[:search_request] = @search_request
+    end
+
+    "#{request.path}?#{query_params.to_param}"
+  end
+
+  def sanitize_return_path(return_path)
+    if return_path.present?
+      uri = URI(return_path)
+      "#{uri.path}?#{uri.query}##{uri.fragment}"
+    else
+      nil
+    end
+  rescue
+    nil
   end
 
   def current_locale

@@ -9,7 +9,7 @@ class RecordsController < ApplicationController
       flash[:search_request] = @search_request.to_h
       return redirect_to(record_path(request.query_parameters.except(:search_request)))
     elsif serialized_search_request = flash[:search_request]
-      flash.keep(:search_request)
+      #flash.keep(:search_request)
       @search_request = Skala::Adapter::Search::Request.new(serialized_search_request)
     end
 
@@ -34,10 +34,10 @@ class RecordsController < ApplicationController
       end
     end
 
-   if current_user
-     @notes = GetUserNotesService.call(user: current_user)
-     @watch_lists = GetUserWatchListsService.call(include: :watch_list_entries, user: current_user)
-   end
+    if current_user
+      @notes = GetUserNotesService.call(user: current_user)
+      @watch_lists = GetUserWatchListsService.call(include: :watch_list_entries, user: current_user)
+    end
 
     if @search_request
       on_first_page = @search_request.from == 0

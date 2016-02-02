@@ -4,13 +4,10 @@
 #items
   - unless current_user.present?
     .tools
-      - if search_request
-        - return_to_path = record_path(@record.id, scope: @scope.id, search_request: search_request)
-
       - if number_of_hold_requests > 0
         == t(".no_of_hold_requests", count: number_of_hold_requests)
 
-      =< link_to new_session_path(return_to: return_to_path || request.fullpath), class: "btn btn-sm btn-primary" do
+      =< link_to new_session_path(return_to: current_path, redirect: true), class: "btn btn-sm btn-primary" do
         => fa_icon("user")
         = t(".login_button")
   - else
@@ -19,7 +16,7 @@
         - if number_of_hold_requests > 0
           == t(".no_of_hold_requests", count: number_of_hold_requests)
 
-        =< link_to "Jetzt vormerken", user_hold_requests_path(record_id: record.id, return_to: request.fullpath), method: :post, class: "btn btn-primary btn-sm"
+        =< link_to "Jetzt vormerken", user_hold_requests_path(record_id: record.id, return_to: current_path), method: :post, class: "btn btn-primary btn-sm"
 
   - if hold_request.present?
     - if hold_request.end_hold_date.present? && hold_request.end_hold_date < Time.zone.today
