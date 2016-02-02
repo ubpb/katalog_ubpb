@@ -1,3 +1,9 @@
 #global-message-wrapper {
-  background-color: #fff;
+  background-color: $alert-info-bg;
+  color: $alert-info-text;
+  padding: ($line-height-computed / 2) 0;
+
+  #global-message {
+    text-align: center;
+  }
 }
