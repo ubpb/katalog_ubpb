@@ -25,7 +25,7 @@ de:
         succeeded: >
           Alle Medien wurden verlängert. Bitte überprüfen Sie die Rückgabefristen.
         not_all_loans_could_be_renewed: >
-          Alle möglichen Medien wurden erfolgreich verlängert. Mindestens ein Medium konnte nicht mehr verlängert werden.*
+          Alle möglichen Medien wurden erfolgreich verlängert. Mindestens ein Medium konnte nicht mehr verlängert werden. Bitte überprüfen Sie die Rückgabefristen.*
         failed: >
           Kein Medium konnte verlängert werden.*
 
