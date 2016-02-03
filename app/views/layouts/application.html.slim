@@ -28,7 +28,7 @@ html
     #navbar-wrapper
       .container = render "navbar"
     #alerts-wrapper
-      .container-float = render "global_alerts"
+      .container-float = render "alerts", container: true
     #content-area-wrapper
       .container
         = render "breadcrumb"
