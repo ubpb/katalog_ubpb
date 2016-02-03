@@ -16,7 +16,7 @@ nav.navbar.navbar-default(role="navigation")
         = link_to logout_path, class: "btn btn-default navbar-btn", title: t(".logout"), data: {confirm: "Wirklich abmelden?", "no-turbolink" => true} do
           i.fa.fa-power-off
       - else
-        = link_to new_session_path(return_to: current_path), class: "btn btn-primary navbar-btn" do
+        = link_to new_session_path(return_to: controller_name == "homepage" ? nil : current_path), class: "btn btn-primary navbar-btn" do
           => fa_icon("user lg")
           = t(".my_account")
 
