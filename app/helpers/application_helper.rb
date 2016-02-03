@@ -7,21 +7,6 @@ module ApplicationHelper
     end
   end
 
-  def flash_message_class(type)
-    case type.to_sym
-      when :alert
-        "alert alert-warning"
-      when :error
-        "alert alert-danger"
-      when :notice
-        "alert alert-info"
-      when :success
-        "alert alert-success"
-      else
-        "alert #{type.to_s}"
-    end
-  end
-
   def javascript_event_handler(event_name)
     # "...(event)" is a js convention for passing events to inline js e.g. <a onclick="foo(event)")></a>
     [

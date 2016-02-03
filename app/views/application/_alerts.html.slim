@@ -1,5 +1,24 @@
+- container = false if local_assigns[:container].nil?
+
 - flash.each do |key, message|
+  ruby:
+    flash_message_class = case key.to_sym
+      when :alert
+        "alert alert-warning"
+      when :error
+        "alert alert-danger"
+      when :notice
+        "alert alert-info"
+      when :success
+        "alert alert-success"
+      else
+        "alert #{type.to_s}"
+    end
+
   - if message.is_a?(String)
     - flash.delete(key)
-    div(class="#{flash_message_class(key)} animated flipInX")
-      == message
+    div(class="#{flash_message_class} animated flipInX")
+      - if container == true
+        .container == message
+      - else
+        == message
