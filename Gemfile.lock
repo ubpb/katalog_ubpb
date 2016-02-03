@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ubpb/skala.git
-  revision: f96221997765723cb3450f23499b6f115aaddf7c
+  revision: f6c01176fcd2cabdcd57771a970f513c2f3b8fad
   branch: master
   specs:
     skala (1.1.0)
