@@ -3,6 +3,8 @@
     h3.panel-title = t("actions.users.hold_requests#index")
 
   .panel-body
+    = render "alerts"
+
     - if @hold_requests.blank?
       .alert.alert-info = t(".no_hold_requests_present")
     - else
