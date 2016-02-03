@@ -4,8 +4,9 @@ de:
       error: Die Anmeldung konnte aufgrund eines Fehlers nicht durchgeführt werden.
       failed: Authentifizierung fehlgeschlagen. Bitte überprüfen Sie Ihre Eingabedaten.
       success: Sie wurden erfolgreich angemeldet.
-      return_message: >
-        <a href="%{return_path}" class="alert-link">Klicken Sie hier um zu der Seite vor der Anmeldung zurückzukehren</a>.
+      common_return_message: Zurück zu der Seite vor der Anmeldung
+      search_return_message: Zurück zur Suche
+      details_return_message: Zurück zur Detailansicht
 
     new:
       cancel: ~> application.form.cancel

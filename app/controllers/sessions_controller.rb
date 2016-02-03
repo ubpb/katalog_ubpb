@@ -70,7 +70,7 @@ private
     if return_path && redirect == true
       redirect_to(return_path)
     else
-      flash[:success] = flash_message(return_path)
+      flash[:success] = render_to_string partial: "success_flash_message", locals: {return_path: return_path}
       redirect_to(user_path)
     end
   end
@@ -85,17 +85,6 @@ private
         redirect: redirect
       }
     end
-  end
-
-  def flash_message(return_path = nil)
-    message = t(".success")
-
-    if return_path.present?
-      message += " "
-      message += t(".return_message", return_path: return_path)
-    end
-
-    message.html_safe
   end
 
 end
