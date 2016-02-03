@@ -3,6 +3,15 @@
   color: $alert-info-text;
   padding: ($line-height-computed / 2) 0;
 
+  a {
+    color: darken($alert-info-text, 10%);
+    font-weight: $alert-link-font-weight;
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+
   #global-message {
     text-align: center;
   }
