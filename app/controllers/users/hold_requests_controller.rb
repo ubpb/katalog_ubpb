@@ -51,7 +51,7 @@ class Users::HoldRequestsController < UsersController
 
       if can?(:call, delete_user_hold_request)
         if delete_user_hold_request.call!.succeeded?
-          flash[:notice] = t(".succeeded")
+          flash[:success] = t(".succeeded")
         else
           if delete_user_hold_request.errors[:call].include?(:hold_request_missing)
             flash[:notice] = t(".hold_request_missing")
