@@ -35,4 +35,6 @@
                     = t(".in_process")
                 td
                   - if _hold_request.deleteable?
-                    =< link_to t(".delete"), user_hold_request_path(_hold_request.id), method: :delete, class: "btn btn-danger btn-sm"
+                    =< link_to t(".delete_hold_request"), user_hold_request_path(_hold_request.id), method: :delete, class: "btn btn-danger btn-sm", data: {confirm: t(".delete_hold_request_confirmation")}
+                  - else
+                    = t(".cannot_delete_hold_request")
