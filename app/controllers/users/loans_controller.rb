@@ -53,7 +53,7 @@ class Users::LoansController < UsersController
         flash[:success] = t(".succeeded")
       else
         if renew_all_user_loans.errors[:call].include?(:not_all_loans_could_be_renewed)
-          flash[:warning] = t(".not_all_loans_could_be_renewed") # .result contains the ones that could be renewed
+          flash[:notice] = t(".not_all_loans_could_be_renewed") # .result contains the ones that could be renewed
         else
           flash[:error] = t(".failed")
         end
