@@ -1,4 +1,4 @@
-p = t("sessions.create.success")
+= t("sessions.create.success")
 
 - if return_path.present?
   ruby:
@@ -10,6 +10,6 @@ p = t("sessions.create.success")
       t("sessions.create.common_return_message")
     end
 
-  = link_to return_path, class: "btn btn-success" do
+  div(style="margin-top: 10px;") = link_to return_path, class: "btn btn-success" do
     => fa_icon("reply")
     = return_message
