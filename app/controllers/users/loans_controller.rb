@@ -1,8 +1,6 @@
 class Users::LoansController < UsersController
-  before_action -> do
-    add_breadcrumb name: "users#show", url: user_path
-    add_breadcrumb
-  end, only: :index
+
+  before_filter { add_breadcrumb name: "users.loans#index" }
 
   def index
     if async_content_request?(:loans)

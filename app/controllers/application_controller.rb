@@ -8,6 +8,9 @@ class ApplicationController < BaseController
   before_filter :set_title_addition
   before_filter :set_robots_tag
 
+  # Breadcrumb (always show homepage)
+  before_filter { add_breadcrumb name: "homepage#show", url: root_path }
+
   # helper methods
   helper_method :async_content_request?
   helper_method :current_action

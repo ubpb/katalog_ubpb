@@ -1,8 +1,6 @@
 class Users::HoldRequestsController < UsersController
-  before_action -> do
-    add_breadcrumb name: "users#show", url: user_path
-    add_breadcrumb
-  end, only: :index
+
+  before_filter { add_breadcrumb name: "users.hold_requests#index" }
 
   def index
     ils_adapter = KatalogUbpb.config.ils_adapter.instance

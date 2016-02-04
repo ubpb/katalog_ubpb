@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
 
+  before_filter :add_breadcrumb
   before_filter :capture_return_path
 
   def create

@@ -1,8 +1,6 @@
 class Users::TransactionsController < UsersController
-  before_action -> do
-    add_breadcrumb name: "users#show", url: user_path
-    add_breadcrumb
-  end, only: :index
+
+  before_filter { add_breadcrumb name: "users.transactions#index" }
 
   def index
     ils_adapter = KatalogUbpb.config.ils_adapter.instance
@@ -15,4 +13,5 @@ class Users::TransactionsController < UsersController
       user: current_user,
     )
   end
+
 end

@@ -1,5 +1,4 @@
 class RecordsController < ApplicationController
-  #before_filter :set_page_title_addition, only: [:show] # for nicer browser page title
 
   def show
     @scope = current_scope
@@ -12,6 +11,9 @@ class RecordsController < ApplicationController
       #flash.keep(:search_request)
       @search_request = Skala::Adapter::Search::Request.new(serialized_search_request)
     end
+
+    add_breadcrumb name: "searches#index", url: searches_path(search_request: @search_request) if @search_request.present?
+    add_breadcrumb name: "records#show"
 
     if defined?(::NewRelic) && @search_request.present?
       ::NewRelic::Agent.add_custom_attributes(search_request: @search_request.as_json) # needs to be a hash
