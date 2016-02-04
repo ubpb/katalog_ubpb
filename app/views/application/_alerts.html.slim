@@ -1,4 +1,4 @@
-- container = false if local_assigns[:container].nil?
+- global = false if local_assigns[:global].nil?
 
 - flash.each do |key, message|
   ruby:
@@ -13,12 +13,14 @@
         "alert alert-success"
       else
         "alert #{key.to_s}"
-    end
+      end
+
+    flash_message_class += " alert-global" if global
 
   - if message.is_a?(String)
     - flash.delete(key)
     div(class="#{flash_message_class} animated flipInX")
-      - if container == true
+      - if global
         .container == message
       - else
         == message
