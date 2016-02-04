@@ -1,9 +1,6 @@
 class SearchesController < ApplicationController
 
-  before_action -> do
-    breadcrumbs.clear
-    add_breadcrumb
-  end, only: [:index]
+  before_filter { add_breadcrumb name: "searches#index" }
 
   def index
     if (@search_request = search_request_from_params).try(:queries).try(:any?) { |_query| _query.query.present? }

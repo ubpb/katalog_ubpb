@@ -1,4 +1,7 @@
 class Users::EmailAddressesController < UsersController
+
+  before_filter { add_breadcrumb name: "users.email_addresses#edit" }
+
   def edit
     @update_user_email_address = UpdateUserEmailAddressService.new(
       adapter: KatalogUbpb.config.ils_adapter.instance,

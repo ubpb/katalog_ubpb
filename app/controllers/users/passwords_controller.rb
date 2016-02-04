@@ -1,4 +1,7 @@
 class Users::PasswordsController < UsersController
+
+  before_filter { add_breadcrumb name: "users.passwords#edit" }
+
   def edit
     @update_user_password = UpdateUserPasswordService.new(
       adapter: KatalogUbpb.config.ils_adapter.instance,

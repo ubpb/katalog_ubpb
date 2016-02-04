@@ -1,8 +1,6 @@
 class Users::InterLibraryLoansController < UsersController
-  before_action -> do
-    add_breadcrumb name: "users#show", url: user_path
-    add_breadcrumb
-  end, only: :index
+
+  before_filter { add_breadcrumb name: "users.inter_library_loans#index" }
 
   def index
     if async_content_request?(:inter_library_loans)

@@ -1,14 +1,6 @@
 class Users::WatchListsController < UsersController
-  before_action -> do
-    add_breadcrumb name: "users#show", url: user_path
-    add_breadcrumb
-  end, only: [:index]
 
-  before_action -> do
-    add_breadcrumb name: "users#show", url: user_path
-    add_breadcrumb name: "users.watch_lists#index", url: user_watch_lists_path
-    add_breadcrumb
-  end, only: [:new]
+  before_filter { add_breadcrumb name: "users.watch_lists#index", url: user_watch_lists_path }
 
   def index
     @get_user_watch_lists = GetUserWatchListsService.new(include: :watch_list_entries, user: current_user)
@@ -112,8 +104,6 @@ class Users::WatchListsController < UsersController
     @watch_lists = GetUserWatchListsService.call(include: :watch_list_entries, user: current_user)
 
     # we cannot use before_action here because we have to fetch the watch list first
-    add_breadcrumb name: "users#show", url: user_path
-    add_breadcrumb name: "users.watch_lists#index", url: user_watch_lists_path
     add_breadcrumb name: @watch_list.name
   end
 

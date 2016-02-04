@@ -5,15 +5,12 @@ class UsersController < ApplicationController
   end
 
   before_action :authenticate!, except: [:events]
-  before_action :except => [:create, :update, :destroy] do
-    breadcrumbs.clear
-    add_breadcrumb(name: "users#show", url: user_path)
-    add_breadcrumb
-  end
+  before_action { add_breadcrumb name: "users#show", url: user_path }
 
   layout "user"
 
   def show
     @user = current_user
   end
+
 end
