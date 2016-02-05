@@ -2,8 +2,7 @@ class User < ActiveRecord::Base
   include WhitelistSerialization
 
   serialization_whitelist [
-    :id, :first_name, :email_address, :cash_balance, :expiry_date, :ilsuserid,
-    :pseudonym, :number_of_hold_requests, :number_of_loans
+    :id, :first_name, :email_address, :cash_balance, :expiry_date, :ilsuserid, :pseudonym
   ]
 
   # Relations
@@ -26,14 +25,6 @@ class User < ActiveRecord::Base
 
   def name_reversed
     [last_name, first_name].compact.join(", ").presence
-  end
-
-  def number_of_hold_requests
-    super || 0
-  end
-
-  def number_of_loans
-    super || 0
   end
 
   def api_key
