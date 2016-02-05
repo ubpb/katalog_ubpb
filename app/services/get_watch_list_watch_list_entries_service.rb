@@ -1,6 +1,5 @@
 class GetWatchListWatchListEntriesService < Servizio::Service
   include AdapterRelatedService
-  include CachingService
   include InstrumentedService
 
   attr_accessor :scopes
@@ -27,7 +26,7 @@ class GetWatchListWatchListEntriesService < Servizio::Service
 
         _watch_list_entries.each do |_watch_list_entry|
           corresponding_record = record_by_id(_watch_list_entry.record_id, records).try(:record)
-          
+
           _watch_list_entry.define_singleton_method(:record) do
             corresponding_record
           end

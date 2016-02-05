@@ -1,5 +1,4 @@
 class GetWatchListService < Servizio::Service
-  include CachingService
   include InstrumentedService
 
   attr_accessor :id
