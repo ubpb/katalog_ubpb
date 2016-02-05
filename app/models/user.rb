@@ -15,10 +15,6 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :api_key
   validates :pseudonym, uniqueness: true, allow_nil: true, format: { with: /\A[a-z0-9\-_]+\Z/}
 
-  def cash_balance
-    super.try(:to_f) # in order to make BigDecimal a float to the outside
-  end
-
   def name
     [first_name, last_name].compact.join(" ").presence
   end
