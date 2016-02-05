@@ -1,5 +1,4 @@
 class GetUserNotesService < Servizio::Service
-  include CachingService
   include InstrumentedService
   include UserRelatedService
 
