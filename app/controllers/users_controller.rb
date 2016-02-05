@@ -13,6 +13,8 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  # Make sure some "before actions" are run AFTER the before_actions
+  # from the child classes but before render.
   def render(*args)
     cash_balance
     super
