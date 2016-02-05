@@ -10,7 +10,7 @@ class Users::TransactionsController < UsersController
     @transactions = GetUserTransactionsService.call(
       ils_adapter: ils_adapter,
       search_engine_adapter: search_engine_adapter,
-      user: current_user,
+      user: current_user
     )
   end
 
