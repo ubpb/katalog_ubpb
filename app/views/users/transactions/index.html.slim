@@ -1,6 +1,4 @@
-- sum_of_credits  = @transactions.select { |_transaction| _transaction.type == :credit }.sum(&:value) || 0
-- sum_of_debits   = @transactions.select { |_transaction| _transaction.type == :debit }.sum(&:value) || 0
-- sum_total       = sum_of_credits - sum_of_debits
+- sum_total       = @transactions.cash_balance
 - has_open_debits = @transactions.any? {|_transaction| _transaction.creation_date.blank? }
 
 .panel.panel-default
