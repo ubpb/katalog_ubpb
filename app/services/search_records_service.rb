@@ -4,7 +4,6 @@ class SearchRecordsService < Servizio::Service
   attr_accessor :adapter
   attr_accessor :facets
   attr_accessor :options
-  attr_accessor :sanitize_search_request
   attr_accessor :search_request
 
   validates_presence_of :adapter
@@ -12,14 +11,6 @@ class SearchRecordsService < Servizio::Service
 
   def facets?
     facets.present?
-  end
-
-  def sanitize_search_request
-    [true, false].include?(@sanitize_search_request) ? @sanitize_search_request : true
-  end
-
-  def sanitize_search_request?
-    sanitize_search_request == true
   end
 
   def call
