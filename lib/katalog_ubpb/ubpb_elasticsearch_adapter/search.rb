@@ -10,7 +10,6 @@ class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapte
 
     # work an a copy from here
     dupped_search_request = search_request.deep_dup
-    add_isbn_and_issn_fields!(dupped_search_request)
     add_query_to_ignore_deleted_records!(dupped_search_request)
     boost_creators_and_title!(dupped_search_request)
     escape_special_characters!(dupped_search_request)
@@ -26,20 +25,6 @@ class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapte
   end
 
   private # search request transformation
-
-  def add_isbn_and_issn_fields!(search_request)
-    search_request.queries
-    .select do |_query|
-      ["query_string", "simple_query_string"].include?(_query.type)
-    end
-    .each do |_query|
-      if _query.try(:default_field) == ["_all"] || _query.fields.try(:include?, "_all")
-        _query.fields ||= []
-        _query.fields.push("isbn_search")
-        _query.fields.push("issn")
-      end
-    end
-  end
 
   def add_query_to_ignore_deleted_records!(search_request)
     ignore_deleted_records_query = {
