@@ -1,17 +1,21 @@
-// Fonts
-@font-face {
-  font-family: "Signika";
-  font-style: normal;
-  font-weight: 400;
-  src: local("Signika"), local("Signika-Regular"), font-url("Signika.woff") format("woff"); }
-@font-face {
-  font-family: "Signika";
-  font-style: normal;
-  font-weight: 700;
-  src: local("Signika-Bold"), font-url("Signika-Bold.woff") format("woff"); }
+// // Fonts
+// @font-face {
+//   font-family: "Signika";
+//   font-style: normal;
+//   font-weight: 400;
+//   src: local("Signika"), local("Signika-Regular"), font-url("Signika.woff") format("woff"); }
+// @font-face {
+//   font-family: "Signika";
+//   font-style: normal;
+//   font-weight: 700;
+//   src: local("Signika-Bold"), font-url("Signika-Bold.woff") format("woff"); }
+
+// body {
+//   font-family: "Signika", "Helvetica Neue", Helvetica, Arial, sans-serif;
+// }
 
 body {
-  font-family: "Signika", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 @import "./application/variables";
@@ -24,7 +28,7 @@ body {
 @import "bootstrap/buttons";
 @import "bootstrap/tables";
 @import "bootstrap/labels";
-@import "font-awesome";
+//@import "font-awesome";
 @import "application/mixins/**/*";
 @import "application/components/*";
 
