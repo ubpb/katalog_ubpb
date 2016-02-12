@@ -1,5 +1,4 @@
 class GetUserWatchListsService < Servizio::Service
-  include CachingService
   include InstrumentedService
   include UserRelatedService
 

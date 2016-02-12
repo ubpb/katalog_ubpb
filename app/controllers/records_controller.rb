@@ -102,7 +102,7 @@ class RecordsController < ApplicationController
         holdable_items = holdable_items(@record.id)
 
         # Load all hold requests for the current user
-        hold_requests = hold_requests(from_cache: false)
+        hold_requests = hold_requests
 
         # Check if the current user has a hold request for the current record
         @hold_request = hold_requests.find { |_hold_request| _hold_request.record.id == @record.id }
@@ -125,8 +125,6 @@ private
 
   def hold_requests(user: current_user, **options)
     options[:adapter] ||= current_scope.ils_adapter.try(:instance)
-    options[:from_cache] == !!options[:from_cache]
-    options[:max_cache_age] ||= 12.hours
     options[:user] ||= user
 
     GetUserHoldRequestsService.call(options)
