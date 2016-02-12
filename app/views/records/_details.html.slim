@@ -52,6 +52,10 @@
         dt = "Kommentare"
         dd.note = note
 
+      - if (description = description(record)).present?
+        dt = "Beschreibungen"
+        dd.description = value_or_default(description)
+
 .row
   .col-sm-6
     dl
@@ -65,11 +69,8 @@
       dd.identifier = value_or_default(identifier(record))
 
       / TODO
-      dt = "Erschienen in"
-      dd = "–"
-
-      dt = "Beschreibungen"
-      dd.description = value_or_default(description(record))
+      /dt = "Erschienen in"
+      /dd = "–"
 
   .col-sm-6
     dl
@@ -90,3 +91,4 @@
       / TODO
       / dt = "Externer Link"
       / dd.toc = "–"
+
