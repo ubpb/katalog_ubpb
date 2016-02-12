@@ -87,6 +87,7 @@ class Users::WatchListsController < UsersController
 
         if can?(:call, get_watch_list_watch_list_entries)
           @watch_list_entries = get_watch_list_watch_list_entries.call!.result
+          @watch_list_entries = reorder_entries(@watch_list_entries, params[:order_by])
         else
           flash[:error] = t(".not_allowed_to_get_watch_list_entries")
           return redirect_to user_watch_lists_path
@@ -132,4 +133,30 @@ class Users::WatchListsController < UsersController
       _params[:ids] = _params[:ids].keys if _params[:ids].is_a?(Hash)
     end
   end
+
+  def reorder_entries(entries, order_by)
+    order_by = [
+      "signature", "created_at"
+    ].find{|o| o == order_by.to_s}
+
+    case order_by
+    when "signature"  then entries_by_signature(entries)
+    when "created_at" then entries_by_created_at(entries)
+    else
+      entries_by_created_at(entries)
+    end
+  end
+
+  def entries_by_signature(entries)
+    entries.sort do |a, b|
+      a.record.signature <=> b.record.signature
+    end
+  end
+
+  def entries_by_created_at(entries)
+    entries.sort do |a, b|
+      a.created_at <=> b.created_at
+    end
+  end
 end
+
