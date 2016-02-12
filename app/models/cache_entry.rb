@@ -25,11 +25,11 @@ class CacheEntry < ActiveRecord::Base
   def expired?(duration)
     !(DateTime.now-duration..DateTime.now).cover?(updated_at)
   end
-  
+
   def key=(value)
     super(self.class.key_factory(value))
   end
-  
+
   def value
     deserialize(super)
   end
@@ -49,7 +49,7 @@ class CacheEntry < ActiveRecord::Base
   end
 
   def serialize(object)
-    Ox.dump(object, indent: -1)
+    Ox.dump(object, indent: -1, encoding: "utf-8", with_xml: true)
   end
 
 end

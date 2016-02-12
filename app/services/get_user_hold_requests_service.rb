@@ -1,6 +1,5 @@
 class GetUserHoldRequestsService < Servizio::Service
   include AdapterRelatedService
-  include CachingService
   include InstrumentedService
   include RecordRelatedService
   include UserRelatedService

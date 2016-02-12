@@ -1,6 +1,5 @@
 class GetUserInterLibraryLoansService < Servizio::Service
   include AdapterRelatedService
-  include CachingService
   include InstrumentedService
   include UserRelatedService
 

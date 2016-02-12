@@ -13,4 +13,30 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  # Make sure some "before actions" are run AFTER the before_actions
+  # from the child classes but before render.
+  def render(*args)
+    cash_balance
+    super
+  end
+
+private
+
+  def cash_balance
+    @cash_balance = transactions.cash_balance
+  end
+
+  def transactions(from_cache: true)
+    ils_adapter = KatalogUbpb.config.ils_adapter.instance
+    search_engine_adapter = KatalogUbpb.config.ils_adapter.scope.search_engine_adapter.instance
+
+    GetUserTransactionsService.call(
+      ils_adapter: ils_adapter,
+      search_engine_adapter: search_engine_adapter,
+      user: current_user,
+      from_cache: from_cache,
+      max_cache_age: 2.hours
+    )
+  end
+
 end

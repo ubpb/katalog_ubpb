@@ -20,22 +20,22 @@
                 li = link_to user_transactions_path do
                   i.fa.fa-money>
                   span => t(".transactions")
-                  - if current_user.cash_balance < 0
-                    .label.label-danger = number_to_currency(current_user.cash_balance)
-                  - elsif current_user.cash_balance > 0
-                    .label.label-success = number_to_currency(current_user.cash_balance)
+                  - if @cash_balance < 0
+                    .label.label-danger = number_to_currency(@cash_balance)
+                  - elsif @cash_balance > 0
+                    .label.label-success = number_to_currency(@cash_balance)
 
                 li = link_to user_loans_path do
                   i.fa.fa-book>
                   span => t(".loans")
-                  - if current_user.number_of_loans > 0
-                    .label.label-info = current_user.number_of_loans
+                  / - if current_user.number_of_loans > 0
+                  /   .label.label-info = current_user.number_of_loans
 
                 li = link_to user_hold_requests_path do
                   i.fa.fa-heart>
                   span => t(".hold_requests")
-                  - if current_user.number_of_hold_requests > 0
-                    .label.label-info = current_user.number_of_hold_requests
+                  / - if current_user.number_of_hold_requests > 0
+                  /   .label.label-info = current_user.number_of_hold_requests
 
                 li = link_to user_former_loans_path do
                   i.fa.fa-clock-o>
