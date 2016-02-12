@@ -13,7 +13,7 @@ do(app = (window.app ?= {})) ->
       <div>
         {{#note}}
           <div style="{{style}}">
-            <span class="label label-default">{{t(".note")}}</span>
+            <!--<span class="label label-default">{{t(".note")}}</span>-->
             <span style="font-style: italic; vertical-align: middle">{{value}}</span>
           </div>
         {{/note}}
