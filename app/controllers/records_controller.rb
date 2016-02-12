@@ -101,11 +101,9 @@ class RecordsController < ApplicationController
         # Load all holdable items for the current record
         holdable_items = holdable_items(@record.id)
 
-        # Load all hold requests for the current user
-        hold_requests = hold_requests
-
         # Check if the current user has a hold request for the current record
-        @hold_request = hold_requests.find { |_hold_request| _hold_request.record.id == @record.id }
+        hold_requests = hold_requests(user: current_user)
+        @hold_request = hold_requests.present? ? hold_requests.find { |_hold_request| _hold_request.record.id == @record.id } : nil
 
         # Check if the current user can create a hold request for the current record
         @can_create_hold_request = holdable_items.try(:count) > 0 && @hold_request.blank?
