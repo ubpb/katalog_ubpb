@@ -149,7 +149,13 @@ class Users::WatchListsController < UsersController
 
   def entries_by_signature(entries)
     entries.sort do |a, b|
-      a.record.signature <=> b.record.signature
+      a_signature = a.record.try(:signature)
+      b_signature = b.record.try(:signature)
+      if a_signature && b_signature
+        a_signature <=> b_signature
+      else
+        0
+      end
     end
   end
 
