@@ -97,6 +97,9 @@ class RecordsController < ApplicationController
       # the Skala API should abstract this on record level.
       @number_of_hold_requests = @items.try(:map, &:number_of_hold_requests).try(:max)
 
+      #
+      # TODO: should we use a cache here?
+      #
       if current_user
         # Load all holdable items for the current record
         holdable_items = holdable_items(@record.id)
