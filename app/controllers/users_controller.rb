@@ -23,18 +23,20 @@ class UsersController < ApplicationController
 private
 
   def cash_balance
+    @cash_balance = transactions.cash_balance
+  end
+
+  def transactions(from_cache: true)
     ils_adapter = KatalogUbpb.config.ils_adapter.instance
     search_engine_adapter = KatalogUbpb.config.ils_adapter.scope.search_engine_adapter.instance
 
-    transactions = GetUserTransactionsService.call(
+    GetUserTransactionsService.call(
       ils_adapter: ils_adapter,
       search_engine_adapter: search_engine_adapter,
       user: current_user,
-      from_cache: true,
+      from_cache: from_cache,
       max_cache_age: 2.hours
     )
-
-    @cash_balance = transactions.cash_balance
   end
 
 end
