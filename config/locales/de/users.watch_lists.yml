@@ -40,6 +40,8 @@ de:
         no_watch_list_entries_present: Diese Merkliste enthält keine Einträge.
         not_allowed_to_show_watch_list: ~> users.watch_lists.watch_list_not_found
         watch_list_not_found: ~> users.watch_lists.watch_list_not_found
+        order_by_signature: "Sortierung nach: Signatur"
+        order_by_created_at: "Sortierung nach: Hinzugefügt am"
 
         entries:
           cancel: ~> application.form.cancel

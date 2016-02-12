@@ -23,6 +23,16 @@
               => fa_icon("times")
               = t(".delete")
 
+            li.divider
+
+            li = link_to user_watch_list_path(@watch_list, order_by: "created_at") do
+              => fa_icon("sort-numeric-asc")
+              = t(".order_by_created_at")
+
+            li = link_to user_watch_list_path(@watch_list, order_by: "signature") do
+              => fa_icon("sort-alpha-asc")
+              = t(".order_by_signature")
+
   .panel-body
     - if @watch_list_entries.blank?
       .alert.alert-info = t(".no_watch_list_entries_present")
