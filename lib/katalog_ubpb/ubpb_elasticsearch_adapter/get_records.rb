@@ -11,7 +11,17 @@ class KatalogUbpb::UbpbElasticsearchAdapter::GetRecords < Skala::ElasticsearchAd
   # We implement get_records via search for the ubpb, so we can get records by their source id.
   # The original get needs the elasticsearch record id, which does not need to be the same.
   def call(record_ids)
-    search_result = adapter.search({ queries: [{ type: "unscored_terms", field: "id", terms: record_ids }] })
+    search_result = adapter.search(
+      queries: [
+        {
+          type: "unscored_terms",
+          field: "id",
+          terms: record_ids
+        }
+      ],
+      size: record_ids.length
+    )
+
     self.class::Result.new({records: search_result.hits}).tap do |_get_records_result|
       _get_records_result.source = search_result.source
       _get_records_result.each { |_element| _element.found = true }
