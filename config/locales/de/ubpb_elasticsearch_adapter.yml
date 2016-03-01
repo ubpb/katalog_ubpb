@@ -29,13 +29,15 @@ de:
           catalog: Katalog
           congress: Kongressbericht
           dictionary: Wörterbuch
-          dissertation: Dissertation
+          # TODO: remove dissertation if index is up-to-date
+          dissertation: Hochschulschrift
           encyclopedia: Enzyklopädie
           festschrift: Festschrift
           music: Musik
           other: Sonstiges
           standard: Standard / Norm
           textbook: Textbuch
+          thesis: Hochschulschrift
           university_text: Universitätstext
 
       materialtypen:
