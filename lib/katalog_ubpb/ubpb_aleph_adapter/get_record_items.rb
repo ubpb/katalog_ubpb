@@ -11,7 +11,9 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
 
       doc = Nokogiri::XML(aleph_adapter_result.source).xpath("//item[contains(@href, '#{_item.id}')]")
 
+      # please retain order, as some methods require the results from former calls
       set_ubpb_specific_status!(_item, doc)
+      update_item_status!(_item)
       set_availability!(_item, doc, aleph_adapter_result.items)
       set_hold_request_can_be_created!(_item, doc)
       add_signature!(_item, doc)
@@ -199,6 +201,13 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
       else
         (x.signature.split("+")[1] || 0).to_i <=> (y.signature.split("+")[1] || 0).to_i
       end
+    end
+  end
+
+  # there are cases where "//status and //z30/z30-item-status do not match
+  def update_item_status!(item)
+    if item.item_status.downcase[/vermisst/]
+      item.status = :missing
     end
   end
 
