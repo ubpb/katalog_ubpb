@@ -11,9 +11,9 @@ module ResourceLinksHelper
       else
         link_to(openurl, target: "_blank") do
           if record.fulltext_available
-            "#{fa_icon "external-link"} Direkt zur Online-Resource".html_safe
+            "#{fa_icon "external-link"} Direkt zur Online-Ressource".html_safe
           else
-            "#{fa_icon "external-link"} Direkt zur Online-Resource (kein Volltext verfügbar)".html_safe
+            "#{fa_icon "external-link"} Direkt zur Online-Ressource (kein Volltext verfügbar)".html_safe
           end
         end
       end
@@ -29,7 +29,7 @@ module ResourceLinksHelper
         else
           if default_link_only || links.size == 1
             link_to(links.first.url, target: "_blank") do
-              "#{fa_icon "external-link"} Direkt zur Online-Resource".html_safe
+              "#{fa_icon "external-link"} Direkt zur Online-Ressource".html_safe
             end
           else
             content_tag(:ul) do
