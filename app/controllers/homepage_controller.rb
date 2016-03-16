@@ -5,6 +5,6 @@ class HomepageController < ApplicationController
       queries: [{ type: "query_string", fields: [@scope.searchable_fields.first] }]
     )
 
-    @news = FeedParser.parse_rss_feed("http://blogs.uni-paderborn.de/ub-katalog?feed=rss")
+    @news = FeedParser.parse_rss_feed("https://blogs.uni-paderborn.de/ub-katalog?feed=rss")
   end
 end
