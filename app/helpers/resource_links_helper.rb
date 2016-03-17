@@ -70,6 +70,8 @@ private
     ]
 
     PRIORITY_LIST = [
+      /bibid=UBPB/,
+      /bib_id=ub_pb/,
       /digital\.ub\.uni-paderborn\.de/,
       /digital\.ub\.upb\.de/,
       /uni-paderborn\.de/,
