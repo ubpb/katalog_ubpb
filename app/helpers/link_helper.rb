@@ -24,7 +24,8 @@ module LinkHelper
   end
 
   def link_to_creator(creator, scope:)
-    link_to_new_search(creator, scope: scope, default_field: "creator_contributor_search")
+    query = creator.gsub(/\[[^\]]+\]/, "").strip
+    link_to_new_search(query, label: creator, scope: scope, default_field: "creator_contributor_search")
   end
 
   def link_to_notation(notation, scope:)
