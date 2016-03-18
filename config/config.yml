@@ -27,8 +27,9 @@ common_settings: &common_settings
       i18n_key: "ubpb_elasticsearch_adapter"
       options:
         hosts:
-          - host: "ubkatalog1"
-          - host: "ubkatalog2"
+          - host: "ubleo"
+          - host: "ublynx"
+          - host: "ublyra"
         index: katalog
 
   scopes:
