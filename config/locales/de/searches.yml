@@ -30,3 +30,4 @@ de:
 
       search_result:
         no_hits: ~> searches.index.no_records_found
+        primo_central_expanded_search_message: "Ihre initiale Suche erbrachte nur wenige oder gar keine Ergebnisse. Die unten angezeigten Ergebnisse wurden durch eine automatische Erweiterung Ihrer Suche gefunden."

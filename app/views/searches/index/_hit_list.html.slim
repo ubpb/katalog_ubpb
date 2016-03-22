@@ -14,6 +14,11 @@
             search_request: search_request
 
     .panel-body
+      - if search_result.message.present? && search_result.message == "results.note.expanded_search.pc"
+        .alert.alert-info
+          => fa_icon("info-circle")
+          = t("searches.index.search_result.primo_central_expanded_search_message")
+
       = render partial: "searches/index/hit",\
         collection: search_result.hits,\
         as: :hit,\
