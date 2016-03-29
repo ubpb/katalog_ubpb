@@ -6,7 +6,7 @@ de:
     users#edit: Benutzerdaten ändern
     users#show: Bibliothekskonto
 
-    closed_stack_orders#new: Magazinbstellung aufgeben
+    closed_stack_orders#new: Magazinbestellung aufgeben
     closed_stack_orders#create: Magazinbestellung aufgeben
 
     sessions#new: Anmelden
