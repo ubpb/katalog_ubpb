@@ -141,8 +141,11 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
 
   def set_closed_stack!(item, doc)
     collection = xpath(doc, "./z30/z30-collection")
-    item.must_be_ordered_from_closed_stack = collection.try(:downcase).try(:include?, "maga") &&
-      (item.availability == :available || item.availability == :restricted_available)
+    item.must_be_ordered_from_closed_stack = begin
+      collection.try(:downcase).try(:include?, "maga") &&
+      (item.availability == :available || item.availability == :restricted_available) &&
+      !(["Seminarapparat", "Tischapparat"].include?(item.item_status))
+    end
   end
 
   def add_location!(item, doc)
