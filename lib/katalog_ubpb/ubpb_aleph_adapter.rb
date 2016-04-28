@@ -3,7 +3,6 @@ require "virtus"
 
 module KatalogUbpb
   class UbpbAlephAdapter < Skala::AlephAdapter
-    require_relative "ubpb_aleph_adapter/get_record_holdable_items"
     require_relative "ubpb_aleph_adapter/get_record_items"
 
     LOCATION_LOOKUP_TABLE ||= begin
