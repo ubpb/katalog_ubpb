@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/ubpb/skala.git
-  revision: 56e059278ab6ed9722d5911f7c2fdb4298e441f4
+  revision: 64f8680de857353825d68a00a56c2b337c762761
   branch: master
   specs:
-    skala (1.1.1)
+    skala (1.1.2)
       aleph_api (>= 0.3.0)
       bcrypt (>= 3.1)
       bibtex-ruby (~> 4.0)
