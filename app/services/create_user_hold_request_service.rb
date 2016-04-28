@@ -10,7 +10,7 @@ class CreateUserHoldRequestService < Servizio::Service
   validates_presence_of :record_id
 
   def call
-    adapter.create_user_hold_request(ils_user_id, record_id).try(:hold_request)
+    adapter.create_user_hold_request(ils_user_id, record_id).try(:success)
   rescue Skala::Adapter::CreateUserHoldRequest::AlreadyRequestedError
     errors[:call] = :already_requested and return nil
   rescue Skala::Adapter::BadRequestError
