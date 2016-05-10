@@ -7,7 +7,7 @@
 
         .panel-body
           = f.input :new_name, input_html: { value: f.object.current_name }, label: t(".name")
-          = f.input :new_description, input_html: { value: f.object.current_description }, label: t(".description")
+          = f.input :new_description, input_html: { value: f.object.current_description, rows: 8 }, label: t(".description")
 
         .panel-footer
           .row
