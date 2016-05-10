@@ -1,4 +1,8 @@
-.watch-lists {
+.watch-list {
+  .description {
+    margin-bottom: $line-height-computed;
+  }
+
   .hit {
     @include hit-list-item;
    }
