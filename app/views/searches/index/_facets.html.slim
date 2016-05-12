@@ -1,5 +1,9 @@
 #facets
   .sidebar
+    div(style="margin-bottom:10px;") = link_to searches_url(search_request: @search_request, format: :atom)
+        => fa_icon("rss")
+        = "Ergebisse als RSS-Feed"
+
     button.sidebar-toggle.collapsed(data-target="#facets-collapse" role="button" data-toggle="collapse")
       => fa_icon("bars")
       = t(".refine_search")
