@@ -16,17 +16,17 @@ atom_feed(
 
         content = ""
 
-        if (is_part_of = is_part_of(hit.record, scope: current_scope)).present?
-          content << "<div>#{is_part_of.html_safe}</div>"
-        end
+        #if (is_part_of = is_part_of(hit.record, scope: current_scope)).present?
+        #  content << "<div>#{is_part_of.html_safe}</div>"
+        #end
 
         if (info = additional_record_info(hit.record)).present?
           content << "<div>#{info}</div>"
         end
 
-        if journal_holdings = journal_holdings(hit.record)
-          content << "<div>Bestand UB: #{journal_holdings}</div>"
-        end
+        #if journal_holdings = journal_holdings(hit.record)
+        #  content << "<div>Bestand UB: #{journal_holdings}</div>"
+        #end
 
         entry.content(content, type: "html")
       end
