@@ -19,10 +19,6 @@
           => fa_icon("info-circle")
           = t("searches.index.search_result.primo_central_expanded_search_message")
 
-      div(style="text-align:right; margin-bottom: 6px; margin-top: -9px;") = link_to searches_url(search_request: @search_request, format: :atom)
-        => "Ergebisse als RSS-Feed"
-        = fa_icon("rss")
-
       = render partial: "searches/index/hit",\
         collection: search_result.hits,\
         as: :hit,\
