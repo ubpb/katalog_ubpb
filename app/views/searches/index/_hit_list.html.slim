@@ -19,6 +19,10 @@
           => fa_icon("info-circle")
           = t("searches.index.search_result.primo_central_expanded_search_message")
 
+      div(style="text-align:right; margin-bottom:20px") = link_to searches_url(search_request: @search_request, format: :atom)
+        => "Ergebisse als RSS-Feed"
+        = fa_icon("rss")
+
       = render partial: "searches/index/hit",\
         collection: search_result.hits,\
         as: :hit,\
@@ -33,13 +37,8 @@
 
     .panel-footer
       .row
-        .col-sm-6
+        .col-sm-12
           = render "searches/index/pagination",
             scope: scope,
             search_request: search_request,
             search_result: search_result
-        .col-sm-6
-          .pull-right
-            = link_to searches_url(search_request: @search_request, format: :atom), class: "btn btn-default"
-              => fa_icon("rss")
-              = "Suchergebnisse als RSS-Feed"
