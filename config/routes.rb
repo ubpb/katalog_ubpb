@@ -47,7 +47,7 @@ Rails.application.routes.draw do
   #
   # Some kickers
   #
-  get "/go/signature", to: redirect("http://www.ub.uni-paderborn.de/lernen_und_arbeiten/bestaende/medienaufstellung-systemstelle.shtml"), as: :go_signature
+  get "/go/signature", to: redirect("http://www.ub.uni-paderborn.de/nutzen-und-leihen/medienaufstellung-nach-systemstellen/"), as: :go_signature
 
   #
   # Root path

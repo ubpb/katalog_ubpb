@@ -2,7 +2,7 @@ require "nokogiri"
 
 desc "Generate location lookup table"
 task :generate_location_lookup_table => :environment do
-  html = Nokogiri::HTML(Net::HTTP.get(URI("http://www.ub.uni-paderborn.de/lernen_und_arbeiten/bestaende/medienaufstellung-systemstelle.shtml")))
+  html = Nokogiri::HTML(Net::HTTP.get(URI("http://www.ub.uni-paderborn.de/nutzen-und-leihen/medienaufstellung-nach-systemstellen/")))
   medienaufstellung = html.css("#content > table")
 
   lookup_table = []
