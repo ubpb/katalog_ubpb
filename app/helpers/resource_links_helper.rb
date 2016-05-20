@@ -51,7 +51,7 @@ module ResourceLinksHelper
     unless request_from_campus?
       content_tag(:div, class: "vpn-info") do
         content_tag(:a, href: "http://www.ub.uni-paderborn.de/recherche/hinweise-zur-nutzung-der-elektronischen-angebote/elektronische-informationsmedien-im-fernzugriff-vpn-shibboleth/", target: "_blank") do
-          '<i class="fa fa-exclamation-triangle"></i> Gegebenenfalls nur via VPN oder Shibboleth erreichbar'.html_safe
+          '<i class="fa fa-exclamation-triangle"></i> Gegebenenfalls nur via VPN oder Shibboleth (DFN-AAI) erreichbar'.html_safe
         end
       end.html_safe
     end
