@@ -30,5 +30,10 @@ module KatalogUbpb
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Setup the host to make full URLs work for the mailer.
+    routes.default_url_options = {
+      host: ENV["KATALOG_HOST"] || "localhost:3000"
+    }
   end
 end
