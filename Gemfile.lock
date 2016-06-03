@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ubpb/skala.git
-  revision: 48b93cd4c3f1079bf0fd0c2710aca00979b09413
+  revision: 1a832d5c15a5cfcebd35886d3d3e8e06a3dca53b
   branch: master
   specs:
     skala (1.1.2)
@@ -69,7 +69,7 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.11)
-    bibtex-ruby (4.3.0)
+    bibtex-ruby (4.4.0)
       latex-decode (~> 0.0)
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
@@ -111,7 +111,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
-    concurrent-ruby (1.0.1)
+    concurrent-ruby (1.0.2)
     css_parser (1.3.7)
       addressable
     database_cleaner (1.5.1)
@@ -141,7 +141,7 @@ GEM
       railties (>= 3.2, < 5.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
-    hashie (3.4.3)
+    hashie (3.4.4)
     htmlentities (4.3.4)
     i18n (0.7.0)
     i18n-backend-advanced (0.1.3)
@@ -178,12 +178,12 @@ GEM
       mime-types (>= 1.16, < 4)
     method_source (0.8.2)
     mighty_tap (0.5.0)
-    mime-types (3.0)
+    mime-types (3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2016.0221)
+    mime-types-data (3.2016.0521)
     mini_portile2 (2.0.0)
-    minitest (5.8.4)
-    multi_json (1.11.3)
+    minitest (5.9.0)
+    multi_json (1.12.1)
     multipart-post (2.0.0)
     mysql2 (0.3.20)
     net-scp (1.2.1)
