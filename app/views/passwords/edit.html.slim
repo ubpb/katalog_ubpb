@@ -7,8 +7,8 @@
       ' Wählen Sie bitte ein neues Passwort
 
     = simple_form_for @password_form, url: password_path(@token), method: :put do |f|
-      = f.input :password
-      = f.input :password_confirmation
+      = f.input :password, label: "Passwort"
+      = f.input :password_confirmation, label: "Passwort wiederholen"
 
       .panel-footer
           .row
