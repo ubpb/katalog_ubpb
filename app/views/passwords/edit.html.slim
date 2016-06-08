@@ -1,17 +1,16 @@
 .panel.panel-primary
   .panel-heading.panel-cutoffcorner
-    h3.panel-title = "Passwort zurücksetzen"
+    h3.panel-title = t(".title")
 
   .panel-body
-    p
-      ' Wählen Sie bitte ein neues Passwort
+    == t(".description")
 
     = simple_form_for @password_form, url: password_path(@token), method: :put do |f|
-      = f.input :password, label: "Passwort"
-      = f.input :password_confirmation, label: "Passwort wiederholen"
+      = f.input :password
+      = f.input :password_confirmation
 
       .panel-footer
           .row
             .col-sm-offset-4.col-sm-8
-              => f.submit "Speichern", class: "btn btn-lg btn-primary"
-              => link_to "Abbrechen", new_session_path, class: "btn btn-lg btn-default"
+              => f.submit t(".save"), class: "btn btn-lg btn-primary"
+              => link_to t(".cancel"), new_session_path, class: "btn btn-lg btn-default"

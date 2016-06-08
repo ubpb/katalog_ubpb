@@ -18,3 +18,4 @@ de:
       username: "Ausweisnummer"
       username_hint: "Die Nummer finden Sie auf Ihrem Bibliotheks- oder Studierendenausweis."
       username_placeholder: "Ihre Bibliotheksausweisnummer"
+      forgot_password: "Ich habe mein Passwort vergessen"
