@@ -1,19 +1,16 @@
 .panel.panel-primary
   .panel-heading.panel-cutoffcorner
-    h3.panel-title = "Passwort zurücksetzen"
+    h3.panel-title = t(".title")
 
   .panel-body
-    p
-      ' Sie haben Ihr Passwort für Ihr Bibliothekskonto vergessen? Kein Problem. Geben Sie einfach in das folgende Feld Ihre
-      ' <strong>Bibliotheksausweisnummer</strong> ein. Wir schicken and die, dem Bibliothekskonto zugeordnete E-Mail Adresse,
-      ' Informationen mit denen Sie Ihr Passwort einfach zurücksetzen können.
+    == t(".description")
 
 
     = simple_form_for @password_reset_form, url: password_reset_path do |f|
-      = f.input :ilsid, label: "Bibliotheksausweisnummer"
+      = f.input :ilsid
 
       .panel-footer
           .row
             .col-sm-offset-4.col-sm-8
-              => f.submit "Senden", class: "btn btn-lg btn-primary"
-              => link_to "Abbrechen", new_session_path, class: "btn btn-lg btn-default"
+              => f.submit t(".send"), class: "btn btn-lg btn-primary"
+              => link_to t(".cancel"), new_session_path, class: "btn btn-lg btn-default"

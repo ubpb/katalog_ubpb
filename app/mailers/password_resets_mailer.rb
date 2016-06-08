@@ -1,5 +1,7 @@
 class PasswordResetsMailer < ApplicationMailer
 
+  default from: "ortsleihe@ub.uni-paderborn.de"
+
   def notify_user(user)
     @user = user
 

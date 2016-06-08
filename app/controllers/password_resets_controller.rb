@@ -13,7 +13,7 @@ class PasswordResetsController < ApplicationController
 
       PasswordResetsMailer.notify_user(user).deliver_later
 
-      flash[:success] = "Wir haben Ihnen soeben auf die E-Mail Adresse des Bibliothekskontos mit der Nummer '#{user.ilsuserid}' Informationen gesendet, mit denen Sie Ihr Passwort zurücksetzen können."
+      flash[:success] = t(".flash_success", ilsid: user.ilsuserid)
       redirect_to(new_session_path)
     else
       render :new
