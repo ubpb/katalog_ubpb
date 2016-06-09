@@ -47,10 +47,10 @@
 
                 td
                   - if _transaction.record.title
-                    - if _transaction.record.id
-                      .title = link_to _transaction.record.title, record_path(_transaction.record.id, scope: @scope)
-                    - else
-                      .title = _transaction.record.title
+                    .title = _transaction.record.title
+                  - add_record_info = [_transaction.record.creator, _transaction.record.year_of_publication].compact
+                  - if add_record_info.any?
+                    div = add_record_info.join(" - ")
 
                   - if (signature = _transaction.record.signature).present?
                     .signature == "Signatur: #{link_to(signature, go_signature_path, target: "_blank")}"
