@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   # Some kickers
   #
   get "/go/signature", to: redirect("http://www.ub.uni-paderborn.de/nutzen-und-leihen/medienaufstellung-nach-systemstellen/"), as: :go_signature
+  get "/go/ill", to: redirect("https://www.digibib.net/jumpto?D_SERVICE=TEMPLATE&D_SUBSERVICE=ILL_ACCOUNT&LOCATION=466"), as: :go_ill
 
   #
   # Root path
