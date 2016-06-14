@@ -3,7 +3,15 @@
     h3.panel-title = t("actions.users.inter_library_loans#index")
 
   .panel-body
-    p == t(".message")
-    p.text-center = link_to "http://www.ub.uni-paderborn.de/nutzen-und-leihen/fernleihe/", target: "_blank", class: "btn btn-primary" do
-      => fa_icon "shopping-cart"
-      = t(".ill_account")
+
+    .alert.alert-info(style="text-align: left")
+      == t("users.inter_library_loans.message", ill_url: go_ill_path, loans_url: user_loans_path)
+      p.text-center = link_to go_ill_path, target: "_blank", class: "btn btn-primary" do
+        => fa_icon "shopping-cart"
+        = t("users.inter_library_loans.ill_account")
+
+    h4 = t("users.inter_library_loans.status_title")
+
+    = async_content :inter_library_loans
+
+    div: small = t("users.inter_library_loans.footnote")

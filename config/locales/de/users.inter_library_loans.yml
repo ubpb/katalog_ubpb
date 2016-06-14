@@ -1,8 +1,34 @@
 de:
   users:
     inter_library_loans:
-      index:
-        message: >
-          Den Bearbeitungsstand Ihrer Fernleihbestellungen können Sie über Ihr persönliches Fernleihkonto im Fernleih-Portal einsehen.
-          Die Rückgabefristen Ihrer z.Zt. entliehenden Fernleihmedien können Sie <a href="/user/loans">hier einsehen</a>.
-        ill_account: Zum Fernleihkonto
+      status_title: "Status Ihrer monografischen Fernleihbestellungen"
+      no_inter_library_loans: Aktuell keine monografischen Fernleihbestellungen
+
+      status:
+        new: "Neu"
+        waiting_for_process: "In Bearbeitung"
+        sent_to_supplier: "Zurückgesendet"
+        cancelled: "Abgebrochen"
+        received_by_library: "Empfangen"
+        loaned_to_patron: "Entliehen an Nutzer"
+        returned_by_patron: "Zurück von Nutzer"
+        closed: "Abgeschlossen"
+        unknown: "Unbekannt"
+
+      message: >
+        <p><i class="fa fa-info-circle fa-lg"></i> Hier sehen Sie den nur Status Ihrer <strong>monografischen</strong> Fernleihbestellungen. Den Status Ihrer
+        <strong>Aufsatzbestellungen</strong> prüfen Sie bitte direkt im
+        <a href="%{ill_url}" class="alert-link" target="_blank"><i class="fa fa-external-link"></i> Fernleihkonto</a>. Dort können Sie auch neue
+        Fernleihbestellungen aufgeben.</p>
+
+        <p>Die <strong>Rückgabefristen</strong> Ihrer z.Zt. entliehenden Fernleihmedien finden Sie unter
+        <a href="%{loans_url}" class="alert-link"><i class="fa fa-external-link"></i> Ausgeliehene Medien</a>.</p>
+
+        <p>Weiter Informationen zum Thema finden Sie
+        <a href="http://www.ub.uni-paderborn.de/nutzen-und-leihen/fernleihe/" class="alert-link" target="_blank">
+        <i class="fa fa-external-link"></i> auf unseren Webseiten</a>.</p>
+
+      ill_account: "Zum Fernleihkonto (DigiBib hbz)*"
+      footnote: "*Anmeldung mit Ihrer Bibliotheksausweisnummer und Ihrem Passwort erforderlich"
+
+
