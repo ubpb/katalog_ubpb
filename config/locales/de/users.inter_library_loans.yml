@@ -16,7 +16,8 @@ de:
         unknown: "Unbekannt"
 
       message: >
-        <p><i class="fa fa-info-circle fa-lg"></i> Hier sehen Sie den nur Status Ihrer <strong>monografischen</strong> Fernleihbestellungen. Den Status Ihrer
+        <p><i class="fa fa-info-circle fa-lg"></i> Systembedingt können wir Ihnen hier leider nur den Status Ihrer <strong>monografischen</strong> Fernleihbestellungen
+        anzeigen. Den Status Ihrer
         <strong>Aufsatzbestellungen</strong> prüfen Sie bitte direkt im
         <a href="%{ill_url}" class="alert-link" target="_blank"><i class="fa fa-external-link"></i> Fernleihkonto</a>. Dort können Sie auch neue
         Fernleihbestellungen aufgeben.</p>
@@ -28,7 +29,7 @@ de:
         <a href="http://www.ub.uni-paderborn.de/nutzen-und-leihen/fernleihe/" class="alert-link" target="_blank">
         <i class="fa fa-external-link"></i> auf unseren Webseiten</a>.</p>
 
-      ill_account: "Zum Fernleihkonto (DigiBib hbz)*"
+      ill_account: "Fernleihkonto öffnen*"
       footnote: "*Anmeldung mit Ihrer Bibliotheksausweisnummer und Ihrem Passwort erforderlich"
 
 
