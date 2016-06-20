@@ -6,8 +6,8 @@
 
     .alert.alert-info(style="text-align: left")
       == t("users.inter_library_loans.message", ill_url: go_ill_path, loans_url: user_loans_path)
-      p.text-center = link_to go_ill_path, target: "_blank", class: "btn btn-primary" do
-        => fa_icon "shopping-cart"
+
+      .text-center(style="margin-top: 20px") = link_to go_ill_path, target: "_blank", class: "btn btn-default" do
         = t("users.inter_library_loans.ill_account")
 
     h4 = t("users.inter_library_loans.status_title")
