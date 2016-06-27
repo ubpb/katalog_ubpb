@@ -69,7 +69,7 @@ module RecordFieldsHelper
   end
 
   def publisher(record)
-    record.publisher.join(", ")
+    record.publisher.join("; ")
   end
 
   def signature(record, link: false)
