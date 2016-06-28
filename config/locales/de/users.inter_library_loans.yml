@@ -22,10 +22,10 @@ de:
         <a href="%{ill_url}" class="alert-link" target="_blank"><i class="fa fa-external-link"></i> Fernleihkonto</a>. Dort können Sie auch neue
         Fernleihbestellungen aufgeben.</p>
 
-        <p>Die <strong>Rückgabefristen</strong> Ihrer z.Zt. entliehenden Fernleihmedien finden Sie unter
+        <p>Die <strong>Rückgabefristen</strong> Ihrer z.Zt. entliehenen Fernleihmedien finden Sie unter
         <a href="%{loans_url}" class="alert-link"><i class="fa fa-external-link"></i> Ausgeliehene Medien</a>.</p>
 
-        <p>Weiter Informationen zum Thema finden Sie
+        <p>Weitere Informationen zum Thema finden Sie
         <a href="http://www.ub.uni-paderborn.de/nutzen-und-leihen/fernleihe/" class="alert-link" target="_blank">
         <i class="fa fa-external-link"></i> auf unseren Webseiten</a>.</p>
 
