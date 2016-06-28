@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160205123111) do
+ActiveRecord::Schema.define(version: 20160603074059) do
 
   create_table "cache_entries", force: :cascade do |t|
     t.string   "key",        limit: 255
@@ -44,15 +44,17 @@ ActiveRecord::Schema.define(version: 20160205123111) do
   add_index "server_responses", ["request_hash"], name: "index_server_responses_on_request_hash", length: {"request_hash"=>200}, using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "first_name",    limit: 255
-    t.string   "last_name",     limit: 255
-    t.string   "email_address", limit: 255
+    t.string   "first_name",                      limit: 255
+    t.string   "last_name",                       limit: 255
+    t.string   "email_address",                   limit: 255
     t.date     "expiry_date"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "ilsuserid",     limit: 255
-    t.string   "pseudonym",     limit: 255
-    t.string   "api_key",       limit: 255
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.string   "ilsuserid",                       limit: 255
+    t.string   "pseudonym",                       limit: 255
+    t.string   "api_key",                         limit: 255
+    t.string   "password_reset_token",            limit: 255
+    t.datetime "password_reset_token_created_at"
   end
 
   add_index "users", ["api_key"], name: "index_users_on_api_key", unique: true, using: :btree

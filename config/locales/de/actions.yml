@@ -12,6 +12,11 @@ de:
     sessions#new: Anmelden
     sessions#create: Anmelden
 
+    password_resets#new: Passwort zurücksetzen
+    password_resets#create: Passwort zurücksetzen
+    passwords#edit: Passwort zurücksetzen
+    passwords#update: Passwort zurücksetzen
+
     users:
       email_addresses#edit: "E-Mail Adresse ändern"
       former_loans#index: Ausleihhistorie

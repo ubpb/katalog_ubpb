@@ -32,4 +32,25 @@ class User < ActiveRecord::Base
     update_attribute(:api_key, key)
     key
   end
+
+  def password_reset_token
+    read_attribute(:password_reset_token) || recreate_password_reset_token!
+  end
+
+  def recreate_password_reset_token!
+    token = SecureRandom.hex(16)
+    update_attributes(
+      password_reset_token: token,
+      password_reset_token_created_at: Time.zone.now
+    )
+    token
+  end
+
+  def clear_password_reset_token!
+    update_attributes(
+      password_reset_token: nil,
+      password_reset_token_created_at: nil
+    )
+  end
+
 end
