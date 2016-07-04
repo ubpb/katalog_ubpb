@@ -24,6 +24,10 @@ html
   body#top
     /#global-message-wrapper
     /  .container = render "global_message"
+    .alert.alert-danger
+      => fa_icon("warning")
+      ' Am 05.07.2016 werden vom IMT Wartungsarbeiten an den Datenbankservern durchgeführt. Hierdurch kann es in der Zeit von ca. 13.00 Uhr bis ca. 16.00 Uhr zu Beeinträchtigungen bei der Nutzung des Katalogs kommen.
+
     #navbar-wrapper
       .container = render "navbar"
     #alerts-wrapper
