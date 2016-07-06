@@ -45,8 +45,11 @@
 
       - if (source = source(record)).present?
         dt = "Quelle"
-        / == for primo central
-        dd.source == source
+        dd.source
+          - if source["ht_number"].present?
+            = link_to_new_search source["ht_number"], scope: current_scope, label: [source["label"], source["counting"]].compact.join(". "), default_field: "ht_number"
+          - else
+            = source["label"].html_safe
 
       - if (note = note(record)).present?
         dt = "Kommentare"

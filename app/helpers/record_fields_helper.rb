@@ -157,7 +157,11 @@ module RecordFieldsHelper
   end
 
   def source(record)
-    record.source
+    if record.source.is_a?(String) # make this an object for primo central
+      { "label" => record.source }
+    else
+      record.source
+    end
   end
 
   def links_to_toc(record, print_mode: false)
