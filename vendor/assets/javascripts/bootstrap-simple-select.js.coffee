@@ -42,7 +42,13 @@
         if associatedSelectElement[0].fireEvent # < IE9
           associatedSelectElement[0].fireEvent("onchange")
         else
-          associatedSelectElement[0].dispatchEvent(new Event("change"))
+          try
+            event = new Event("change")
+          catch
+            event = document.createEvent("Event")
+            event.initEvent("change", true, true)
+
+          associatedSelectElement[0].dispatchEvent(event)
 
       handleSelectChange = (e) =>
         selectElement = $(e.currentTarget)
