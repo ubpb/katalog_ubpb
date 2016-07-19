@@ -162,6 +162,9 @@ module RecordFieldsHelper
     else
       record.source
     end
+    .try do |record_source|
+      record_source.try(:[], "label").present? ?  record_source : nil
+    end
   end
 
   def links_to_toc(record, print_mode: false)
