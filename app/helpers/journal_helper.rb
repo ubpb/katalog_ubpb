@@ -7,28 +7,39 @@ module JournalHelper
       [
         content_tag(:ul) do
           record.journal_stock.map do |element|
-            content_tag(:li) do
+            content_tag(:li, style: "position: relative;") do
               [
-                [
-                  element["leading_text"].present? ? content_tag(:span, element["leading_text"]) : nil,
+                content_tag(:div, style: "padding-right: 140px;") do
                   [
-                    element["stock"].present? ? content_tag(:span, element["stock"].try(:join, "; ")) : nil,
-                    element["comment"].present? ? content_tag(:span, element["comment"]) : nil
+                    element["leading_text"].present? ? content_tag(:span, element["leading_text"]) : nil,
+                    [
+                      element["stock"].present? ? content_tag(:span, element["stock"].try(:join, "; ")) : nil,
+                      element["comment"].present? ? content_tag(:span, element["comment"]) : nil
+                    ]
+                    .map(&:presence)
+                    .compact
+                    .join(". ")
+                    .html_safe
                   ]
                   .map(&:presence)
                   .compact
-                  .join(". ")
+                  .join(": ")
                   .html_safe
-                ]
-                .map(&:presence)
-                .compact
-                .join(": ")
-                .html_safe,
-                element["signature"].present? ? content_tag(:span, element["signature"], style: "font-weight: bold") : nil
+                end,
+                if element["signature"].present?
+                  content_tag(:div, style: "position: absolute; top: 0; right: 4px;") do
+                    [
+                      content_tag(:span, "Signatur: "),
+                      link_to(element["signature"], go_signature_path, style: "font-weight: bold", target: "_blank").html_safe
+                    ]
+                    .join
+                    .html_safe
+                  end
+                end
               ]
               .map(&:presence)
               .compact
-              .join("&nbsp;")
+              .join
               .html_safe
             end
           end
