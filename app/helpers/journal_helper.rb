@@ -1,61 +1,88 @@
 module JournalHelper
 
-  def journal_holdings(record, fullview:false)
-    if (journal_holdings = record.try(:journal_holdings)).present?
+  def journal_stock(record, fullview: false)
+    if record.journal_stock.present?
+      return record.journal_stock.map { |element| element["stock"].join("; ")}.join(", ").html_safe unless fullview
 
-      # remove "<strong>Zeitschriftensignatur<\/strong>..."
-      cleaned_journal_holdings = journal_holdings.map { |journal_holding| journal_holding.gsub(/<strong>Zeitschriftensignatur<\/strong>.*/, '').gsub(/&lt;strong&gt;Zeitschriftensignatur&lt;\/strong&gt;.*/, '').strip }
-
-      # check if the holdings statement includes a year < 1986
-      has_holdings_statement_before_1986 = (cleaned_journal_holdings.map { |journal_holding| journal_holding.scan(/\d\d\d\d/) }.flatten.min.try(:<, '1986').try(:==, true))
-
-      # extend infos to open intervals
-      # TODO:
-      #cleaned_journal_holdings.map!{|h| h.strip! ; (h =~ /\-\Z/) ? "#{h} heute" : h}
-
-      # location number
-      journal_location_code = journal_location_code(record)
-
-      # check if the journal has a closed stack location number
-      has_closed_stack_location = %w(02 03 04 06 07 92 93 94 95 96 97 98).include?(journal_location_code)
-
-      # check if the location number indicates some non local location, like 'ZfS'
-      has_non_local_location = %w(86 88).include?(journal_location_code)
-
-      if fullview
+      [
         content_tag(:ul) do
-          cleaned_journal_holdings.map do |d|
-            content_tag(:li, d.html_safe)
-          end.join.html_safe
-        end <<
-        if (has_holdings_statement_before_1986 || (has_closed_stack_location)) && !has_non_local_location
-          if has_holdings_statement_before_1986
-            content_tag(:em, '*Zeitschriftenbestände bis einschließlich 1985 befinden sich in der Regel im Magazin. Um darauf zuzugreifen müssen Sie eine entsprechende Magazinbestellung aufgeben.')
-          elsif has_closed_stack_location
-            content_tag(:em, '*Es handelt sich um einen Magazinstandort. Um darauf zuzugreifen müssen Sie eine entsprechende Magazinbestellung aufgeben.')
-          end << " " <<
-          content_tag(:span, link_to('&raquo; Magazinbestellung aufgeben'.html_safe, current_user ? new_closed_stack_order_path(z1: record.signature) : new_session_path(return_to: current_path, redirect: true)))
-        end.to_s
-      else
-        cleaned_journal_holdings.join(', ')
-      end
+          record.journal_stock.map do |element|
+            content_tag(:li) do
+              [
+                [
+                  element["leading_text"].present? ? content_tag(:span, element["leading_text"]) : nil,
+                  [
+                    element["stock"].present? ? content_tag(:span, element["stock"].try(:join, "; ")) : nil,
+                    element["comment"].present? ? content_tag(:span, element["comment"]) : nil
+                  ]
+                  .map(&:presence)
+                  .compact
+                  .join(". ")
+                  .html_safe
+                ]
+                .map(&:presence)
+                .compact
+                .join(": ")
+                .html_safe,
+                element["signature"].present? ? content_tag(:span, element["signature"], style: "font-weight: bold") : nil
+              ]
+              .map(&:presence)
+              .compact
+              .join("&nbsp;")
+              .html_safe
+            end
+          end
+          .join
+          .html_safe
+        end,
+        if none_located_outside_ubpb?(record.journal_stock) && (any_before?(1986, record.journal_stock) || any_closed_stock_location?(record.journal_stock))
+          [
+            if any_before?(1986, record.journal_stock)
+              content_tag(:em, '*Zeitschriftenbestände bis einschließlich 1985 befinden sich in der Regel im Magazin. Um darauf zuzugreifen müssen Sie eine entsprechende Magazinbestellung aufgeben.')
+            elsif any_closed_stock_location?(record.journal_stock)
+              content_tag(:em, '*Es handelt sich um einen Magazinstandort. Um darauf zuzugreifen müssen Sie eine entsprechende Magazinbestellung aufgeben.')
+            end,
+            content_tag(:span, link_to('&raquo; Magazinbestellung aufgeben'.html_safe, current_user ? new_closed_stack_order_path(z1: record.signature) : new_session_path(return_to: current_path, redirect: true)))
+          ]
+          .join(" ")
+          .html_safe
+        end
+      ]
+      .join
+      .html_safe
     end
   end
 
-  def journal_location_code(record)
-    journal_signature(record).try(:scan, /P\s(\d\d)/).try(:flatten).try(:first)
+  private
+
+  def any_before?(year, journal_stocks)
+    journal_stocks.any? { |journal_stock| before?(year, journal_stock) }
   end
 
-  def journal_signature(record)
-    signature = record.signature
+  def any_closed_stock_location?(journal_stocks)
+    journal_stocks.any? { |journal_stock| closed_stock_location?(journal_stock) }
+  end
 
-    if signature.present?
-      if (match_result = signature.match(/\A(\w)(\d\d)\/(\d\d*)(\w)(\d\d*)\Z/)).present?
-        "#{match_result[1]} #{match_result[2]}/#{match_result[3]} #{match_result[4]} #{match_result[5]}"
-      elsif (match_result = signature.match(/\A(\d\d*)(\w)(\d\d*)\Z/)).present?
-        "#{match_result[1]} #{match_result[2]} #{match_result[3]}"
-      end
+  def before?(year, journal_stock)
+    journal_stock["stock"].join(" ").scan(/\d\d\d\d/).any? { |stock_year| stock_year < year.to_s }
+  end
+
+  def closed_stock_location?(journal_stock)
+    journal_stock.any? do |element|
+      location_code = journal_stock["signature"][/P\d\d/][/\d\d/]
+      %w(02 03 04 06 07 92 93 94 95 96 97 98).include?(location_code)
     end
+  end
+
+  def located_outside_ubpb?(journal_stock)
+    journal_stock.any? do |element|
+      location_code = journal_stock["signature"][/P\d\d/][/\d\d/]
+      %w(86 88).include?(location_code)
+    end
+  end
+
+  def none_located_outside_ubpb?(journal_stocks)
+    journal_stocks.all? { |journal_stock| !located_outside_ubpb?(journal_stock) }
   end
 
 end

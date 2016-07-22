@@ -24,8 +24,8 @@ atom_feed(
           content << "<div>#{info}</div>"
         end
 
-        #if journal_holdings = journal_holdings(hit.record)
-        #  content << "<div>Bestand UB: #{journal_holdings}</div>"
+        #if journal_stock = journal_stock(hit.record)
+        #  content << "<div>Bestand UB: #{journal_stock}</div>"
         #end
 
         entry.content(content, type: "html")
