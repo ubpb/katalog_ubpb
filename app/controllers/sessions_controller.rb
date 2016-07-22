@@ -8,7 +8,8 @@ class SessionsController < ApplicationController
 
     @authenticate_user = AuthenticateUserService.new(
       authenticate_user_params.merge(
-        adapter: KatalogUbpb.config.ils_adapter.instance
+        adapter: KatalogUbpb.config.ils_adapter.instance,
+        username: authenticate_user_params["username"][/[a-zA-Z0-9]{0,10}/] # fix barcode reader issue
       )
     )
 
@@ -17,7 +18,8 @@ class SessionsController < ApplicationController
         if @authenticate_user.result == true
           user = GetUserService.call(
             get_user_params.merge(
-              adapter: KatalogUbpb.config.ils_adapter.instance
+              adapter: KatalogUbpb.config.ils_adapter.instance,
+              username: get_user_params["username"][/[a-zA-Z0-9]{0,10}/] # fix barcode reader issue
             )
           )
 
