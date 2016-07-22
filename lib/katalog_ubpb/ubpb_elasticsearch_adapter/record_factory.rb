@@ -30,6 +30,7 @@ class KatalogUbpb::UbpbElasticsearchAdapter::RecordFactory
       relation: map_relation(source["relation"]),
       subject: source["subject"],
       journal_holdings: source["ldsX"],
+      journal_stock: source["journal_stock"],
       notation: source["notation"],
       is_superorder: source["is_superorder"],
       is_secondary_form: source["is_secondary_form"],

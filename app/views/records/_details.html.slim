@@ -35,9 +35,9 @@
           .visible-print-block = print_links
           .hidden-print = vpn_info
 
-      - if (journal_holdings = journal_holdings(record, fullview: true)).present?
+      - if (journal_stock = journal_stock(record, fullview: true)).present?
         dt = "Bestand UB"
-        dd.journal-holdings = journal_holdings
+        dd.journal-holdings = journal_stock
 
       - if record.relation.present?
         dt = "Verknüpfte Titel"
@@ -88,8 +88,9 @@
       dt = "Systemstelle"
       dd.toc = value_or_default(notations(record, link: true, scope: scope))
 
-      dt = "Signatur"
-      dd.toc = value_or_default(signature(record, link: true))
+      - unless record.journal_stock.any? { |element| element["signature"].present? }
+        dt = "Signatur"
+        dd.toc = value_or_default(signature(record, link: true))
 
       / TODO
       / dt = "Externer Link"

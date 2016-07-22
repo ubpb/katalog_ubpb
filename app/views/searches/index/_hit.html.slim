@@ -33,8 +33,8 @@
         - if (info = additional_record_info(hit.record)).present?
           .additional-info = info
 
-        - if journal_holdings = journal_holdings(hit.record)
-          .journal-holdings = "Bestand UB: #{journal_holdings}"
+        - if journal_stock = journal_stock(hit.record)
+          .journal-holdings = "Bestand UB: #{journal_stock}"
 
         / Status
         .status
