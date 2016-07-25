@@ -1,66 +1,23 @@
 module JournalHelper
 
-  def journal_stock(record, fullview: false)
+  def journal_stock(record)
     if record.journal_stock.present?
-      return record.journal_stock.map { |element| element["stock"].join("; ")}.join(", ").html_safe unless fullview
-
-      [
-        content_tag(:ul) do
-          record.journal_stock.map do |element|
-            content_tag(:li, style: "position: relative;") do
-              [
-                content_tag(:div, style: "padding-right: 140px;") do
-                  [
-                    element["leading_text"].present? ? content_tag(:span, element["leading_text"]) : nil,
-                    [
-                      element["stock"].present? ? content_tag(:span, element["stock"].try(:join, "; ")) : nil,
-                      element["comment"].present? ? content_tag(:span, element["comment"]) : nil
-                    ]
-                    .map(&:presence)
-                    .compact
-                    .join(". ")
-                    .html_safe
-                  ]
-                  .map(&:presence)
-                  .compact
-                  .join(": ")
-                  .html_safe
-                end,
-                if element["signature"].present?
-                  content_tag(:div, style: "position: absolute; top: 0; right: 4px;") do
-                    [
-                      content_tag(:span, "Signatur: "),
-                      link_to(element["signature"], go_signature_path, style: "font-weight: bold", target: "_blank").html_safe
-                    ]
-                    .join
-                    .html_safe
-                  end
-                end
-              ]
-              .map(&:presence)
-              .compact
-              .join
-              .html_safe
-            end
-          end
-          .join
-          .html_safe
-        end,
-        if none_located_outside_ubpb?(record.journal_stock) && (any_before?(1986, record.journal_stock) || any_closed_stock_location?(record.journal_stock))
+      record.journal_stock.map do |element|
+        [
           [
-            if any_before?(1986, record.journal_stock)
-              content_tag(:em, '*Zeitschriftenbestände bis einschließlich 1985 befinden sich in der Regel im Magazin. Um darauf zuzugreifen müssen Sie eine entsprechende Magazinbestellung aufgeben.')
-            elsif any_closed_stock_location?(record.journal_stock)
-              content_tag(:em, '*Es handelt sich um einen Magazinstandort. Um darauf zuzugreifen müssen Sie eine entsprechende Magazinbestellung aufgeben.')
-            end,
-            content_tag(:span, link_to('&raquo; Magazinbestellung aufgeben'.html_safe, current_user ? new_closed_stack_order_path(z1: record.signature) : new_session_path(return_to: current_path, redirect: true)))
+            element["leading_text"],
+            element["stock"].try(:join, "; ")
           ]
-          .join(" ")
-          .html_safe
-        end
-      ]
-      .join
-      .html_safe
+          .map(&:presence)
+          .compact
+          .join(": "),
+          element["comment"]
+        ]
+        .map(&:presence)
+        .compact
+        .join(". ")
+      end
+      .join(", ")
     end
   end
 

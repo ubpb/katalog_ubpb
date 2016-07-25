@@ -35,10 +35,6 @@
           .visible-print-block = print_links
           .hidden-print = vpn_info
 
-      /- if (journal_stock = journal_stock(record, fullview: true)).present?
-        dt = "Bestand UB"
-        dd.journal-holdings = journal_stock
-
       - if record.relation.present?
         dt = "Verknüpfte Titel"
         dd.relations = ractive_component "app.components.Relations", relations: record.relation, scope: scope
