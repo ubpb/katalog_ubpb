@@ -35,7 +35,7 @@
           .visible-print-block = print_links
           .hidden-print = vpn_info
 
-      - if (journal_stock = journal_stock(record, fullview: true)).present?
+      /- if (journal_stock = journal_stock(record, fullview: true)).present?
         dt = "Bestand UB"
         dd.journal-holdings = journal_stock
 

@@ -48,6 +48,11 @@
               notes: client_memory_store("notes", @notes),
               record: @record
 
+          / journal stock
+          - if @record.journal_stock.present?
+            h4 Zeitschriftenbestand
+            = render "journal_stock", journal_stock: @record.journal_stock
+
           / Items
           - if @items.try(:any?) && !is_online_resource?(@record)
             h4 Exemplare
