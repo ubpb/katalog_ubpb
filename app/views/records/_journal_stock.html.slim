@@ -1,0 +1,30 @@
+#journal_stock
+  .row
+    .col-sm-12
+      .table-responsive
+        table.table.table-striped
+          thead
+            tr
+              th(style="width: 150px;") Signatur
+              th Bestand
+              th(style="width: 150px;")
+
+          tbody
+            - journal_stock.each do |element|
+              tr
+                td = link_to(element["signature"], go_signature_path, target: "_blank")
+                td
+                  div
+                    = [ \
+                        [ \
+                          element["leading_text"], \
+                          element["stock"].try(:join, "; ") \
+                        ].map(&:presence).compact.join(" "), \
+                        element["comment"] \
+                      ].map(&:presence).compact.join(". ")
+
+                  - if element["gaps"].present?
+                    div = "nicht vorhanden: #{element['gaps'].join('; ')}"
+                td(style="vertical-align: middle;")
+                  - if !located_outside_ubpb?(element) && (before?(1986, element) || closed_stock_location?(element))
+                    = link_to("Magazinbestellung", current_user ? new_closed_stack_order_path(z1: element["signature"]) : new_session_path(return_to: current_path, redirect: true), class: "btn btn-primary btn-xs")

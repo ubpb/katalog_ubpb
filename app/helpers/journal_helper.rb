@@ -64,16 +64,6 @@ module JournalHelper
     end
   end
 
-  private
-
-  def any_before?(year, journal_stocks)
-    journal_stocks.any? { |journal_stock| before?(year, journal_stock) }
-  end
-
-  def any_closed_stock_location?(journal_stocks)
-    journal_stocks.any? { |journal_stock| closed_stock_location?(journal_stock) }
-  end
-
   def before?(year, journal_stock)
     journal_stock["stock"].join(" ").scan(/\d\d\d\d/).any? { |stock_year| stock_year < year.to_s }
   end
@@ -90,10 +80,6 @@ module JournalHelper
       location_code = journal_stock["signature"][/P\d\d/][/\d\d/]
       %w(86 88).include?(location_code)
     end
-  end
-
-  def none_located_outside_ubpb?(journal_stocks)
-    journal_stocks.all? { |journal_stock| !located_outside_ubpb?(journal_stock) }
   end
 
 end
