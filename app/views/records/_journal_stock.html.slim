@@ -28,3 +28,11 @@
                 td(style="vertical-align: middle;")
                   - if !located_outside_ubpb?(element) && (before?(1986, element) || closed_stock_location?(element))
                     = link_to("Magazinbestellung", current_user ? new_closed_stack_order_path(z1: element["signature"]) : new_session_path(return_to: current_path, redirect: true), class: "btn btn-primary btn-xs")
+
+  - if none_located_outside_ubpb?(journal_stock) && (any_before?(1986, journal_stock) || any_closed_stock_location?(journal_stock))
+    .row: .col-sm-12
+      - if any_before?(1986, journal_stock)
+        = "*Zeitschriftenbestände bis einschließlich 1985 befinden sich in der Regel im Magazin."
+      - elsif any_closed_stock_location?(journal_stock)
+        = " *Es handelt sich um einen Magazinstandort."
+      =< "Um darauf zuzugreifen müssen Sie eine entsprechende Magazinbestellung aufgeben."
