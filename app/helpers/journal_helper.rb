@@ -22,20 +22,24 @@ module JournalHelper
   end
 
   def before?(year, journal_stock)
-    journal_stock["stock"].join(" ").scan(/\d\d\d\d/).any? { |stock_year| stock_year < year.to_s }
+    journal_stock["stock"] && journal_stock["stock"].join(" ").scan(/\d\d\d\d/).any? { |stock_year| stock_year < year.to_s }
   end
 
   def closed_stock_location?(journal_stock)
     journal_stock.any? do |element|
-      location_code = journal_stock["signature"][/P\d\d/][/\d\d/]
-      %w(02 03 04 06 07 92 93 94 95 96 97 98).include?(location_code)
+      if journal_stock["signature"].present?
+        location_code = journal_stock["signature"][/P\d\d/][/\d\d/]
+        %w(02 03 04 06 07 92 93 94 95 96 97 98).include?(location_code)
+      end
     end
   end
 
   def located_outside_ubpb?(journal_stock)
     journal_stock.any? do |element|
-      location_code = journal_stock["signature"][/P\d\d/][/\d\d/]
-      %w(86 88).include?(location_code)
+      if journal_stock["signature"].present?
+        location_code = journal_stock["signature"][/P\d\d/][/\d\d/]
+        %w(86 88).include?(location_code)
+      end
     end
   end
 
