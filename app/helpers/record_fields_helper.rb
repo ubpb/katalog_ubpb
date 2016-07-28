@@ -75,7 +75,7 @@ module RecordFieldsHelper
   def signature(record, link: false)
     if signature = record.try(:signature)
       if link
-        link_to(signature, go_signature_path, target: "_blank").html_safe
+        link_to_signature(record, signature).html_safe
       else
         signature
       end

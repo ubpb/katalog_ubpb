@@ -48,6 +48,14 @@ module LinkHelper
     end
   end
 
+  def link_to_signature(record, signature)
+    if is_journal?(record)
+      link_to(signature, go_journal_signature_path, target: "_blank")
+    else
+      link_to(signature, go_signature_path, target: "_blank")
+    end
+  end
+
   def link_to_previous_page(scope, search_request)
     from = search_request.from - search_request.size
     enabled = search_request.from > 0

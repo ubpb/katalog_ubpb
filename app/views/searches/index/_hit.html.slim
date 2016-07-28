@@ -41,8 +41,9 @@
           - if show_availability?(hit.record, scope)
             => ractive_component "app.components.AvailabilityIndicator", record: hit.record, scope: scope
 
-          - if (signature = signature(hit.record, link: true)).present?
-            span.signature = "Signatur: #{signature}".html_safe
+          - unless hit.record.journal_stock.any? { |element| element["signature"].present? }
+            - if (signature = signature(hit.record, link: true)).present?
+              span.signature = "Signatur: #{signature}".html_safe
 
         / Link to online resource
         - if (links = resource_links(hit.record, default_link_only: true))
