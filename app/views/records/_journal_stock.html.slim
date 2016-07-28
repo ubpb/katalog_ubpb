@@ -29,10 +29,10 @@
                   - if !located_outside_ubpb?(element) && (before?(1986, element) || closed_stock_location?(element))
                     = link_to("Magazinbestellung", current_user ? new_closed_stack_order_path(z1: element["signature"]) : new_session_path(return_to: current_path, redirect: true), class: "btn btn-primary btn-xs")
 
-  - if none_located_outside_ubpb?(journal_stock) && (any_before?(1986, journal_stock) || any_closed_stock_location?(journal_stock))
+  - if none_located_outside_ubpb?(journal_stock)
     .row: .col-sm-12
-      - if any_before?(1986, journal_stock)
-        = "*Zeitschriftenbestände bis einschließlich 1985 befinden sich in der Regel im Magazin."
-      - elsif any_closed_stock_location?(journal_stock)
-        = " *Es handelt sich um einen Magazinstandort."
-      =< "Um darauf zuzugreifen müssen Sie eine entsprechende Magazinbestellung aufgeben."
+      em
+        = "Aktuelle Hefte der Zeitschriften finden Sie in den Klappfächern auf der entsprechenden Fachebene."
+        =< "Ältere Jahrgänge ab 1986 finden Sie in gebundener Form ebenfalls auf der entsprechenden Fachebene."
+        =< "Für ältere Jahrgänge bis 1985 geben Sie bitte eine Magazinbestellung auf."
+        =< "Bestände deren Signaturen mit P02, P06, P07, P92, P93, P94, P95, P96, P97, P98 beginnen, bestellen Sie bitte ebenfalls aus dem Magazin."
