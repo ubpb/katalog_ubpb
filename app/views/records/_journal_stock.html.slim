@@ -12,7 +12,7 @@
           tbody
             - journal_stock.each do |element|
               tr
-                td = link_to_signature(@record, element["signature"])
+                td = link_to_signature(element["signature"])
                 td
                   div
                     = [ \
