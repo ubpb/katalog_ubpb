@@ -53,7 +53,7 @@
                     div = add_record_info.join(" - ")
 
                   - if (signature = _transaction.record.signature).present?
-                    .signature == "Signatur: #{link_to_signature(_transaction.record, signature)}"
+                    .signature == "Signatur: #{link_to_signature(signature)}"
 
                   / TODO: Fix ALLE in adapter override
                   - desc = _transaction.description
