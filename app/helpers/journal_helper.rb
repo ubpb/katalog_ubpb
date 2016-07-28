@@ -35,19 +35,15 @@ module JournalHelper
 
   def closed_stock_location?(journal_stock)
     journal_stock.any? do |element|
-      if journal_stock["signature"].present?
-        location_code = journal_stock["signature"][/P\d\d/][/\d\d/]
-        %w(02 03 04 06 07 92 93 94 95 96 97 98).include?(location_code)
-      end
+      location_code = journal_stock.try(:[], "signature").try(:[], /P\d\d/).try(:[], /\d\d/)
+      %w(02 03 04 06 07 92 93 94 95 96 97 98).include?(location_code)
     end
   end
 
   def located_outside_ubpb?(journal_stock)
     journal_stock.any? do |element|
-      if journal_stock["signature"].present?
-        location_code = journal_stock["signature"][/P\d\d/][/\d\d/]
-        %w(86 88).include?(location_code)
-      end
+      location_code = journal_stock.try(:[], "signature").try(:[], /P\d\d/).try(:[], /\d\d/)
+      %w(86 88).include?(location_code)
     end
   end
 
