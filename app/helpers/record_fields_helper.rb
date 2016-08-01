@@ -72,8 +72,12 @@ module RecordFieldsHelper
     record.publisher.join("; ")
   end
 
-  def signature(record, link: false)
-    if signature = record.try(:signature)
+  def signature(record_or_item, link: false)
+    if signature = record_or_item.try(:signature)
+      if journal_signature?(signature)
+        signature = signature.downcase.sub(/\Ap/, "P")
+      end
+
       if link
         link_to_signature(signature).html_safe
       else
