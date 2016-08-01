@@ -29,6 +29,7 @@ gem "servizio",              "~> 0.6"
 gem "simple_form",           "~> 3.2.1"
 gem "skala",                 github: "ubpb/skala", branch: :master
 gem "slim",                  "~> 3.0.7"
+gem "sqlite3",               "~> 1.3"
 gem "turbolinks",            "~> 2.5.3"
 gem "uglifier",              "~> 3.0"
 gem "uservoice-ruby",        "~> 0.0.11"
