@@ -1,5 +1,5 @@
 class Compatibility::RecordsController < ApplicationController
-  skip_before_action :add_breadcrumb, :only => [:show]
+  skip_before_action :add_breadcrumb, :only => [:show], raise: false
 
   def show
     record_id = params[:id]

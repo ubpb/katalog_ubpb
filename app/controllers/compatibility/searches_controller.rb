@@ -1,5 +1,5 @@
 class Compatibility::SearchesController < ApplicationController
-  skip_before_action :add_breadcrumb, :only => [:index, :show]
+  skip_before_action :add_breadcrumb, :only => [:index, :show], raise: false
 
   def index
     if former_catalog_search?
