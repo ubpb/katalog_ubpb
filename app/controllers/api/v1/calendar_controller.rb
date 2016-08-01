@@ -3,7 +3,7 @@ require 'digest/sha2'
 class Api::V1::CalendarController < Api::V1::ApplicationController
   include IcalDsl
 
-  before_filter :authenticate!
+  before_action :authenticate!
 
   def show
     loans         = get_loans

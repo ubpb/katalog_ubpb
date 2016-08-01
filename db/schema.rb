@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -13,74 +12,68 @@
 
 ActiveRecord::Schema.define(version: 20160603074059) do
 
-  create_table "cache_entries", force: :cascade do |t|
-    t.string   "key",        limit: 255
+  create_table "cache_entries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "key"
     t.text     "value",      limit: 4294967295
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["key"], name: "index_cache_entries_on_key", using: :btree
   end
 
-  add_index "cache_entries", ["key"], name: "index_cache_entries_on_key", using: :btree
-
-  create_table "notes", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.string   "record_id",  limit: 255
+  create_table "notes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.string   "record_id"
     t.text     "value",      limit: 4294967295
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
-    t.string   "scope_id",   limit: 255
+    t.string   "scope_id"
+    t.index ["record_id"], name: "index_notes_on_record_id", using: :btree
+    t.index ["user_id"], name: "index_notes_on_user_id", using: :btree
   end
 
-  add_index "notes", ["record_id"], name: "index_notes_on_record_id", using: :btree
-  add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
-
-  create_table "server_responses", force: :cascade do |t|
+  create_table "server_responses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text     "request_hash", limit: 4294967295
     t.text     "data",         limit: 4294967295
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.index ["request_hash"], name: "index_server_responses_on_request_hash", length: {"request_hash"=>200}, using: :btree
   end
 
-  add_index "server_responses", ["request_hash"], name: "index_server_responses_on_request_hash", length: {"request_hash"=>200}, using: :btree
-
-  create_table "users", force: :cascade do |t|
-    t.string   "first_name",                      limit: 255
-    t.string   "last_name",                       limit: 255
-    t.string   "email_address",                   limit: 255
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email_address"
     t.date     "expiry_date"
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
-    t.string   "ilsuserid",                       limit: 255
-    t.string   "pseudonym",                       limit: 255
-    t.string   "api_key",                         limit: 255
-    t.string   "password_reset_token",            limit: 255
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "ilsuserid"
+    t.string   "pseudonym"
+    t.string   "api_key"
+    t.string   "password_reset_token"
     t.datetime "password_reset_token_created_at"
+    t.index ["api_key"], name: "index_users_on_api_key", unique: true, using: :btree
+    t.index ["ilsuserid"], name: "index_users_on_ilsuserid", unique: true, using: :btree
+    t.index ["pseudonym"], name: "index_users_on_pseudonym", unique: true, using: :btree
   end
 
-  add_index "users", ["api_key"], name: "index_users_on_api_key", unique: true, using: :btree
-  add_index "users", ["ilsuserid"], name: "index_users_on_ilsuserid", unique: true, using: :btree
-  add_index "users", ["pseudonym"], name: "index_users_on_pseudonym", unique: true, using: :btree
-
-  create_table "watch_list_entries", force: :cascade do |t|
-    t.integer  "watch_list_id", limit: 4
-    t.string   "record_id",     limit: 255
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "scope_id",      limit: 255, null: false
+  create_table "watch_list_entries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "watch_list_id"
+    t.string   "record_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "scope_id",      null: false
+    t.index ["record_id"], name: "index_watch_list_entries_on_record_id", using: :btree
+    t.index ["scope_id"], name: "index_watch_list_entries_on_scope_id", using: :btree
+    t.index ["watch_list_id"], name: "index_watch_list_entries_on_watch_list_id", using: :btree
   end
 
-  add_index "watch_list_entries", ["record_id"], name: "index_watch_list_entries_on_record_id", using: :btree
-  add_index "watch_list_entries", ["scope_id"], name: "index_watch_list_entries_on_scope_id", using: :btree
-  add_index "watch_list_entries", ["watch_list_id"], name: "index_watch_list_entries_on_watch_list_id", using: :btree
-
-  create_table "watch_lists", force: :cascade do |t|
-    t.integer  "user_id",     limit: 4
-    t.string   "name",        limit: 255
+  create_table "watch_lists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.string   "name"
     t.text     "description", limit: 4294967295
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.index ["user_id"], name: "index_watch_lists_on_user_id", using: :btree
   end
-
-  add_index "watch_lists", ["user_id"], name: "index_watch_lists_on_user_id", using: :btree
 
 end

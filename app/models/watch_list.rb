@@ -1,4 +1,4 @@
-class WatchList < ActiveRecord::Base
+class WatchList < ApplicationRecord
 
   # Relations
   belongs_to :user

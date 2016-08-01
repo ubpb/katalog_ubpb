@@ -1,8 +1,8 @@
 # coding: UTF-8
 class NotesController < ApplicationController
 
-  before_filter :authenticate!
-  before_filter :get_note, :only => [:edit, :update, :destroy]
+  before_action :authenticate!
+  before_action :get_note, :only => [:edit, :update, :destroy]
 
   def new
     if params[:resourceid]

@@ -1,6 +1,6 @@
 class Users::PasswordsController < UsersController
 
-  before_filter { add_breadcrumb name: "users.passwords#edit" }
+  before_action { add_breadcrumb name: "users.passwords#edit" }
 
   def edit
     @update_user_password = UpdateUserPasswordService.new(
