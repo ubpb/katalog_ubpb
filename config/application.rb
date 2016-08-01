@@ -12,12 +12,6 @@ module KatalogUbpb
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    # Add lib/ to autoload paths
-    config.autoload_paths.concat([
-      Rails.root.join("lib"),
-      Rails.root.join("app", "services", "concerns")
-    ])
-
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = "Berlin"
