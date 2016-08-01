@@ -1,6 +1,6 @@
 class Users::TransactionsController < UsersController
 
-  before_filter { add_breadcrumb name: "users.transactions#index" }
+  before_action { add_breadcrumb name: "users.transactions#index" }
 
   def index
     @scope = KatalogUbpb.config.ils_adapter.scope

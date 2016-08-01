@@ -90,9 +90,9 @@
 class ClosedStackOrdersController < ApplicationController
   include UrlUtils
 
-  before_filter :authenticate!
-  before_filter :setup
-  before_filter { add_breadcrumb name: "closed_stack_orders#new" }
+  before_action :authenticate!
+  before_action :setup
+  before_action { add_breadcrumb name: "closed_stack_orders#new" }
 
   UNDEFINED_ERROR_MESSAGE = "Es ist ein Fehler bei der Magazinbestellung aufgetreten. Bitte versuchen Sie es erneut, oder wenden Sie sich an das Informationszentrum der Bibliothek."
 

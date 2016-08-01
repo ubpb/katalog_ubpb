@@ -1,4 +1,4 @@
-class Note < ActiveRecord::Base
+class Note < ApplicationRecord
 
   # Relations
   belongs_to :user

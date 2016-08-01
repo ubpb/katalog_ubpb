@@ -3,7 +3,7 @@
 class SemappController < ApplicationController
   include UrlUtils
 
-  before_filter :add_breadcrumb, :except => [:info]
+  before_action :add_breadcrumb, :except => [:info]
 
   # Returns the Sem App name for a given item id
   def info

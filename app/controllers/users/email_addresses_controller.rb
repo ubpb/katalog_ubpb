@@ -1,6 +1,6 @@
 class Users::EmailAddressesController < UsersController
 
-  before_filter { add_breadcrumb name: "users.email_addresses#edit" }
+  before_action { add_breadcrumb name: "users.email_addresses#edit" }
 
   def edit
     @update_user_email_address = UpdateUserEmailAddressService.new(

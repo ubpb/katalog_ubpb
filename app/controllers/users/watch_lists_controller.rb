@@ -1,6 +1,6 @@
 class Users::WatchListsController < UsersController
 
-  before_filter { add_breadcrumb name: "users.watch_lists#index", url: user_watch_lists_path }
+  before_action { add_breadcrumb name: "users.watch_lists#index", url: user_watch_lists_path }
 
   def index
     @get_user_watch_lists = GetUserWatchListsService.new(include: :watch_list_entries, user: current_user)

@@ -1,4 +1,4 @@
-class CacheEntry < ActiveRecord::Base
+class CacheEntry < ApplicationRecord
 
   # Validations
   validates_presence_of :key
