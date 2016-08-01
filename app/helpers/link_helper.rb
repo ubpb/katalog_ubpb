@@ -49,7 +49,7 @@ module LinkHelper
   end
 
   def link_to_signature(signature)
-    if signature =~ /\AP\d\d\// # journal signatures
+    if journal_signature?(signature)
       link_to(signature, go_journal_signature_path, target: "_blank")
     else
       link_to(signature, go_signature_path, target: "_blank")
