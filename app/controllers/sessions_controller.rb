@@ -80,7 +80,7 @@ private
 
   def capture_return_path
     return_path = sanitize_return_path(params[:return_to])
-    redirect    = params[:redirect].present? && ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.include?(params[:redirect])
+    redirect    = params[:redirect] == "true"
 
     if return_path.present?
       session[:return_to] = {
