@@ -54,7 +54,7 @@
     end: ZZZ
     excl: false
   :fachgebiet: Alle Fachgebiete
-  :location: 'Zentrum für Sprachlehre        '
+  :location: Zentrum für Sprachlehre      
   :standortkennziffern:
   - '86'
   :fachkennziffern: []
@@ -413,6 +413,16 @@
     end: SB
     excl: false
   :fachgebiet: NS-Belletristik
+  :location: Magazin
+  :standortkennziffern:
+  - '02'
+  - '03'
+  :fachkennziffern: []
+- :systemstellen: !ruby/range
+    begin: SE
+    end: SE
+    excl: false
+  :fachgebiet: Sammlung J. A. Schmoll gen. Eisenwerth
   :location: Magazin
   :standortkennziffern:
   - '02'
