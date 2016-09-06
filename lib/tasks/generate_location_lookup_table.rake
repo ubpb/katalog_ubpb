@@ -13,10 +13,18 @@ task :generate_location_lookup_table => :environment do
 
       lookup_table.push({
         systemstellen: notation_range_min..(notation_range_max || notation_range_min),
-        fachgebiet: cells[1].content,
-        location: if (content = cells[2].content)[/\A\d+\Z/] then "Ebene #{content}" else content end.try(:strip),
-        standortkennziffern: cells[3].content.gsub(/P/, "").split(",").map(&:strip),
-        fachkennziffern: cells[4].content.split("-").map(&:strip)
+        fachgebiet: cells[1].content.try(:gsub, /\u00a0/, " ").try(:strip),
+        location: if (content = cells[2].content)[/\A\d+\Z/] then "Ebene #{content}" else content end.try(:gsub, /\u00a0/, " ").try(:strip), # \u00a0 is unicode of non breaking space
+        standortkennziffern: cells[3].content.gsub(/[^\d,]/, "").split(","),
+        fachkennziffern: if cells[4].content.present?
+          first, last = cells[4].content.gsub(/[^\d-]/, "").split("-")
+          last ||= first
+          if first && last
+            Range.new(first, last).to_a
+          else
+            []
+          end
+        end
       })
     end
   end
