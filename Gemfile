@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "autoprefixer-rails",    "~> 6.3.7"
+gem "autoprefixer-rails",    "~> 6.4.1"
 gem "bibtex-ruby",           "~> 4.4.2", require: "bibtex"
 gem "bootstrap-sass",        "~> 3.3.7"
 gem "browser",               "~> 2.2.0"
