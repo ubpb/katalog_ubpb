@@ -5,14 +5,16 @@
         table.table.table-striped
           thead
             tr
-              th(style="width: 150px;") Signatur
+              th(style="width: 100px;") Signatur
+              th(style="width: 130px;") Standort
               th Bestand
               th(style="width: 150px;")
 
           tbody
             - journal_stock.each do |element|
               tr
-                td = link_to_signature(element["signature"])
+                td = link_to_signature(signature(element["signature"]))
+                td = journal_locations(signature: element["signature"], stock: element["stock"]).presence.try(:join, "; ")
                 td
                   div
                     = [ \
@@ -25,6 +27,7 @@
 
                   - if element["gaps"].present?
                     div = "nicht vorhanden: #{element['gaps'].join('; ')}"
+
                 td(style="vertical-align: middle;")
                   - if !located_outside_ubpb?(element) && (before?(1986, element) || closed_stock_location?(element))
                     = link_to("Magazinbestellung", current_user ? new_closed_stack_order_path(z1: element["signature"]) : new_session_path(return_to: current_path, redirect: true), class: "btn btn-primary btn-xs")
@@ -35,4 +38,3 @@
         = "Aktuelle Hefte der Zeitschriften finden Sie in den Klappfächern auf der entsprechenden Fachebene."
         =< "Ältere Jahrgänge ab 1986 finden Sie in gebundener Form ebenfalls auf der entsprechenden Fachebene."
         =< "Für ältere Jahrgänge bis 1985 geben Sie bitte eine Magazinbestellung auf."
-        =< "Bestände deren Signaturen mit P02, P06, P07, P92, P93, P94, P95, P96, P97, P98 beginnen, bestellen Sie bitte ebenfalls aus dem Magazin."

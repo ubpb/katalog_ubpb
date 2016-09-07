@@ -1,0 +1,23 @@
+h4 Aktuelle und erwartete Hefte
+#items
+  .row
+    .col-sm-12
+      .table-responsive
+        table.table.table-striped
+          thead
+            tr
+              th(style="width: 100px;") = t("records.items.signature")
+              th(style="width: 130px;") = t("records.items.location")
+              th = "Ausgabe"
+
+          tbody
+            - items.each do |item|
+              tr
+                td
+                  = value_or_default(signature(item, link: true))
+                td
+                  = value_or_default(item_location(item))
+                td
+                  span == note(item)
+                  - if item.status.to_sym == :expected && item.expected_date
+                    span = ", Erwartet zum #{l(item.expected_date)}"

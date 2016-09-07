@@ -54,12 +54,18 @@
             = render "journal_stock", journal_stock: @record.journal_stock
 
           / Items
-          - if @items.try(:any?) && !is_online_resource?(@record)
-            h4 Exemplare
-            = render "items",
-              can_create_hold_request: @can_create_hold_request,
-              hold_request: @hold_request,
-              items: @items,
-              number_of_hold_requests: @number_of_hold_requests,
-              record: @record,
-              search_request: @search_request
+          - if @items.try(:any?) # this is a complex result type which acts like an Enumerable
+            - if @record.journal_stock.present?
+              = render "journal_items",
+                items: @items,
+                record: @record,
+                scope: @scope,
+                search_request: @search_request
+            - elsif !is_online_resource?(@record)
+              = render "items",
+                can_create_hold_request: @can_create_hold_request,
+                hold_request: @hold_request,
+                items: @items,
+                number_of_hold_requests: @number_of_hold_requests,
+                record: @record,
+                search_request: @search_request

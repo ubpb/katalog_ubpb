@@ -1,6 +1,7 @@
 - has_cso  = items.any? { |_item| closed_stack?(record: record, item: _item) }
 - has_note = items.any? { |_item| _item.note.present? }
 
+h4 Exemplare
 #items
   - unless current_user.present?
     .tools

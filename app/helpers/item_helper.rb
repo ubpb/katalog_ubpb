@@ -8,7 +8,15 @@ module ItemHelper
   end
 
   def item_location(item)
-    location = item.location.presence
+    location =
+      item.location.presence ||
+      journal_signature?(item.signature) && journal_locations(
+        signature: item.signature,
+        stock: [item.record.year_of_publication].compact.presence
+      )
+      .presence
+      .try(:join, "; ")
+
     case location
     when /zentrum.+sprachlehre|zfs/i
       link_to location, "http://www.uni-paderborn.de/zfs/wir-ueber-uns/mediathek/", target: "_blank"

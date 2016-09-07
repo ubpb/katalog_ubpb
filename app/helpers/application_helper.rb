@@ -1,4 +1,6 @@
 module ApplicationHelper
+  CLOSED_STOCK_THRESHOLD = "1985"
+  JOURNAL_SIGNATURE_PATTERN = /\d\d[a-zA-Z]\d{1,4}/ # don't use \w as it includes numbers
 
   def async_content(identifier)
     content_tag(:div, class: "async-content-placeholder", "data-async-content" => identifier, style: "text-align: center") do
@@ -18,6 +20,39 @@ module ApplicationHelper
     ]
     .flatten
     .join(".") << "(event)"
+  end
+
+  def journal_signature?(signature)
+    signature.try(:[], JOURNAL_SIGNATURE_PATTERN).present?
+  end
+
+  def journal_locations(signature:, stock: nil)
+    result = []
+
+    if journal_signature?(signature)
+      years = (stock || []).map { |element| element.split("-") }.flatten.map { |date| date[/\d{4}/] }
+
+      if years.any? { |year| year > CLOSED_STOCK_THRESHOLD } || stock.blank?
+        standortkennziffer = signature[/\AP\d+/].try(:[], /\d+/)
+        fachkennziffer = signature.sub(/\AP\d+\//, "")[/\A\d+/]
+
+        matching_row = LOCATION_LOOKUP_TABLE.find do |row|
+          row[:standortkennziffern].try(:include?, standortkennziffer) &&
+          (
+            ["IEMAN", "IMT: Medien", "Zentrum für Sprachlehre"].include?(row[:location]) ||
+            row[:fachkennziffern].try(:include?, fachkennziffer)
+          )
+        end
+
+        result << matching_row[:location] if matching_row
+      end
+
+      if years.any? { |year| year <= CLOSED_STOCK_THRESHOLD }
+        result.unshift("Magazin")
+      end
+    end
+
+    result.uniq
   end
 
   def value_or_default(value, default: "–")
