@@ -89,7 +89,7 @@ class RecordsController < ApplicationController
     #
 
     # Load all items for the current record
-    @items = items(@record.id)
+    @items = items(@record)
     if @items.try(:any?)
       # How many hold requests waiting in queue for the current record
       # TODO: We are checking this on the items here. This works because our
@@ -141,9 +141,9 @@ private
     GetRecordHoldableItemsService.call(options)
   end
 
-  def items(record_id, **options)
+  def items(record, **options)
     options[:adapter] ||= current_scope.ils_adapter.try(:instance)
-    options[:id] ||= record_id
+    options[:record] ||= record
 
     GetRecordItemsService.call(options)
   end
