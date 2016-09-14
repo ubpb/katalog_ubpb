@@ -4,7 +4,11 @@ module ItemHelper
 
   def closed_stack?(record: nil, item: nil)
     item && item.must_be_ordered_from_closed_stack? ||
-    item && journal_signature?(item.signature) && record && record.year_of_publication.to_i < CLOSED_STOCK_THRESHOLD
+    item && journal_signature?(item.signature) &&
+    (
+      journal_locations(signature: item.signature).any? { |location| location[/magazin/i] } ||
+      (record && record.year_of_publication.to_i < CLOSED_STOCK_THRESHOLD)
+    )
   end
 
   def item_location(item)

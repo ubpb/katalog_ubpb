@@ -13,7 +13,7 @@
           tbody
             - journal_stock.each do |element|
               tr
-                td = link_to_signature(signature(element["signature"]))
+                td = element["signature"] ? link_to_signature(signature(element["signature"])) : "-"
                 td = journal_locations(signature: element["signature"], stock: element["stock"]).presence.try(:join, "; ")
                 td
                   div

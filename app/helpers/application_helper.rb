@@ -32,7 +32,7 @@ module ApplicationHelper
     if journal_signature?(signature)
       years = (stock || []).map { |element| element.split("-") }.flatten.map { |date| date[/\d{4}/] }
 
-      if years.any? { |year| year > CLOSED_STOCK_THRESHOLD } || stock.blank?
+      if years.any? { |year| year > CLOSED_STOCK_THRESHOLD } || stock.blank? || stock.any? { |s| s.strip.end_with?("-") }
         standortkennziffer = signature[/\AP\d+/].try(:[], /\d+/)
         fachkennziffer = signature.sub(/\AP\d+\//, "")[/\A\d+/]
 
