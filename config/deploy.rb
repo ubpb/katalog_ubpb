@@ -1,4 +1,4 @@
-lock "3.6"
+lock "~> 3.6"
 
 set :application, "katalog"
 set :repo_url,    "git@github.com:ubpb/katalog_ubpb.git"
