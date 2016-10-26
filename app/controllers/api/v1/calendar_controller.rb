@@ -38,9 +38,9 @@ class Api::V1::CalendarController < Api::V1::ApplicationController
   def to_raw_ics(loans_by_due_date, provisions_by_due_date)
     loans_url         = File.join(root_url, "/user/loans")
     holds_url         = File.join(root_url, "/user/holds")
-    info_url          = "http://goo.gl/Evx6Ls"
-    fees_url          = "http://goo.gl/BvYujI"
-    opening_hours_url = "http://goo.gl/tfhFbh"
+    info_url          = "https://goo.gl/bbyjOc"  # http://www.ub.uni-paderborn.de/nutzen-und-leihen/ausleihkonditionen/
+    fees_url          = "https://goo.gl/o5mhzt"  # http://www.ub.uni-paderborn.de/nutzen-und-leihen/gebuehren/
+    opening_hours_url = "https://goo.gl/dWFbGo"  # http://www.ub.uni-paderborn.de/ueber-uns/oeffnungszeiten/
 
     Calendar.build do
       item "VERSION", "2.0"
@@ -59,7 +59,7 @@ class Api::V1::CalendarController < Api::V1::ApplicationController
           record    = loan.record
           title     = cached_view_context.title(record)
           year      = cached_view_context.date_of_publication(record)
-          signature = cached_view_context.signature(record)
+          signature = loan.signature
 
           "#{i+1}. #{[title, year, "Signatur: #{signature}"].map(&:presence).join(', ')}"
         end.join('\n')
