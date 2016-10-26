@@ -64,7 +64,7 @@ class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapte
 
     # \ has to be escaped be itself AND has to be the first, to
     # avoid double escaping of other escape sequences
-    characters_blacklist = %w(\\ + - = && || > < ! ( ) { } [ ] ^ : /)
+    characters_blacklist = %w(\\ + - = && || > < ! { } [ ] ^ : /)
     sanitized_query_types = [:simple_query_string, :query_string]
 
     search_request.queries.each do |_query|
