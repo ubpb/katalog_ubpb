@@ -3,38 +3,63 @@
 - if loans.none?
   .alert.alert-info = t(".no_loans")
 - else
-  .table-responsive
-    table.table.table-striped(data-setup="jquery-tablesorter")
+  .visible-print-block
+    table.table.table-striped
       thead
         tr
-          th(data-sorter="shortDate" data-date-format="ddmmyyyy" style="min-width: 130px;") = t(".loan_date")
-          th(data-sorter="shortDate" data-date-format="ddmmyyyy" style="min-width: 115px;") = t(".due_date")
+          th = t(".loan_date")
+          th = t(".due_date")
+          th = t(".signature")
           th = t(".title")
-          th.tablesorter-noSort
-            - if can_renew_all
-              = link_to renew_all_user_loans_path, method: :put, class: "btn btn-primary btn-sm btn-block" do
-                i.fa.fa-retweet>
-                = t(".renew_all")
-
       tbody
         - loans.each do |_loan|
           tr
             td = l(_loan.loan_date)
             td = l(_loan.due_date)
             td
-              div: strong = value_or_default(title(_loan.record, scope: scope))
-              div = additional_record_info(_loan.record)
-
               - if (signature = signature(_loan.record, link: true)).present?
-                div = "Signatur: #{signature}".html_safe
-
+                = signature.html_safe
             td
-              - if _loan.renewable?
-                = link_to renew_user_loan_path(_loan.id), method: :put, class: "btn btn-default btn-sm btn-block" do
+              strong = value_or_default(title(_loan.record, scope: scope))
+              - info = additional_record_info(_loan.record)
+              - if info.present?
+                => ", "
+                = info
+
+
+  .hidden-print
+    .table-responsive
+      table.table.table-striped(data-setup="jquery-tablesorter")
+        thead
+          tr
+            th(data-sorter="shortDate" data-date-format="ddmmyyyy" style="min-width: 130px;") = t(".loan_date")
+            th(data-sorter="shortDate" data-date-format="ddmmyyyy" style="min-width: 115px;") = t(".due_date")
+            th = t(".title")
+            th.tablesorter-noSort
+              - if can_renew_all
+                = link_to renew_all_user_loans_path, method: :put, class: "btn btn-primary btn-sm btn-block" do
                   i.fa.fa-retweet>
-                  = t(".renew")
-              - else
-                = t(".no_renew")
+                  = t(".renew_all")
+
+        tbody
+          - loans.each do |_loan|
+            tr
+              td = l(_loan.loan_date)
+              td = l(_loan.due_date)
+              td
+                div: strong = value_or_default(title(_loan.record, scope: scope))
+                div = additional_record_info(_loan.record)
+
+                - if (signature = signature(_loan.record, link: true)).present?
+                  div = "Signatur: #{signature}".html_safe
+
+              td
+                - if _loan.renewable?
+                  = link_to renew_user_loan_path(_loan.id), method: :put, class: "btn btn-default btn-sm btn-block" do
+                    i.fa.fa-retweet>
+                    = t(".renew")
+                - else
+                  = t(".no_renew")
 
   div
     em = t(".footnote")
