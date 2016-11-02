@@ -34,6 +34,12 @@ module RecordRelatedService
           if corresponding_hit = search_result.find { |_hit| _hit.record.id == _element.record.id }
             _element.record = corresponding_hit.record
           end
+
+          # Make sure we use the signature get_user_loans has read from z30/z30-call-no
+          # (the one from the actual loand item) and not the one found in the title data section.
+          if _element.record.respond_to?(:signature)
+            _element.record.signature = _element.signature
+          end
         end
       end
     end
