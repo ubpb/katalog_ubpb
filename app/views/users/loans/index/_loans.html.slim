@@ -17,7 +17,8 @@
             td = l(_loan.loan_date)
             td = l(_loan.due_date)
             td
-              - if (signature = signature(_loan.record, link: true)).present?
+              / Use _loan.signature (this is the signature from the loaned item)
+              - if (signature = signature(_loan, link: true)).present?
                 = signature.html_safe
             td
               strong = value_or_default(title(_loan.record, scope: scope))
@@ -50,7 +51,8 @@
                 div: strong = value_or_default(title(_loan.record, scope: scope))
                 div = additional_record_info(_loan.record)
 
-                - if (signature = signature(_loan.record, link: true)).present?
+                / Use _loan.signature (this is the signature from the loaned item)
+                - if (signature = signature(_loan, link: true)).present?
                   div = "Signatur: #{signature}".html_safe
 
               td
