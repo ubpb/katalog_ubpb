@@ -14,7 +14,8 @@
             - journal_stock.each do |element|
               tr
                 td = element["signature"] ? link_to_signature(signature(element["signature"])) : "-"
-                td = journal_locations(signature: element["signature"], stock: element["stock"]).presence.try(:join, "; ")
+                -  locations = journal_locations(signature: element["signature"], stock: element["stock"])
+                td = locations.present? ? locations.join("; ") : "-"
                 td
                   div
                     = [ \
