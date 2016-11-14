@@ -20,4 +20,7 @@ h4 Aktuelle und erwartete Hefte
                 td
                   span == note(item)
                   - if item.status.to_sym == :expected && item.expected_date
-                    span = ", Erwartet zum #{l(item.expected_date)}"
+                    span = "; Erwartet zum #{l(item.expected_date)}"
+
+                  - unless item.item_status =~ /ausleihbar/i || item.item_status =~ /erwartet/i
+                    div = item.item_status
