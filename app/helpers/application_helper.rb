@@ -47,7 +47,7 @@ module ApplicationHelper
         result << matching_row[:location] if matching_row
       end
 
-      if (years || []).compact.any? { |year| year <= CLOSED_STOCK_THRESHOLD }
+      if years.any? { |year| year <= CLOSED_STOCK_THRESHOLD }
         result.unshift("Magazin")
       end
     end
