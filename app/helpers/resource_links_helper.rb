@@ -88,7 +88,6 @@ private
       @links = links
       @links = apply_blacklist(@links)
       @links = sort_by_priority(@links)
-      @links = fix_ezb_links(@links)
     end
 
   protected
@@ -104,16 +103,6 @@ private
         ia = PRIORITY_LIST.find_index{|regexp| regexp.match(a.url)} || 1000
         ib = PRIORITY_LIST.find_index{|regexp| regexp.match(b.url)} || 1000
         ia <=> ib
-      end
-    end
-
-    def fix_ezb_links(links)
-      links.map do |link|
-        if link.url.present?
-          link.url.gsub!("www.bibliothek.uni-regensburg.de", "ezb.uni-regensburg.de")
-        end
-
-        link
       end
     end
 
