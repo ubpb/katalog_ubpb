@@ -15,7 +15,10 @@ class AuthenticateUserService < Servizio::Service
     else
       adapter.authenticate_user(username, password)
     end
-  rescue
+  rescue => e
+    Rails.logger.error(e.message)
+    Rails.logger.error(e.backtrace.join("\n"))
+
     errors[:call] = :failed and return nil
   end
 end
