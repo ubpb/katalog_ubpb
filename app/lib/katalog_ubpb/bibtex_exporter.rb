@@ -34,6 +34,11 @@ class KatalogUbpb::BibtexExporter
       bibtex_representation[_bibtex_key] = record_value
     end
 
+    record.try(:identifier).try(:find) { |element| element.type.to_s == "doi" }.try(:value).try do |doi|
+      bibtex_representation["doi"] = doi
+      bibtex_representation["url"] ||= "https://dx.doi.org/#{doi}"
+    end
+
     if bibtex_representation.present?
       BibTeX::Entry.new(bibtex_representation.compact).to_s
     end
