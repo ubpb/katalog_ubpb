@@ -3,15 +3,21 @@ class KatalogUbpb::BibtexExporter
     "creator"              => "author",
     "description"          => "note",
     "edition"              => "edition",
-    "id"                   => "key",
+    "id"                   => "bibtex_key",
     "isbn"                 => "isbn",
     "is_part_of.label"     => "series",
     "issn"                 => "issn",
     "publisher"            => "publisher",
     "subject"              => "keywords",
     "title"                => "title",
-    "type"                 => "type",
     "year_of_publication"  => "year"
+  }
+
+  TYPE_MAPPINGS = {
+    ["article"] => "article",
+    ["book"] => "book",
+    ["conference_proceeding"] => "inproceedings",
+    ["dissertation"] => "phdthesis"
   }
 
   def self.call(record)
@@ -39,8 +45,19 @@ class KatalogUbpb::BibtexExporter
       bibtex_representation["url"] ||= "https://dx.doi.org/#{doi}"
     end
 
+    if mapping = TYPE_MAPPINGS.find { |known_types, _| known_types.include?(record.content_type) }
+      bibtex_representation["bibtex_type"] = mapping.last
+    else
+      bibtex_representation["bibtex_type"] = "misc"
+    end
+
+    case bibtex_representation["bibtex_type"]
+    when "article" then bibtex_representation["journal"] = bibtex_representation.delete("series")
+    when "inproceedings" then bibtex_representation["booktitle"] = bibtex_representation.delete("series")
+    end
+
     if bibtex_representation.present?
-      BibTeX::Entry.new(bibtex_representation.compact).to_s
+      BibTeX::Entry.new(bibtex_representation.compact.symbolize_keys).to_s
     end
   end
 
