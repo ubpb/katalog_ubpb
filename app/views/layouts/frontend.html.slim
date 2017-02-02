@@ -18,22 +18,22 @@ html
     = stylesheet_link_tag "application_print", media: "print"
     = javascript_include_tag "application"
     = render "application/favicons"
-    = render "application/piwik_tracking"
 
   body#top
-    = render "test_server_warning"
     = render_global_message
 
     #navbar-wrapper
-      .container = render "application/navbar"
+      .container = render "navbar"
+
     #alerts-wrapper
       .container-float = render "application/alerts", global: true
+
     #content-area-wrapper
       .container
-        = render "application/breadcrumb"
+        /= render "application/breadcrumb"
         = content_for?("content-area") ? yield("content-area") : yield
-        = render "to_top"
+        /= render "to_top"
     #claim-wrapper
-      .container = render "application/claim"
+      .container = render "claim"
     #footer-wrapper
-      .container = render "application/footer"
+      .container = render "footer"

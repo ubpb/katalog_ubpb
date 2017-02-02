@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby IO.read(".ruby-version").strip
 
+gem "addressable",           "~> 2.7.0"
 gem "autoprefixer-rails",    "~> 6.6.1"
 gem "bibtex-ruby",           "~> 5.1.0", require: "bibtex"
 gem "bootstrap-sass",        "~> 3.4.1"
@@ -10,6 +11,7 @@ gem "browser",               "~> 2.2.0"
 gem "cancancan",             "~> 1.15"
 gem "coffee-rails",          "~> 5.0.0"
 gem "dotenv-rails",          "~> 2.7.5"
+gem "dry-struct",            "~> 1.0.0"
 gem "font-awesome-rails",    "~> 4.7.0"
 gem "htmlentities",          "~> 4.3.4"
 gem "i18n-backend-advanced", "~> 0.1.3"
@@ -36,6 +38,7 @@ gem "uglifier",              "~> 3.0"
 
 gem "bootsnap", ">= 1.4.2", require: false
 
+gem "alma_api", "~> 1.0.0", path: "vendor/gems/alma_api"
 gem "aleph_api", "~> 0.3.0", path: "vendor/gems/aleph_api"
 gem "skala", "~> 1.2.0", path: "vendor/gems/skala"
 

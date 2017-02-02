@@ -32,6 +32,9 @@
 /public/assets/**/*
 /public/javascripts/translations.js
 
+# Doc
+.yardoc
+
 /public/packs
 /public/packs-test
 /node_modules
