@@ -22,12 +22,9 @@ html
     = render "piwik_tracking"
 
   body#top
-    /#global-message-wrapper
-    /  .container = render "global_message"
-    /.alert.alert-danger
-      => fa_icon("warning")
-      ' Auf Grund von Wartungsarbeiten bei unserem technischen Dienstleister steht heute SFX bis ca. 23:00 Uhr nicht zur Verfügung.
-      ' Aus diesem Grund ist der Zugriff auf Online-Resourcen aus Primo-Central heraus gestört.
+    - global_message_file = "#{Rails.root}/config/GLOBAL_MESSAGE.html.slim"
+    - if File.exists?(global_message_file)
+      = render file: global_message_file
 
     #navbar-wrapper
       .container = render "navbar"
