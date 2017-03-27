@@ -84,7 +84,10 @@ h4 Exemplare
                   td
                     - if closed_stack?(record: record, item: item)
                       - if current_user.present?
-                        = link_to t(".cso"), new_closed_stack_order_path(m1: item.signature), class: 'btn btn-primary btn-xs'
+                        - if journal_signature?(item.signature)
+                          = link_to t(".cso"), new_closed_stack_order_path(z1: item.signature), class: 'btn btn-primary btn-xs'
+                        - else
+                          = link_to t(".cso"), new_closed_stack_order_path(m1: item.signature), class: 'btn btn-primary btn-xs'
                       - else
                         = t(".login_cso")
 
