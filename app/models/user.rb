@@ -10,8 +10,8 @@ class User < ApplicationRecord
   has_many :watch_lists, dependent: :destroy
 
   # Validations
-  validates_presence_of   :ilsuserid
-  validates_uniqueness_of :ilsuserid
+  validates_presence_of   :ilsuserid, :ilsusername
+  validates_uniqueness_of :ilsuserid, :ilsusername
   validates_uniqueness_of :api_key
   validates :pseudonym, uniqueness: true, allow_nil: true, format: { with: /\A[a-z0-9\-_]+\Z/}
 

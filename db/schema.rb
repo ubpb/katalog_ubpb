@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160603074059) do
+ActiveRecord::Schema.define(version: 20170330075531) do
 
   create_table "cache_entries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "key"
@@ -46,13 +46,15 @@ ActiveRecord::Schema.define(version: 20160603074059) do
     t.date     "expiry_date"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
-    t.string   "ilsuserid"
+    t.string   "ilsusername"
     t.string   "pseudonym"
     t.string   "api_key"
     t.string   "password_reset_token"
     t.datetime "password_reset_token_created_at"
+    t.string   "ilsuserid"
     t.index ["api_key"], name: "index_users_on_api_key", unique: true, using: :btree
     t.index ["ilsuserid"], name: "index_users_on_ilsuserid", unique: true, using: :btree
+    t.index ["ilsusername"], name: "index_users_on_ilsusername", unique: true, using: :btree
     t.index ["pseudonym"], name: "index_users_on_pseudonym", unique: true, using: :btree
   end
 
