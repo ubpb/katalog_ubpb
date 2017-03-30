@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/ubpb/skala.git
-  revision: 76bcf5d3c4af76bf24c05335499018be223cc72e
-  branch: master
+  revision: cca2d0b88008f5cf630ce4f13c6194f42d44fb12
+  branch: ilsuserid_fix
   specs:
     skala (1.1.4)
       aleph_api (>= 0.3.0)
