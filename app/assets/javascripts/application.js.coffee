@@ -31,10 +31,13 @@
 #= require bootstrap-simple-select
 #= require ractive/ractive
 #= require ractive-events-keys/ractive-events-keys
-#= require trunker
 
+#= require_self
+#= require trunker
 #= require ./app/helpers/application_helper
 #= require_tree ./app
+
+Ractive.DEBUG = false;
 
 Turbolinks?.enableProgressBar()
 
