@@ -21,6 +21,7 @@ class GetUserService < Servizio::Service
           # keep in mind that the adapter result id is the determining ils user id, *not* username, especially for create
           User.find_or_create_by(ilsuserid: get_user_result.id).tap do |_user|
             _user.update_attributes!(
+              ilsusername: get_user_result.username,
               email_address: get_user_result.email_address,
               expiry_date: get_user_result.expiry_date,
               first_name: get_user_result.first_name,
