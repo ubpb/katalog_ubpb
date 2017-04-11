@@ -19,15 +19,7 @@ class GetUserService < Servizio::Service
 
         if get_user_result.present?
           # keep in mind that the adapter result id is the determining ils user id, *not* username, especially for create
-          User.find_or_create_by(ilsuserid: get_user_result.id).tap do |_user|
-            _user.update_attributes!(
-              ilsusername: get_user_result.username,
-              email_address: get_user_result.email_address,
-              expiry_date: get_user_result.expiry_date,
-              first_name: get_user_result.first_name,
-              last_name: get_user_result.last_name
-            )
-          end
+          create_or_update_user!(get_user_result)
         else
           errors[:call] = :user_not_found
         end
@@ -36,4 +28,32 @@ class GetUserService < Servizio::Service
   rescue
     errors[:call] = :failed and return nil
   end
+
+private
+
+  def create_or_update_user!(user_result)
+    User.transaction do
+      if user = User.find_by(ilsuserid: user_result.id)
+        user.update_attributes!(
+          :ilsusername   => user_result.username,
+          :email_address => user_result.email_address,
+          :expiry_date   => user_result.expiry_date,
+          :first_name    => user_result.first_name,
+          :last_name     => user_result.last_name
+        )
+
+        user
+      else
+        User.create!(
+          :ilsuserid     => user_result.id,
+          :ilsusername   => user_result.username,
+          :email_address => user_result.email_address,
+          :expiry_date   => user_result.expiry_date,
+          :first_name    => user_result.first_name,
+          :last_name     => user_result.last_name
+        )
+      end
+    end
+  end
+
 end
