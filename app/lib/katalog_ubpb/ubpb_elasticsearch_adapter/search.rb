@@ -10,6 +10,7 @@ class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapte
 
     # work an a copy from here
     dupped_search_request = search_request.deep_dup
+    filter_nil_queries!(dupped_search_request)
     add_query_to_ignore_deleted_records!(dupped_search_request)
     boost_creators_and_title!(dupped_search_request)
     escape_special_characters!(dupped_search_request)
@@ -25,6 +26,12 @@ class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapte
   end
 
   private # search request transformation
+
+  def filter_nil_queries!(search_request)
+    search_request.queries = search_request.queries.select do |query|
+      query.query != nil
+    end
+  end
 
   def add_query_to_ignore_deleted_records!(search_request)
     ignore_deleted_records_query = {
