@@ -29,7 +29,11 @@ class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapte
 
   def filter_nil_queries!(search_request)
     search_request.queries = search_request.queries.select do |query|
-      query.query != nil
+      if ["query_string", "simple_query_string"].include?(query.type)
+        query.query != nil
+      else
+        true
+      end
     end
   end
 
