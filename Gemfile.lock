@@ -3,7 +3,7 @@ GIT
   revision: 6c04db937abf9fdcb13789de46b943ae772d36d0
   branch: master
   specs:
-    skala (1.1.6)
+    skala (1.1.7)
       aleph_api (>= 0.3.0)
       bcrypt (>= 3.1)
       bibtex-ruby (~> 4.0)
