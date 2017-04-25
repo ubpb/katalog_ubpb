@@ -14,6 +14,7 @@ class PasswordsController < ApplicationController
       flash[:success] = t(".flash_success")
       redirect_to(new_session_path)
     else
+      flash[:error] = t(".flash_error")
       render :edit
     end
   end

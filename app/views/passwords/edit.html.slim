@@ -5,6 +5,8 @@
   .panel-body
     == t(".description")
 
+    = render("alerts")
+
     = simple_form_for @password_form, url: password_path(@token), method: :put do |f|
       = f.input :password
       = f.input :password_confirmation
