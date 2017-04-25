@@ -1,6 +1,6 @@
 Sehr geehrte(r) <%= @user.name %>,
 
-Sie möchten Ihr Passwort für Ihr Bibliothekskonto mit der Nummer `<%= @user.ilsuserid %>` zurücksetzen. Dazu klicken Sie bitte auf den folgenden Link. Bitte beachten Sie, dass dieser Link max. 24 Stunden gültig ist.
+Sie möchten Ihr Passwort für Ihr Bibliothekskonto mit der Nummer `<%= @user.ilsusername %>` zurücksetzen. Dazu klicken Sie bitte auf den folgenden Link. Bitte beachten Sie, dass dieser Link max. 24 Stunden gültig ist.
 
 <%= edit_password_url(@user.password_reset_token) %>
 

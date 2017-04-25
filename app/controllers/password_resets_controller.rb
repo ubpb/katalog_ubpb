@@ -13,7 +13,7 @@ class PasswordResetsController < ApplicationController
 
       PasswordResetsMailer.notify_user(user).deliver_later
 
-      flash[:success] = t(".flash_success", ilsid: user.ilsuserid)
+      flash[:success] = t(".flash_success", ilsid: user.ilsusername)
       redirect_to(new_session_path)
     else
       render :new
