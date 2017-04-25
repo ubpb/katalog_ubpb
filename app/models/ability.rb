@@ -81,8 +81,8 @@ class Ability
 
     if ilsuserid_or_user.is_a?(String)
       !!ilsuserid_or_user[regex]
-    elsif ilsuserid_or_user.respond_to?(:ilsuserid)
-      !!ilsuserid_or_user.send(:ilsuserid).try(:[], regex)
+    elsif ilsuserid_or_user.respond_to?(:ilsusername)
+      !!ilsuserid_or_user.send(:ilsusername).try(:[], regex)
     else
       raise ArgumentError.new("Parameter has to be a/or respond to ilsuserid!")
     end

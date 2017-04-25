@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/ubpb/skala.git
-  revision: f17759c0b94991d833fd7c9c2a147fbb74499963
+  revision: 6c04db937abf9fdcb13789de46b943ae772d36d0
   branch: master
   specs:
-    skala (1.1.5)
+    skala (1.1.6)
       aleph_api (>= 0.3.0)
       bcrypt (>= 3.1)
       bibtex-ruby (~> 4.0)
@@ -142,12 +142,12 @@ GEM
     erubis (2.7.0)
     execjs (2.7.0)
     ezcrypto (0.7.2)
-    faraday (0.12.0.1)
+    faraday (0.12.1)
       multipart-post (>= 1.2, < 3)
     font-awesome-rails (4.6.3.1)
       railties (>= 3.2, < 5.1)
-    globalid (0.3.7)
-      activesupport (>= 4.1.0)
+    globalid (0.4.0)
+      activesupport (>= 4.2.0)
     hashie (3.5.5)
     htmlentities (4.3.4)
     i18n (0.8.1)
@@ -201,7 +201,7 @@ GEM
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
     oauth (0.5.1)
-    ox (2.4.11)
+    ox (2.4.13)
     poltergeist (1.14.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)

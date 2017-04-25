@@ -1,6 +1,6 @@
 class UpdateUserEmailAddressService < Servizio::Service
   include InstrumentedService
-  include UserRelatedService # @provides #ilsuserid, #user
+  include UserRelatedService # @provides #user
 
   attr_accessor :adapter
   attr_accessor :current_email_address
@@ -11,13 +11,13 @@ class UpdateUserEmailAddressService < Servizio::Service
   end
 
   validates_presence_of :adapter
-  validates_presence_of :ilsuserid
+  validates_presence_of :user
   validates_presence_of :new_email_address
 
   def call
-    adapter.update_user(ilsuserid, email_address: new_email_address).tap do |_adapter_result|
+    adapter.update_user(type: "email", user: user, new_email_address: new_email_address).tap do |_adapter_result|
       if _adapter_result == true
-        User.find_by_ilsuserid(ilsuserid).tap do |_user|
+        User.find_by_ilsuserid(user.ilsuserid).tap do |_user|
           _user.update_attributes(email_address: new_email_address)
         end
       end
