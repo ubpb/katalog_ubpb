@@ -23,7 +23,7 @@
           {{translated_term}}
           <span style="white-space: nowrap;">
             {{#if count}}({{count}}){{/if}}
-            <span on-click="ExcludeTerm"><i class="fa fa-remove"></i></span>
+            {{#if can_exclude}}<span on-click="ExcludeTerm"><i class="fa fa-remove"></i></span>{{/if}}
           </span>
         </a>
       </li>
@@ -31,6 +31,10 @@
   """
 
   computed:
+    can_exclude: ->
+      facet = @parent.get("facet")
+      return facet.name != "tlevel"
+
     exclude_term_path: ->
       new_search_request = _.cloneDeep(@parent.get("search_request"))
       @add_facet_query(new_search_request, @parent.get("facet"), @get("term"), exclude: true)
