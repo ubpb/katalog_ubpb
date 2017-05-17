@@ -2,6 +2,9 @@
 - has_note = items.any? { |_item| _item.note.present? }
 
 h4 Exemplare
+
+= render "alerts"
+
 #items
   - unless current_user.present?
     .tools
