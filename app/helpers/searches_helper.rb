@@ -3,7 +3,8 @@ module SearchesHelper
   def show_availability?(record, scope)
     scope.try(:ils_adapter).present? &&
     !is_online_resource?(record) &&
-    !is_journal?(record)
+    !is_journal?(record) &&
+    !is_newspaper?(record)
   end
 
   def page_stats(scope, search_request, total_records)

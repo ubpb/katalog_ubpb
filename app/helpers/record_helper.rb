@@ -4,6 +4,10 @@ module RecordHelper
     record.try(:media_type) == "journal"
   end
 
+  def is_newspaper?(record)
+    record.try(:media_type) == "newspaper"
+  end
+
   def is_online_resource?(record)
     record.try(:carrier_type) == "online_resource"
   end
