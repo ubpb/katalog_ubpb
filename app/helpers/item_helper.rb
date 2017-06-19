@@ -23,7 +23,7 @@ module ItemHelper
 
     case location
     when /zentrum.+sprachlehre|zfs/i
-      link_to location, "http://www.uni-paderborn.de/zfs/wir-ueber-uns/mediathek/", target: "_blank"
+      link_to location, "http://www.uni-paderborn.de/zfs/wir-ueber-uns/ueber-die-mediathek/", target: "_blank"
     when /ieman/i
       link_to location, "http://www.ieman.de", target: "_blank"
     when /imt.+medien/i
