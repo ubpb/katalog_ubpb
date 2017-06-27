@@ -12,6 +12,7 @@ class UpdateUserPasswordService < Servizio::Service
   validates_presence_of :current_password
   validates_presence_of :new_password
   validates_presence_of :new_password_confirmation
+  validates_length_of   :new_password, minimum: 6
   validates_confirmation_of :new_password
   validates_distinctness_of :new_password, from: :current_password
   validates_presence_of :user
