@@ -10,11 +10,15 @@ class PasswordsController < ApplicationController
   def update
     @password_form = PasswordForm.new(password_params)
 
-    if @password_form.valid? && ils_adapter.update_user(type: "password", user: @user, new_password: @password_form.password) && @user.clear_password_reset_token!
-      flash[:success] = t(".flash_success")
-      redirect_to(new_session_path)
+    if @password_form.valid?
+      if ils_adapter.update_user(type: "password", user: @user, new_password: @password_form.password) && @user.clear_password_reset_token!
+        flash[:success] = t(".flash_success")
+        redirect_to(new_session_path)
+      else
+        flash[:error] = t(".flash_error")
+        redirect_to(new_session_path)
+      end
     else
-      flash[:error] = t(".flash_error")
       render :edit
     end
   end
