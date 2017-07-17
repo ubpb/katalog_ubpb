@@ -144,7 +144,7 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
     item.must_be_ordered_from_closed_stack = begin
       collection.try(:downcase).try(:include?, "maga") &&
       (item.availability == :available || item.availability == :restricted_available) &&
-      !(["Seminarapparat", "Tischapparat", "Handapparat"].include?(item.item_status))
+      !(["Seminarapparat", "Tischapparat", "Handapparat", "Buchbinder"].include?(item.item_status))
     end
   end
 
