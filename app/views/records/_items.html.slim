@@ -76,9 +76,15 @@ h4 Exemplare
                 td
                   = value_or_default(item_location(item))
                 td
-                  = t(".status.#{item.status}", expected_date: item.expected_date ? l(item.expected_date) : nil, default: item.status)
+                  - if (item.item_status == "Seminarapparat")
+                    = "–"
+                  - else
+                    = t(".status.#{item.status}", expected_date: item.expected_date ? l(item.expected_date) : nil, default: item.status)
                 td
-                  = item.due_date ? l(item.due_date) : "–"
+                  - if (item.item_status == "Seminarapparat")
+                    = "–"
+                  - else
+                    = item.due_date ? l(item.due_date) : "–"
 
                 - if has_note
                   td == note(item)
