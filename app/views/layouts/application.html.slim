@@ -22,9 +22,7 @@ html
     = render "piwik_tracking"
 
   body#top
-    - global_message_file = "#{Rails.root}/config/GLOBAL_MESSAGE.html.slim"
-    - if File.exists?(global_message_file)
-      = render file: global_message_file
+    = render_global_message
 
     #navbar-wrapper
       .container = render "navbar"

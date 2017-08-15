@@ -1,6 +1,7 @@
 class Config
   include ActiveModel::Model
 
+  attr_accessor :global_message_file
   attr_accessor :piwik_domain
   attr_accessor :piwik_site_id
   attr_accessor :ils_adapter

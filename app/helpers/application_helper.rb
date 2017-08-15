@@ -2,6 +2,13 @@ module ApplicationHelper
   CLOSED_STOCK_THRESHOLD = "1985"
   JOURNAL_SIGNATURE_PATTERN = /\d\d[a-zA-Z]\d{1,4}/ # don't use \w as it includes numbers
 
+  def render_global_message
+    global_message_file = KatalogUbpb.config.global_message_file
+    if global_message_file && File.exists?(global_message_file)
+      render(file: global_message_file)
+    end
+  end
+
   def async_content(identifier)
     content_tag(:div, class: "async-content-placeholder", "data-async-content" => identifier, style: "text-align: center") do
       concat content_tag(:i, "", class: "fa fa-spinner fa-spin", style: "font-size: 44px;")
