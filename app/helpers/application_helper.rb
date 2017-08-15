@@ -5,7 +5,7 @@ module ApplicationHelper
   def render_global_message
     global_message_file = KatalogUbpb.config.global_message_file
     if global_message_file && File.exists?(global_message_file)
-      render(file: global_message_file)
+      render(inline: File.read(global_message_file))
     end
   end
 
