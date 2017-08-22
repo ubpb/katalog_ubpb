@@ -5,6 +5,7 @@ class RecordsController < ApplicationController
     @referer_path = params[:referer_path]
 
     if @search_request = search_request_from_params
+      flash.keep
       flash[:search_request] = @search_request.to_h
       return redirect_to(record_path(request.query_parameters.except(:search_request)))
     elsif serialized_search_request = flash[:search_request]
