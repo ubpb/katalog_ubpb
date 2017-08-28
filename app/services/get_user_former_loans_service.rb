@@ -15,11 +15,7 @@ class GetUserFormerLoansService < Servizio::Service
   validates_presence_of :ils_user_id
 
   def call
-    ils_adapter_result = ils_adapter.get_user_former_loans(ils_user_id)
-
-    if limit
-      ils_adapter_result = ils_adapter_result.class.new(former_loans: ils_adapter_result.take(limit))
-    end
+    ils_adapter_result = ils_adapter.get_user_former_loans(ils_user_id, limit: limit)
 
     update_records!(ils_adapter_result, search_engine_adapter)
     strip_source!(ils_adapter_result)
