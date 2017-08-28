@@ -7,6 +7,6 @@ class GetUserWatchListsService < Servizio::Service
   validates_presence_of :user
 
   def call
-    user.watch_lists.includes(@include)
+    user.watch_lists.includes(@include).order("name asc")
   end
 end
