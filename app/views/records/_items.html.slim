@@ -116,12 +116,14 @@ javascript:
 
           $.getJSON(url, function(result) {
             var locationStrings = $.map(result.locations, function(location) {
-              var locationLabel = location.display_name || "Ebene " + location.identifier
-              var shelfLabel = location.shelves.length > 1 ? "Regale" : "Regal"
-              var shelfIdentifiers = location.shelves.map(function(shelf) { return shelf.identifier })
+              if (!location.closed_stack) {
+                var locationLabel = location.display_name || "Ebene " + location.identifier
+                var shelfLabel = location.shelves.length > 1 ? "Regale" : "Regal"
+                var shelfIdentifiers = location.shelves.map(function(shelf) { return shelf.identifier })
 
-              var newLocationValue = locationLabel + ", " + shelfLabel + ": " + shelfIdentifiers.join(", ")
-              return newLocationValue;
+                var newLocationValue = locationLabel + ": " + shelfLabel + ": " + shelfIdentifiers.join(", ")
+                return newLocationValue;
+              }
             });
 
             $(elem).html(locationStrings.join("<br/>"));
