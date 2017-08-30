@@ -117,7 +117,7 @@ javascript:
           $.getJSON(url, function(result) {
             var locationStrings = $.map(result.locations, function(location) {
               if (!location.closed_stack) {
-                var locationLabel = location.display_name || "Ebene " + location.identifier
+                var locationLabel = location.display_name
                 var shelfLabel = location.shelves.length > 1 ? "Regale" : "Regal"
                 var shelfIdentifiers = location.shelves.map(function(shelf) { return shelf.identifier })
 
