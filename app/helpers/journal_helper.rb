@@ -51,4 +51,8 @@ module JournalHelper
     journal_stocks.try(:all?) { |journal_stock| !located_outside_ubpb?(journal_stock) }
   end
 
+  def has_p00_location?(journal_stocks)
+    journal_stocks.try(:any?) { |journal_stock| journal_stock["signature"]&.starts_with?("P00") } || false
+  end
+
 end
