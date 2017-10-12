@@ -111,8 +111,11 @@ class RecordsController < ApplicationController
 
         # Check if the current user can create a hold request for the current record
         @can_create_hold_request = holdable_items.try(:count) > 0 && @hold_request.blank?
-        # Vormerkungen sind nicht möglich, solange min. ein ausleihbares Exemplar existiert
-        @can_create_hold_request = false if @items.any?{|i| i.status == :available || i.status == :reshelving}
+        # Vormerkungen sind nicht möglich, solange min. ein verfügbares ausleihbares Exemplar existiert
+        @can_create_hold_request = false if @items.any?{ |i|
+          (i.availability == :available && i.status == :available) ||
+          (i.availability == :available && i.status == :reshelving)
+        }
       end
     end
 
