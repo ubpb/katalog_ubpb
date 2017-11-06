@@ -12,17 +12,13 @@ class GetUserService < Servizio::Service
     elsif api_key.present?
       User.find_by(api_key: api_key)
     elsif username.present?
-      if adapter.blank?
-        User.find_by(ilsuserid: username)
-      else
-        get_user_result = adapter.get_user(username)
+      get_user_result = adapter.get_user(username)
 
-        if get_user_result.present?
-          # keep in mind that the adapter result id is the determining ils user id, *not* username, especially for create
-          create_or_update_user!(get_user_result)
-        else
-          errors[:call] = :user_not_found
-        end
+      if get_user_result.present?
+        # keep in mind that the adapter result id is the determining ils user id, *not* username, especially for create
+        create_or_update_user!(get_user_result)
+      else
+        errors[:call] = :user_not_found
       end
     end
   rescue
@@ -33,27 +29,26 @@ private
 
   def create_or_update_user!(user_result)
     User.transaction do
-      if user = User.find_by(ilsuserid: user_result.id)
-        user.update_attributes!(
-          :ilsusername   => user_result.username,
-          :email_address => user_result.email_address,
-          :expiry_date   => user_result.expiry_date,
-          :first_name    => user_result.first_name,
-          :last_name     => user_result.last_name
-        )
+      user = User.where(
+        'ilsuserid=:userid OR ilsusername=:username', userid: user_result.id, username: user_result.username
+      ).first_or_initialize
 
-        user
-      else
-        User.create!(
-          :ilsuserid     => user_result.id,
-          :ilsusername   => user_result.username,
-          :email_address => user_result.email_address,
-          :expiry_date   => user_result.expiry_date,
-          :first_name    => user_result.first_name,
-          :last_name     => user_result.last_name
-        )
-      end
+      user.attributes = user_attributes(user_result)
+      user.save!
+
+      user
     end
+  end
+
+  def user_attributes(user_result)
+    {
+      :ilsuserid     => user_result.id,
+      :ilsusername   => user_result.username,
+      :email_address => user_result.email_address,
+      :expiry_date   => user_result.expiry_date,
+      :first_name    => user_result.first_name,
+      :last_name     => user_result.last_name
+    }
   end
 
 end
