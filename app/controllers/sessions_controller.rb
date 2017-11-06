@@ -15,8 +15,7 @@ class SessionsController < ApplicationController
 
     if @authenticate_user.valid?
       if @authenticate_user.call!.succeeded?
-        if @authenticate_user.result == true
-          user = GetUserService.call(
+        if @authenticate_user.result == true && user = GetUserService.call(
             get_user_params.merge(
               adapter: KatalogUbpb.config.ils_adapter.instance,
               username: get_user_params["username"][/[a-zA-Z0-9]{0,10}/] # fix barcode reader issue
