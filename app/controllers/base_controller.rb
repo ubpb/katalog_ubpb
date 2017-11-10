@@ -51,4 +51,6 @@ class BaseController < ActionController::Base
       IPAddr.new(_network_or_ip_address) === ip_address
     end
   end
+  helper_method :on_campus?
+
 end

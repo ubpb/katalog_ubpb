@@ -48,17 +48,13 @@ module ResourceLinksHelper
   def vpn_info
     # In case of request from an ip rage outside of Uni Paderborn
     # show hint about VPN.
-    unless request_from_campus?
+    unless on_campus?(request.remote_ip)
       content_tag(:div, class: "vpn-info") do
         content_tag(:a, href: "http://www.ub.uni-paderborn.de/recherche/hinweise-zur-nutzung-der-elektronischen-angebote/elektronische-informationsmedien-im-fernzugriff-vpn-shibboleth/", target: "_blank") do
           '<i class="fa fa-exclamation-triangle"></i> Gegebenenfalls nur via VPN oder Shibboleth (DFN-AAI) erreichbar'.html_safe
         end
       end.html_safe
     end
-  end
-
-  def request_from_campus?
-    IPAddr.new("131.234.0.0/16") === (request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip)
   end
 
 private
