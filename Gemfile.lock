@@ -425,4 +425,4 @@ DEPENDENCIES
   uservoice-ruby (~> 0.0.11)
 
 BUNDLED WITH
-   1.15.4
+   1.16.0

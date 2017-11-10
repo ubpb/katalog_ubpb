@@ -14,6 +14,11 @@
             search_request: search_request
 
     .panel-body
+      - if scope.id == "primo_central" && !on_campus?(request.remote_ip)
+        .alert.alert-info
+          => fa_icon("exclamation-triangle")
+          = t("searches.index.search_result.primo_central_restricted_search_info").html_safe
+
       - if search_result.message.present? && search_result.message == "results.note.expanded_search.pc"
         .alert.alert-info
           => fa_icon("info-circle")

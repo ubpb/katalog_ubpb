@@ -31,3 +31,8 @@ de:
       search_result:
         no_hits: ~> searches.index.no_records_found
         primo_central_expanded_search_message: "Ihre initiale Suche erbrachte nur wenige oder gar keine Ergebnisse. Die unten angezeigten Ergebnisse wurden durch eine automatische Erweiterung Ihrer Suche gefunden."
+        primo_central_restricted_search_info: >
+          Sie nutzen Primo Central außerhalb des Netzwerks der Uni Paderborn. Suchergebnisse können aufgrund
+          lizenzrechtlicher Anforderungen ausgeblendet werden. Um immer alle möglichen Ergebnisse sehen zu können,
+          nutzen Sie bitte den Netzwerkzugang auf dem Campus oder wählen sich mit
+          <a target="_blank" href="http://www.ub.uni-paderborn.de/recherche/hinweise-zur-nutzung-der-elektronischen-angebote/elektronische-informationsmedien-im-fernzugriff-vpn-shibboleth/#c227961">VPN <i class="fa fa-question-circle-o"></i></a> ein.
