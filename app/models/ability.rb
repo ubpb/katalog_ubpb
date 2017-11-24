@@ -16,6 +16,8 @@ class Ability
       #
       if student?(current_user)
         cannot :call, UpdateUserEmailAddressService
+      elsif employee?(current_user)
+        cannot :call, UpdateUserEmailAddressService
       else
         can :call, UpdateUserEmailAddressService do |_instance|
           current_user.ilsuserid == _instance.ilsuserid
@@ -74,17 +76,14 @@ class Ability
     can :call, SearchRecordsService
   end
 
-  private
+private
 
-  def student?(ilsuserid_or_user)
-    regex = /\APS/i
-
-    if ilsuserid_or_user.is_a?(String)
-      !!ilsuserid_or_user[regex]
-    elsif ilsuserid_or_user.respond_to?(:ilsusername)
-      !!ilsuserid_or_user.send(:ilsusername).try(:[], regex)
-    else
-      raise ArgumentError.new("Parameter has to be a/or respond to ilsuserid!")
-    end
+  def student?(user)
+    !!(user.ilsusername =~ /\APS/i)
   end
+
+  def employee?(user)
+    !!(user.ilsusername =~ /\APA/i)
+  end
+
 end
