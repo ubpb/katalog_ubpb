@@ -24,7 +24,7 @@ class Compatibility::SearchesController < ApplicationController
   private
 
   def former_catalog_search?(params = self.params)
-    KatalogUbpb::PermalinkTranslator.recognizes?(params)
+    KatalogUbpb::PermalinkTranslator.recognizes?(params_to_hash(params))
   end
 
   def log_former_catalog_search!
@@ -32,8 +32,12 @@ class Compatibility::SearchesController < ApplicationController
   end
 
   def redirect_to_translated_searches_path(params = self.params)
-    new_params = KatalogUbpb::PermalinkTranslator.translate(params)
+    new_params = KatalogUbpb::PermalinkTranslator.translate(params_to_hash(params))
     redirect_to searches_path(new_params)
+  end
+
+  def params_to_hash(params)
+    params.respond_to?(:to_unsafe_h) ? params.to_unsafe_h : params
   end
 
 end

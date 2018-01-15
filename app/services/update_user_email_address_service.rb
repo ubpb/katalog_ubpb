@@ -23,6 +23,6 @@ class UpdateUserEmailAddressService < Servizio::Service
       end
     end
   rescue Skala::Adapter::Error
-    errors[:call] = :failed and return nil
+    errors.add(:call, :failed) and return nil
   end
 end

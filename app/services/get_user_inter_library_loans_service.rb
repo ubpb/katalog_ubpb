@@ -14,6 +14,6 @@ class GetUserInterLibraryLoansService < Servizio::Service
   def call
     ils_adapter.get_user_inter_library_loans(ils_user_id)
   rescue Skala::Adapter::Error
-    errors[:call] = :failed and return nil
+    errors.add(:call, :failed) and return nil
   end
 end

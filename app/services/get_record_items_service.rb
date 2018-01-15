@@ -39,7 +39,7 @@ class GetRecordItemsService < Servizio::Service
 
     strip_source!(ils_adapter_result)
   rescue Skala::Adapter::Error
-    errors[:call] = :failed and return nil
+    errors.add(:call, :failed) and return nil
   end
 
   private

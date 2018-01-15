@@ -17,6 +17,6 @@ class GetRecordsService < Servizio::Service
     adapter_result = adapter.get_records(ids)
     strip_source!(adapter_result)
   rescue Skala::Adapter::Error
-    errors[:call] = :failed and return nil
+    errors.add(:call, :failed) and return nil
   end
 end

@@ -12,6 +12,6 @@ class RenewUserLoanService < Servizio::Service
   def call
     adapter.renew_user_loan(ils_user_id, loan_id)
   rescue Skala::Adapter::Error
-    errors[:call] = :failed and return nil
+    errors.add(:call, :failed) and return nil
   end
 end

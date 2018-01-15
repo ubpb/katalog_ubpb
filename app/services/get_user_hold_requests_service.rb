@@ -18,6 +18,6 @@ class GetUserHoldRequestsService < Servizio::Service
     update_records!(ils_adapter_result, search_engine_adapter)
     strip_source!(ils_adapter_result)
   rescue Skala::Adapter::Error
-    errors[:call] = :failed and return nil
+    errors.add(:call, :failed) and return nil
   end
 end

@@ -20,11 +20,14 @@ class ApplicationController < BaseController
   helper_method :global_message
   helper_method :current_path
 
-  # rescues
-  rescue_from ActionController::RedirectBackError do
-    redirect_to root_path
+  # Sentry error reporting
+  before_action :set_raven_context
+  private def set_raven_context
+    #Raven.user_context(id: session[:current_user_id])
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 
+  # rescues
   rescue_from MalformedSearchRequestError do
     redirect_to searches_path
   end

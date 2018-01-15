@@ -1,7 +1,7 @@
 .row
   / the col order has to be "reversed" because bootstrap is mobile first
   / http://stackoverflow.com/questions/18057270/column-order-manipulation-using-col-lg-push-and-col-lg-pull-in-twitter-bootstrap
-  - if search_result.facets.present?
+  - if search_result&.facets.present?
     .col-md-3.col-md-push-9
       = render_relative "./facets",
         facets: search_result.facets,
@@ -9,7 +9,7 @@
         search_request: search_request
 
   / if there are no facets, make the search result full width
-  div(class="#{search_result.facets.present? ? 'col-md-9 col-md-pull-3' : 'col-md-12'}")
+  div(class="#{search_result&.facets.present? ? 'col-md-9 col-md-pull-3' : 'col-md-12'}")
     - if search_result.hits.present?
       = render_relative "./hit_list",
         notes: notes,

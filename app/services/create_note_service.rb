@@ -14,6 +14,6 @@ class CreateNoteService < Servizio::Service
   def call
     user.notes.create!(record_id: record_id, scope_id: scope_id, value: value)
   rescue ActiveRecord::RecordInvalid
-    errors[:call] = :failed and return nil
+    errors.add(:call, :failed) and return nil
   end
 end

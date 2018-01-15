@@ -28,7 +28,7 @@ class UpdateNoteService < Servizio::Service
     if note.update_attributes(value: new_value)
       note
     else
-      errors[:call] = :failed and return nil
+      errors.add(:call, :failed) and return nil
     end
   end
 end

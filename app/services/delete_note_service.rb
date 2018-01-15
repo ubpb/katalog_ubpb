@@ -12,7 +12,7 @@ class DeleteNoteService < Servizio::Service
 
   def call
     unless note.destroy
-      errors[:call] = :failed and return nil
+      errors.add(:call, :failed) and return nil
     end
   end
 end

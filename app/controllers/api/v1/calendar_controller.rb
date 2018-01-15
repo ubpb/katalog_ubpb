@@ -18,14 +18,14 @@ class Api::V1::CalendarController < Api::V1::ApplicationController
       end
 
       format.text do
-        render text: to_raw_ics(
+        render plain: to_raw_ics(
           group_loans_by_due_date(loans),
           group_provisions_by_due_date(provisions)
         )
       end
 
       format.ics do
-        render text: to_raw_ics(
+        render plain: to_raw_ics(
           group_loans_by_due_date(loans),
           group_provisions_by_due_date(provisions)
         )
