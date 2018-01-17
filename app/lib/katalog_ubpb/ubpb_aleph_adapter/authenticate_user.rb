@@ -9,12 +9,13 @@ class KatalogUbpb::UbpbAlephAdapter::AuthenticateUser < Skala::AlephAdapter::Aut
     ).try do |_response|
       if  _response.include?("<z303>")
         true
-      elsif  _response.include?("error")
-        error_log(_response)
+      elsif _response.include?("error")
+        #error_log(_response)
         false
       else
-        error_log(_response)
-        StandardError.new
+        #error_log(_response)
+        #StandardError.new
+        false
       end
     end
   end
