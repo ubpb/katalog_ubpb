@@ -370,7 +370,6 @@ DEPENDENCIES
   rinku (~> 2.0.0)
   roadie-rails (~> 1.2.1)
   sass-rails (~> 5.0.6)
-  servizio (~> 0.6)
   simple_form (~> 3.5.0)
   skala (~> 1.1.9)!
   slim (~> 3.0.7)

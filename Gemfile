@@ -25,7 +25,6 @@ gem "rails-i18n",            "~> 5.0.0"
 gem "rinku",                 "~> 2.0.0"
 gem "roadie-rails",          "~> 1.2.1"
 gem "sass-rails",            "~> 5.0.6"
-gem "servizio",              "~> 0.6"
 gem "simple_form",           "~> 3.5.0"
 gem "skala",                 "~> 1.1.9", github: "ubpb/skala", branch: :master
 gem "slim",                  "~> 3.0.7"
