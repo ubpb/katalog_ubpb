@@ -13,6 +13,6 @@ class DeleteWatchListEntryService < Servizio::Service
   def call
     watch_list_entry.destroy
   rescue #ActiveRecord::RecordInvalid
-    errors.add(:call, :failed) and return nil
+    errors.add(:base, :failed) and return nil
   end
 end

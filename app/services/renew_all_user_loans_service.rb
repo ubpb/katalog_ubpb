@@ -15,20 +15,20 @@ class RenewAllUserLoansService < Servizio::Service
     )
 
     if user_loans.blank?
-      errors.add(:call, :no_loans_present) and return nil
+      errors.add(:base, :no_loans_present) and return nil
     else
       renew_loans_result = adapter.renew_user_loans(ils_user_id)
       renewed_loans      = renew_loans_result.renewed_loans
 
       if renewed_loans.count == 0
-        errors.add(:call, :no_loans_could_be_renewed)
+        errors.add(:base, :no_loans_could_be_renewed)
       elsif user_loans.count != renewed_loans.count
-        errors.add(:call, :not_all_loans_could_be_renewed)
+        errors.add(:base, :not_all_loans_could_be_renewed)
       end
 
       return renewed_loans
     end
   rescue Skala::Adapter::Error
-    errors.add(:call, :failed) and return nil
+    errors.add(:base, :failed) and return nil
   end
 end

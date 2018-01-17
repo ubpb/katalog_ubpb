@@ -15,6 +15,6 @@ class CreateWatchListService < Servizio::Service
   def call
     user.watch_lists.create!(description: description, name: name)
   rescue ActiveRecord::RecordInvalid
-    errors.add(:call, :failed) and return nil
+    errors.add(:base, :failed) and return nil
   end
 end

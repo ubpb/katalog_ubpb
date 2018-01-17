@@ -21,7 +21,7 @@ class UpdateUserPasswordService < Servizio::Service
   def call
     adapter.update_user(type: "password", user: user, new_password: new_password)
   rescue Skala::Adapter::Error
-    errors.add(:call, :failed) and return nil
+    errors.add(:base, :failed) and return nil
   end
 
   #

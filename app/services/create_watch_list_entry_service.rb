@@ -21,6 +21,6 @@ class CreateWatchListEntryService < Servizio::Service
       scope_id: scope_id
     )
   rescue ActiveRecord::RecordInvalid
-    errors.add(:call, :failed) and return nil
+    errors.add(:base, :failed) and return nil
   end
 end

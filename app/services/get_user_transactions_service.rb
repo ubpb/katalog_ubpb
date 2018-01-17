@@ -23,6 +23,6 @@ class GetUserTransactionsService < Servizio::Service
       strip_source!(ils_adapter_result)
     end
   rescue Skala::Adapter::Error
-    errors.add(:call, :failed) and return nil
+    errors.add(:base, :failed) and return nil
   end
 end

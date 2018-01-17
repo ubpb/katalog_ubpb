@@ -12,7 +12,7 @@ class DeleteWatchListService < Servizio::Service
 
   def call
     unless watch_list.destroy
-      errors.add(:call, :failed) and return nil
+      errors.add(:base, :failed) and return nil
     end
   end
 end

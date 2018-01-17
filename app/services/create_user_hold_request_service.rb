@@ -12,10 +12,10 @@ class CreateUserHoldRequestService < Servizio::Service
   def call
     adapter.create_user_hold_request(ils_user_id, record_id).try(:success)
   rescue Skala::Adapter::CreateUserHoldRequest::AlreadyRequestedError
-    errors.add(:call, :already_requested) and return nil
+    errors.add(:base, :already_requested) and return nil
   rescue Skala::Adapter::BadRequestError
-    errors.add(:call, :bad_request) and return nil
+    errors.add(:base, :bad_request) and return nil
   rescue Skala::Adapter::RequestFailedError
-    errors.add(:call, :request_failed) and return nil
+    errors.add(:base, :request_failed) and return nil
   end
 end

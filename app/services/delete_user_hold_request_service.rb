@@ -12,8 +12,8 @@ class DeleteUserHoldRequestService < Servizio::Service
   def call
     adapter.delete_user_hold_request(ils_user_id, id)
   rescue Skala::Adapter::DeleteUserHoldRequest::HoldRequestMissingError
-    errors.add(:call, :hold_request_missing) and return nil
+    errors.add(:base, :hold_request_missing) and return nil
   rescue Skala::Adapter::Error
-    errors.add(:call, :failed) and return nil
+    errors.add(:base, :failed) and return nil
   end
 end

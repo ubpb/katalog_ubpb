@@ -28,7 +28,7 @@ class UpdateWatchListService < Servizio::Service
     if @watch_list.update_attributes(name: new_name, description: new_description)
       @watch_list
     else
-      errors.add(:call, :failed) and return nil
+      errors.add(:base, :failed) and return nil
     end
   end
 end

@@ -19,6 +19,6 @@ class AuthenticateUserService < Servizio::Service
     Rails.logger.error(e.message)
     Rails.logger.error(e.backtrace.join("\n"))
 
-    errors.add(:call, :failed) and return nil
+    errors.add(:base, :failed) and return nil
   end
 end

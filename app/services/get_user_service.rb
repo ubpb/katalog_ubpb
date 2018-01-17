@@ -18,11 +18,11 @@ class GetUserService < Servizio::Service
         # keep in mind that the adapter result id is the determining ils user id, *not* username, especially for create
         create_or_update_user!(get_user_result)
       else
-        errors.add(:call, :user_not_found)
+        errors.add(:base, :user_not_found)
       end
     end
   rescue
-    errors.add(:call, :failed) and return nil
+    errors.add(:base, :failed) and return nil
   end
 
 private
