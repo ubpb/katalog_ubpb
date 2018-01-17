@@ -29,16 +29,5 @@ module KatalogUbpb
     routes.default_url_options = {
       host: ENV["KATALOG_HOST"] || "localhost:3000"
     }
-
-    # Sentry error reporting
-    Raven.configure do |config|
-      config.dsn = 'https://247cd30d993c4750bb05736e0a59f3a8:e64935fb134948c2841b41497e65214c@sentry.io/272525'
-      config.sanitize_fields = Rails.application.config.filter_parameters.map(&:to_s)
-      config.environments = %w[ production ]
-      config.excluded_exceptions += [
-        'ActionController::RoutingError',
-        'ActiveRecord::RecordNotFound'
-      ]
-    end
   end
 end

@@ -34,9 +34,6 @@ gem "turbolinks",            "~> 2.5.3"
 gem "uglifier",              "~> 3.0"
 gem "uservoice-ruby",        "~> 0.0.11"
 
-gem "sentry-raven"
-
-
 #
 # rails-assets.org
 #
