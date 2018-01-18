@@ -20,15 +20,15 @@ class RecordsController < ApplicationController
       ::NewRelic::Agent.add_custom_attributes(search_request: @search_request.as_json) # needs to be a hash
     end
 
-    get_records_result = GetRecordsService.call(
+    get_record_result = GetRecordsService.call(
       adapter: @scope.search_engine_adapter.instance,
       ids: [params[:id]]
-    )
+    ).first
 
-    @record = get_records_result.first.try(:record)
+    @record = get_record_result.try(:record)
 
-    unless @record
-      flash[:error] = t(".record_unavailable")
+    if get_record_result.found == false || @record.blank?
+      flash[:error] = t(".record_unavailable", id: @record.id)
 
       if @search_request
         return redirect_to(searches_path(search_request: @search_request))

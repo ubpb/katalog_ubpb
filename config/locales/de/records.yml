@@ -1,5 +1,7 @@
 de:
   records:
+    show:
+      record_unavailable: Der Titel mit der ID '%{id}' existiert nicht
     items:
       signature: Signatur
       item_status: Leihart
