@@ -43,4 +43,8 @@ class Config
     scopes.find { |_scope| _scope.id == scope_id }
   end
 
+  def shelf_finder
+    @shelf_finder || {}
+  end
+
 end
