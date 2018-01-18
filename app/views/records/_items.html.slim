@@ -74,7 +74,10 @@ h4 Exemplare
                 td
                   = value_or_default(item.item_status)
                 td
-                  = value_or_default(item_location(item))
+                  - if KatalogUbpb.config.shelf_finder["enabled"] && (["Normalausleihe", "Kurzausleihe"].include?(item.item_status))
+                    .item-location(data={shelf_finder_code: item.signature}) = value_or_default(item_location(item))
+                  - else
+                    = value_or_default(item_location(item))
                 td
                   - if (item.item_status == "Seminarapparat")
                     = "–"
@@ -100,3 +103,33 @@ h4 Exemplare
                       - else
                         = t(".login_cso")
 
+- if KatalogUbpb.config.shelf_finder["enabled"]
+  javascript:
+    $(function() {
+      $("[data-shelf-finder-code]").each(function(index, elem) {
+        var code = $(elem).data("shelf-finder-code");
+
+        if (code) {
+          var baseUrl = "#{KatalogUbpb.config.shelf_finder['base_url']}"
+
+          if (baseUrl) {
+            var url = baseUrl + "/api/locate/" + code;
+
+            $.getJSON(url, function(result) {
+              var locationStrings = $.map(result.locations, function(location) {
+                if (!location.closed_stack) {
+                  var locationLabel = location.display_name
+                  var shelfLabel = location.shelves.length > 1 ? "Regale" : "Regal"
+                  var shelfIdentifiers = location.shelves.map(function(shelf) { return shelf.identifier })
+
+                  var newLocationValue = locationLabel + ": " + shelfLabel + ": " + shelfIdentifiers.join(", ")
+                  return newLocationValue;
+                }
+              });
+
+              $(elem).html(locationStrings.join("<br/>"));
+            });
+          }
+        }
+      });
+    })
