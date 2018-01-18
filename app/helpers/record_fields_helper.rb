@@ -180,11 +180,17 @@ module RecordFieldsHelper
 
   def links_to_toc(record, print_mode: false)
     record.toc_link.map.with_index do |link, index|
+      url = link.url
+
+      unless url =~ /\A(http|https):\/\//
+        url = "http://#{url}"
+      end
+
       if print_mode
-        link_to link.url
+        link_to url
       else
         label = index == 0 ? "Inhaltsverzeichnis anzeigen" : "Weiteres Inhaltsverzeichnis anzeigen"
-        link_to label, link.url, target: "_blank"
+        link_to label, url, target: "_blank"
       end
     end.join("<br/>").html_safe
   end
