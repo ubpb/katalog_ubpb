@@ -19,6 +19,7 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
       add_signature!(_item, doc)
       add_location!(_item, doc)
       set_closed_stack!(_item, doc)
+      set_collection_code!(_item, doc)
 
       _item
     end
@@ -146,6 +147,11 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
       (item.availability == :available || item.availability == :restricted_available) &&
       !(["Seminarapparat", "Tischapparat", "Handapparat", "Buchbinder"].include?(item.item_status))
     end
+  end
+
+  def set_collection_code!(item, doc)
+    collection_code = xpath(doc, "./z30-collection-code")
+    item.collection_code = collection_code
   end
 
   def add_location!(item, doc)
