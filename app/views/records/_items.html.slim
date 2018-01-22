@@ -122,7 +122,7 @@ h4 Exemplare
                   var shelfLabel = location.shelves.length > 1 ? "Regale" : "Regal"
                   var shelfIdentifiers = location.shelves.map(function(shelf) { return shelf.identifier })
 
-                  var newLocationValue = locationLabel + ", " + shelfLabel + ": " + shelfIdentifiers.join(", ")
+                  var newLocationValue = locationLabel + ", " + shelfLabel + " " + shelfIdentifiers.join(", ")
                   return newLocationValue;
                 }
               });
