@@ -62,7 +62,8 @@ private
   class LinksFilter
     BLACKLIST = [
       /ebrary.com/,
-      /contentreserve.com/
+      /contentreserve.com/,
+      /digitale-objekte.hbz-nrw.de/
     ]
 
     PRIORITY_LIST = [
