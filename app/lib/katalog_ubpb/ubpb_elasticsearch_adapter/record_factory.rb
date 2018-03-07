@@ -24,8 +24,10 @@ class KatalogUbpb::UbpbElasticsearchAdapter::RecordFactory
       media_type: source["erscheinungsform_facet"],
       carrier_type: source["materialtyp_facet"],
       format: source["format"],
-      resource_link: map_urls(source["resource_link"]),
-      toc_link: map_urls(source["link_to_toc"]),
+      resource_link: map_urls(source["resource_link"]), # DEPRECATED
+      toc_link: map_urls(source["link_to_toc"]), # DEPRECATED
+      resource_links: source["resource_links"],
+      fulltext_links: source["fulltext_links"],
       is_part_of: map_is_part_of(source["is_part_of"]),
       relation: map_relation(source["relation"]),
       subject: source["subject"],

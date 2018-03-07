@@ -178,8 +178,8 @@ module RecordFieldsHelper
     end
   end
 
-  def links_to_toc(record, print_mode: false)
-    record.toc_link.map.with_index do |link, index|
+  def resource_links(record, print_mode: false)
+    record.resource_links.map.with_index do |link, index|
       url = link.url
 
       unless url =~ /\A(http|https):\/\//
@@ -189,7 +189,7 @@ module RecordFieldsHelper
       if print_mode
         link_to url
       else
-        label = index == 0 ? "Inhaltsverzeichnis anzeigen" : "Weiteres Inhaltsverzeichnis anzeigen"
+        label = link.label.presence || "n.n."
         link_to label, url, target: "_blank"
       end
     end.join("<br/>").html_safe

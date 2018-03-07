@@ -26,7 +26,7 @@ gem "rinku",                 "~> 2.0.0"
 gem "roadie-rails",          "~> 1.2.1"
 gem "sass-rails",            "~> 5.0.6"
 gem "simple_form",           "~> 3.5.0"
-gem "skala",                 "~> 1.1.9", github: "ubpb/skala", branch: :master
+gem "skala",                 "~> 1.2.0", github: "ubpb/skala", branch: :master
 gem "slim",                  "~> 3.0.7"
 gem "sqlite3",               "~> 1.3"
 gem "turbolinks",            "~> 2.5.3"

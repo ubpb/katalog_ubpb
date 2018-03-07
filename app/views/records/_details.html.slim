@@ -28,7 +28,7 @@
         dt = "Bände"
         dd.volumes = ractive_component "app.components.ShowVolumes", scope: scope, superorder_id: ht_number
 
-      - if (links = resource_links(record)).present? && (print_links = resource_links(record, print_mode: true)).present?
+      - if (links = fulltext_links(record)).present? && (print_links = fulltext_links(record, print_mode: true)).present?
         dt = "Links"
         dd.resource-links
           .hidden-print = links
@@ -73,10 +73,10 @@
 
   .col-sm-6
     dl
-      dt = "Inhaltsverzeichnisse"
+      dt = "Links zu Inhalten"
       dd.toc
-        .hidden-print = value_or_default(links_to_toc(record))
-        .visible-print-block = value_or_default(links_to_toc(record, print_mode: true))
+        .hidden-print = value_or_default(resource_links(record))
+        .visible-print-block = value_or_default(resource_links(record, print_mode: true))
 
       dt = "Schlagwörter"
       dd.toc = value_or_default(subject(record, link: true, scope: scope))

@@ -1,6 +1,6 @@
-module ResourceLinksHelper
+module FulltextLinksHelper
 
-  def resource_links(record, default_link_only: false, print_mode: false)
+  def fulltext_links(record, default_link_only: false, print_mode: false)
     openurl            = record.try(:openurl)
     is_online_resource = record.try(:carrier_type) == "online_resource"
     is_data_storage    = record.try(:carrier_type) == "data_storage"
