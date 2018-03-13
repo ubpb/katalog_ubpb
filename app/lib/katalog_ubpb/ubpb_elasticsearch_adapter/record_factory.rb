@@ -26,8 +26,8 @@ class KatalogUbpb::UbpbElasticsearchAdapter::RecordFactory
       format: source["format"],
       resource_link: map_urls(source["resource_link"]), # DEPRECATED
       toc_link: map_urls(source["link_to_toc"]), # DEPRECATED
-      resource_links: source["resource_links"],
-      fulltext_links: source["fulltext_links"],
+      resource_links: force_array(source["resource_links"]),
+      fulltext_links: force_array(source["fulltext_links"]),
       is_part_of: map_is_part_of(source["is_part_of"]),
       relation: map_relation(source["relation"]),
       subject: source["subject"],
@@ -47,6 +47,14 @@ class KatalogUbpb::UbpbElasticsearchAdapter::RecordFactory
   end
 
   private
+
+  def self.force_array(value)
+    if value.is_a?(Array)
+      value
+    else
+      [value]
+    end
+  end
 
   def self.map_urls(value)
     [value].flatten(1).compact.map do |url|
