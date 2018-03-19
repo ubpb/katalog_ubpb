@@ -35,6 +35,12 @@
           .visible-print-block = print_links
           .hidden-print = vpn_info
 
+      - if (links = resource_links(record)).present? && (print_links = resource_links(record, print_mode: true)).present?
+        dt = "Links zu Inhalten"
+        dd.resource-links
+          .hidden-print = links
+          .visible-print-block = print_links
+
       - if record.relation.present?
         dt = "Verknüpfte Titel"
         dd.relations = ractive_component "app.components.Relations", relations: record.relation, scope: scope
@@ -67,28 +73,14 @@
       dt = "Identifikator(en)"
       dd.identifier = value_or_default(identifier(record))
 
-      / TODO
-      /dt = "Erschienen in"
-      /dd = "–"
-
   .col-sm-6
     dl
-      dt = "Links zu Inhalten"
-      dd.toc
-        .hidden-print = value_or_default(resource_links(record))
-        .visible-print-block = value_or_default(resource_links(record, print_mode: true))
-
       dt = "Schlagwörter"
       dd.toc = value_or_default(subject(record, link: true, scope: scope))
 
       dt = "Systemstelle"
       dd.toc = value_or_default(notations(record, link: true, scope: scope))
 
-      - unless record.journal_stock.any? { |element| element["signature"].present? }
-        dt = "Signatur"
-        dd.toc = value_or_default(signature(record, link: true))
-
-      / TODO
-      / dt = "Externer Link"
-      / dd.toc = "–"
+      dt = "Signatur"
+      dd.toc = record.journal_stock.any?{ |element| element["signature"].present? } ? "–" : value_or_default(signature(record, link: true))
 
