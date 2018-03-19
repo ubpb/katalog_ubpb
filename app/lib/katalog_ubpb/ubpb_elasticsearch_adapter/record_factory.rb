@@ -49,11 +49,13 @@ class KatalogUbpb::UbpbElasticsearchAdapter::RecordFactory
   private
 
   def self.force_array(value)
-    if value.is_a?(Array)
+    array = if value.is_a?(Array)
       value
     else
       [value]
     end
+
+    array.compact
   end
 
   def self.map_urls(value)

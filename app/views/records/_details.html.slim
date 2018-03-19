@@ -29,7 +29,7 @@
         dd.volumes = ractive_component "app.components.ShowVolumes", scope: scope, superorder_id: ht_number
 
       - if (links = fulltext_links(record)).present? && (print_links = fulltext_links(record, print_mode: true)).present?
-        dt = "Links"
+        dt = "Links zum Volltext"
         dd.resource-links
           .hidden-print = links
           .visible-print-block = print_links
