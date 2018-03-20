@@ -35,12 +35,6 @@
           .visible-print-block = print_links
           .hidden-print = vpn_info
 
-      - if (links = resource_links(record)).present? && (print_links = resource_links(record, print_mode: true)).present?
-        dt = "Links zu Inhalten"
-        dd.resource-links
-          .hidden-print = links
-          .visible-print-block = print_links
-
       - if record.relation.present?
         dt = "Verknüpfte Titel"
         dd.relations = ractive_component "app.components.Relations", relations: record.relation, scope: scope
@@ -75,6 +69,11 @@
 
   .col-sm-6
     dl
+      dt = "Links zum Inhalt"
+      dd.resource-links
+        .hidden-print = value_or_default(resource_links(record))
+        .visible-print-block = value_or_default(resource_links(record, print_mode: true))
+
       dt = "Schlagwörter"
       dd.toc = value_or_default(subject(record, link: true, scope: scope))
 
