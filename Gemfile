@@ -20,7 +20,7 @@ gem "libxml-ruby",           "~> 2.9", require: "libxml" # for ActiveSupport::Xm
 gem "mysql2",                "~> 0.4.4"
 gem "ox",                    "~> 2.8.1"
 gem "rails",                 "~> 5.1.0"
-gem "rails-html-sanitizer",  "~> 1.0.3"
+gem "rails-html-sanitizer",  "~> 1.0.4"
 gem "rails-i18n",            "~> 5.0.0"
 gem "rinku",                 "~> 2.0.0"
 gem "roadie-rails",          "~> 1.2.1"
