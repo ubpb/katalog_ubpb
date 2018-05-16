@@ -1,5 +1,5 @@
 module ApplicationHelper
-  CLOSED_STOCK_THRESHOLD = "1985"
+  CLOSED_STOCK_THRESHOLD = "1995"
   JOURNAL_SIGNATURE_PATTERN = /\d\d[a-zA-Z]\d{1,4}/ # don't use \w as it includes numbers
 
   def render_global_message

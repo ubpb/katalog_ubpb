@@ -1,5 +1,5 @@
 module ItemHelper
-  CLOSED_STOCK_THRESHOLD = 1986
+  CLOSED_STOCK_THRESHOLD = 1996
   JOURNAL_SIGNATURE_PATTERN = /\d\d[a-zA-Z]\d{1,4}/ # don't use \w as it includes numbers
 
   def closed_stack?(record: nil, item: nil)

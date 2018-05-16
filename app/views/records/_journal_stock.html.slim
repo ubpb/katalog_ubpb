@@ -30,7 +30,7 @@
                     div = "nicht vorhanden: #{element['gaps'].join('; ')}"
 
                 td(style="vertical-align: middle;")
-                  - if element["signature"].present? && !located_outside_ubpb?(element) && (before?(1986, element) || closed_stock_location?(element))
+                  - if element["signature"].present? && !located_outside_ubpb?(element) && (before?(1996, element) || closed_stock_location?(element))
                     = link_to("Magazinbestellung", current_user ? new_closed_stack_order_path(z1: element["signature"]) : new_session_path(return_to: current_path, redirect: true), class: "btn btn-primary btn-xs")
 
   - if none_located_outside_ubpb?(journal_stock)
