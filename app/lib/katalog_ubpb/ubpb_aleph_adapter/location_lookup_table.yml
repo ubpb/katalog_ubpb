@@ -4,7 +4,7 @@
     end: AZY
     excl: false
   :fachgebiet: Allgemeines
-  :location: Ebene 4
+  :location: Eingangsebene
   :standortkennziffern:
   - '10'
   - '11'
@@ -56,8 +56,8 @@
   - '05'
   - '06'
   - '07'
-  - 08
-  - 09
+  - '08'
+  - '09'
   - '10'
   - '11'
   - '12'
@@ -164,7 +164,7 @@
   :fachgebiet: Bibliografischer Apparat
   :location: Eingangsebene
   :standortkennziffern:
-  - 08
+  - '08'
   :fachkennziffern: []
 - :systemstellen: !ruby/range
     begin: BEA
@@ -487,9 +487,21 @@
   - '52'
 - :systemstellen: !ruby/range
     begin: RMA
+    end: RQH
+    excl: false
+  :fachgebiet: Land- und Forstwirtschaft
+  :location: Ebene 3
+  :standortkennziffern:
+  - '40'
+  - '41'
+  - '48'
+  :fachkennziffern:
+  - '54'
+- :systemstellen: !ruby/range
+    begin: RQI
     end: RSX
     excl: false
-  :fachgebiet: Land- und Forstwirt.
+  :fachgebiet: Haushalts- u. Ernährungswiss.
   :location: Ebene 3
   :standortkennziffern:
   - '40'
