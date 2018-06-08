@@ -176,7 +176,7 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
         notation = xpath(doc, "./z30/z30-call-no").try(:[], /\A[A-Z]{1,3}/)
 
         if collection_code && notation
-          KatalogUbpb::UbpbAlephAdapter::LOCATION_LOOKUP_TABLE.find do |_row|
+          LOCATION_LOOKUP_TABLE.find do |_row|
             systemstellen_range = _row[:systemstellen]
             standortkennziffern = _row[:standortkennziffern]
 
