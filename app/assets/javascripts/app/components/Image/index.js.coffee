@@ -25,6 +25,11 @@
     <div data-ractive-guid="{{guid}}">
       {{#if state == "pending" || state == "show_image" }}
         <img src="{{src}}" style="{{style}}">
+        {{#if show_link == "true"}}
+          <div style="font-size: 80%; text-align: center">
+            <a href="http://www.buchhandel.de" target="_blank">www.buch&shy;handel.de</a>
+          </div>
+        {{/if}}
       {{/if}}
 
       {{#if state == "show_placeholder"}}

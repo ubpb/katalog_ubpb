@@ -24,6 +24,13 @@ module SearchesHelper
     end
   end
 
+  def cover_image_url(record, size: "m")
+    if isbn = record.try(:isbn).try(:first)
+      isbn = isbn.gsub("-", "")
+      api_v1_cover_image_path(isbn, size: size)
+    end
+  end
+
   def additional_record_info(record)
     parts = []
     parts << creators(record)

@@ -37,7 +37,8 @@
               .image
                 = ractive_component "app.components.Image",
                   placeholder: icon(@record, size: "large"),
-                  src: nil
+                  src: cover_image_url(@record, size: "l"),
+                  show_link: "true"
 
           .row: .col-sm-12
             = ractive_component "app.components.WatchLists",

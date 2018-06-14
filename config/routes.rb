@@ -94,6 +94,9 @@ Rails.application.routes.draw do
 
       # /api/v1/watch_list_entries/:id
       resources :watch_list_entries, controller: "/api/v1/users/watch_lists/watch_list_entries", only: [:destroy]
+
+      # /api/v1/cover-images/:id
+      get "cover-images/:id", to: "cover_images#show", as: "cover_image"
     end
   end
 end

@@ -19,7 +19,7 @@
       .image
         = ractive_component "app.components.Image",
           placeholder: icon(hit.record, size: "small"),
-          src: nil
+          src: cover_image_url(hit.record, size: "s")
 
       .metadata
         / Title
