@@ -3,7 +3,7 @@ require 'open-uri'
 class Api::V1::CoverImagesController < ActionController::Base
 
   BASE_URL = "http://api.vlb.de/api/v1/cover"
-  ACCESS_TOKEN = ENV["COVER_ACCESS_TOKEN"] || "ae9dcc0d-bc22-48ca-a343-e840429fd043"
+  ACCESS_TOKEN = ENV["COVER_ACCESS_TOKEN"]
   READ_TIMEOUT = 0.5 # seconds
 
   def show
@@ -25,14 +25,16 @@ class Api::V1::CoverImagesController < ActionController::Base
 private
 
   def load_cover_image(id, size: "m")
-    uri = URI.parse("#{BASE_URL}/#{id}/#{size}?access_token=#{ACCESS_TOKEN}")
-    response = Net::HTTP.start(uri.host, uri.port) do |http|
-      http.read_timeout = READ_TIMEOUT
-      request = Net::HTTP::Get.new(uri)
-      http.request(request)
-    end
+    if ACCESS_TOKEN.present?
+      uri = URI.parse("#{BASE_URL}/#{id}/#{size}?access_token=#{ACCESS_TOKEN}")
+      response = Net::HTTP.start(uri.host, uri.port) do |http|
+        http.read_timeout = READ_TIMEOUT
+        request = Net::HTTP::Get.new(uri)
+        http.request(request)
+      end
 
-    response if response.is_a?(Net::HTTPSuccess)
+      response if response.is_a?(Net::HTTPSuccess)
+    end
   rescue Net::ReadTimeout
     nil
   end
