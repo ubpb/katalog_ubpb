@@ -10,10 +10,19 @@ class Skala::ElasticsearchAdapter::Search::RequestTransformation::
       target["query"]["bool"] ||= {}
       target["query"]["bool"]["must"] ||= []
       target["query"]["bool"]["must_not"] ||= []
+      target["query"]["bool"]["should"] ||= []
 
       if elasticsearch_query = elasticsearch_query_factory(_query)
         container = _query.exclude ? target["query"]["bool"]["must_not"] : target["query"]["bool"]["must"] 
         container << elasticsearch_query
+      end
+
+      if _query.type.to_sym == :query_string
+        target["query"]["bool"]["should"] << query_from_query_string_query(_query, analyzer: "default_no_stop_words_search")
+      end
+
+      if _query.type.to_sym == :simple_query_string
+        target["query"]["bool"]["should"] << query_from_simple_query_string_query(_query, analyzer: "default_no_stop_words_search")
       end
     end
   end
@@ -31,24 +40,26 @@ class Skala::ElasticsearchAdapter::Search::RequestTransformation::
     end
   end
 
-  def query_from_query_string_query(query)
+  def query_from_query_string_query(query, analyzer: "default_search")
     {
       "query_string" => {
         "default_field"    => query.default_field,
         "default_operator" => "AND",
         "fields"           => query.fields,
-        "query"            => query.query
+        "query"            => query.query,
+        "analyzer"         => analyzer
       }.compact
     }
   end
 
-  def query_from_simple_query_string_query(query)
+  def query_from_simple_query_string_query(query, analyzer: "default_search")
     {
       "simple_query_string" => {
         "default_operator" => query.default_operator,
-        "fields" => query.fields,
-        "query"  => query.query,
-        "analyze_wildcard" => true
+        "fields"           => query.fields,
+        "query"            => query.query,
+        "analyze_wildcard" => true,
+        "analyzer"         => analyzer
       }
       .compact
     }
