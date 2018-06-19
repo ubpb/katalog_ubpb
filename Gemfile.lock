@@ -1,7 +1,5 @@
-GIT
-  remote: git://github.com/ubpb/skala.git
-  revision: c942c74444d30f5612be57fc3edc49596c29a140
-  branch: master
+PATH
+  remote: vendor/gems/skala
   specs:
     skala (1.2.0)
       aleph_api (>= 0.3.0)
@@ -72,7 +70,7 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
-    bcrypt (3.1.11)
+    bcrypt (3.1.12)
     bibtex-ruby (4.4.6)
       latex-decode (~> 0.0)
     bindex (0.5.0)
@@ -129,7 +127,7 @@ GEM
     erubi (1.7.1)
     execjs (2.7.0)
     ezcrypto (0.7.2)
-    faraday (0.14.0)
+    faraday (0.15.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
     font-awesome-rails (4.7.0.3)
@@ -381,4 +379,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.16.1
+   1.16.2

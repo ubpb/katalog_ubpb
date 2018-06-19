@@ -1,0 +1,65 @@
+common_settings: &common_settings
+  #
+  # Example config
+  #
+
+  # ils_adapter:
+  #   class_name: "Skala::AlephAdapter"
+  #   options:
+  #     default_document_base: "PAD01"
+  #     default_user_library: "PAD50"
+  #     restful_api_url: "http://ubtest.uni-paderborn.de:1891/rest-dlf"
+  #     x_services_url: "https://ubtest.uni-paderborn.de/X"
+  #     #source_id: "PAD_ALEPH"
+
+  # search_scopes:
+  #   local:
+  #     search_engine_adapter:
+  #       class_name: "Skala::ElasticsearchAdapter"
+  #       options:
+  #         hosts:
+  #           - host: "ubstage1.uni-paderborn.de"
+  #         facets_via_aggregations: true
+  #         index: catalog
+  #     defaults:
+  #       facets:
+  #         __aggregatable.creator:
+  #           terms:
+  #             field: "__aggregatable.creator"
+  #             shard_size: 75
+
+  #         __aggregatable.subject:
+  #           terms:
+  #             field: "__aggregatable.subject"
+  #             shard_size: 75
+
+  #         __aggregatable.classification:
+  #           terms:
+  #             field: "__aggregatable.classification"
+  #             shard_size: 75
+
+  #       search_request:
+  #         from: 0
+  #         size: 20
+  #         sort:
+  #           - _score
+
+  #     searchable_fields:
+  #       - _all
+  #       - "__searchable.creator"
+  #       - "__searchable.title"
+  #       - "__searchable.subject"
+  #       - "__searchable.identifier"
+
+  #     sortable_fields:
+  #       - _score
+
+development: &development
+  <<: *common_settings
+
+test:
+  <<: *development
+
+production:
+ <<: *common_settings
+
