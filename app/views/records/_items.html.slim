@@ -74,7 +74,7 @@ h4 Exemplare
                 td
                   = value_or_default(item.item_status)
                 td
-                  - if KatalogUbpb.config.shelf_finder["enabled"] && (["Normalausleihe", "Kurzausleihe", "Nicht ausleihbar"].include?(item.item_status))
+                  - if KatalogUbpb.config.shelf_finder["enabled"] && (["Normalausleihe", "Kurzausleihe", "Nicht ausleihbar"].include?(item.item_status)) && !journal_signature?(item.signature)
                     .item-location(data={shelf_finder_code: "#{item.signature}|#{item.collection_code}"}) = value_or_default(item_location(item))
                   - else
                     = value_or_default(item_location(item))
