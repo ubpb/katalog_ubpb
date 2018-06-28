@@ -10,20 +10,47 @@ class Skala::ElasticsearchAdapter::Search::RequestTransformation::
       target["query"]["bool"] ||= {}
       target["query"]["bool"]["must"] ||= []
       target["query"]["bool"]["must_not"] ||= []
+      target["query"]["bool"]["should"] ||= []
 
-      if elasticsearch_query = elasticsearch_query_factory(_query)
-        container = _query.exclude ? target["query"]["bool"]["must_not"] : target["query"]["bool"]["must"] 
-        container << elasticsearch_query
+      if (_query.type.to_sym == :query_string || _query.type.to_sym == :simple_query_string) && (swm_match = _query.query.match(/STOP_WORD_MODE\\=(\d)/) )
+        stop_word_mode = swm_match[1]
+        _query.query = _query.query.gsub(/STOP_WORD_MODE\\=(\d)/, "")
+      end
+
+      case stop_word_mode
+      when "1" # Do a normal search without filtering stop words
+        if elasticsearch_query = elasticsearch_query_factory(_query, analyzer: "default_with_stop_words_search")
+          container = _query.exclude ? target["query"]["bool"]["must_not"] : target["query"]["bool"]["must"] 
+          container << elasticsearch_query
+        end
+      when "2" # Search by ignoring stop words, but rank using stop words
+        if elasticsearch_query = elasticsearch_query_factory(_query)
+          container = _query.exclude ? target["query"]["bool"]["must_not"] : target["query"]["bool"]["must"] 
+          container << elasticsearch_query
+        end
+
+        if _query.type.to_sym == :query_string
+          target["query"]["bool"]["should"] << query_from_query_string_query(_query, analyzer: "default_with_stop_words_search")
+        end
+
+        if _query.type.to_sym == :simple_query_string
+          target["query"]["bool"]["should"] << query_from_simple_query_string_query(_query, analyzer: "default_with_stop_words_search")
+        end
+      else
+        if elasticsearch_query = elasticsearch_query_factory(_query)
+          container = _query.exclude ? target["query"]["bool"]["must_not"] : target["query"]["bool"]["must"] 
+          container << elasticsearch_query
+        end
       end
     end
   end
 
   private
 
-  def elasticsearch_query_factory(query)
+  def elasticsearch_query_factory(query, analyzer: "default_search")
     case query.type.to_sym
-    when :query_string        then query_from_query_string_query(query)
-    when :simple_query_string then query_from_simple_query_string_query(query)
+    when :query_string        then query_from_query_string_query(query, analyzer: analyzer)
+    when :simple_query_string then query_from_simple_query_string_query(query, analyzer: analyzer)
     when :match               then query_from_match_query(query)
     when :ordered_terms       then query_from_ordered_terms_query(query)
     when :range               then query_from_range_query(query)
@@ -31,24 +58,26 @@ class Skala::ElasticsearchAdapter::Search::RequestTransformation::
     end
   end
 
-  def query_from_query_string_query(query)
+  def query_from_query_string_query(query, analyzer: "default_search")
     {
       "query_string" => {
         "default_field"    => query.default_field,
         "default_operator" => "AND",
         "fields"           => query.fields,
-        "query"            => query.query
+        "query"            => query.query,
+        "analyzer"         => analyzer
       }.compact
     }
   end
 
-  def query_from_simple_query_string_query(query)
+  def query_from_simple_query_string_query(query, analyzer: "default_search")
     {
       "simple_query_string" => {
         "default_operator" => query.default_operator,
-        "fields" => query.fields,
-        "query"  => query.query,
-        "analyze_wildcard" => true
+        "fields"           => query.fields,
+        "query"            => query.query,
+        "analyze_wildcard" => true,
+        "analyzer"         => analyzer
       }
       .compact
     }
