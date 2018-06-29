@@ -10,8 +10,14 @@ class Skala::ElasticsearchAdapter::Search::RequestTransformation::
       target["query"]["bool"] ||= {}
       target["query"]["bool"]["must"] ||= []
       target["query"]["bool"]["must_not"] ||= []
-      target["query"]["bool"]["should"] ||= []
+      #target["query"]["bool"]["should"] ||= []
 
+      if elasticsearch_query = elasticsearch_query_factory(_query)
+        container = _query.exclude ? target["query"]["bool"]["must_not"] : target["query"]["bool"]["must"] 
+        container << elasticsearch_query
+      end
+
+=begin
       if (_query.type.to_sym == :query_string || _query.type.to_sym == :simple_query_string) && (swm_match = _query.query.match(/STOP_WORD_MODE\\=(\d)/) )
         stop_word_mode = swm_match[1]
         _query.query = _query.query.gsub(/STOP_WORD_MODE\\=(\d)/, "")
@@ -42,6 +48,8 @@ class Skala::ElasticsearchAdapter::Search::RequestTransformation::
           container << elasticsearch_query
         end
       end
+=end
+
     end
   end
 
@@ -65,7 +73,7 @@ class Skala::ElasticsearchAdapter::Search::RequestTransformation::
         "default_operator" => "AND",
         "fields"           => query.fields,
         "query"            => query.query,
-        "analyzer"         => analyzer
+        #"analyzer"         => analyzer
       }.compact
     }
   end
@@ -77,7 +85,7 @@ class Skala::ElasticsearchAdapter::Search::RequestTransformation::
         "fields"           => query.fields,
         "query"            => query.query,
         "analyze_wildcard" => true,
-        "analyzer"         => analyzer
+        #"analyzer"         => analyzer
       }
       .compact
     }
