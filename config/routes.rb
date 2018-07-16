@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   get "/:scope/searches",    to: "searches#index", as: :searches
   get "/:scope/records/:id", to: "records#show", as: :record, constraints: { id: /.+/ }
 
+  get "/:scope/recommendations", to: "recommendations#show", as: :recommendations
+
   post "/login",  to: "sessions#create", as: :session
   get  "/login",  to: "sessions#new", as: :new_session
   get  "/logout", to: "sessions#destroy", as: :logout

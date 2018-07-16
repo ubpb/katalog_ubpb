@@ -1,0 +1,17 @@
+- if @recommendations.present?
+  h3 Weiterführende Literatur
+  h4 Empfehlungen zum selben Thema
+
+  /- binding.pry
+  ul
+    - @recommendations.each do |r|
+      li
+        - if r[:type] == :book
+          .title = r[:title]
+          .authors = r[:authors].join("; ") if r[:authors].present?
+
+        - elsif r[:type] == :journal
+          .atitle = r[:atitle]
+          .authors = r[:authors].join("; ") if r[:authors].present?
+- else
+  ' Keine Empfehlungen verfügbar
