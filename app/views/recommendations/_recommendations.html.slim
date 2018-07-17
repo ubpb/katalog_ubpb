@@ -1,0 +1,11 @@
+- if @recommendations.present?
+  ul.recommendations
+    - @recommendations.each do |r|
+      li
+        - if r[:type] == :book
+          = render "book_recommendation", recommendation: r
+        - elsif r[:type] == :journal
+          = render "journal_recommendation", recommendation: r
+- else
+  .alert.alert-info
+    ' Keine Empfehlungen verfügbar
