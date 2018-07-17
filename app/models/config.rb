@@ -8,6 +8,7 @@ class Config
   attr_accessor :search_engine_adapter
   attr_accessor :scopes
   attr_accessor :shelf_finder
+  attr_accessor :recommendations
 
   def ils_adapter
     @ils_adapter.first
@@ -45,6 +46,10 @@ class Config
 
   def shelf_finder
     @shelf_finder || {}
+  end
+
+  def recommendations
+    @recommendations || {}
   end
 
 end

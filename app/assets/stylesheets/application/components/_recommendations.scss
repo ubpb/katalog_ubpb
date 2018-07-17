@@ -1,0 +1,13 @@
+ul.recommendations {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .recommendation {
+    margin-bottom: $line-height-computed / 2;
+
+    .title {
+      font-weight: bold;
+    }
+  }
+}
