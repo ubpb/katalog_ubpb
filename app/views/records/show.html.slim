@@ -25,20 +25,30 @@
       .tab-content
         #record-details-tab.tab-pane.active
           .row
-            .col-sm-10
-              / Main properties
-              = render "details", record: @record, scope: @scope
+            - if @scope.id == "primo_central"
+              .col-md-8
+                = render "details", record: @record, scope: @scope
+              .col-md-4
+                h4 Weiterführende Literatur
+                h5 Empfehlungen zum selben Thema automatisch vorgeschlagen von <a href="https://www.ub.uni-paderborn.de/recherche/hinweise-zur-nutzung-der-elektronischen-angebote/bx/" target="_blank">bX</a>
+                - if @scope.id == "primo_central" && KatalogUbpb.config.recommendations["enabled"]
+                  = ractive_component "app.components.Recommendations", url: "#{api_v1_recommendations_path(format: :js)}#{@record.openurl.slice(@record.openurl.index("?")..-1)}"
+            - else
+              .col-md-10
+                / Main properties
+                = render "details", record: @record, scope: @scope
 
-              / Secondary form properties
-              - if is_secondary_form?(@record)
-                h4 Angaben zur Sekundärform
-                = render "snd_details", record: @record, scope: @scope
-            .col-sm-2
-              .image
-                = ractive_component "app.components.Image",
-                  placeholder: icon(@record, size: "large"),
-                  src: cover_image_url(@record, size: "l"),
-                  show_link: "true"
+                / Secondary form properties
+                - if is_secondary_form?(@record)
+                  h4 Angaben zur Sekundärform
+                  = render "snd_details", record: @record, scope: @scope
+              .col-md-2
+                - if @scope.id == "primo_central"
+                .image
+                  = ractive_component "app.components.Image",
+                    placeholder: icon(@record, size: "large"),
+                    src: cover_image_url(@record, size: "l"),
+                    show_link: "true"
 
           .row: .col-sm-12
             = ractive_component "app.components.WatchLists",
@@ -70,15 +80,3 @@
                 number_of_hold_requests: @number_of_hold_requests,
                 record: @record,
                 search_request: @search_request
-
-          / Recommendations
-          - if @scope.id == "primo_central" && KatalogUbpb.config.recommendations["enabled"]
-            h4 Weiterführende Literatur
-            h5
-              ' Empfehlungen zum selben Thema automatisch vorgschlagen von
-              =< link_to "bX", "https://www.ub.uni-paderborn.de/recherche/hinweise-zur-nutzung-der-elektronischen-angebote/bx/", target: "_blank"
-            = ractive_component "app.components.Recommendations", url: "#{recommendations_path(format: :js)}#{@record.openurl.slice(@record.openurl.index("?")..-1)}"
-
-
-
-

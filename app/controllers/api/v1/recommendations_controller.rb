@@ -1,4 +1,4 @@
-class RecommendationsController < ApplicationController
+class Api::V1::RecommendationsController < Api::V1::ApplicationController
 
   ENABLED      = KatalogUbpb.config.recommendations["enabled"] || false
   BASE_URL     = KatalogUbpb.config.recommendations["bx_base_url"] || "http://recommender.service.exlibrisgroup.com/service/recommender/openurl"
@@ -6,6 +6,8 @@ class RecommendationsController < ApplicationController
   READ_TIMEOUT = KatalogUbpb.config.recommendations["read_timeout"] || 2.0
   SFX_BASE_URL = KatalogUbpb.config.recommendations["sfx_base_url"] || "http://sfx.hbz-nrw.de/sfx_pad"
   SOURCE       = KatalogUbpb.config.recommendations["source"] || "global"
+  MAX_RECORDS  = KatalogUbpb.config.recommendations["max_records"] || 15
+  THRESHOLD    = KatalogUbpb.config.recommendations["threshold"] || 50
 
   def show
     openurl_params = params.reject{|k,_| ["action", "controller", "scope"].include?(k)}.permit!
@@ -55,13 +57,15 @@ class RecommendationsController < ApplicationController
         end
       end
     end
+  rescue
+    @recommendations = []
   end
 
 private
 
   def load_recommendations(openurl_params)
-    if ENABLED
-      uri = URI.parse("#{BASE_URL}?token=#{ACCESS_TOKEN}&format=xml&source=#{SOURCE}&#{openurl_params.to_query}")
+    if ENABLED && ACCESS_TOKEN.present?
+      uri = URI.parse("#{BASE_URL}?token=#{ACCESS_TOKEN}&format=xml&source=#{SOURCE}&maxRecords=#{MAX_RECORDS}&threshold=#{THRESHOLD}&#{openurl_params.to_query}")
       response = Net::HTTP.start(uri.host, uri.port) do |http|
         http.read_timeout = READ_TIMEOUT
         request = Net::HTTP::Get.new(uri)

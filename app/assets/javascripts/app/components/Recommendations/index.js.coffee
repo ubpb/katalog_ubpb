@@ -11,7 +11,9 @@
           @set("recommendations", result)
 
   template: """
-    <div data-ractive-guid="{{guid}}">
-      {{{recommendations}}}
-    </div>
+    {{#if recommendations}}
+      <div data-ractive-guid="{{guid}}">
+        {{{recommendations}}}
+      </div>
+    {{/if}}
   """
