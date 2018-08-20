@@ -25,14 +25,13 @@
       .tab-content
         #record-details-tab.tab-pane.active
           .row
-            - if @scope.id == "primo_central"
+            - if @scope.id == "primo_central" && KatalogUbpb.config.recommendations["enabled"]
               .col-md-8
                 = render "details", record: @record, scope: @scope
               .col-md-4
                 h4 Weiterführende Literatur
                 h5 Empfehlungen zum selben Thema automatisch vorgeschlagen von <a href="https://www.ub.uni-paderborn.de/recherche/hinweise-zur-nutzung-der-elektronischen-angebote/bx/" target="_blank">bX</a>
-                - if @scope.id == "primo_central" && KatalogUbpb.config.recommendations["enabled"]
-                  = ractive_component "app.components.Recommendations", url: "#{api_v1_recommendations_path(format: :js)}#{@record.openurl.slice(@record.openurl.index("?")..-1)}"
+                = ractive_component "app.components.Recommendations", url: "#{api_v1_recommendations_path(format: :js)}#{@record.openurl.slice(@record.openurl.index("?")..-1)}"
             - else
               .col-md-10
                 / Main properties
