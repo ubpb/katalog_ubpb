@@ -74,7 +74,9 @@
           / Recommendations
           - if @scope.id == "primo_central" && KatalogUbpb.config.recommendations["enabled"]
             h4 Weiterführende Literatur
-            h5 Empfehlungen zum selben Thema automatisch vorgschlagen von bX
+            h5
+              ' Empfehlungen zum selben Thema automatisch vorgschlagen von
+              =< link_to "bX", "https://www.ub.uni-paderborn.de/recherche/hinweise-zur-nutzung-der-elektronischen-angebote/bx/", target: "_blank"
             = ractive_component "app.components.Recommendations", url: "#{recommendations_path(format: :js)}#{@record.openurl.slice(@record.openurl.index("?")..-1)}"
 
 

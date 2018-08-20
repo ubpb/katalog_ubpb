@@ -9,6 +9,7 @@ class Config
   attr_accessor :scopes
   attr_accessor :shelf_finder
   attr_accessor :recommendations
+  attr_accessor :cover_images
 
   def ils_adapter
     @ils_adapter.first
@@ -50,6 +51,10 @@ class Config
 
   def recommendations
     @recommendations || {}
+  end
+
+  def cover_images
+    @cover_images || {}
   end
 
 end

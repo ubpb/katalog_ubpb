@@ -1,0 +1,93 @@
+test:
+  ils_adapter:
+    ubpb_aleph_adapter:
+      class_name: "KatalogUbpb::UbpbAlephAdapter"
+      options:
+        default_document_base: "PAD01"
+        default_user_library: "PAD50"
+        restful_api_url: "http://ubtest.uni-paderborn.de:1891/rest-dlf"
+        x_services_url: "https://ubtest.uni-paderborn.de/X"
+      scope: "local"
+
+  search_engine_adapter:
+    ubpb_elasticsearch_adapter:
+      class_name: "KatalogUbpb::UbpbElasticsearchAdapter"
+      i18n_key: "ubpb_elasticsearch_adapter"
+      options:
+        hosts:
+          - host: "ubstage1"
+        index: katalog
+
+  scopes:
+    test:
+      ils_adapter: "ubpb_aleph_adapter"
+      search_engine_adapter: "ubpb_elasticsearch_adapter"
+      facets:
+        - name: "materialtypen"
+          type: "terms"
+          field: "materialtyp_facet"
+          size: 25
+        - name: "creators"
+          type: "terms"
+          field: "creator_contributor_facet"
+          size: 25
+        - name: "erscheinungsformen"
+          type: "terms"
+          field: "erscheinungsform_facet"
+          size: 25
+        - name: "subjects"
+          type: "terms"
+          field: "subject_facet"
+          size: 25
+        - name: "creation_dates"
+          type: "histogram"
+          field: "creationdate_facet"
+        - name: "languages"
+          type: "terms"
+          field: "language_facet"
+          size: 25
+        - name: "notations"
+          type: "terms"
+          field: "notation_facet"
+          size: 25
+        - name: "inhaltstypen"
+          type: "terms"
+          field: "inhaltstyp_facet"
+          size: 25
+        # - name: "neuerwerbungen"
+        #   type: "range"
+        #   field: "cataloging_date"
+        #   ranges:
+        #     - from: "now-1M"
+        #       key: "last_month"
+        #     - from: "now-3M"
+        #       key: "last_three_months"
+        #     - from: "now-6M"
+        #       key: "last_six_months"
+
+      searchable_fields:
+        - "_all"
+        - "creator_contributor_search"
+        - "title_search"
+        - "subject_search"
+        - "publisher"
+        - "toc"
+        - "creationdate_search"
+        - "isbn_search"
+        - "issn"
+        - "signature_search"
+        - "notation"
+        - "ht_number"
+        - "superorder"
+        - "selection_code"
+
+      sortable_fields:
+        - _score
+        - creator_contributor_facet
+        - creationdate_facet: asc
+        - creationdate_facet: desc
+        - notation_sort
+        - title_sort
+        - volume_count_sort: asc
+        - volume_count_sort: desc
+        - cataloging_date: desc

@@ -2,9 +2,10 @@ require 'open-uri'
 
 class Api::V1::CoverImagesController < ActionController::Base
 
-  BASE_URL = "http://api.vlb.de/api/v1/cover"
-  ACCESS_TOKEN = ENV["COVER_ACCESS_TOKEN"]
-  READ_TIMEOUT = 0.5 # seconds
+  ENABLED      = KatalogUbpb.config.cover_images["enabled"] || false
+  BASE_URL     = KatalogUbpb.config.cover_images["base_url"] || "http://api.vlb.de/api/v1/cover"
+  ACCESS_TOKEN = KatalogUbpb.config.cover_images["access_token"]
+  READ_TIMEOUT = KatalogUbpb.config.cover_images["read_timeout"] || 0.5
 
   def show
     id   = params[:id]
@@ -25,7 +26,7 @@ class Api::V1::CoverImagesController < ActionController::Base
 private
 
   def load_cover_image(id, size: "m")
-    if ACCESS_TOKEN.present?
+    if ENABLED && ACCESS_TOKEN.present?
       uri = URI.parse("#{BASE_URL}/#{id}/#{size}?access_token=#{ACCESS_TOKEN}")
       response = Net::HTTP.start(uri.host, uri.port) do |http|
         http.read_timeout = READ_TIMEOUT
