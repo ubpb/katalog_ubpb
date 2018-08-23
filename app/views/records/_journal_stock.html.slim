@@ -30,13 +30,13 @@
                     div = "nicht vorhanden: #{element['gaps'].join('; ')}"
 
                 td(style="vertical-align: middle;")
-                  - if element["signature"].present? && !located_outside_ubpb?(element) && (before?(1996, element) || closed_stock_location?(element))
+                  - if element["signature"].present? && !has_p00_location?(journal_stock) && !located_outside_ubpb?(element) && (before?(1996, element) || closed_stock_location?(element))
                     = link_to("Magazinbestellung", current_user ? new_closed_stack_order_path(z1: element["signature"]) : new_session_path(return_to: current_path, redirect: true), class: "btn btn-primary btn-xs")
 
   - if none_located_outside_ubpb?(journal_stock)
     .row: .col-sm-12
       p: em
         - if has_p00_location?(journal_stock)
-          ' Alle Jahrgänge der Zeitschrift befinden sich im Magazin. Falls Sie einen Jahrgang benötigen, geben Sie bitte eine Magazinbestellung auf. Alternativ ist die Zeitschrift über die Universitätsbibliothek auch elektronisch verfügbar s.o. Rubrik "Verknüpfte Titel".
+          ' Die Jahrgänge dieser Zeitschrift sind nicht ausleihbar. Bitte nutzen Sie die Online-Ausgabe (s.o. Rubrik "Verknüpfte Titel"). In besonderen Einzelfällen wenden Sie sich bitte an die Ortsleihe.
         - else
           ' Aktuelle Zeitschriftenjahrgänge finden Sie auf der entsprechenden Fachebene. Für ältere Jahrgänge bis 1985 (für Zeitschriften der Ebene 4 und der Eingangsebene bis 1995) geben Sie bitte eine Magazinbestellung auf.

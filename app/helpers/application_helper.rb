@@ -57,6 +57,10 @@ module ApplicationHelper
       if years.any? { |year| year <= CLOSED_STOCK_THRESHOLD }
         result.unshift("Magazin")
       end
+
+      if signature&.starts_with?("P00")
+        result = ["Magazin J"]
+      end
     end
 
     result.uniq
