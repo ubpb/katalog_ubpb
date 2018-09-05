@@ -19,6 +19,7 @@ gem "jquery-ui-rails",       "~> 5.0.5"
 gem "libxml-ruby",           "~> 2.9", require: "libxml" # for ActiveSupport::XmlMini.backend = "LibXML"
 gem "mysql2",                "~> 0.4.4"
 gem "ox",                    "~> 2.8.1"
+gem "puma",                  ">= 3.11"
 gem "rails",                 "~> 5.1.0"
 gem "rails-html-sanitizer",  "~> 1.0.4"
 gem "rails-i18n",            "~> 5.0.0"
@@ -27,11 +28,10 @@ gem "roadie-rails",          "~> 1.2.1"
 gem "sass-rails",            "~> 5.0.6"
 gem "simple_form",           "~> 3.5.0"
 gem "skala",                 "~> 1.2.0", path: "vendor/gems/skala"
-gem "slim",                  "~> 3.0.7"
+gem "slim",                  "~> 3.0"
 gem "sqlite3",               "~> 1.3"
 gem "turbolinks",            "~> 2.5.3"
 gem "uglifier",              "~> 3.0"
-gem "uservoice-ruby",        "~> 0.0.11"
 
 #
 # rails-assets.org
@@ -57,17 +57,16 @@ group :production do
 end
 
 group :development, :test do
-  gem "pry-byebug", ">= 3.5.0"
-  gem "pry-rails",  ">= 0.3.6"
+  gem "pry-byebug", "~> 3.6", platform: :mri
+  gem "pry-rails",  "~> 0.3", platform: :mri
 end
 
 group :development do
-  gem "puma",               ">= 3.11"
-  gem "capistrano",         "~> 3.9.1"
-  gem "capistrano-bundler", "~> 1.3.0"
-  gem "capistrano-rails",   "~> 1.3.0"
-  gem "capistrano-rvm",     "~> 0.1.2"
-  gem "letter_opener",      "~> 1.4.1"
-  gem "listen",             ">= 3.0.5", "< 3.2"
-  gem "web-console",        ">= 3.3.0"
+  gem "capistrano",           "~> 3.11"
+  gem "capistrano-bundler",   "~> 1.3.0"
+  gem "capistrano-passenger", "~> 0.2.0"
+  gem "capistrano-rails",     "~> 1.4.0"
+  gem "capistrano-rvm",       "~> 0.1.2"
+  gem "listen",               ">= 3.0.5", "< 3.2"
+  gem "web-console",          "~> 3.5"
 end
