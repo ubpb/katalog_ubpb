@@ -17,15 +17,3 @@ set :rvm_type,         :user
 set :rvm_ruby_version, "default"
 
 set :rails_env, "production"
-
-namespace :deploy do
-
-  after :publishing, :restart_app do
-    on roles(:web) do
-      within release_path do
-        execute :touch, "tmp/restart.txt"
-      end
-    end
-  end
-
-end
