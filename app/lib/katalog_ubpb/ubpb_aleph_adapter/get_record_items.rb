@@ -161,13 +161,13 @@ class KatalogUbpb::UbpbAlephAdapter::GetRecordItems < Skala::AlephAdapter::GetRe
       # Seminar/Tischapparate get their description by a script
       if ["Seminarapparat", "Tischapparat"].include?(item.item_status)
         if item.signature.present?
-          Timeout::timeout(10) do
+          #Timeout::timeout(10) do
             Net::HTTP.get(URI("#{@adapter.x_services_url}/../ub-cgi/ausleiher_von_signatur.pl?#{item.signature}")).try do |_response|
               if ["IEMAN", "Sem", "Tisch"].any? { |_accepted_phrase| _response.include?(_accepted_phrase) }
-                item.location = _response
+                item.location = _response.force_encoding("iso-8859-1").encode("utf-8", "iso-8859-1")
               end
             end
-          end
+          #end
         end
       elsif ["Handapparat"].include?(item.item_status)
         item.location = "Handapparat"
