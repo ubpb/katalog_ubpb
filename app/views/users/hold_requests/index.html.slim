@@ -23,7 +23,7 @@
                 td = l(_hold_request.creation_date)
                 td
                   .title = value_or_default(title(_hold_request.record, scope: @scope))
-                  - if (signature = signature(_hold_request.record, link: true)).present?
+                  - if (signature = signature(_hold_request.signature, link: true)).present?
                     .signature = "Signatur: #{signature}".html_safe
 
                 td

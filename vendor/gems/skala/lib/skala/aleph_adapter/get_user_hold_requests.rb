@@ -28,7 +28,8 @@ class Skala::AlephAdapter::GetUserHoldRequests < Skala::Adapter::GetUserHoldRequ
             record: {
               id: record_id(_hold_request)
             },
-            status: status(_hold_request)
+            status: status(_hold_request),
+            signature: signature(_hold_request)
           }
         end.reject do |_hold_request|
           # Entferne geloeschte/bereitgestellte Vormerkungen. Diese werden von Aleph auf ein Datum gesetz, welches in der Vergangenheit liegt.
@@ -40,6 +41,10 @@ class Skala::AlephAdapter::GetUserHoldRequests < Skala::Adapter::GetUserHoldRequ
   end
 
   private
+
+  def signature(hold_request)
+    hold_request.at_xpath("./z30/z30-call-no").try(:content)
+  end
 
   def id(hold_request)
     hold_request.attr("href")[/[^\/]+\Z/][/\A[^?]+/]

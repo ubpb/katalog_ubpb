@@ -15,6 +15,7 @@ class Skala::HoldRequest
   attribute :end_hold_date, Date
   attribute :record, Skala::Record
   attribute :status, Symbol
+  attribute :signature, String
 
   # Make sure nil values
   def place_in_queue=(value)

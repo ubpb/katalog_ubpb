@@ -125,7 +125,7 @@ EOS
           record    = provision.record
           title     = cached_view_context.title(record)
           year      = cached_view_context.date_of_publication(record)
-          signature = cached_view_context.signature(record)
+          signature = cached_view_context.signature(provision.signature)
 
           "#{i+1}. #{[title, year, "Signatur: #{signature}"].map(&:presence).join(', ')}"
         end.join('\n')
