@@ -68,7 +68,7 @@ de:
         label: "Schlagwort"
 
     fields:
-      _all: Alle Felder
+      custom_all: Alle Felder
       _score: Relevanz
       cataloging_date: Neuerwerbung
       creationdate_facet: Erscheinungsjahr

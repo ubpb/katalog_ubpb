@@ -66,7 +66,7 @@ test:
         #       key: "last_six_months"
 
       searchable_fields:
-        - "_all"
+        - "custom_all"
         - "creator_contributor_search"
         - "title_search"
         - "subject_search"
