@@ -10,11 +10,20 @@ class Skala::ElasticsearchAdapter::Search::RequestTransformation::
       target["query"]["bool"] ||= {}
       target["query"]["bool"]["must"] ||= []
       target["query"]["bool"]["must_not"] ||= []
-      #target["query"]["bool"]["should"] ||= []
+      target["query"]["bool"]["should"] ||= []
 
       if elasticsearch_query = elasticsearch_query_factory(_query)
-        container = _query.exclude ? target["query"]["bool"]["must_not"] : target["query"]["bool"]["must"] 
+        container = _query.exclude ? target["query"]["bool"]["must_not"] : target["query"]["bool"]["must"]
         container << elasticsearch_query
+      end
+
+      # Use a "should" component that uses stop words for better ranking
+      if _query.type.to_sym == :query_string
+        target["query"]["bool"]["should"] << query_from_query_string_query(_query, analyzer: "default_with_stop_words_search")
+      end
+
+      if _query.type.to_sym == :simple_query_string
+        target["query"]["bool"]["should"] << query_from_simple_query_string_query(_query, analyzer: "default_with_stop_words_search")
       end
 
 =begin
@@ -26,12 +35,12 @@ class Skala::ElasticsearchAdapter::Search::RequestTransformation::
       case stop_word_mode
       when "1" # Do a normal search without filtering stop words
         if elasticsearch_query = elasticsearch_query_factory(_query, analyzer: "default_with_stop_words_search")
-          container = _query.exclude ? target["query"]["bool"]["must_not"] : target["query"]["bool"]["must"] 
+          container = _query.exclude ? target["query"]["bool"]["must_not"] : target["query"]["bool"]["must"]
           container << elasticsearch_query
         end
       when "2" # Search by ignoring stop words, but rank using stop words
         if elasticsearch_query = elasticsearch_query_factory(_query)
-          container = _query.exclude ? target["query"]["bool"]["must_not"] : target["query"]["bool"]["must"] 
+          container = _query.exclude ? target["query"]["bool"]["must_not"] : target["query"]["bool"]["must"]
           container << elasticsearch_query
         end
 
@@ -44,7 +53,7 @@ class Skala::ElasticsearchAdapter::Search::RequestTransformation::
         end
       else
         if elasticsearch_query = elasticsearch_query_factory(_query)
-          container = _query.exclude ? target["query"]["bool"]["must_not"] : target["query"]["bool"]["must"] 
+          container = _query.exclude ? target["query"]["bool"]["must_not"] : target["query"]["bool"]["must"]
           container << elasticsearch_query
         end
       end
@@ -73,7 +82,7 @@ class Skala::ElasticsearchAdapter::Search::RequestTransformation::
         "default_operator" => "AND",
         "fields"           => query.fields,
         "query"            => query.query,
-        #"analyzer"         => analyzer
+        "analyzer"         => analyzer
       }.compact
     }
   end
@@ -85,7 +94,7 @@ class Skala::ElasticsearchAdapter::Search::RequestTransformation::
         "fields"           => query.fields,
         "query"            => query.query,
         "analyze_wildcard" => true,
-        #"analyzer"         => analyzer
+        "analyzer"         => analyzer
       }
       .compact
     }
