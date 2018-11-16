@@ -36,7 +36,11 @@ class SearchRecordsService < Servizio::Service
 
   def fix_es6_all_field!(search_request)
     if !search_request.is_a?(Hash) && search_request.respond_to?(:queries)
-      search_request.queries&.each{|q| q&.fields.map!{|f| f=="_all" ? "custom_all" : f}}
+      search_request.queries&.each do |q|
+        if q.respond_to?(:fields) && q.fields.present?
+          q.fields.map!{|f| f=="_all" ? "custom_all" : f}
+        end
+      end
     end
   end
 
