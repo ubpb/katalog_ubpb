@@ -170,7 +170,7 @@
     begin: BEA
     end: BSK
     excl: false
-  :fachgebiet: Allgemeine und vergleichende Sprach- und Literaturwissenschaft
+  :fachgebiet: Sprach- und Literaturwissenschaft, allgemeine und vergleichende
   :location: Ebene 4
   :standortkennziffern:
   - '10'
@@ -204,8 +204,8 @@
     begin: DEA
     end: EOF
     excl: false
-  :fachgebiet: Anglistik
-  :location: Ebene 4
+  :fachgebiet: Anglistik und Amerikanistik
+  :location: Ebene 2, Gebäude I (Zugang über Ebene 4)
   :standortkennziffern:
   - '10'
   - '11'
@@ -274,7 +274,7 @@
     begin: HYA
     end: IKY
     excl: false
-  :fachgebiet: Erziehungswiss.
+  :fachgebiet: Erziehungswissenschaft
   :location: Ebene 2
   :standortkennziffern:
   - '10'
@@ -286,7 +286,7 @@
     begin: ILA
     end: IVX
     excl: false
-  :fachgebiet: Theologie
+  :fachgebiet: Religionswissenschaft. Theologie
   :location: Ebene 2
   :standortkennziffern:
   - '10'
@@ -309,8 +309,8 @@
     begin: JXA
     end: KKP
     excl: false
-  :fachgebiet: Kunst
-  :location: Ebene 1
+  :fachgebiet: Kunstwissenschaften
+  :location: Ebene 1, Gebäude J (Zugang über Eingangsebene)
   :standortkennziffern:
   - '10'
   - '11'
@@ -332,7 +332,7 @@
     end: KKP
     excl: false
   :fachgebiet: Musik
-  :location: Ebene 1
+  :location: Ebene 1, Gebäude J (Zugang über Eingangsebene)
   :standortkennziffern:
   - '10'
   - '11'
@@ -344,7 +344,7 @@
     end: KNZZ
     excl: false
   :fachgebiet: Medienwissenschaft
-  :location: Ebene 1
+  :location: Ebene 1, Gebäude J (Zugang über Eingangsebene)
   :standortkennziffern:
   - '10'
   - '11'
@@ -411,7 +411,7 @@
     begin: NOA
     end: NRX
     excl: false
-  :fachgebiet: Sozialwissenschaften
+  :fachgebiet: Sozialwissenschaften allgemein
   :location: Ebene 5
   :standortkennziffern:
   - '30'
@@ -456,7 +456,7 @@
     begin: PHA
     end: QKU
     excl: false
-  :fachgebiet: Wirtschaftswiss.
+  :fachgebiet: Wirtschaftswissenschaften
   :location: Ebene 5
   :standortkennziffern:
   - '30'
@@ -501,7 +501,7 @@
     begin: RQI
     end: RSX
     excl: false
-  :fachgebiet: Haushalts- u. Ernährungswiss.
+  :fachgebiet: Haushalts-, Ernährungs- und Lebensmittelwissenschaften
   :location: Ebene 3
   :standortkennziffern:
   - '40'
@@ -563,7 +563,7 @@
     begin: STA
     end: SZO
     excl: false
-  :fachgebiet: Naturwissenschaften, allg.
+  :fachgebiet: Naturwissenschaften allgemein
   :location: Ebene 3
   :standortkennziffern:
   - '40'
@@ -688,7 +688,7 @@
     begin: WAA
     end: WHR
     excl: false
-  :fachgebiet: Technik
+  :fachgebiet: Technik allgemein
   :location: Ebene 3
   :standortkennziffern:
   - '50'
@@ -700,7 +700,7 @@
     begin: WSA
     end: XHV
     excl: false
-  :fachgebiet: Architektur
+  :fachgebiet: Architektur. Bauingenieurwesen. Vermessungswesen
   :location: Ebene 3
   :standortkennziffern:
   - '50'
@@ -745,7 +745,7 @@
     begin: ZEA
     end: ZWT
     excl: false
-  :fachgebiet: Sonstige Gebiete der Technik
+  :fachgebiet: Technik, sonstige Gebiete
   :location: Ebene 3
   :standortkennziffern:
   - '50'
