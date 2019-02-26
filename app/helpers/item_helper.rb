@@ -1,5 +1,4 @@
 module ItemHelper
-  CLOSED_STOCK_THRESHOLD = 1996
   JOURNAL_SIGNATURE_PATTERN = /\d\d[a-zA-Z]\d{1,4}/ # don't use \w as it includes numbers
 
   def closed_stack?(record: nil, item: nil)
@@ -7,7 +6,7 @@ module ItemHelper
     item && journal_signature?(item.signature) &&
     (
       journal_locations(signature: item.signature).any? { |location| location[/magazin/i] } ||
-      (record && record.year_of_publication.to_i < CLOSED_STOCK_THRESHOLD)
+      (record && record.year_of_publication <= ApplicationHelper::CLOSED_STOCK_THRESHOLD)
     )
   end
 
