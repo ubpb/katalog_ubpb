@@ -25,40 +25,6 @@ class Skala::ElasticsearchAdapter::Search::RequestTransformation::
       if _query.type.to_sym == :simple_query_string
         target["query"]["bool"]["should"] << query_from_simple_query_string_query(_query, analyzer: "default_with_stop_words_search")
       end
-
-=begin
-      if (_query.type.to_sym == :query_string || _query.type.to_sym == :simple_query_string) && (swm_match = _query.query.match(/STOP_WORD_MODE\\=(\d)/) )
-        stop_word_mode = swm_match[1]
-        _query.query = _query.query.gsub(/STOP_WORD_MODE\\=(\d)/, "")
-      end
-
-      case stop_word_mode
-      when "1" # Do a normal search without filtering stop words
-        if elasticsearch_query = elasticsearch_query_factory(_query, analyzer: "default_with_stop_words_search")
-          container = _query.exclude ? target["query"]["bool"]["must_not"] : target["query"]["bool"]["must"]
-          container << elasticsearch_query
-        end
-      when "2" # Search by ignoring stop words, but rank using stop words
-        if elasticsearch_query = elasticsearch_query_factory(_query)
-          container = _query.exclude ? target["query"]["bool"]["must_not"] : target["query"]["bool"]["must"]
-          container << elasticsearch_query
-        end
-
-        if _query.type.to_sym == :query_string
-          target["query"]["bool"]["should"] << query_from_query_string_query(_query, analyzer: "default_with_stop_words_search")
-        end
-
-        if _query.type.to_sym == :simple_query_string
-          target["query"]["bool"]["should"] << query_from_simple_query_string_query(_query, analyzer: "default_with_stop_words_search")
-        end
-      else
-        if elasticsearch_query = elasticsearch_query_factory(_query)
-          container = _query.exclude ? target["query"]["bool"]["must_not"] : target["query"]["bool"]["must"]
-          container << elasticsearch_query
-        end
-      end
-=end
-
     end
   end
 
