@@ -19,21 +19,21 @@ class Skala::ElasticsearchAdapter::Search::RequestTransformation::
 
       # Use a "should" component that uses stop words for better ranking
       if _query.type.to_sym == :query_string
-        target["query"]["bool"]["should"] << query_from_query_string_query(_query, analyzer: "default_with_stop_words_search")
+       target["query"]["bool"]["should"] << query_from_query_string_query(_query, analyzer: "default_with_stop_words_search")
       end
 
       if _query.type.to_sym == :simple_query_string
-        target["query"]["bool"]["should"] << query_from_simple_query_string_query(_query, analyzer: "default_with_stop_words_search")
+       target["query"]["bool"]["should"] << query_from_simple_query_string_query(_query, analyzer: "default_with_stop_words_search")
       end
     end
   end
 
   private
 
-  def elasticsearch_query_factory(query, analyzer: "default_search")
+  def elasticsearch_query_factory(query)
     case query.type.to_sym
-    when :query_string        then query_from_query_string_query(query, analyzer: analyzer)
-    when :simple_query_string then query_from_simple_query_string_query(query, analyzer: analyzer)
+    when :query_string        then query_from_query_string_query(query)
+    when :simple_query_string then query_from_simple_query_string_query(query)
     when :match               then query_from_match_query(query)
     when :ordered_terms       then query_from_ordered_terms_query(query)
     when :range               then query_from_range_query(query)
@@ -41,28 +41,29 @@ class Skala::ElasticsearchAdapter::Search::RequestTransformation::
     end
   end
 
-  def query_from_query_string_query(query, analyzer: "default_search")
+  def query_from_query_string_query(query, analyzer: nil)
     {
       "query_string" => {
         "default_field"    => query.default_field,
         "default_operator" => "AND",
         "fields"           => query.fields,
         "query"            => query.query,
-        "analyzer"         => analyzer
+        "analyzer"         => analyzer,
+        "quote_analyzer"   => "default_with_stop_words_search"
       }.compact
     }
   end
 
-  def query_from_simple_query_string_query(query, analyzer: "default_search")
+  def query_from_simple_query_string_query(query, analyzer: nil)
     {
       "simple_query_string" => {
         "default_operator" => query.default_operator,
         "fields"           => query.fields,
         "query"            => query.query,
         "analyze_wildcard" => true,
-        "analyzer"         => analyzer
-      }
-      .compact
+        "analyzer"         => analyzer,
+        "quote_analyzer"   => "default_with_stop_words_search"
+      }.compact
     }
   end
 
