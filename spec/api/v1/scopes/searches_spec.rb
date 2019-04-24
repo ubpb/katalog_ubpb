@@ -13,14 +13,14 @@ describe "#{method.upcase} #{path}?search_request=..." do
         {
           type: "simple_query_string",
           default_operator: "AND",
-          fields: ["_all"],
+          fields: ["custom_all"],
           query: "linux"
         }
       ],
       sort: [{ field: "_score" }]
     }
   end
- 
+
   context "if no search_request was given" do
     it "returns :bad_request" do
       send(method, substituted_path, nil, {"HTTP_ACCEPT" => "*/*"})

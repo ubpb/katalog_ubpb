@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "weak_xml",  "~> 0.3"
 
   # elasticsearch adapter
-  spec.add_dependency "elasticsearch", "~> 1.0"
+  spec.add_dependency "elasticsearch", "~> 6.0"
 
   # all adapters
   spec.add_dependency "transformator", "~> 1.0"

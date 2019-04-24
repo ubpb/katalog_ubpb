@@ -99,7 +99,7 @@ common_settings: &common_settings
               key: "last_twelve_months"
 
       searchable_fields:
-        - "_all"
+        - "custom_all"
         - "creator_contributor_search"
         - "title_search"
         - "subject_search"

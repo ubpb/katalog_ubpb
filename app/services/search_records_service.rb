@@ -15,6 +15,7 @@ class SearchRecordsService < Servizio::Service
 
   def call
     add_facets!(search_request) if facets?
+    fix_es6_all_field!(search_request)
     result = adapter.search(search_request, options)
     remove_facets!(search_request) if facets?
 
@@ -32,6 +33,16 @@ class SearchRecordsService < Servizio::Service
   end
 
   private
+
+  def fix_es6_all_field!(search_request)
+    if !search_request.is_a?(Hash) && search_request.respond_to?(:queries)
+      search_request.queries&.each do |q|
+        if q.respond_to?(:fields) && q.fields.present?
+          q.fields.map!{|f| f=="_all" ? "custom_all" : f}
+        end
+      end
+    end
+  end
 
   def add_facets!(search_request)
     search_request.tap do |_search_request|
