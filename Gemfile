@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "autoprefixer-rails",    "~> 6.4.1"
 gem "bibtex-ruby",           "~> 4.4.2", require: "bibtex"
-gem "bootstrap-sass",        "~> 3.3.7"
+gem "bootstrap-sass",        "~> 3.4.1"
 gem "browser",               "~> 2.2.0"
 gem "cancancan",             "~> 1.15"
 gem "coffee-rails",          "~> 4.2.1"
