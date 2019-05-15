@@ -17,6 +17,8 @@ de:
     passwords#edit: Passwort zurücksetzen
     passwords#update: Passwort zurücksetzen
 
+    permalinks#show: "Suche teilen"
+
     users:
       email_addresses#edit: "E-Mail Adresse ändern"
       former_loans#index: Ausleihhistorie

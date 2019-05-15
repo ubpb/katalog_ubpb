@@ -1,0 +1,15 @@
+.row
+  .col-sm-12
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title = t(".panel_title")
+
+      .panel-body
+        p = t(".message")
+        .alert.alert-info(style="margin-bottom: 0")
+          - url = resolve_permalink_url(@permalink)
+          = link_to url, url, target: "_blank"
+
+      .panel-footer
+        .text-center
+          => link_to t(".back"), resolve_permalink_path(@permalink), class: "btn btn-primary btn-lg"

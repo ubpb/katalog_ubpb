@@ -1,8 +1,16 @@
 #facets
   .sidebar
+    div(style="margin-bottom:10px;")
+      = form_tag(permalinks_path, method: :post) do
+        = hidden_field_tag("search_request", @search_request.to_json)
+        = hidden_field_tag("scope", scope.id)
+        = button_tag(type: "submit", class: "btn btn-link", style: "padding: 0; border: none;") do
+          => fa_icon("share")
+          = "Suche teilen"
+
     div(style="margin-bottom:10px;") = link_to searches_url(search_request: @search_request, format: :atom)
         => fa_icon("rss")
-        = "Ergebnisse als RSS-Feed"
+        = "Suche als RSS-Feed"
 
     button.sidebar-toggle.collapsed(data-target="#facets-collapse" role="button" data-toggle="collapse")
       => fa_icon("bars")

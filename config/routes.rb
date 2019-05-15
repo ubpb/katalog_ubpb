@@ -56,6 +56,12 @@ Rails.application.routes.draw do
   get "/go/ill", to: redirect("https://www.digibib.net/jumpto?D_SERVICE=TEMPLATE&D_SUBSERVICE=ILL_ACCOUNT&LOCATION=466"), as: :go_ill
 
   #
+  # Permalinks
+  #
+  get "/p/:id", to: "permalinks#resolve", as: :resolve_permalink
+  resources :permalinks, only: [:show, :create]
+
+  #
   # Root path
   #
   root to: "homepage#show"
