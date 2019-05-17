@@ -37,6 +37,8 @@ class PermalinksController < ApplicationController
 
   def resolve
     if permalink = Permalink.find_by(key: params[:id])
+      permalink.update_column(:last_resolved_at, Time.zone.now)
+
       path = searches_path(scope: permalink.scope, search_request: permalink.search_request)
       redirect_to(path)
     else

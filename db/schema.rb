@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190514135304) do
+ActiveRecord::Schema.define(version: 20190517064601) do
 
   create_table "cache_entries", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "key"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20190514135304) do
     t.text "search_request", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "last_resolved_at"
     t.index ["key"], name: "index_permalinks_on_key"
   end
 
