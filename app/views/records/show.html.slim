@@ -25,7 +25,7 @@
       .tab-content
         #record-details-tab.tab-pane.active
           .row
-            - if @scope.id == "primo_central" && KatalogUbpb.config.recommendations["enabled"]
+            - if @scope.id == "primo_central" && KatalogUbpb.config.recommendations["enabled"] && @record.openurl =~ /sfx\.hbz-nrw\.de/
               .col-md-8
                 = render "details", record: @record, scope: @scope
               .col-md-4

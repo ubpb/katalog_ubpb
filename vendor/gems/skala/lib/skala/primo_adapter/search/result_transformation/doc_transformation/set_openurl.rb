@@ -5,8 +5,12 @@ class Skala::PrimoAdapter::Search::ResultTransformation::DocTransformation::
   SetOpenurl < Transformator::Transformation::Step
 
   def call
+    linktorsrc = transformation.read_source_values(".//LINKS/linktorsrc").first
     openurl = transformation.read_source_values(".//LINKS/openurl").first
-    if openurl.present?
+
+    if linktorsrc.present?
+      target.record.openurl = linktorsrc
+    elsif openurl.present?
       openurl = remove_language_param(openurl)
       openurl = fix_rfr_id(openurl)
       target.record.openurl = openurl
