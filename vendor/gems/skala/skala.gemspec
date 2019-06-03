@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "bcrypt",      ">= 3.1"
   spec.add_dependency "bibtex-ruby", "~> 4.0"
-  spec.add_dependency "rails",       ">= 4.2", "< 5.2"
+  spec.add_dependency "rails",       ">= 4.2", "< 6.1"
   spec.add_dependency "hashie",      "~> 3.4"
   spec.add_dependency "servizio",    "~> 0.4"
   spec.add_dependency "mighty_tap",  "~> 0.5"
