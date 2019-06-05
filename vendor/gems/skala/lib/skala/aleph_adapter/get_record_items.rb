@@ -4,7 +4,7 @@ require_relative "../aleph_adapter"
 require_relative "./resolve_user"
 
 class Skala::AlephAdapter::GetRecordItems < Skala::Adapter::GetRecordItems
-  include parent::ResolveUser
+  include module_parent::ResolveUser
 
   def call(document_number, options = {})
     document_base = options[:document_base] || @adapter.default_document_base

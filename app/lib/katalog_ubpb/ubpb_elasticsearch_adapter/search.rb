@@ -137,7 +137,7 @@ class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapte
     search_result.hits.map! do |_hit|
       _hit.tap do |_hit|
         source_hit = search_result.source["hits"]["hits"].find { |_source_hit| _source_hit["_id"] == _hit.id }
-        _hit.record = self.class.parent::RecordFactory.call(source_hit["_source"])
+        _hit.record = self.class.module_parent::RecordFactory.call(source_hit["_source"])
       end
     end
   end

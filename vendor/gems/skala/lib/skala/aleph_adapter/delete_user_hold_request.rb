@@ -4,7 +4,7 @@ require_relative "../aleph_adapter"
 require_relative "./resolve_user"
 
 class Skala::AlephAdapter::DeleteUserHoldRequest < Skala::Adapter::DeleteUserHoldRequest
-  include parent::ResolveUser
+  include module_parent::ResolveUser
 
   def call(username, hold_request_id, options = {})
     document_base = options[:document_base] || adapter.default_document_base
