@@ -1,6 +1,7 @@
 module KatalogUbpb
   def self.config
-    @config ||= Config.new(Rails.application.config_for(:config))
+    yaml = (YAML.load(ERB.new(File.new("#{Rails.root}/config/config.yml").read).result) || {})[Rails.env] || {}
+    @config ||= Config.new(yaml)
   end
 
   def self.config=(value)
