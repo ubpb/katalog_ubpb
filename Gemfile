@@ -29,13 +29,15 @@ gem "rinku",                 "~> 2.0.0"
 gem "roadie-rails",          "~> 2.1.0"
 gem "sass-rails",            "~> 5"
 gem "simple_form",           "~> 5.0.0"
-gem "skala",                 "~> 1.2.0", path: "vendor/gems/skala"
 gem "slim",                  "~> 3.0"
 gem "sqlite3",               "~> 1.3"
 gem "turbolinks",            "~> 2.5.3"
 gem "uglifier",              "~> 3.0"
 
 gem "bootsnap", ">= 1.4.2", require: false
+
+gem "aleph_api", "~> 0.3.0", path: "vendor/gems/aleph_api"
+gem "skala", "~> 1.2.0", path: "vendor/gems/skala"
 
 #
 # rails-assets.org

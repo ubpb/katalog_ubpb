@@ -1,4 +1,11 @@
 PATH
+  remote: vendor/gems/aleph_api
+  specs:
+    aleph_api (0.3.0)
+      activesupport
+      faraday
+
+PATH
   remote: vendor/gems/skala
   specs:
     skala (1.2.0)
@@ -78,10 +85,7 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     airbrussh (1.4.0)
       sshkit (>= 1.6.1, != 1.7.0)
-    aleph_api (0.3.0)
-      activesupport
-      faraday
-    autoprefixer-rails (6.6.1)
+    autoprefixer-rails (6.4.1.1)
       execjs
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
