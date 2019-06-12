@@ -9,12 +9,12 @@ task :generate_location_lookup_table => :environment do
 
   medienaufstellung.css("tr")[1..-1].each do |_row|
     if (cells = _row.css("td")).length > 1
-      notation_range_min, notation_range_max = cells[0].content.split("-").map(&:strip)
+      notation_range_min, notation_range_max = cells[0].content.split("-").map(&:strip).map(&:presence)
 
       lookup_table.push({
         systemstellen: notation_range_min..(notation_range_max || notation_range_min),
-        fachgebiet: cells[1].content.try(:gsub, /\u00a0/, " ").try(:strip),
-        location: if (content = cells[2].content)[/\A\d+\Z/] then "Ebene #{content}" else content end.try(:gsub, /\u00a0/, " ").try(:strip), # \u00a0 is unicode of non breaking space
+        fachgebiet: cells[1].content&.gsub(/\u00a0/, " ")&.gsub(/\t/, '')&.strip,
+        location: cells[2].content&.gsub(/\u00a0/, " ")&.gsub(/\t/, '')&.strip,
         standortkennziffern: cells[3].content.gsub(/[^\d,]/, "").split(","),
         fachkennziffern: if cells[4].content.present?
           first, last = cells[4].content.gsub(/[^\d-]/, "").split("-")
