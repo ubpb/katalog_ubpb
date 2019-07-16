@@ -22,11 +22,11 @@ module ItemHelper
 
     case location
     when /zentrum.+sprachlehre|zfs/i
-      link_to location, "http://www.uni-paderborn.de/zfs/wir-ueber-uns/ueber-die-mediathek/", target: "_blank"
+      link_to location, "https://www.uni-paderborn.de/zfs/wir-ueber-uns/ueber-die-mediathek/", target: "_blank"
     when /ieman/i
-      link_to location, "http://www.ieman.de", target: "_blank"
+      link_to location, "https://kw.uni-paderborn.de/ieman/", target: "_blank"
     when /imt.+medien/i
-      link_to location, "http://imt.uni-paderborn.de/servicecenter-medien/", target: "_blank"
+      link_to location, "https://imt.uni-paderborn.de/servicecenter-medien/", target: "_blank"
     when /handapparat/i
       info = content_tag :span, "class" => "question-circle", "data-toggle" => "tooltip", "title" => "Dieses Medium steht in einem Handapparat. Besitzt die Universitätsbibliothek kein weiteres Exemplar dieses Titels, können Sie sich im Bedarfsfall an das Informationszentrum wenden.", "data-original-title" => "Handapparat", "data-placement" => "top" do
         fa_icon("question-circle")
