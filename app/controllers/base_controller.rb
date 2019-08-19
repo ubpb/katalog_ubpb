@@ -40,6 +40,22 @@ class BaseController < ActionController::Base
 
         Skala::Adapter::Search::Request.new(_deserialized_search_request)
       end
+    elsif params[:isbn]
+      Skala::Adapter::Search::Request.new(
+        queries: [{
+          type: "query_string",
+          query: params[:isbn],
+          fields: ["isbn_search"]
+        }]
+      )
+    elsif params[:issn]
+      Skala::Adapter::Search::Request.new(
+        queries: [{
+          type: "query_string",
+          query: params[:issn],
+          fields: ["issn"]
+        }]
+      )
     end
   rescue
     raise MalformedSearchRequestError
