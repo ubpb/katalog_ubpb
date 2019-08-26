@@ -17,15 +17,15 @@ de:
 
       renew:
         succeeded: >
-          Das Medium wurde erfolgreich verlängert. Bitte überprüfen Sie die Rückgabefrist.
+          Die Leihfrist des Mediums wurde verlängert. Bitte überprüfen Sie die neue Leihfrist.
         failed: >
-          Das Medium konnte nicht verlängert werden.*
+          Die Leihfrist des Mediums konnte nicht verlängert werden.*
 
       renew_all:
         succeeded: >
-          Alle Medien wurden verlängert. Bitte überprüfen Sie die Rückgabefristen.
+          Die Leihfristen aller Medien wurden verlängert. Bitte überprüfen Sie die neuen Leihfristen.
         not_all_loans_could_be_renewed: >
-          Alle möglichen Medien wurden erfolgreich verlängert. Mindestens ein Medium konnte nicht mehr verlängert werden. Bitte überprüfen Sie die Rückgabefristen.*
+          Alle möglichen Leihfristen wurden verlängert. Die Leihfrist mindestens eines Mediums konnte nicht mehr verlängert werden. Bitte überprüfen Sie die Leihfristen.*
         failed: >
-          Kein Medium konnte verlängert werden.*
+          Keine Leihfrist konnte verlängert werden.*
 
