@@ -1,8 +1,3 @@
-require "skala/elasticsearch_adapter/search"
-require_relative "../ubpb_elasticsearch_adapter"
-require_relative "./record_factory"
-require_relative "./search/search_request_mappings"
-
 class KatalogUbpb::UbpbElasticsearchAdapter::Search < Skala::ElasticsearchAdapter::Search
   def call(search_request, options = {})
     # modifiy the given search_request

@@ -1,6 +1,3 @@
-require "skala/record"
-require_relative "../ubpb_elasticsearch_adapter"
-
 class KatalogUbpb::UbpbElasticsearchAdapter::RecordFactory
   def self.call(source)
     Skala::Record.new(
