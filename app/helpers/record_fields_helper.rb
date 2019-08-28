@@ -116,6 +116,10 @@ module RecordFieldsHelper
     identifiers += record.isbn.map{|isbn| "ISBN: #{isbn}"}
     # ISSNS
     identifiers += record.issn.map{|issn| "ISSN: #{issn}"}
+    # OCLC
+    if record.oclc_id.present?
+      identifiers += ["OCLC-Nummer: #{record.oclc_id}"]
+    end
     # other identifiers
     identifiers += record.identifier.map{|i| "#{i.type.upcase}: #{i.value}"}
 

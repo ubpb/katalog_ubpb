@@ -56,6 +56,14 @@ class BaseController < ActionController::Base
           fields: ["issn"]
         }]
       )
+    elsif params[:oclc_id]
+      Skala::Adapter::Search::Request.new(
+        queries: [{
+          type: "query_string",
+          query: params[:oclc_id],
+          fields: ["oclc_id"]
+        }]
+      )
     end
   rescue
     raise MalformedSearchRequestError

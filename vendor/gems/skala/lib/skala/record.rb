@@ -70,6 +70,7 @@ class Skala::Record
   # moved into Ubpb::Record < Skala::Record in the furture
   #
 
+  attribute :oclc_id, String
   attribute :hbz_id, String
   attribute :signature, String
   attribute :journal_holdings, Array[String]

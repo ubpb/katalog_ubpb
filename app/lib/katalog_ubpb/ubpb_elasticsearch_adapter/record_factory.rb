@@ -6,6 +6,7 @@ class KatalogUbpb::UbpbElasticsearchAdapter::RecordFactory
     Skala::Record.new(
       id: source["id"],
       hbz_id: source["ht_number"],
+      oclc_id: source["oclc_id"],
       signature: source["signature"],
       title: source["title_display"],
       creator: source["creator_contributor_display"],

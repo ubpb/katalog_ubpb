@@ -4,9 +4,9 @@ class SearchesController < ApplicationController
 
   def index
     if (@search_request = search_request_from_params).try(:queries).try(:any?) { |_query| _query.query.present? }
-      # Make sure to redirect search request, that have been constructred from special isbn and issn params.
+      # Make sure to redirect search request, that have been constructred from special isbn, issn and oclcid params.
       # See also: BaseController#search_request_from_params
-      if params[:issn].present? || params[:isbn].present?
+      if params[:issn].present? || params[:isbn].present? || params[:oclc_id].present?
         redirect_to searches_path(search_request: @search_request, scope: params[:scope]) and return
       end
 
