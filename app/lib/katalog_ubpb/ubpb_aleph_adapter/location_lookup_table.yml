@@ -4,7 +4,7 @@
     end: AZY
     excl: false
   :fachgebiet: Allgemeines
-  :location: Eingangsebene
+  :location: Ebene 3
   :standortkennziffern:
   - '10'
   - '11'
@@ -162,7 +162,7 @@
     end: ZZZ
     excl: false
   :fachgebiet: Bibliografischer Apparat
-  :location: Eingangsebene
+  :location: Ebene 3
   :standortkennziffern:
   - '08'
   :fachkennziffern: []
@@ -299,7 +299,7 @@
     end: JSZ
     excl: false
   :fachgebiet: Autoren Geisteswissenschaften
-  :location: Ebene 2
+  :location: Ebene 0, Gebäude J (Zugang über Eingangsebene)
   :standortkennziffern:
   - '10'
   - '11'
