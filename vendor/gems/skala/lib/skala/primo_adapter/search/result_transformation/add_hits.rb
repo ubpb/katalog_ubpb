@@ -7,7 +7,7 @@ class Skala::PrimoAdapter::Search::ResultTransformation::
 
   def call
     target.hits = transformation.search_brief_response.xpath("//DOC").map do |_doc|
-      self.class.parent::DocTransformation.new.call(_doc)
+      self.class.module_parent::DocTransformation.new.call(_doc)
     end
   end
 end

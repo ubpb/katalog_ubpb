@@ -3,7 +3,7 @@ require_relative "../aleph_adapter"
 require_relative "./resolve_user"
 
 class Skala::AlephAdapter::UpdateUser < Skala::Adapter::UpdateUser
-  include parent::ResolveUser
+  include module_parent::ResolveUser
 
   def call(type:, user:, new_password:nil, new_email_address:nil)
     case type

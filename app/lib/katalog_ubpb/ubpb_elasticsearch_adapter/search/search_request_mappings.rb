@@ -1,9 +1,4 @@
-require_relative "../search"
-
 module KatalogUbpb::UbpbElasticsearchAdapter::Search::SearchRequestMappings
-  require_relative "./search_request_mappings/query_mapping"
-  require_relative "./search_request_mappings/sort_request_mapping"
-
   @@mappings = [
     QueryMapping.new("cdate" => "creationdate_search"),
     QueryMapping.new("creationdate" => "creationdate_facet") do |_query, _search_request|

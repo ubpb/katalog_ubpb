@@ -1,5 +1,3 @@
-require_relative "../search_request_mappings"
-
 class KatalogUbpb::UbpbElasticsearchAdapter::Search::SearchRequestMappings::Mapping
   def initialize(field_mapping, &block)
     @callable = block

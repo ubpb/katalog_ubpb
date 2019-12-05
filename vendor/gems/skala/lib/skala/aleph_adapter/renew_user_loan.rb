@@ -4,7 +4,7 @@ require_relative "../aleph_adapter"
 require_relative "./resolve_user"
 
 class Skala::AlephAdapter::RenewUserLoan < Skala::Adapter::RenewUserLoan
-  include parent::ResolveUser
+  include module_parent::ResolveUser
 
   def call(username, loan_id, options = {})
     resolved_user_id = resolve_user(username)

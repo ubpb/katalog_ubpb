@@ -7,8 +7,6 @@
 #
 # http://stackoverflow.com/questions/3956186/where-is-the-documentation-page-for-activerecord-data-types
 #
-require_relative "../service"
-
 module Servizio::Service::DefineColumnType
   def self.included(base)
     base.extend ClassMethods

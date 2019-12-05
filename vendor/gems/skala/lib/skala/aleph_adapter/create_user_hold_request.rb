@@ -4,7 +4,7 @@ require_relative "../aleph_adapter"
 require_relative "./resolve_user"
 
 class Skala::AlephAdapter::CreateUserHoldRequest < Skala::Adapter::CreateUserHoldRequest
-  include parent::ResolveUser
+  include module_parent::ResolveUser
 
   def call(username, document_number, options = {})
     get_record_items_result = adapter.get_record_items(document_number, {username: username})
