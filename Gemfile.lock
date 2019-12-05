@@ -288,7 +288,7 @@ GEM
       ffi (~> 1.9)
     servizio (0.6.0)
       activemodel (>= 4.0.0)
-    simple_form (4.1.0)
+    simple_form (5.0.1)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
     slim (3.0.9)
@@ -381,7 +381,7 @@ DEPENDENCIES
   rinku (~> 2.0.0)
   roadie-rails (~> 2.1.0)
   sass-rails (~> 5)
-  simple_form (~> 4.1.0)
+  simple_form (~> 5.0.0)
   skala (~> 1.2.0)!
   slim (~> 3.0)
   sqlite3 (~> 1.3)
