@@ -17,6 +17,8 @@
 
 # Main config
 /config/config.yml
+/config/ils.yml
+/config/search_engine.yml
 
 # Ignore all logfiles and tempfiles.
 /log/*
