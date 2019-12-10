@@ -14,8 +14,8 @@ de:
       index:
         cancel: ~> application.form.cancel
         creation_date: Erstellt am
-        delete_hold_request: Vormerkungen löschen
-        delete_hold_request_confirmation: Wollen Sie diese Vormerkungen wirklich löschen?
+        delete_hold_request: Vormerkung löschen
+        delete_hold_request_confirmation: Wollen Sie diese Vormerkung wirklich löschen?
         cannot_delete_hold_request: Vormerkung kann nicht gelöscht werden
         in_process: In Bearbeitung
         no_hold_requests_present: Sie haben momentan keine Titel vorgemerkt.
