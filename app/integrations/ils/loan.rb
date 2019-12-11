@@ -3,9 +3,14 @@ class Ils
     attribute :id, Types::String
     attribute :loan_date, Types::Date
     attribute :due_date, Types::Date
-    attribute :returned_date, Types::Date.optional
     attribute :renewable, Types::Bool.default(false)
-    attribute :ill, Types::Bool.default(false)
-    attribute :record, Record
+    attribute :item_id, Types::String
+    attribute :record_id, Types::String
+    attribute :barcode, Types::String
+    attribute :call_number, Types::String
+    attribute :fine, Types::Float.default(0.0)
+    attribute :title, Types::String.optional
+    attribute :author, Types::String.optional
+    attribute :description, Types::String.optional
   end
 end
