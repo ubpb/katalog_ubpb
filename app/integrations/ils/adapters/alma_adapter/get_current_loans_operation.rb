@@ -19,7 +19,9 @@ module Ils::Adapters
           end
         end
 
-        item_loans.map{|_| LoanFactory.build(_)}
+        item_loans
+          .select{|_| _["loan_status"] == "ACTIVE"}
+          .map{|_| LoanFactory.build(_)}
       end
 
     private
