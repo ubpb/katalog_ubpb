@@ -11,6 +11,7 @@ module Ils::Adapters
         config.api_key        = options[:api_key]
         config.api_base_url   = options[:api_base_url]
         config.default_format = options[:default_format]
+        config.language       = options[:language]
       end
     end
 

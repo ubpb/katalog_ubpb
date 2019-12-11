@@ -4,6 +4,7 @@ module AlmaApi
     attr_reader :api_key
     attr_reader :api_base_url
     attr_reader :default_format
+    attr_reader :language
 
     def api_key=(value)
       @api_key = value.presence || ENV["ALMA_API_KEY"].presence
@@ -19,11 +20,15 @@ module AlmaApi
     end
 
     def default_format=(value)
-      @default_format = value.presence || ENV["ALMA_DEFAULT_FORMAT"].presence || "application/json"
+      @default_format = value.presence || ENV["ALMA_API_DEFAULT_FORMAT"].presence || "application/json"
 
       unless @default_format == "application/json" || @default_format == "application/xml"
         raise ArgumentError, "Unsupported format '#{@default_format}'. Only 'application/json' and 'application/xml' is supported."
       end
+    end
+
+    def language=(value)
+      @language = value.presence || ENV["ALMA_API_LANGUAGE"].presence || "en"
     end
 
   end

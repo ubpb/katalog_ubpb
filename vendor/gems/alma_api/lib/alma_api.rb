@@ -31,7 +31,7 @@ module AlmaApi
           full_uri(uri),
           accept: format,
           authorization: "apikey #{configuration.api_key}",
-          params: params
+          params: get_params(params)
         )
       end
     end
@@ -44,8 +44,9 @@ module AlmaApi
           full_uri(uri),
           body,
           accept: format,
+          "content-type": format,
           authorization: "apikey #{configuration.api_key}",
-          params: params
+          params: get_params(params)
         )
       end
     end
@@ -58,8 +59,9 @@ module AlmaApi
           full_uri(uri),
           body,
           accept: format,
+          "content-type": format,
           authorization: "apikey #{configuration.api_key}",
-          params: params
+          params: get_params(params)
         )
       end
     end
@@ -72,7 +74,7 @@ module AlmaApi
           full_uri(uri),
           accept: format,
           authorization: "apikey #{configuration.api_key}",
-          params: params
+          params: get_params(params)
         )
       end
     end
@@ -91,6 +93,10 @@ module AlmaApi
 
     def get_format(format)
       format || configuration.default_format
+    end
+
+    def get_params(params)
+      params.reverse_merge(lang: configuration.language)
     end
 
     def full_uri(uri)
