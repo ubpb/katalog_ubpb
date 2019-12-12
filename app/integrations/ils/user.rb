@@ -6,11 +6,11 @@ class Ils
     attribute :email, Ils::Types::String.optional
     attribute :notes, Types::Array.of(Ils::Types::String).optional
 
-    def fullname
+    def name
       [firstname, lastname].map(&:presence).compact.join(" ").presence
     end
 
-    def fullname_reversed
+    def name_reversed
       [lastname, firstname].map(&:presence).compact.join(", ").presence
     end
 
