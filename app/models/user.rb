@@ -11,8 +11,8 @@ class User < ApplicationRecord
 
   # Validations
   validates_presence_of   :ilsuserid, :ilsusername
-  validates_uniqueness_of :ilsuserid, :ilsusername
-  validates_uniqueness_of :api_key
+  validates_uniqueness_of :ilsuserid, :ilsusername, case_sensitive: true
+  validates_uniqueness_of :api_key, case_sensitive: true
   validates :pseudonym, uniqueness: true, allow_nil: true, format: { with: /\A[a-z0-9\-_]+\Z/}
 
   def name
