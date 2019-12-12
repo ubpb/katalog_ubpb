@@ -1,91 +1,58 @@
 class SessionsController < ApplicationController
 
   before_action :add_breadcrumb
-  before_action :capture_return_path
+
+  def new
+  end
 
   def create
-    return redirect!(cancel: true) if params[:cancel].present?
+    username = params.dig "user", "username"
+    password = params.dig "user", "password"
 
-    @authenticate_user = AuthenticateUserService.new(
-      authenticate_user_params.merge(
-        adapter: KatalogUbpb.config.ils_adapter.instance,
-        username: authenticate_user_params["username"][/[a-zA-Z0-9]{0,10}/] # fix barcode reader issue
-      )
-    )
+    if username.present? && password.present?
+      auth_result = Ils[:local].authenticate_user(params["user"]["username"], params["user"]["password"])
 
-    if @authenticate_user.valid?
-      if @authenticate_user.call!.succeeded?
-        if @authenticate_user.result == true && user = GetUserService.call(
-            get_user_params.merge(
-              adapter: KatalogUbpb.config.ils_adapter.instance,
-              username: get_user_params["username"][/[a-zA-Z0-9]{0,10}/] # fix barcode reader issue
-            )
-          )
-
-          # Login the user
-          session[:user_id] = user.id
-
-          # Redirect
-          redirect!
-        else
-          flash.now[:error] = t(".failed")
-          render action: :new
-        end
+      if auth_result == true
+        ils_user = Ils[:local].get_user(username)
+        db_user  = create_or_update_user!(ils_user)
+        session[:current_user_id] = db_user.id
+        redirect_to(user_path)
       else
-        flash.now[:error] = t(".error")
-        render action: :new
+        flash[:error] = "FOO"
+        render :new
       end
     else
-      render action: :new
+      flash[:error] = "FOO"
+      render :new
     end
+  rescue
+    flash[:error] = "BAR"
+    render :new
   end
 
   def destroy
-    reset_session # this is a rails method
+    reset_session
     redirect_to root_path
-  end
-
-  def new
-    @authenticate_user = AuthenticateUserService.new
   end
 
 private
 
-  def authenticate_user_params
-    params.require(:authenticate_user).permit(:username, :password)
-  end
+  def create_or_update_user!(ils_user)
+    User.transaction do
+      user = User.where(
+        'ilsuserid=:userid OR ilsusername=:username', userid: ils_user.id, username: ils_user.id
+      ).first_or_initialize
 
-  def get_user_params
-    params.require(:authenticate_user).permit(:username)
-  end
-
-  def redirect!(cancel: false)
-    return_to   = session.delete(:return_to) || {}
-    return_path = return_to["return_path"]
-    redirect    = return_to["redirect"]
-
-    if cancel
-      return_path ||= root_path
-      redirect = true
-    end
-
-    if return_path && redirect == true
-      redirect_to(return_path)
-    else
-      flash[:success] = render_to_string partial: "success_flash_message", locals: {return_path: return_path}
-      redirect_to(user_path)
-    end
-  end
-
-  def capture_return_path
-    return_path = sanitize_return_path(params[:return_to])
-    redirect    = params[:redirect] == "true"
-
-    if return_path.present?
-      session[:return_to] = {
-        return_path: return_path,
-        redirect: redirect
+      user.attributes = {
+        :ilsuserid     => ils_user.id,
+        :ilsusername   => ils_user.id,
+        :email_address => ils_user.email,
+        :first_name    => ils_user.firstname,
+        :last_name     => ils_user.lastname
       }
+      user.save!
+
+      user
     end
   end
 

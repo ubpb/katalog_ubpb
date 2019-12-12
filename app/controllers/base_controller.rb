@@ -13,11 +13,8 @@ class BaseController < ActionController::Base
 
   def current_user
     @current_user ||= begin
-      # given api key has a higher precedence as the session
-      if api_key = (request.headers["api-key"] || params[:api_key] || params[:access_token]) # request.headers[] always uses '-' notation
-        GetUserService.call(api_key: api_key)
-      elsif user_id = session["user_id"]
-        GetUserService.call(id: user_id)
+      if user_id = session[:current_user_id]
+        User.find(user_id)
       end
     end
   end
