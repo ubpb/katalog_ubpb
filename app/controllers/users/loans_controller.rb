@@ -4,17 +4,7 @@ class Users::LoansController < UsersController
 
   def index
     if async_content_request?(:loans)
-      ils_adapter = KatalogUbpb.config.ils_adapter.instance
-      search_engine_adapter = KatalogUbpb.config.ils_adapter.scope.search_engine_adapter.instance
-
-      @loans = GetUserLoansService.call(
-        ils_adapter: ils_adapter,
-        search_engine_adapter: search_engine_adapter,
-        user: current_user,
-      )
-
-      @loans = @loans.sort_by(&:due_date)
-      @scope = current_scope
+      @loans = Ils[:local].get_current_loans(current_user.ilsuserid)
     else
       # regular index
     end

@@ -12,21 +12,12 @@
           th = t(".signature")
           th = t(".title")
       tbody
-        - loans.each do |_loan|
+        - loans.each do |loan|
           tr
-            td = l(_loan.loan_date)
-            td = l(_loan.due_date)
-            td
-              / Use _loan.signature (this is the signature from the loaned item)
-              - if (signature = signature(_loan, link: true)).present?
-                = signature.html_safe
-            td
-              strong = value_or_default(title(_loan.record, scope: scope))
-              - info = additional_record_info(_loan.record)
-              - if info.present?
-                => ", "
-                = info
-
+            td = l(loan.loan_date)
+            td = l(loan.due_date)
+            td = loan.call_number
+            td = loan.title
 
   .hidden-print
     .table-responsive
@@ -41,23 +32,20 @@
                 = link_to renew_all_user_loans_path, method: :put, class: "btn btn-primary btn-sm btn-block" do
                   i.fa.fa-retweet>
                   = t(".renew_all")
-
         tbody
-          - loans.each do |_loan|
+          - loans.each do |loan|
             tr
-              td = l(_loan.loan_date)
-              td = l(_loan.due_date)
+              td = l(loan.loan_date)
+              td = l(loan.due_date)
               td
-                div: strong = value_or_default(title(_loan.record, scope: scope))
-                div = additional_record_info(_loan.record)
-
-                / Use _loan.signature (this is the signature from the loaned item)
-                - if (signature = signature(_loan, link: true)).present?
-                  div = "Signatur: #{signature}".html_safe
-
+                div: strong = loan.title
+                - if loan.author.present?
+                  div = loan.author
+                - if (call_number = loan.call_number).present?
+                  div = "Signatur: #{call_number}"
               td
-                - if _loan.renewable?
-                  = link_to renew_user_loan_path(_loan.id), method: :put, class: "btn btn-default btn-sm btn-block" do
+                - if loan.renewable?
+                  = link_to renew_user_loan_path(loan.id), method: :put, class: "btn btn-default btn-sm btn-block" do
                     i.fa.fa-retweet>
                     = t(".renew")
                 - else
