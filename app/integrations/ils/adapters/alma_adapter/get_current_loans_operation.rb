@@ -10,7 +10,7 @@ module Ils::Adapters
 
         response = get_loans(user_id, offset: offset, limit: LIMIT)
         total_record_count = response["total_record_count"] || 0
-        item_loans += response["item_loan"]
+        item_loans += response["item_loan"] || []
 
         if LIMIT < total_record_count
           while (offset = offset + LIMIT) < total_record_count
@@ -20,7 +20,7 @@ module Ils::Adapters
         end
 
         item_loans
-          .select{|_| _["loan_status"] == "ACTIVE"}
+          .select{|_| _["loan_status"].upcase == "ACTIVE"}
           .map{|_| LoanFactory.build(_)}
       end
 
