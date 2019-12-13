@@ -35,6 +35,7 @@ gem "slim",                  "~> 3.0"
 gem "sqlite3",               "~> 1.3"
 gem "turbolinks",            "~> 2.5.3"
 gem "uglifier",              "~> 3.0"
+gem "webpacker",             "~> 4.2"
 
 gem "bootsnap", ">= 1.4.2", require: false
 
