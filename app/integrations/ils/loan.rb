@@ -12,5 +12,9 @@ class Ils
     attribute :title, Types::String.optional
     attribute :author, Types::String.optional
     attribute :description, Types::String.optional
+
+    def renewable?
+      self.renewable == true
+    end
   end
 end
