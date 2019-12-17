@@ -20,10 +20,10 @@
                 li = link_to user_transactions_path do
                   i.fa.fa-money>
                   span => t(".transactions")
-                  - if @cash_balance < 0
-                    .label.label-danger = number_to_currency(@cash_balance)
-                  - elsif @cash_balance > 0
-                    .label.label-success = number_to_currency(@cash_balance)
+                  / - if @cash_balance < 0
+                  /   .label.label-danger = number_to_currency(@cash_balance)
+                  / - elsif @cash_balance > 0
+                  /   .label.label-success = number_to_currency(@cash_balance)
 
                 li = link_to user_loans_path do
                   i.fa.fa-book>
