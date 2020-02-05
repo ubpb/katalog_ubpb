@@ -1,7 +1,7 @@
 lock "~> 3.9"
 
 set :application, "katalog"
-set :repo_url,    "git@github.com:ubpb/katalog_ubpb.git"
+set :repo_url,    "git@github.com:ubpb/katalog.git"
 set :branch,      "master"
 set :log_level,   :debug
 
