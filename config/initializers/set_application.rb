@@ -1,1 +1,2 @@
-::Application = Rails.application.class.parent
+# WHAT IS THIS???
+#::Application = Rails.application.class.parent
