@@ -31,3 +31,10 @@
 # Assets
 /public/assets/**/*
 /public/javascripts/translations.js
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
