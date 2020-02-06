@@ -4,4 +4,5 @@
 
   .panel-body
     = render "alerts"
-    = async_content :loans
+    div(data={"controller": "loans", "loans-url": user_loans_path(format: :js)})
+      h1(data={"target": "loans.output"})

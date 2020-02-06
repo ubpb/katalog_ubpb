@@ -3,10 +3,12 @@ class Users::LoansController < UsersController
   before_action { add_breadcrumb name: "users.loans#index" }
 
   def index
-    if async_content_request?(:loans)
-      @loans = Ils[:local].get_current_loans(current_user.ilsuserid)
-    else
-      # regular index
+    respond_to do |format|
+      format.html
+      format.js {
+        @loans = Ils[:local].get_current_loans(current_user.ilsuserid)
+        render :index, content_type: 'text/html'
+      }
     end
   end
 

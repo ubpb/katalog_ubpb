@@ -1,13 +1,1 @@
-<% if async_content_request?(:loans) %>
-  // setTimeout(..., 1) delays this quite enough for images etc. to be loaded (should spawn a browser thread internally)
-  window.setTimeout(function() {
-    $("div[data-async-content='loans']")
-    .after("<%= j render_relative "./index/loans", loans: @loans, scope: @scope %>")
-    .remove();
-
-    $("table[data-setup='jquery-tablesorter']").each(function(index, element) {
-      $(element).tablesorter().removeAttr("data-setup");
-    });
-
-  }, 1);
-<% end %>
+<%= render "loans" %>
