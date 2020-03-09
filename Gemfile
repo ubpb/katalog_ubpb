@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby IO.read(".ruby-version").strip
 
 gem "autoprefixer-rails",    "~> 6.6.1"
-gem "bibtex-ruby",           "~> 4.4.2", require: "bibtex"
+gem "bibtex-ruby",           "~> 5.1.0", require: "bibtex"
 gem "bootstrap-sass",        "~> 3.4.1"
 gem "browser",               "~> 2.2.0"
 gem "cancancan",             "~> 1.15"
