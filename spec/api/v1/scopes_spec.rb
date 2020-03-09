@@ -19,6 +19,6 @@ describe "#{method.upcase} #{path}" do
 
   it "returns the configured scopes" do
     result = JSON.parse(response.body)
-    expect(result.length).to eq(Application.config.scopes.length)
+    expect(result.length).to eq(KatalogUbpb.config.scopes.length)
   end
 end

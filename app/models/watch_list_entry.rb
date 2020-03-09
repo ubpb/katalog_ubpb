@@ -10,7 +10,7 @@ class WatchListEntry < ApplicationRecord
   validates_uniqueness_of :record_id, scope: :watch_list_id
 
   def scope
-    Application.config.find_scope(scope_id)
+    KatalogUbpb.config.find_scope(scope_id)
   end
 
 end

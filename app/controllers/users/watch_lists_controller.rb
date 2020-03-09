@@ -81,7 +81,7 @@ class Users::WatchListsController < UsersController
     if can?(:call, get_watch_list)
       if (@watch_list = get_watch_list.call!.result).present?
         get_watch_list_watch_list_entries = GetWatchListWatchListEntriesService.new(
-          scopes: Application.config.scopes,
+          scopes: KatalogUbpb.config.scopes,
           watch_list: @watch_list
         )
 

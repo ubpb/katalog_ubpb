@@ -1,6 +1,6 @@
 class Api::V1::Scopes::RecordsController < Api::V1::ApplicationController
   def show
-    scope = Application.config.find_scope(params[:scope_id])
+    scope = KatalogUbpb.config.find_scope(params[:scope_id])
     record_ids = params[:id].split(",")
 
     call_service(GetRecordsService,

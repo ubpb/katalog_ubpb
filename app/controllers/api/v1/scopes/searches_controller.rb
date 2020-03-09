@@ -1,6 +1,6 @@
 class Api::V1::Scopes::SearchesController < Api::V1::ApplicationController
   def index
-    scope = Application.config.find_scope(params[:scope_id])
+    scope = KatalogUbpb.config.find_scope(params[:scope_id])
 
     call_service(SearchRecordsService,
       adapter: scope.search_engine_adapter.instance,

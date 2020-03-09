@@ -4,7 +4,7 @@ class Users::InterLibraryLoansController < UsersController
 
   def index
     if async_content_request?(:inter_library_loans)
-      ils_adapter = Application.config.ils_adapter.instance
+      ils_adapter = KatalogUbpb.config.ils_adapter.instance
 
       @inter_library_loans = GetUserInterLibraryLoansService.call(
         ils_adapter: ils_adapter,

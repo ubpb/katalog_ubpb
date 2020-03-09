@@ -56,6 +56,6 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 end
 
-# overwrite Application.config with spec version
+# overwrite KatalogUbpb.config with spec version
 # (stolen from Rails.application.config_for)
-Application.config = (YAML.load(ERB.new(read_asset("config.yml")).result) || {})[Rails.env] || {}
+KatalogUbpb.config = (YAML.load(ERB.new(read_asset("config.yml")).result) || {})[Rails.env] || {}
