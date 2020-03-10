@@ -109,7 +109,7 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (>= 1.9.0)
-    capistrano-bundler (1.5.0)
+    capistrano-bundler (1.6.0)
       capistrano (~> 3.1)
     capistrano-passenger (0.2.0)
       capistrano (~> 3.0)
@@ -349,7 +349,7 @@ DEPENDENCIES
   browser (~> 2.2.0)
   cancancan (~> 1.15)
   capistrano (~> 3.11)
-  capistrano-bundler (~> 1.5.0)
+  capistrano-bundler (~> 1.6.0)
   capistrano-passenger (~> 0.2.0)
   capistrano-rails (~> 1.4.0)
   capistrano-rvm (~> 0.1.2)
