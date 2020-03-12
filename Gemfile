@@ -62,6 +62,7 @@ group :production do
 end
 
 group :development, :test do
+  gem "letter_opener_web", "~> 1.0"
   gem "pry-byebug", ">= 3.6", platform: :mri
   gem "pry-rails",  ">= 0.3", platform: :mri
 end
