@@ -14,3 +14,8 @@
         search_request: search_request,
         searchable_fields: scope.searchable_fields,
         searches_path: searches_path(scope: current_scope)
+      .alert.alert-success(style="margin-bottom: 8px; text-align: left")
+        => fa_icon("info-circle lg")
+        ' Bitte beachten Sie auch die
+        ' <a href="https://www.ub.uni-paderborn.de/recherche/voruebergehend-kostenfrei-verfuegbare-elektronische-verlagsangebote/" target="_blank" class="alert-link">#{fa_icon("external-link")} vorübergehend kostenfrei verfügbaren elektronischen Verlagsangebote</a>
+        ' die i.d.R. nicht in unserem Katalog nachgewiesen sind.
