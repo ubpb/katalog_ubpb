@@ -20,7 +20,7 @@ class Users::HoldRequestsController < UsersController
     return_path = sanitize_return_path(params[:return_to]) || user_hold_requests_path
 
     if current_user.ilsusername.starts_with?("PE") || current_user.ilsusername.starts_with?("PZ")
-      flash[:error] = "TODO"
+      flash[:error] = "Coronabedingt können wir Ihnen bis auf Weiteres den Service, Vormerkungen zu tätigen, nicht anbieten."
       return redirect_to(return_path)
     end
 

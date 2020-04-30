@@ -106,7 +106,7 @@ class ClosedStackOrdersController < ApplicationController
     end
 
     if current_user.ilsusername.starts_with?("PE") || current_user.ilsusername.starts_with?("PZ")
-      flash.now[:error] = "TODO"
+      flash.now[:error] = "Coronabedingt können wir Ihnen bis auf Weiteres den Service, Magazinbestellungen aufzugeben, nicht anbieten."
       return render action: :new
     end
 
