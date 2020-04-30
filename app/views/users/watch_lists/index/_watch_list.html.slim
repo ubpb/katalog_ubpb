@@ -1,4 +1,4 @@
-= link_to user_watch_list_path(watch_list) do
+= link_to user_watch_list_path(watch_list, order_by: "signature") do
   span = watch_list.name
   span.label.label-info.pull-right
     = watch_list.watch_list_entries.count
