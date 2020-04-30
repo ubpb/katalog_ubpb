@@ -36,6 +36,12 @@
       - if @watch_list_entries.blank?
         .alert.alert-info = t(".no_watch_list_entries_present")
       - else
+        .alert.alert-info
+          => fa_icon("info-circle")
+          ' Die Einträge werden standardmäßig nach Signatur sortiert angezeigt. Dies erleichtert
+          ' das schnelle Auffinden aller Medien einer Merkliste innerhalb der Bibliothek.
+          ' Klicken Sie einen Eintrag an, um den genauen Standort zu sehen.
+          ' Nutzen Sie das "Aktionen"-Menü, um die Sortierung zu ändern.
         - if @watch_list.description.present?
           .description = simple_format(Rinku.auto_link(@watch_list.description))
 
