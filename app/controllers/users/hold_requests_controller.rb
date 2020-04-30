@@ -17,6 +17,13 @@ class Users::HoldRequestsController < UsersController
   end
 
   def create
+    return_path = sanitize_return_path(params[:return_to]) || user_hold_requests_path
+
+    if current_user.ilsusername.starts_with?("PE") || current_user.ilsusername.starts_with?("PZ")
+      flash[:error] = "Coronabedingt können wir Ihnen bis auf Weiteres den Service, Vormerkungen zu tätigen, nicht anbieten."
+      return redirect_to(return_path)
+    end
+
     if record_id = create_params[:record_id]
       create_user_hold_request = CreateUserHoldRequestService.new(
         adapter: current_scope.ils_adapter.try(:instance),
@@ -35,7 +42,6 @@ class Users::HoldRequestsController < UsersController
       end
     end
 
-    return_path = sanitize_return_path(params[:return_to]) || user_hold_requests_path
     redirect_to(return_path)
   end
 

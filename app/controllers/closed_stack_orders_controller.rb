@@ -105,6 +105,11 @@ class ClosedStackOrdersController < ApplicationController
       return render action: :new
     end
 
+    if current_user.ilsusername.starts_with?("PE") || current_user.ilsusername.starts_with?("PZ")
+      flash.now[:error] = "Coronabedingt können wir Ihnen bis auf Weiteres den Service, Magazinbestellungen aufzugeben, nicht anbieten."
+      return render action: :new
+    end
+
     url  = "#{KatalogUbpb.config.ils_adapter.options["x_services_url"]}/../cgi-bin/magbest_via_primo"
     options = {
       name: current_user.name_reversed,
