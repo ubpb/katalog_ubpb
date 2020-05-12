@@ -6,7 +6,7 @@ class Users::LoansController < UsersController
     respond_to do |format|
       format.html
       format.js {
-        @loans = Ils[:local].get_current_loans(current_user.ilsuserid)
+        @loans = Ils[:default].get_current_loans(current_user.ilsuserid)
         render :index, content_type: 'text/html'
       }
     end

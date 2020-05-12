@@ -10,10 +10,10 @@ class SessionsController < ApplicationController
     password = params.dig "user", "password"
 
     if username.present? && password.present?
-      auth_result = Ils[:local].authenticate_user(params["user"]["username"], params["user"]["password"])
+      auth_result = Ils[:default].authenticate_user(params["user"]["username"], params["user"]["password"])
 
       if auth_result == true
-        ils_user = Ils[:local].get_user(username)
+        ils_user = Ils[:default].get_user(username)
         db_user  = create_or_update_user!(ils_user)
         session[:current_user_id] = db_user.id
         redirect_to(user_path)
