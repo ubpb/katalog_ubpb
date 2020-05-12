@@ -1,11 +1,11 @@
 class SessionsController < ApplicationController
 
   before_action :add_breadcrumb
-
-  def new
-  end
+  before_action :capture_return_path
 
   def create
+    return redirect!(cancel: true) if params[:cancel].present?
+
     username = params.dig "user", "username"
     password = params.dig "user", "password"
 
@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
         ils_user = Ils[:default].get_user(username)
         db_user  = create_or_update_user!(ils_user)
         session[:current_user_id] = db_user.id
-        redirect_to(user_path)
+        redirect!
       else
         flash[:error] = t(".create.failed")
         render :new
@@ -31,7 +31,7 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    redirect_to root_path
+    redirect_to(root_path)
   end
 
 private
@@ -51,6 +51,36 @@ private
       )
 
       user
+    end
+  end
+
+  def capture_return_path
+    return_path = sanitize_return_path(params[:return_to])
+    redirect    = params[:redirect] == "true"
+
+    if return_path.present?
+      session[:return_to] = {
+        return_path: return_path,
+        redirect: redirect
+      }
+    end
+  end
+
+  def redirect!(cancel: false)
+    return_to   = session.delete(:return_to) || {}
+    return_path = return_to["return_path"]
+    redirect    = return_to["redirect"]
+
+    if cancel
+      return_path ||= root_path
+      redirect = true
+    end
+
+    if return_path && redirect == true
+      redirect_to(return_path)
+    else
+      flash[:success] = render_to_string(partial: "success_flash_message", locals: {return_path: return_path})
+      redirect_to(user_path)
     end
   end
 
