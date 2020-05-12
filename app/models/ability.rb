@@ -12,24 +12,6 @@ class Ability
       can :call, UpdateNoteService, note: { user: current_user }
 
       #
-      # UpdateUserEmailAddressService
-      #
-      if student?(current_user)
-        cannot :call, UpdateUserEmailAddressService
-      elsif employee?(current_user)
-        cannot :call, UpdateUserEmailAddressService
-      else
-        can :call, UpdateUserEmailAddressService do |_instance|
-          current_user.ilsuserid == _instance.ilsuserid
-        end
-      end
-
-      #
-      # user
-      #
-      can :call, UpdateUserPasswordService, ilsuserid: current_user.ilsuserid
-
-      #
       # hold_requests
       #
       can :call, CreateUserHoldRequestService, ilsuserid: current_user.ilsuserid
