@@ -18,7 +18,7 @@ class SearchesController < ApplicationController
         adapter: current_scope.search_engine_adapter.instance,
         facets: current_scope.facets,
         options: {
-          on_campus: on_campus?(request.remote_ip)
+          #on_campus: on_campus?(request.remote_ip)
         },
         search_request: @search_request
       )

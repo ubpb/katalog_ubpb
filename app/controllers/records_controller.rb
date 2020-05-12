@@ -54,7 +54,7 @@ class RecordsController < ApplicationController
         adapter: @scope.search_engine_adapter.instance,
         search_request: extended_search_request,
         options: {
-          on_campus: on_campus?(request.remote_ip)
+          #on_campus: on_campus?(request.remote_ip)
         }
       )
 

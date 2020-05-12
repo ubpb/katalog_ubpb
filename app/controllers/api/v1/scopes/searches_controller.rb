@@ -6,7 +6,7 @@ class Api::V1::Scopes::SearchesController < Api::V1::ApplicationController
       adapter: scope.search_engine_adapter.instance,
       facets: params[:facets].try(:downcase) == "false" ? nil : scope.facets,
       options: {
-        on_campus: on_campus?(request.remote_ip)
+        #on_campus: on_campus?(request.remote_ip)
       },
       search_request: search_request_from_params,
       on_success: -> (_called_operation) do
