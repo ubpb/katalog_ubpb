@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     password = params.dig "user", "password"
 
     if username.present? && password.present?
-      auth_result = Ils[:default].authenticate_user(params["user"]["username"], params["user"]["password"])
+      auth_result = Ils[:default].authenticate_user(username, password)
 
       if auth_result == true
         ils_user = Ils[:default].get_user(username)
@@ -18,15 +18,14 @@ class SessionsController < ApplicationController
         session[:current_user_id] = db_user.id
         redirect_to(user_path)
       else
-        flash[:error] = "FOO"
+        flash[:error] = t(".create.failed")
         render :new
       end
     else
-      flash[:error] = "FOO"
-      render :new
+      redirect_to(new_session_path)
     end
   rescue
-    flash[:error] = "BAR"
+    flash[:error] = t(".create.error")
     render :new
   end
 
@@ -43,14 +42,13 @@ private
         'ilsuserid=:userid OR ilsusername=:username', userid: ils_user.id, username: ils_user.id
       ).first_or_initialize
 
-      user.attributes = {
+      user.update_attributes!(
         :ilsuserid     => ils_user.id,
         :ilsusername   => ils_user.id,
         :email_address => ils_user.email,
         :first_name    => ils_user.firstname,
         :last_name     => ils_user.lastname
-      }
-      user.save!
+      )
 
       user
     end
