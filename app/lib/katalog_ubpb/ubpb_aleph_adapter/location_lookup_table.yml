@@ -250,8 +250,19 @@
     begin: HIA
     end: HPQ
     excl: false
-  :fachgebiet: Philosophie
+  :fachgebiet: Philosophie (Monographien)
   :location: Ebene 2
+  :standortkennziffern:
+  - '10'
+  - '11'
+  - '18'
+  :fachkennziffern:
+- :systemstellen: !ruby/range
+    begin:
+    end:
+    excl: false
+  :fachgebiet: Philosophie (Zeitschriften)
+  :location: Eingangsebene, Raum BI1.111
   :standortkennziffern:
   - '10'
   - '11'
@@ -262,8 +273,19 @@
     begin: HQA
     end: HXQ
     excl: false
-  :fachgebiet: Psychologie
+  :fachgebiet: Psychologie (Monographien)
   :location: Ebene 2
+  :standortkennziffern:
+  - '10'
+  - '11'
+  - '18'
+  :fachkennziffern:
+- :systemstellen: !ruby/range
+    begin:
+    end:
+    excl: false
+  :fachgebiet: Psychologie (Zeitschriften)
+  :location: Eingangsebene, Raum BI1.111
   :standortkennziffern:
   - '10'
   - '11'
@@ -275,7 +297,7 @@
     end: IKY
     excl: false
   :fachgebiet: Erziehungswissenschaft
-  :location: Ebene 2
+  :location: Eingangsebene, Raum BI1.111
   :standortkennziffern:
   - '10'
   - '11'
@@ -286,8 +308,19 @@
     begin: ILA
     end: IVX
     excl: false
-  :fachgebiet: Religionswissenschaft. Theologie
-  :location: Ebene 2
+  :fachgebiet: Religionswissenschaft. Theologie (Monographien)
+  :location: Eingangsebene
+  :standortkennziffern:
+  - '10'
+  - '11'
+  - '18'
+  :fachkennziffern:
+- :systemstellen: !ruby/range
+    begin:
+    end:
+    excl: false
+  :fachgebiet: Religionswissenschaft. Theologie (Zeitschriften)
+  :location: Eingangsebene, Raum BI1.111
   :standortkennziffern:
   - '10'
   - '11'
@@ -754,8 +787,8 @@
   :fachkennziffern:
   - '91'
 - :systemstellen: !ruby/range
-    begin: 
-    end: 
+    begin:
+    end:
     excl: false
   :fachgebiet: Akademieschriften
   :location: Ebene 3
