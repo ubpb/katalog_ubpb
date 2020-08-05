@@ -15,27 +15,51 @@
               th(style="width: 150px;")
 
           tbody
-            - journal_stock.each do |element|
+            - journal_stock.each do |js|
+              ruby:
+                has_mono_signature = has_mono_signature?(js)
+
+                signature = if has_mono_signature
+                  mono_signature_from_journal_stock_signature(js["signature"])
+                else
+                  js["signature"]
+                end
+
+                collection_code = collection_code_from_journal_stock_signature(js["signature"])
+
+                locations = if has_mono_signature
+                  [location_for_journal_stock_with_mono_signature(js)].compact
+                else
+                  journal_locations(signature: js["signature"], stock: js["stock"])
+                end
+
               tr
-                td = element["signature"] ? link_to_signature(signature(element["signature"])) : "-"
-                -  locations = journal_locations(signature: element["signature"], stock: element["stock"])
-                td = locations.present? ? locations.join("; ") : "-"
+                td
+                  = signature ? link_to_signature(signature(signature)) : "-"
+
+                td
+                  - if KatalogUbpb.config.shelf_finder["enabled"] && has_mono_signature && collection_code
+                    .location(data={shelf_finder_code: "#{signature}|#{collection_code}"})
+                      = locations.present? ? locations.join("; ") : "-"
+                  - else
+                    = locations.present? ? locations.join("; ") : "-"
+
                 td
                   div
                     = [ \
                         [ \
-                          element["leading_text"], \
-                          element["stock"].try(:join, "; ") \
+                          js["leading_text"], \
+                          js["stock"].try(:join, "; ") \
                         ].map(&:presence).compact.join(" "), \
-                        element["comment"] \
+                        js["comment"] \
                       ].map(&:presence).compact.join(". ")
 
-                  - if element["gaps"].present?
-                    div = "nicht vorhanden: #{element['gaps'].join('; ')}"
+                  - if js["gaps"].present?
+                    div = "nicht vorhanden: #{js['gaps'].join('; ')}"
 
                 td(style="vertical-align: middle;")
-                  - if element["signature"].present? && !has_p00_location?(journal_stock) && !located_outside_ubpb?(element) && (before?(1996, element) || closed_stock_location?(element))
-                    = link_to("Magazinbestellung", current_user ? new_closed_stack_order_path(z1: element["signature"]) : new_session_path(return_to: current_path, redirect: true), class: "btn btn-primary btn-xs")
+                  - if js["signature"].present? && !has_mono_signature && !has_p00_location?(journal_stock) && !located_outside_ubpb?(js) && (before?(1996, js) || closed_stock_location?(js))
+                    = link_to("Magazinbestellung", current_user ? new_closed_stack_order_path(z1: js["signature"]) : new_session_path(return_to: current_path, redirect: true), class: "btn btn-primary btn-xs")
 
   - if none_located_outside_ubpb?(journal_stock)
     .row: .col-sm-12
@@ -44,3 +68,35 @@
           ' Die Jahrgänge dieser Zeitschrift sind nicht ausleihbar. Bitte nutzen Sie die Online-Ausgabe (s.o. Rubrik "Verknüpfte Titel"). In besonderen Einzelfällen wenden Sie sich bitte an die Ortsleihe.
         - else
           ' Aktuelle Zeitschriftenjahrgänge finden Sie auf der entsprechenden Fachebene. Für ältere Jahrgänge bis 1995 geben Sie bitte eine Magazinbestellung auf.
+
+- if KatalogUbpb.config.shelf_finder["enabled"]
+  javascript:
+    $(function() {
+      $("[data-shelf-finder-code]").each(function(index, elem) {
+        var code = $(elem).data("shelf-finder-code");
+
+        if (code) {
+          var baseUrl = "#{KatalogUbpb.config.shelf_finder['base_url']}"
+
+          if (baseUrl) {
+            var url = baseUrl + "/api/locate/" + code;
+
+            $.getJSON(url, function(result) {
+              var locationStrings = $.map(result.locations, function(location) {
+                if (!location.closed_stack) {
+                  var locationLabel = location.display_name
+                  var shelfLabel = location.shelves.length > 1 ? "Regale" : "Regal"
+                  var shelfIdentifiers = location.shelves.map(function(shelf) { return shelf.identifier })
+
+                  var newLocationValue = locationLabel + ", " + shelfLabel + " " + shelfIdentifiers.join(", ")
+                  return newLocationValue;
+                }
+              });
+
+              $(elem).html(locationStrings.join("<br/>"));
+            });
+          }
+        }
+      });
+    })
+
