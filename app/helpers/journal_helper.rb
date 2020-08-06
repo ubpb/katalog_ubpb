@@ -55,8 +55,8 @@ module JournalHelper
     journal_stocks.try(:any?) { |journal_stock| journal_stock["signature"]&.starts_with?("P00") } || false
   end
 
-  def has_any_mono_signature?(journal_stocks)
-    journal_stocks.try(:any?) { |journal_stock| has_mono_signature?(journal_stock) }
+  def has_only_mono_signatures?(journal_stocks)
+    journal_stocks.try(:all?) { |journal_stock| has_mono_signature?(journal_stock) }
   end
 
   def has_mono_signature?(journal_stock)

@@ -61,7 +61,7 @@
                   - if js["signature"].present? && !has_mono_signature && !has_p00_location?(journal_stock) && !located_outside_ubpb?(js) && (before?(1996, js) || closed_stock_location?(js))
                     = link_to("Magazinbestellung", current_user ? new_closed_stack_order_path(z1: js["signature"]) : new_session_path(return_to: current_path, redirect: true), class: "btn btn-primary btn-xs")
 
-  - if none_located_outside_ubpb?(journal_stock)
+  - if !has_only_mono_signatures?(journal_stock) && none_located_outside_ubpb?(journal_stock)
     .row: .col-sm-12
       p: em
         - if has_p00_location?(journal_stock)
