@@ -10,7 +10,7 @@ class Skala::PrimoAdapter::Search::RequestTransformation < Transformator::Transf
   attr_accessor :inner_search_request
   attr_accessor :on_campus
 
-  delegate [:languages, :locations, :institution] => :adapter
+  delegate [:languages, :locations, :institution, :enable_cdi] => :adapter
 
   def call(source, adapter, options = {})
     self.adapter = adapter
@@ -21,6 +21,7 @@ class Skala::PrimoAdapter::Search::RequestTransformation < Transformator::Transf
   sequence [
     SetupTarget,
     SetupInnerSearchRequest,
+    EnableCDI,
     [
       [
         AddQueries,

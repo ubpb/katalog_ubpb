@@ -8,6 +8,7 @@ class Skala::PrimoAdapter < Skala::Adapter
   require_relative "./primo_adapter/soap_api"
 
   attr_accessor :institution
+  attr_accessor :enable_cdi
   attr_accessor :languages
   attr_accessor :locations
   attr_accessor :on_campus
@@ -17,10 +18,11 @@ class Skala::PrimoAdapter < Skala::Adapter
   def initialize(options = {})
     HashWithIndifferentAccess.new(options).try do |_options|
       self.institution  = _options[:institution]
+      self.enable_cdi   = _options[:enable_cdi]
       self.languages    = _options[:languages]
       self.locations    = _options[:locations]
       self.on_campus    = _options[:on_campus]
-      self.soap_api_url = _options[:soap_api_url] 
+      self.soap_api_url = _options[:soap_api_url]
       self.timeout      = _options[:timeout]
     end
   end

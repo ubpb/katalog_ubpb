@@ -14,6 +14,7 @@ class Skala::PrimoAdapter::Search::RequestTransformation::
       <<-xml
         <searchRequest xmlns="http://www.exlibris.com/primo/xsd/wsRequest" xmlns:uic="http://www.exlibris.com/primo/xsd/primoview/uicomponents">
           <PrimoSearchRequest xmlns="http://www.exlibris.com/primo/xsd/search/request">
+            <RequestParams></RequestParams>
             <QueryTerms>
               <BoolOpeator>AND</BoolOpeator>
             </QueryTerms>
