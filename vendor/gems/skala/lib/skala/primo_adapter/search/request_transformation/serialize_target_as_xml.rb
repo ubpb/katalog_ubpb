@@ -7,5 +7,6 @@ class Skala::PrimoAdapter::Search::RequestTransformation::
 
   def call
     self.target = Ox.dump(self.target, with_xml: true)
+    #puts self.target
   end
 end

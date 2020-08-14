@@ -16,5 +16,7 @@ class Skala::PrimoAdapter::Search::ResultTransformation::
       .remove_namespaces!
       .at_xpath("//SEGMENTS/JAGROOT/RESULT")
     end
+
+    #puts transformation.search_brief_response
   end
 end
