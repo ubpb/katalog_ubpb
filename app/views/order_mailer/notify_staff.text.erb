@@ -4,6 +4,7 @@ NEUE BESTELLUNG
 ID: <%= @order.user.ilsuserid %>
 NAME: <%= @order.user.name %>
 E-MAIL: <%= @order.user.email_address %>
+Bestellt am: <%= l(Time.zone.now) %>
 
 SIGNATUR: <%= @order.signature %>
 JAHR: <%= @order.year.presence || '–' %>
