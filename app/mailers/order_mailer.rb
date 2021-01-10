@@ -4,7 +4,7 @@ class OrderMailer < ApplicationMailer
 
   def notify_staff
     @order = params[:order]
-    mail(to: "r.sprotte@ub.uni-paderborn.de", subject: "Neue Medienbestellung")
+    mail(to: "bestellung@ublin3.upb.de", subject: "Bestellung")
   end
 
   def confirm_user
