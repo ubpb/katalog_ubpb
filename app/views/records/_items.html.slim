@@ -61,9 +61,8 @@ h4 Exemplare
             - items.each do |item|
               ruby:
                 is_orderable = begin
-                  (item.availability == :available && item.status == :available) ||
-                  (item.availability == :available && item.status == :on_shelf) ||
-                  (item.availability == :available && item.status == :reshelving)
+                  !closed_stack?(record: record, item: item) &&
+                  item.availability == :available
                 end
               tr
                 - if show_availability
@@ -81,7 +80,7 @@ h4 Exemplare
                 td
                   - if current_user
                     - if is_orderable
-                      = link_to "Jetzt bestellen", new_order_path(signature: signature(item)), class: "btn btn-primary btn-sm"
+                      = link_to "Jetzt bestellen", new_order_path(signature: signature(item)), class: "btn btn-primary btn-xs"
                     - else
                       = "Nicht bestellbar"
                   - else
