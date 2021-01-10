@@ -9,6 +9,9 @@ de:
     closed_stack_orders#new: Magazinbestellung aufgeben
     closed_stack_orders#create: Magazinbestellung aufgeben
 
+    orders#new: Bestellung aufgeben
+    orders#create: Bestellung aufgeben
+
     sessions#new: Anmelden
     sessions#create: Anmelden
 

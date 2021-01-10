@@ -1,0 +1,37 @@
+#order
+  .panel
+    .panel-heading.panel-cutoffcorner
+      h3.panel-title Bestellung aufgeben
+
+    .panel-body
+      = render "alerts"
+      h4 Warum muss ich Medien bestellen?
+      p
+        ' Die aktuell gültige Coronaschutzverordnung NRW sieht vor, das Personen die Bibliothek nur dann betreten dürfen, wenn diese Medien zurückgeben oder zuvor bestellte Medien abholen.
+      p
+        ' Aus diesem Grund müssen Sie vorab Medien die Sie ausleihen möchten hier bestellen und dann vor Ort abholen! Eine freie Ausleihe vor Ort aus unserem Freihandbestand ist aktuell nicht möglich.
+
+      h4 Wann kann ich meine Bestellungen abholen?
+      p
+        ' Bestellungen die bis 15:00 Uhr eingehen, werden am nächsten Werktag zur Abholung bereitgestellt. Sie erhalten eine separate Bereitstellungsnachricht per E-Mail für jedes Bestellte Medium. Die Breitstellungsnachricht dient als Berechtigung für den Zutritt. Drucken Sie die E-Mail dazu bitte aus oder zeigen Sie sie auf Ihrem Smartphone vor.
+      p.mb-0: strong
+        ' Bitte beachten Sie: Sie können die bestellten Medien frühests am nächsten Werktag nach erhalt der Bereitstellungsnachricht abholen. Die Bestellung ist KEINE RESERVIERUNG und es erfolgt vor der Bereitstellung kein Abgleich mit anderen Bestellungen für das gleiche Medium. D.h. es ist möglich, dass wir ein bestelltes Medium nicht für Sie bereitstellen können. In dem Fall werden Sie von uns per E-Mail benachrichtigt.
+
+      h4 Wie bestelle ich Medien?
+      p
+        ' Um Medien zu bestellen nutzen Sie bitte die Suchfunktion des Katalogs. Klicken Sie in der Trefferliste den Titel an den Sie bestellen möchten um zur Detailansicht des Titels zu gelangen. Dort finden Sie unter dem Punkt "Exemplare" einen Knopf "Bestellen". Bitte beachten Sie, das nicht alle Medien bestellt werden können. Für entliehende Medien nutzen wie bisher die Funktion "Vormerken". Für Medien im Magazin die Funktion "Magazinbestellung".
+
+      h4 Welche Medien kann ich bestellen?
+      p
+        ' TODO
+
+      p.text-center
+        = link_to root_path, class: "btn btn-primary" do
+          i.fas.fa-plus
+          =< "Suche starten und Medien bestellen"
+          - unless current_user
+           = "*"
+      - unless current_user
+        p(style="margin-bottom: 0"): i
+          ' * Bitte melden Sie sich vorher am Katalog an um die Bestellfunktion nutzen zu können.
+

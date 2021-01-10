@@ -31,6 +31,10 @@ html
     #content-area-wrapper
       .container
         = render "breadcrumb"
+        - if controller_name != "orders"
+          .alert.alert-danger
+            p: strong
+              ' Die aktuell gültige Coronaschutzverordnung NRW sieht vor, das Personen die Bibliothek nur dann betreten dürfen, wenn diese Medien zurückgeben oder zuvor bestellte Medien abholen. Aus diesem Grund müssen Sie vorab Medien die Sie ausleihen möchten hier bestellen und dann vor Ort abholen! Eine freie Ausleihe vor Ort aus unserem Freihandbestand ist aktuell nicht möglich.
         = content_for?("content-area") ? yield("content-area") : yield
         = render "to_top"
     #claim-wrapper

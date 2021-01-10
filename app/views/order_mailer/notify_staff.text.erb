@@ -1,0 +1,10 @@
+NEUE BESTELLUNG
+==================================
+
+ID: <%= @order.user.ilsuserid %>
+NAME: <%= @order.user.name %>
+E-MAIL: <%= @order.user.email_address %>
+
+SIGNATUR: <%= @order.signature %>
+JAHR: <%= @order.year.presence || '–' %>
+BAND: <%= @order.volume.presence || '–' %>

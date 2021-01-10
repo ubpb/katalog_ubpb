@@ -98,6 +98,13 @@ class RecordsController < ApplicationController
       # the Skala API should abstract this on record level.
       @number_of_hold_requests = @items.try(:map, &:number_of_hold_requests).try(:max)
 
+      # Check if there is at least one loanable item
+      @has_loanable_item = @items.any? do |i|
+        (i.availability == :available && i.status == :available) ||
+        (i.availability == :available && i.status == :on_shelf) ||
+        (i.availability == :available && i.status == :reshelving)
+      end
+
       #
       # TODO: should we use a cache here?
       #
@@ -112,10 +119,7 @@ class RecordsController < ApplicationController
         # Check if the current user can create a hold request for the current record
         @can_create_hold_request = holdable_items.try(:count) > 0 && @hold_request.blank?
         # Vormerkungen sind nicht möglich, solange min. ein verfügbares ausleihbares Exemplar existiert
-        @can_create_hold_request = false if @items.any?{ |i|
-          (i.availability == :available && i.status == :available) ||
-          (i.availability == :available && i.status == :reshelving)
-        }
+        @can_create_hold_request = false if @has_loanable_item
       end
     end
 

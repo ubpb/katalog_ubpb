@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   resources :closed_stack_orders, only: [:new, :create], path: "cso"
 
+  resources :orders, only: [:index, :new, :create]
+
   resource :password_reset, only: [:new, :create], path: "password/reset"
   get "/password/:token", to: "passwords#edit", as: :edit_password
   put "/password/:token", to: "passwords#update", as: :password
