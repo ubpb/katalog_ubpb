@@ -6,11 +6,13 @@ class Order
   attr_accessor :year
   attr_accessor :volume
   attr_accessor :user
+  attr_accessor :created_at
 
   validates :signature, presence: true
   validates :year, presence: true, if: Proc.new { |o| o.is_mono_order == false }
   validates :volume, presence: true, if: Proc.new { |o| o.is_mono_order == false }
   validates :user, presence: true
+  validates :created_at, presence: true
 
   def persisted?
     false

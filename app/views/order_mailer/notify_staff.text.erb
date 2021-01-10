@@ -1,10 +1,9 @@
-NEUE BESTELLUNG
-==================================
+NEUE BESTELLUNG (<%= l(@order.created_at, format: "%d.%m.%Y, %H:%M Uhr") %>)
+===========================================
 
 ID: <%= @order.user.ilsuserid %>
 NAME: <%= @order.user.name %>
 E-MAIL: <%= @order.user.email_address %>
-Bestellt am: <%= l(Time.zone.now) %>
 
 SIGNATUR: <%= @order.signature %>
 JAHR: <%= @order.year.presence || '–' %>

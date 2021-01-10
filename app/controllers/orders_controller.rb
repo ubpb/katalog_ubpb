@@ -13,6 +13,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.user = current_user
+    @order.created_at = Time.zone.now
 
     notify_staff_mail = OrderMailer.with(order: @order).notify_staff
     confirm_user_mail = OrderMailer.with(order: @order).confirm_user

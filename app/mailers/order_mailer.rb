@@ -4,7 +4,7 @@ class OrderMailer < ApplicationMailer
 
   def notify_staff
     @order = params[:order]
-    mail(to: "bestellung@ublin3.upb.de", subject: "Bestellung")
+    mail(to: "bestellung@ublin3.upb.de", subject: "Bestellung #{l(@order.created_at, format: "%Y-%m-%d_%H-%M")}")
   end
 
   def confirm_user
@@ -12,7 +12,7 @@ class OrderMailer < ApplicationMailer
     email  = @order.user.email_address
 
     if email.present?
-      mail(to: email, subject: "Bestätigung Medienbestellung")
+      mail(to: email, subject: "Bestellbestätigung für Medium #{@order.signature}")
     end
   end
 
