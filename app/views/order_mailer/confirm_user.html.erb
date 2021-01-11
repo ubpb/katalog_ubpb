@@ -1,0 +1,33 @@
+<p>Sehr geehrte(r) <%= @order.user.name %> (<%= @order.user.ilsusername %>),</p>
+
+<p>vielen Dank für Ihre Bestellung für das Medium mit der Signatur<p>
+
+<ul>
+  <li><strong><%= @order.signature %></strong></li>
+</ul>
+
+<p>am <%= l(@order.created_at, format: "%d.%m.%Y, %H:%M Uhr") %>.</p>
+
+<p>Bestellungen, die bis 14:00 Uhr eingehen, werden i.d.R. am nächsten Werktag zur Abholung bereitgestellt.</p>
+
+<p>Sie erhalten eine separate Bereitstellungsnachricht, wenn Sie das Medium abholen können. Die Breitstellungsnachricht dient als Berechtigung für den Zutritt. Drucken Sie die E-Mail dazu bitte aus oder zeigen Sie sie auf Ihrem Smartphone vor.</p>
+
+<p><strong>Bitte beachten Sie: Die Bestellung ist KEINE RESERVIERUNG und es erfolgt vor der Bereitstellung kein Abgleich mit anderen Bestellungen für das gleiche Medium. D.h. es ist möglich, dass wir ein bestelltes Medium nicht für Sie bereitstellen können. In einem solchen Fall werden Sie von uns per E-Mail benachrichtigt.</strong></p>
+
+<p>Für Rückfragen stehen wir Ihnen gerne zur Verfügung.</p>
+
+<p>Mit freundlichen Grüßen</p>
+
+<p>Ihre Universitätsbibliothek</p>
+
+<hr>
+<p>
+Universitätsbibliothek Paderborn<br>
+Dezernat Benutzung & Service<br>
+Sachgebiet Ortsleihe<br>
+Warburger Str. 100<br>
+33098 Paderborn<br>
+Tel. 05251 / 60-2012<br>
+E-Mail: ortsleihe@ub.uni-paderborn.de<br>
+WWW: http://www.ub.uni-paderborn.de<br>
+</p>
