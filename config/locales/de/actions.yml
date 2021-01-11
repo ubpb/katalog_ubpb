@@ -9,6 +9,7 @@ de:
     closed_stack_orders#new: Magazinbestellung aufgeben
     closed_stack_orders#create: Magazinbestellung aufgeben
 
+    orders#index: Bestellung aufgeben
     orders#new: Bestellung aufgeben
     orders#create: Bestellung aufgeben
 
