@@ -21,15 +21,9 @@ class OrdersController < ApplicationController
     notify_staff_mail_content = notify_staff_mail.body.raw_source
 
     if @order.valid?
-      if send_to_printer(notify_staff_mail_content, "Brother_HL_3152CDW_series_XXX")
-        notify_staff_mail.deliver_now
-        confirm_user_mail.deliver_now
-
-        flash[:success] = "Vielen Dank für Ihre Bestellung. Sie erhalten eine gesonderte Bereitstellungsnachricht via E-Mail wenn Sie das Medium abholen können."
-      else
-        flash[:error] = "Fehler: Bestellung konnte nicht abgeschickt werden. Bitte versuchen Sie es erneut."
-      end
-
+      notify_staff_mail.deliver_now
+      confirm_user_mail.deliver_now
+      flash[:success] = "Vielen Dank für Ihre Bestellung. Sie erhalten eine gesonderte Bereitstellungsnachricht via E-Mail wenn Sie das Medium abholen können."
       redirect_to(orders_path)
     else
       render :new
@@ -40,18 +34,6 @@ private
 
   def order_params
     params.require(:order).permit(:signature, :is_mono_order, :year, :volume)
-  end
-
-  def send_to_printer(content, printer_name)
-    # file = Tempfile.new('order_print')
-    # file.write(content)
-    # file.close
-
-    # `lpr -P #{printer_name} #{file.path} 2>&1`
-    # $?.success?
-    true
-  ensure
-   #file.unlink
   end
 
 end
