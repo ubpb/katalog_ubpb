@@ -61,6 +61,7 @@ h4 Exemplare
             - items.each do |item|
               ruby:
                 is_orderable = begin
+                  item.signature.present? &&
                   !closed_stack?(record: record, item: item) &&
                   (
                     item.availability == :available ||
