@@ -1,6 +1,7 @@
 NEUE BESTELLUNG (<%= l(@order.created_at, format: "%d.%m.%Y, %H:%M Uhr") %>)
 ===========================================
 
+STRICHCODE: <%= @order.user.ilsusername %>
 ID: <%= @order.user.ilsuserid %>
 NAME: <%= @order.user.name %>
 E-MAIL: <%= @order.user.email_address %>
