@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   get "/:scope/searches",    to: "searches#index", as: :searches
   get "/:scope/records/:id", to: "records#show", as: :record, constraints: { id: /.+/ }
