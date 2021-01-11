@@ -2,12 +2,16 @@ module ItemHelper
   JOURNAL_SIGNATURE_PATTERN = /\d\d[a-zA-Z]\d{1,4}/ # don't use \w as it includes numbers
 
   def closed_stack?(record: nil, item: nil)
-    item && item.must_be_ordered_from_closed_stack? ||
-    item && journal_signature?(item.signature) &&
-    (
-      journal_locations(signature: item.signature).any? { |location| location[/magazin/i] } ||
-      (record && record.year_of_publication && record.year_of_publication <= ApplicationHelper::CLOSED_STOCK_THRESHOLD)
-    )
+    if item&.collection_code == "04" || item&.collection_code == "06"
+      return false
+    else
+      item && item.must_be_ordered_from_closed_stack? ||
+      item && journal_signature?(item.signature) &&
+      (
+        journal_locations(signature: item.signature).any? { |location| location[/magazin/i] } ||
+        (record && record.year_of_publication && record.year_of_publication <= ApplicationHelper::CLOSED_STOCK_THRESHOLD)
+      )
+    end
   end
 
   def item_location(item)
