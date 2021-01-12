@@ -9,7 +9,7 @@ class OrderMailer < ApplicationMailer
     random_code = SecureRandom.hex(5)
     secure_signature = @order.signature.gsub(/\//, "_")
     subject_timestamp = l(@order.created_at, format: "%Y-%m-%d_%H-%M-%S")
-    subject_timestamp = "#{subject_timestamp}_#{secure_signature}_#{random_code}"
+    subject_timestamp = "#{subject_timestamp}_#{@order.user.ilsusername}_#{secure_signature}_#{random_code}"
 
     subject = ENV["TEST_SERVER_WARNING"] == "true" ? "TEST" : "Bestellung"
     subject = "#{subject} #{subject_timestamp}"
