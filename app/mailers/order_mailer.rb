@@ -14,11 +14,7 @@ class OrderMailer < ApplicationMailer
     subject = ENV["TEST_SERVER_WARNING"] == "true" ? "TEST" : "Bestellung"
     subject = "#{subject} #{subject_timestamp}"
 
-    if ENV["TEST_SERVER_WARNING"] == "true"
-      mail(to: "r.sprotte@ub.uni-paderborn.de", subject: subject)
-    else
-      mail(to: "bestellung@ublin3.upb.de", subject: subject)
-    end
+    mail(to: "bestellung@ublin3.upb.de", subject: subject)
   end
 
   def confirm_user
