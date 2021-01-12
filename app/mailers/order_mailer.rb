@@ -8,7 +8,7 @@ class OrderMailer < ApplicationMailer
     # Subject must be unique for external "mail to print" processing
     random_code = SecureRandom.hex(5)
     subject_timestamp = l(@order.created_at, format: "%Y-%m-%d_%H-%M-%S")
-    subject_timestamp = "#{subject_timestamp}_#{@order.user.id}_#{random_code}"
+    subject_timestamp = "#{subject_timestamp}_#{@order.signature}_#{random_code}"
     subject = "Bestellung #{subject_timestamp}"
 
     mail(to: "bestellung@ublin3.upb.de", subject: subject)
