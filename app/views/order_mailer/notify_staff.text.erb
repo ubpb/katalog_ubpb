@@ -1,5 +1,12 @@
+<% if ENV["TEST_SERVER_WARNING"] == "true" -%>
+*****************************************
+*** TESTBESTELLUNG * BITTE IGNORIEREN ***
+*****************************************
+<% end -%>
+
+=========================================
 NEUE BESTELLUNG (<%= l(@order.created_at, format: "%d.%m.%Y, %H:%M Uhr") %>)
-===========================================
+=========================================
 
 STRICHCODE: <%= @order.user.ilsusername %>
 ID: <%= @order.user.ilsuserid %>
