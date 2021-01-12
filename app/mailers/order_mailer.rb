@@ -10,9 +10,15 @@ class OrderMailer < ApplicationMailer
     secure_signature = @order.signature.gsub(/\//, "_")
     subject_timestamp = l(@order.created_at, format: "%Y-%m-%d_%H-%M-%S")
     subject_timestamp = "#{subject_timestamp}_#{secure_signature}_#{random_code}"
-    subject = "Bestellung #{subject_timestamp}"
 
-    mail(to: "bestellung@ublin3.upb.de", subject: subject)
+    subject = ENV["TEST_SERVER_WARNING"] == "true" ? "TEST" : "Bestellung"
+    subject = "#{subject} #{subject_timestamp}"
+
+    if ENV["TEST_SERVER_WARNING"] == "true"
+      mail(to: "r.sprotte@ub.uni-paderborn.de", subject: subject)
+    else
+      mail(to: "bestellung@ublin3.upb.de", subject: subject)
+    end
   end
 
   def confirm_user

@@ -1,0 +1,23 @@
+<% if ENV["TEST_SERVER_WARNING"] == "true" -%>
+<p><strong>*** TESTBESTELLUNG * BITTE IGNORIEREN ***</strong></p>
+<% end -%>
+
+<h3>NEUE BESTELLUNG (<%= l(@order.created_at, format: "%d.%m.%Y, %H:%M Uhr") %>)</h3>
+
+<hr>
+
+<p>
+  STRICHCODE: <%= @order.user.ilsusername %><br>
+  ID: <%= @order.user.ilsuserid %><br>
+  NAME: <%= @order.user.name %><br>
+  E-MAIL: <%= @order.user.email_address %><br>
+</p>
+
+<p>
+  SIGNATUR: <%= @order.signature %><br>
+  JAHR: <%= @order.year.presence || '–' %><br>
+  BAND: <%= @order.volume.presence || '–' %><br>
+</p>
+
+<img src="#{@order.barcode}">
+

@@ -7,6 +7,7 @@ class Order
   attr_accessor :volume
   attr_accessor :user
   attr_accessor :created_at
+  attr_accessor :barcode
 
   validates :signature, presence: true
   validates :year, presence: true, if: Proc.new { |o| o.is_mono_order == false }
