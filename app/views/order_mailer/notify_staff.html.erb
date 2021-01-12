@@ -19,5 +19,5 @@
   BAND: <%= @order.volume.presence || '–' %><br>
 </p>
 
-<img src="#{@order.barcode}">
+<img src="<%= @order.barcode -%>">
 
