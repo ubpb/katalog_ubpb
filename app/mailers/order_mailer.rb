@@ -5,7 +5,7 @@ class OrderMailer < ApplicationMailer
   def notify_staff
     @order    = params[:order]
     unique_id = params[:unique_id]
-    subject   = ENV["TEST_SERVER_WARNING"] == "true" ? "TEST" : "Bestellung"
+    subject   = ENV["TEST_SERVER_WARNING"] == "true" ? "TEST" : "PDF-Bestellung"
 
     if unique_id.present?
       subject = "#{subject} #{unique_id}"
