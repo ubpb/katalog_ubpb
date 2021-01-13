@@ -34,7 +34,7 @@ gem "slim",                  "~> 3.0"
 gem "sqlite3",               "~> 1.3"
 gem "turbolinks",            "~> 2.5.3"
 gem "uglifier",              "~> 3.0"
-gem "wicked_pdf",            "~> 2.1.0"
+gem "wicked_pdf",            "~> 2.1.0", require: false # Don't require here. Strange bug when using the account section otherwise.
 gem "wkhtmltopdf-binary",    ">= 0.12.6"
 
 gem "bootsnap", ">= 1.4.2", require: false
