@@ -1,6 +1,8 @@
 = simple_form_for @order, wrapper: "vertical_form", html: {class: 'form-vertical'} do |f|
   = f.input :is_mono_order, as: :hidden
+  = f.input :loan_status, as: :hidden
   = f.input :signature, readonly: true
+  = f.input :title, readonly: true
   - unless @order.is_mono_order
     h4 Angaben für Zeitschriftenband
     = f.input :year

@@ -12,6 +12,8 @@ class OrdersController < ApplicationController
   def new
     @order = Order.new
     @order.signature = params[:signature]
+    @order.title = params[:title]
+    @order.loan_status = params[:loan_status]
     @order.is_mono_order = true
   end
 
@@ -52,7 +54,7 @@ class OrdersController < ApplicationController
 private
 
   def order_params
-    params.require(:order).permit(:signature, :is_mono_order, :year, :volume)
+    params.require(:order).permit(:signature, :is_mono_order, :year, :volume, :title, :loan_status)
   end
 
 end

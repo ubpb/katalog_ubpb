@@ -3,6 +3,8 @@ class Order
 
   attr_accessor :signature
   attr_accessor :is_mono_order
+  attr_accessor :title
+  attr_accessor :loan_status
   attr_accessor :year
   attr_accessor :volume
   attr_accessor :user

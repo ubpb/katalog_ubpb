@@ -1,9 +1,10 @@
 <p>Sehr geehrte(r) <%= @order.user.name %> (<%= @order.user.ilsusername %>),</p>
 
-<p>vielen Dank für Ihre Bestellung für das Medium mit der Signatur<p>
+<p>vielen Dank für Ihre Bestellung für das folgende Medium<p>
 
 <ul>
-  <li><strong><%= @order.signature %></strong></li>
+  <li>Signatur: <strong><%= @order.signature %></strong></li>
+  <li>Titel: <strong><%= @order.title.presence || '–' %></strong></li>
 </ul>
 
 <p>am <%= l(@order.created_at, format: "%d.%m.%Y, %H:%M Uhr") %>.</p>

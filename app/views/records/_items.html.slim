@@ -84,7 +84,7 @@ h4 Exemplare
                 td
                   - if current_user
                     - if is_orderable
-                      = link_to "Jetzt bestellen", new_order_path(signature: signature(item)), class: "btn btn-primary btn-xs"
+                      = link_to "Jetzt bestellen", new_order_path(signature: signature(item), loan_status: item.status, title: record.title), class: "btn btn-primary btn-xs"
                     - else
                       = "Nicht bestellbar"
                   - else

@@ -14,10 +14,16 @@
 </p>
 
 <p>
-  SIGNATUR: <%= @order.signature %><br>
-  JAHR: <%= @order.year.presence || '–' %><br>
-  BAND: <%= @order.volume.presence || '–' %><br>
+  <strong>SIGNATUR: <%= @order.signature %></strong><br>
+  TITEL: <%= @order.title.presence || '–' %><br>
 </p>
+
+<% if @order.loan_status.to_s == "reshelving" %>
+  <p>
+    <strong>LEIHSTATUS: <%= "Wird zurückgestellt (Medium ist mögl. nicht am Standort)" %></strong>
+  </p>
+<% end %>
+
 
 <img src="<%= @order.barcode -%>">
 

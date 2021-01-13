@@ -14,5 +14,8 @@ NAME: <%= @order.user.name %>
 E-MAIL: <%= @order.user.email_address %>
 
 SIGNATUR: <%= @order.signature %>
-JAHR: <%= @order.year.presence || '–' %>
-BAND: <%= @order.volume.presence || '–' %>
+TITEL: <%= @order.title.presence || '–' %>
+
+<% if @order.loan_status.to_s == "reshelving" -%>
+LEIHSTATUS: <%= "Wird zurückgestellt (Medium ist mögl. nicht am Standort)" -%>
+<% end -%>
