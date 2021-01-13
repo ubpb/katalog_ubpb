@@ -33,7 +33,7 @@ html
         = render "breadcrumb"
         - if controller_name != "orders"
           .alert.alert-danger
-            p: strong
+            p
               ' Die aktuell gültige Coronaschutzverordnung NRW sieht vor, dass Personen die Bibliothek nur dann betreten dürfen, wenn diese Medien zurückgeben oder zuvor bestellte Medien abholen. Aus diesem Grund müssen Sie Medien, die Sie ausleihen möchten, über den Katalog vorab bestellen und können Sie erst <strong>nach Bereitstellung</strong> vor Ort abholen! Eine freie Ausleihe vor Ort aus unserem Freihandbestand ist aktuell nicht möglich. Die bestellten Medien stehen erst bereit, wenn Sie eine <strong>Nachricht über die Bereitstellung</strong> erhalten haben.
             div = link_to orders_path, class: "alert-link" do
               = fa_icon("arrow-right")
