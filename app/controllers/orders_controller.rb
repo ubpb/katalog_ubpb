@@ -19,6 +19,12 @@ class OrdersController < ApplicationController
     @order.user = current_user
     @order.created_at = Time.zone.now
 
+    # Create a unique ID to identify the order in mail to print jobs
+    random_code = SecureRandom.hex(5)
+    secure_signature = @order.signature.gsub(/\/|\(|\)/, "_")
+    timetamp = l(@order.created_at, format: "%Y-%m-%d_%H-%M-%S")
+    unique_id = "#{timetamp}_#{@order.user.ilsusername}_#{secure_signature}_#{random_code}"
+
     # Create barcode
     barcode_svg = Barby::Code128.new(@order.user.ilsusername).to_svg(margin: 0, xdim: 3)
     @order.barcode = "data:image/svg+xml;utf8,#{barcode_svg.gsub(/\n/, '')}"
@@ -28,8 +34,8 @@ class OrdersController < ApplicationController
     attachment_pdf  = WickedPdf.new.pdf_from_string(attachment_html)
 
     # Create Mails
-    notify_staff_mail = OrderMailer.with(order: @order).notify_staff
-    notify_staff_mail.attachments["attachment.pdf"] = attachment_pdf
+    notify_staff_mail = OrderMailer.with(order: @order, unique_id: unique_id).notify_staff
+    notify_staff_mail.attachments["#{unique_id}.pdf"] = attachment_pdf
     confirm_user_mail = OrderMailer.with(order: @order).confirm_user
 
     if @order.valid?

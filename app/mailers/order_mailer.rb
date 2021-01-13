@@ -3,16 +3,13 @@ class OrderMailer < ApplicationMailer
   default from: "ortsleihe@ub.uni-paderborn.de"
 
   def notify_staff
-    @order = params[:order]
+    @order    = params[:order]
+    unique_id = params[:unique_id]
+    subject   = ENV["TEST_SERVER_WARNING"] == "true" ? "TEST" : "Bestellung"
 
-    # Subject must be unique for external "mail to print" processing
-    random_code = SecureRandom.hex(5)
-    secure_signature = @order.signature.gsub(/\//, "_")
-    subject_timestamp = l(@order.created_at, format: "%Y-%m-%d_%H-%M-%S")
-    subject_timestamp = "#{subject_timestamp}_#{@order.user.ilsusername}_#{secure_signature}_#{random_code}"
-
-    subject = ENV["TEST_SERVER_WARNING"] == "true" ? "TEST" : "Bestellung"
-    subject = "#{subject} #{subject_timestamp}"
+    if unique_id.present?
+      subject = "#{subject} #{unique_id}"
+    end
 
     mail(to: "bestellung@ublin3.upb.de", subject: subject)
   end
