@@ -1,6 +1,6 @@
 require "barby"
 require "barby/barcode/code_128"
-require "barby/outputter/png_outputter"
+require "barby/outputter/svg_outputter"
 
 class OrdersController < ApplicationController
   include UrlUtils
@@ -20,8 +20,8 @@ class OrdersController < ApplicationController
     @order.created_at = Time.zone.now
 
     # Create barcode
-    barcode = Barby::Code128.new(@order.user.ilsusername)
-    @order.barcode = Barby::PngOutputter.new(barcode).to_image(xdim: 3).to_data_url # Base64 PNG data
+    barcode_svg = Barby::Code128.new(@order.user.ilsusername).to_svg(margin: 0, xdim: 3)
+    @order.barcode = "data:image/svg+xml;utf8,#{barcode_svg.gsub(/\n/, '')}"
 
     # Render attchment
     attachment_html = render_to_string(template: "order_mailer/attachment", layout: "mailer")
