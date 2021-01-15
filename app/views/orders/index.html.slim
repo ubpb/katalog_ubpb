@@ -13,13 +13,19 @@
             ' Bestellungen sind aktuell nicht möglich
             =< fa_icon("exclamation-triangle")
           p
-            ' Bestellungen können aktuell nur an Werktagen (Montag-Freitag) durchgeführt werden.
+            ' Bestellungen auf ausleihbare Medien im Freihandbestand sind aktuell nur an Werktagen (Montag-Freitag) möglich.
 
       h4 Warum muss ich Medien bestellen?
       p
         ' Die aktuell gültige Coronaschutzverordnung NRW sieht vor, dass Personen die Bibliothek nur dann betreten dürfen, wenn diese Medien zurückgeben oder zuvor bestellte Medien abholen.
       p
         ' Aus diesem Grund müssen Sie Medien, die Sie ausleihen möchten, über den Katalog vorab bestellen und können Sie erst <strong>nach Bereitstellung</strong> vor Ort abholen! Eine freie Ausleihe vor Ort aus unserem Freihandbestand ist aktuell nicht möglich.
+
+      h4 Wie bestelle ich Medien?
+      p
+        ' Um Medien zu bestellen, nutzen Sie bitte die Suchfunktion des Katalogs. Klicken Sie in der Trefferliste den gewünschten Titel an, um zur Detailansicht des Titels zu gelangen. Dort finden Sie unter dem Punkt "Exemplare" einen Button "Bestellen". Hiermit können Sie ausleihbare Medien aus dem Freihandbestand bestellen. Bestellungen sind aktuell nur an Werktagen (Montag-Freitag) möglich.
+      p
+        ' Für entliehene Medien nutzen Sie wie bisher die Funktion "Vormerken", für Medien aus dem Magazin die Funktion "Magazinbestellung".
 
       h4 Wann kann ich meine Bestellungen abholen?
       p
@@ -29,26 +35,21 @@
       p.mb-0: strong
         ' Bitte beachten Sie: Die Bestellung ist KEINE RESERVIERUNG und es erfolgt vor der Bereitstellung kein Abgleich mit anderen Bestellungen für das gleiche Medium. D.h. es ist möglich, dass wir ein bestelltes Medium nicht für Sie bereitstellen können. Kommen Sie daher erst in die Bibliothek, wenn Sie von uns per E-Mail über die Bereitstellung informiert worden sind.
 
-      h4 Wie bestelle ich Medien?
-      p
-        ' Um Medien zu bestellen, nutzen Sie bitte die Suchfunktion des Katalogs. Klicken Sie in der Trefferliste den gewünschten Titel an um zur Detailansicht des Titels zu gelangen. Dort finden Sie unter dem Punkt "Exemplare" einen Knopf "Bestellen". Bitte beachten Sie, dass nicht alle Medien bestellt werden können. Für entliehene Medien nutzen Sie bitte wie bisher die Funktion "Vormerken", für Medien aus dem Magazin die Funktion "Magazinbestellung".
-
       h4 Welche Medien kann ich bestellen?
       p
-        ' Über die Bestellfunktion im Katalog können Sie ausleihbare Medien bestellen, die sich im frei zugänglichen Bestand (Freihandbestand) der UB befinden und zurzeit nicht entliehen sind.
-      p
-        ' Nicht bestellbar sind nicht ausleihbare Medien, die sich im Bestand der UB befinden, Medien, die in Seminarapparaten aufgestellt sind, sowie Zeitschriftenbände.
+        ' Über die Bestellfunktion im Katalog können Sie ausleihbare Medien bestellen, die sich im frei zugänglichen Bestand (Freihandbestand) der UB befinden und zurzeit nicht entliehen sind. Nicht bestellbar sind nicht ausleihbare Medien, die sich im Bestand der UB befinden, Medien, die in Seminarapparaten aufgestellt sind, sowie Zeitschriftenbände.
 
-      p.text-center
-        = link_to root_path, class: "btn btn-primary" do
-          =< "Suche starten und Medien bestellen"
-          - unless current_user
-           = "*"
-      - unless current_user
-        p(style="margin-bottom: 0"): i
-          ' * Bitte melden Sie sich vorher am
-          =<> link_to "Bibliothekskonto", new_session_path(return_to: current_path)
-          ' an, um die Bestellfunktion nutzen zu können.
+      - if orders_enabled?
+        p.text-center
+          = link_to root_path, class: "btn btn-primary" do
+            =< "Suche starten und Medien bestellen"
+            - unless current_user
+             = "*"
+        - unless current_user
+          p(style="margin-bottom: 0"): i
+            ' * Bitte melden Sie sich vorher am
+            =<> link_to "Bibliothekskonto", new_session_path(return_to: current_path)
+            ' an, um die Bestellfunktion nutzen zu können.
 
 
 

@@ -34,7 +34,7 @@ html
         - if controller_name != "orders"
           .alert.alert-danger
             p
-              ' Die aktuell gültige Coronaschutzverordnung NRW sieht vor, dass Personen die Bibliothek nur dann betreten dürfen, wenn diese Medien zurückgeben oder zuvor bestellte Medien abholen. Aus diesem Grund müssen Sie Medien, die Sie ausleihen möchten, über den Katalog vorab bestellen und können Sie erst <strong>nach Bereitstellung</strong> vor Ort abholen! Eine freie Ausleihe vor Ort aus unserem Freihandbestand ist aktuell nicht möglich. Die bestellten Medien stehen erst bereit, wenn Sie eine <strong>Nachricht über die Bereitstellung</strong> erhalten haben.
+              ' Aufgrund der aktuellen Coronaschutzverordnung dürfen Personen die Bibliothek nur zur Rückgabe und zum Abholen von zuvor bestellten Medien betreten. Aus diesem Grund müssen Sie Medien, die Sie ausleihen möchten, über den Katalog vorab bestellen. Sie können von Ihnen bestellte Medien erst abholen, wenn Sie eine entsprechende <strong>Bereitstellungsnachricht</strong> erhalten haben.
             p
               - if orders_enabled?
                 = link_to orders_path, class: "alert-link" do
@@ -43,8 +43,7 @@ html
               - else
                 strong
                   => fa_icon("exclamation-triangle")
-                  ' Bestellungen sind aktuell nicht möglich.
-                  ' Bestellungen können aktuell nur an Werktagen (Montag-Freitag) durchgeführt werden.
+                  ' Bestellungen auf ausleihbare Medien im Freihandbestand sind aktuell nur an Werktagen (Montag-Freitag) möglich.
                   =< fa_icon("exclamation-triangle")
         = content_for?("content-area") ? yield("content-area") : yield
         = render "to_top"
