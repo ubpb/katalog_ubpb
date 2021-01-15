@@ -103,15 +103,15 @@ class ApplicationController < BaseController
   end
 
   def orders_enabled?
-    dayname = Date::DAYNAMES[Date.today.cwday].downcase.to_sym
+    dayname = Date::DAYNAMES[Date.today.wday].downcase.to_sym
 
-    # if dayname == :saturday || dayname == :sunday
-    #   false
-    # else
-    #   true
-    # end
+    dayname = :saturday # TODO: Remove me
 
-    false
+    if dayname == :saturday || dayname == :sunday
+      false
+    else
+      true
+    end
   end
   helper_method :orders_enabled?
 
