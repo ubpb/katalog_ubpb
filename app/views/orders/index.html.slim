@@ -5,6 +5,16 @@
 
     .panel-body
       = render "alerts"
+
+      - unless orders_enabled?
+        .alert.alert-danger
+          h4
+            => fa_icon("exclamation-triangle")
+            ' Bestellungen sind aktuell nicht möglich
+            =< fa_icon("exclamation-triangle")
+          p
+            ' Bestellungen können aktuell nur an Werktagen (Montag-Freitag) durchgeführt werden.
+
       h4 Warum muss ich Medien bestellen?
       p
         ' Die aktuell gültige Coronaschutzverordnung NRW sieht vor, dass Personen die Bibliothek nur dann betreten dürfen, wenn diese Medien zurückgeben oder zuvor bestellte Medien abholen.

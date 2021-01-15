@@ -8,6 +8,7 @@ class OrdersController < ApplicationController
 
   before_action :authenticate!, except: :index
   before_action { add_breadcrumb name: "orders#new" }
+  before_action :check_orders_enabled?, except: :index
 
   def new
     @order = Order.new
@@ -55,6 +56,15 @@ private
 
   def order_params
     params.require(:order).permit(:signature, :is_mono_order, :year, :volume, :title, :loan_status)
+  end
+
+  def check_orders_enabled?
+    unless orders_enabled?
+      redirect_to(orders_path)
+      false
+    else
+      true
+    end
   end
 
 end

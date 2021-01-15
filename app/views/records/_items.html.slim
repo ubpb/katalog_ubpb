@@ -59,15 +59,6 @@ h4 Exemplare
 
           tbody
             - items.each do |item|
-              ruby:
-                is_orderable = begin
-                  item.signature.present? &&
-                  !closed_stack?(record: record, item: item) &&
-                  (
-                    item.availability == :available ||
-                    (item.availability == :restricted_available && item.item_status == "Kurzausleihe")
-                  )
-                end
               tr
                 - if show_availability
                   - if item.availability == :available
@@ -83,10 +74,15 @@ h4 Exemplare
                   = value_or_default(signature(item, link: true))
                 td
                   - if current_user
-                    - if is_orderable
-                      = link_to "Jetzt bestellen", new_order_path(signature: signature(item), loan_status: item.status, title: record.title), class: "btn btn-primary btn-xs"
+                    - if orders_enabled?
+                      - if is_orderable?(item: item, record: record)
+                        = link_to "Jetzt bestellen", new_order_path(signature: signature(item), loan_status: item.status, title: record.title), class: "btn btn-primary btn-xs"
+                      - else
+                        = "Nicht bestellbar"
                     - else
-                      = "Nicht bestellbar"
+                      = link_to orders_path do
+                        i = "Aktuell nicht möglich"
+                        =< fa_icon("question-circle")
                   - else
                     i = "Bitte anmelden"
                 td

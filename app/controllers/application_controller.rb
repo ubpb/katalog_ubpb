@@ -1,6 +1,7 @@
 class ApplicationController < BaseController
   include Breadcrumbs
   include JavascriptVariables
+  include ItemHelper
 
   protect_from_forgery
 
@@ -100,4 +101,29 @@ class ApplicationController < BaseController
 
     redirect_to searches_url
   end
+
+  def orders_enabled?
+    dayname = Date::DAYNAMES[Date.today.cwday].downcase.to_sym
+
+    # if dayname == :saturday || dayname == :sunday
+    #   false
+    # else
+    #   true
+    # end
+
+    false
+  end
+  helper_method :orders_enabled?
+
+  def is_orderable?(item:, record:)
+    orders_enabled? &&
+    item.signature.present? &&
+    !closed_stack?(record: record, item: item) &&
+    (
+      item.availability == :available ||
+      (item.availability == :restricted_available && item.item_status == "Kurzausleihe")
+    )
+  end
+  helper_method :is_orderable?
+
 end
