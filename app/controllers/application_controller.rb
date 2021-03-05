@@ -110,6 +110,9 @@ class ApplicationController < BaseController
     else
       true
     end
+
+    # Disable for now
+    false
   end
   helper_method :orders_enabled?
 

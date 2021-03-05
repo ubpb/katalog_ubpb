@@ -47,7 +47,7 @@ h4 Exemplare
               - if show_availability
                 th
               th = t(".signature")
-              th = "Bestellen"
+              /th = "Bestellen"
               th = t(".item_status")
               th = t(".location")
               th = t(".loan_status")
@@ -72,7 +72,7 @@ h4 Exemplare
 
                 td
                   = value_or_default(signature(item, link: true))
-                td
+                /td
                   - if current_user
                     - if orders_enabled?
                       - if is_orderable?(item: item, record: record)

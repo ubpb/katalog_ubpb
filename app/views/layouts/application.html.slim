@@ -31,7 +31,13 @@ html
     #content-area-wrapper
       .container
         = render "breadcrumb"
-        - if controller_name != "orders"
+        .alert.alert-success
+          p
+            => fa_icon("info-circle lg")
+            ' Mit den Regelungen der Coronaschutzverordnung vom 8.3.2021 ist das Betreten der Bibliothek und damit auch
+            ' Ausleihe von Medien aus dem Freihandbestand wieder möglich. Eine Bestellung der Medien ist nicht
+            ' mehr erforderlich. Bitte beachten Sie die Information auf unserer <a href="https://www.ub.uni-paderborn.de/ueber-uns/aktuelle-mitteilungen/mitteilungen-2021/eingeschraenkter-service" class="alert-link" target="_blank">#{fa_icon("external-link")} Homepage</a>.
+        /- if controller_name != "orders"
           .alert.alert-danger
             p
               ' Aufgrund der aktuellen Coronaschutzverordnung dürfen Personen die Bibliothek nur zur Rückgabe und zum Abholen von zuvor bestellten Medien betreten. Aus diesem Grund müssen Sie Medien, die Sie ausleihen möchten, über den Katalog vorab bestellen. Sie können von Ihnen bestellte Medien erst abholen, wenn Sie eine entsprechende <strong>Bereitstellungsnachricht</strong> erhalten haben.
