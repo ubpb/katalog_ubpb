@@ -70,7 +70,7 @@ private
 
   # Disable orders for now
   def disable_orders
-    flash[:error] = "Bestellungen sind aktuell nicht mehr erforderlich. Sie können innerhalb der Öffnungszeiten Medien aus dem Freihandbestand vor Ort ausleihen."
+    flash[:error] = "Bestellungen sind aktuell nicht mehr erforderlich. Sie können ab Di. den 9.3. innerhalb der Öffnungszeiten wieder Medien aus dem Freihandbestand vor Ort ausleihen."
     redirect_to(root_path)
     false
   end
