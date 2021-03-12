@@ -1,5 +1,6 @@
 - has_cso  = items.any? { |_item| closed_stack?(record: record, item: _item) }
 - has_note = items.any? { |_item| _item.note.present? }
+- has_any_location_04 = items.any? {|_item| _item.collection_code == "04"}
 
 h4 Exemplare
 
@@ -116,6 +117,11 @@ h4 Exemplare
                           = link_to t(".cso"), new_closed_stack_order_path(m1: item.signature), class: 'btn btn-primary btn-xs'
                       - else
                         = t(".login_cso")
+
+  - if has_any_location_04
+    p: em
+      ' Die Archivexemplare Paderborner Dissertationen sind nicht ausleihbar. Bitte nutzen Sie die Online-Ausgabe (s.o. Rubrik "Verknüpfte Titel")
+
 
 - if KatalogUbpb.config.shelf_finder["enabled"]
   javascript:
