@@ -3,41 +3,51 @@ require_relative "../primo_adapter"
 
 class Skala::PrimoAdapter::GetRecords < Skala::Adapter::GetRecords
   def call(record_ids, options = {})
-    # If you request more than 10 records via a search request (the limit seems
-    # to be around 14) primo responds with a "search.error.illegal.search.term".
-    # In order to circumvent this, one has to split things up into requests not
-    # more than 10 records.
 
-    search_results =
-    [record_ids].flatten(1).each_slice(10).map do |_record_ids|
+    #
+    # Because CDI doesn't support ORing record ids (out previous implementation),
+    # we must fetch the record one by one. To speed this up, we do this in parallel
+    # with 5 threads. Threads are ok here because this operation is IO bound
+    # (waiting for response of external API call)
+    #
+    results = Parallel.map(record_ids, in_threads: 5) do |record_id|
       search_request = Skala::Adapter::Search::Request.new(
         queries: [
           {
             type: "ids",
-            query: _record_ids
+            query: record_id
           }
         ]
       )
 
-      adapter.search(search_request, on_campus: true) # because you know the id -> you searched before
+      search_result = adapter.search(search_request, on_campus: true) # because you know the id -> you searched before
+
+      {
+        record_id: record_id,
+        search_result: search_result
+      }
     end
 
-    hits = search_results.map(&:hits).flatten(1)
-    sources = search_results.map(&:source).flatten(1) # somekind of real merge would be cooler, but is more complicated
-
-    self.class::Result.new(records: hits).tap do |_get_records_result|
-      _get_records_result.source = sources
-      _get_records_result.each do |_element|
-        _element.found = true
-        _element.version = 1
-      end
-
-      # add "pseudo" records if the given record id was not found
-      record_ids.each do |_record_id|
-        if _get_records_result.none? { |_element| _element.record.id == _record_id }
-          _get_records_result.records << _get_records_result.class::Record.new(record: { id: _record_id })
-        end
+    records = results.map do |result|
+      if (hit = result[:search_result].hits&.first) && (hit.record.id == result[:record_id])
+        self.class::Result::Record.new(
+          id: result[:record_id],
+          found: true,
+          record: hit.record,
+          index: hit.index,
+          type: hit.type,
+          version: hit.version
+        )
+      else
+        # add "pseudo" records if the given record id was not found
+        self.class::Result::Record.new(
+          id: result[:record_id],
+          found: false,
+          record: Skala::Record.new(id: result[:record_id])
+        )
       end
     end
+
+    self.class::Result.new(records: records)
   end
 end
