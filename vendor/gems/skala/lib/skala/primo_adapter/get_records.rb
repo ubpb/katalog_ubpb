@@ -20,7 +20,10 @@ class Skala::PrimoAdapter::GetRecords < Skala::Adapter::GetRecords
         ]
       )
 
-      search_result = adapter.search(search_request, on_campus: true) # because you know the id -> you searched before
+      cache_key = "primo_central/get_records/#{record_id}"
+      search_result = Rails.cache.fetch(cache_key, expires_in: 24.hours) do
+        adapter.search(search_request, on_campus: true)
+      end
 
       {
         record_id: record_id,
