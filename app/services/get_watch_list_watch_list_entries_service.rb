@@ -18,11 +18,18 @@ class GetWatchListWatchListEntriesService < Servizio::Service
       _tapped_watch_list_entries
       .group_by(&:scope_id)
       .each do |_scope_id, _watch_list_entries|
+        newest_entry_cache_key = _watch_list_entries.sort{ |a,b|
+          a.updated_at <=> b.updated_at
+        }.last.cache_key_with_version
 
-        records = GetRecordsService.call(
-          adapter: scope_by_id(_scope_id).search_engine_adapter.instance,
-          ids: _watch_list_entries.map(&:record_id)
-        )
+        cache_key = "watch_lists/#{watch_list.id}/#{_scope_id}/#{newest_entry_cache_key}"
+
+        records = Rails.cache.fetch(cache_key, expires_in: 24.hours) do
+          GetRecordsService.call(
+            adapter: scope_by_id(_scope_id).search_engine_adapter.instance,
+            ids: _watch_list_entries.map(&:record_id)
+          )
+        end
 
         _watch_list_entries.each do |_watch_list_entry|
           corresponding_record = record_by_id(_watch_list_entry.record_id, records).try(:record)
