@@ -65,7 +65,7 @@ task :fix_cdi_watch_list_entries => :environment do
 
       if result[:exception]
         puts "EXCEPTION HAPPEND! WAITING 10 Sec."
-        sleep(10)
+        sleep(30)
       elsif result[:success]
         rel.update_all(
           record_id: result[:cdi_record_id],
@@ -89,4 +89,5 @@ task :fix_cdi_watch_list_entries => :environment do
   puts "Total: #{WatchListEntry.where(scope_id: "primo_central").where("pci_cdi_migration is not null").count}"
   puts "Success: #{WatchListEntry.where(scope_id: "primo_central").where(pci_cdi_migration: true).count}"
   puts "Error: #{WatchListEntry.where(scope_id: "primo_central").where(pci_cdi_migration: false).count}"
+  puts "Not Migrated: #{WatchListEntry.where(scope_id: "primo_central").where("pci_cdi_migration is null").count}"
 end
