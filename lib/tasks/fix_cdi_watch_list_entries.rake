@@ -5,7 +5,7 @@ task :fix_cdi_watch_list_entries => :environment do
     .search_engine_adapter
     .instance
 
-  index   = 0
+  index = 0
 
   pci_record_ids = WatchListEntry
     .where(scope_id: "primo_central")
@@ -64,7 +64,7 @@ task :fix_cdi_watch_list_entries => :environment do
         .where(record_id: result[:pci_record_id])
 
       if result[:exception]
-        puts "EXCEPTION HAPPEND! WAITING 10 Sec."
+        puts "EXCEPTION HAPPEND! WAITING 30 Sec."
         sleep(30)
       elsif result[:success]
         rel.update_all(
@@ -89,5 +89,5 @@ task :fix_cdi_watch_list_entries => :environment do
   puts "Total: #{WatchListEntry.where(scope_id: "primo_central").where("pci_cdi_migration is not null").count}"
   puts "Success: #{WatchListEntry.where(scope_id: "primo_central").where(pci_cdi_migration: true).count}"
   puts "Error: #{WatchListEntry.where(scope_id: "primo_central").where(pci_cdi_migration: false).count}"
-  puts "Not Migrated: #{WatchListEntry.where(scope_id: "primo_central").where("pci_cdi_migration is null").count}"
+  puts "Not Migrated or new: #{WatchListEntry.where(scope_id: "primo_central").where("pci_cdi_migration is null").count}"
 end
