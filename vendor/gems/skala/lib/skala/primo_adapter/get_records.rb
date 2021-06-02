@@ -32,7 +32,7 @@ class Skala::PrimoAdapter::GetRecords < Skala::Adapter::GetRecords
     end
 
     records = results.map do |result|
-      if (hit = result[:search_result].hits&.first) && (hit.record.id == result[:record_id])
+      if (hit = result[:search_result].hits&.first)
         self.class::Result::Record.new(
           id: result[:record_id],
           found: true,
