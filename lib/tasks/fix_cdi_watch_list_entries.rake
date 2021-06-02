@@ -28,19 +28,30 @@ task :fix_cdi_watch_list_entries => :environment do
         ]
       )
 
-      hit = adapter.search(search_request, on_campus: true).hits.first
+      begin
+        hit = adapter.search(search_request, on_campus: true).hits.first
 
-      if cdi_record_id = hit&.record&.id
-        {
-          success: true,
-          pci_record_id: pci_record_id,
-          cdi_record_id: cdi_record_id
-        }
-      else
+        if cdi_record_id = hit&.record&.id
+          {
+            success: true,
+            pci_record_id: pci_record_id,
+            cdi_record_id: cdi_record_id,
+            exception: false
+          }
+        else
+          {
+            success: false,
+            pci_record_id: pci_record_id,
+            cdi_record_id: nil,
+            exception: false
+          }
+        end
+      rescue
         {
           success: false,
-          pci_record_id: pci_record_id,
-          cdi_record_id: nil
+          pci_record_id: nil,
+          cdi_record_id: nil,
+          exception: true
         }
       end
     end
@@ -52,7 +63,10 @@ task :fix_cdi_watch_list_entries => :environment do
         .where(scope_id: "primo_central")
         .where(record_id: result[:pci_record_id])
 
-      if result[:success]
+      if result[:exception]
+        puts "EXCEPTION HAPPEND! WAITING 10 Sec."
+        sleep(10)
+      elsif result[:success]
         rel.update_all(
           record_id: result[:cdi_record_id],
           pci_cdi_migration: true
@@ -68,7 +82,7 @@ task :fix_cdi_watch_list_entries => :environment do
       end
     end
 
-    sleep(rand(1.0..2.0))
+    sleep(rand(0.2..1.0))
   end
 
   puts "DONE!"
