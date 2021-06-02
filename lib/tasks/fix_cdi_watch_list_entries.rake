@@ -89,5 +89,6 @@ task :fix_cdi_watch_list_entries => :environment do
   puts "Total: #{WatchListEntry.where(scope_id: "primo_central").where("pci_cdi_migration is not null").count}"
   puts "Success: #{WatchListEntry.where(scope_id: "primo_central").where(pci_cdi_migration: true).count}"
   puts "Error: #{WatchListEntry.where(scope_id: "primo_central").where(pci_cdi_migration: false).count}"
-  puts "Not Migrated or new: #{WatchListEntry.where(scope_id: "primo_central").where("pci_cdi_migration is null").count}"
+  puts "Not Migrated: #{WatchListEntry.where(scope_id: "primo_central").where("pci_cdi_migration is null").where("record_id not like 'cdi_%'").count}"
+  puts "New (already CDI): #{WatchListEntry.where(scope_id: "primo_central").where("pci_cdi_migration is null").where("record_id like 'cdi_%'").count}"
 end
