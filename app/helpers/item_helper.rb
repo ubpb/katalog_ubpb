@@ -2,7 +2,7 @@ module ItemHelper
   JOURNAL_SIGNATURE_PATTERN = /\d\d[a-zA-Z]\d{1,4}/ # don't use \w as it includes numbers
 
   def closed_stack?(record: nil, item: nil)
-    if item&.collection_code == "04" || item&.collection_code == "06"
+    if item&.collection_code == "04" # || item&.collection_code == "06"
       return false
     else
       item && item.must_be_ordered_from_closed_stack? ||
