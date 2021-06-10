@@ -46,13 +46,13 @@
 
                 td
                   div
-                    = [ \
+                    == [ \
                         [ \
                           js["leading_text"], \
                           js["stock"].try(:join, "; ") \
                         ].map(&:presence).compact.join(" "), \
                         js["comment"] \
-                      ].map(&:presence).compact.join(". ")
+                      ].map(&:presence).compact.join("<br/>")
 
                   - if js["gaps"].present?
                     div = "nicht vorhanden: #{js['gaps'].join('; ')}"
